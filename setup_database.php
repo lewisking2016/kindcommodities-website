@@ -115,9 +115,9 @@ try {
     echo "✓ Inserted demo user (demo / demo123)\n";
 
     // Insert Admin User
-    $admin_password_hash = password_hash('admin123', PASSWORD_DEFAULT);
-    $pdo->exec("INSERT IGNORE INTO users (username, email, password_hash, role, first_name, last_name) VALUES ('admin', 'admin@example.com', '$admin_password_hash', 'super_admin', 'Admin', 'User')");
-    echo "✓ Inserted admin user (admin / admin123)\n";
+    $admin_password_hash = password_hash('kind123', PASSWORD_DEFAULT);
+    $pdo->exec("INSERT IGNORE INTO users (username, email, password_hash, role, first_name, last_name) VALUES ('admin', 'admin@kindcommoditiesltd.com', '$admin_password_hash', 'super_admin', 'Admin', 'User')");
+    echo "✓ Inserted admin user (admin / kind123)\n";
 
     echo "\n✓ Products inserted successfully!\n";
     echo "\n========================================\n";
