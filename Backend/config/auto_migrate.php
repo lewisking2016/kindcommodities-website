@@ -187,6 +187,17 @@ function reconcileLegacySchema(PDO $pdo): void
         $pdo->exec("UPDATE suppliers SET name = supplier_name WHERE name IS NULL OR name = ''");
     }
 
+    // ── products: legacy raw_material_id link (feed products) used by the
+    //    admin products module (INSERT/UPDATE/JOIN) but not in schema.sql.
+    if (tableExists($pdo, 'products') && !columnExists($pdo, 'products', 'raw_material_id')) {
+        $pdo->exec('ALTER TABLE products ADD COLUMN raw_material_id INT NULL AFTER category_id');
+        try {
+            $pdo->exec('ALTER TABLE products ADD INDEX idx_products_raw_material (raw_material_id)');
+        } catch (Exception $e) {
+            // Index may already exist — ignore
+        }
+    }
+
     // ── Legacy tables still used by modules but missing from the current
     //    migration files — ensure they exist on fresh installs too.
     $legacyTables = [
