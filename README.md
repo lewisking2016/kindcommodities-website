@@ -60,8 +60,8 @@ cd kind-commodities-website
 # Create database
 mysql -u root -p -e "CREATE DATABASE kind_commodities_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
 
-# Import schema and sample data
-php setup_database.php
+# Schema and tables are auto-created on first load (auto_migrate.php)
+# No manual import needed.
 ```
 
 3. **Configure database connection**
@@ -137,7 +137,6 @@ kind-commodities-website/
 │   │   └── shop.php
 │   └── index.php               # Homepage
 ├── .htaccess                   # Apache configuration
-├── setup_database.php          # Database setup script
 └── README.md
 ```
 
@@ -192,11 +191,13 @@ including:
 
 1. Upload files to `public_html/`
 2. Create MySQL database via cPanel
-3. Import schema: `php setup_database.php`
+3. Tables auto-create on first page load (auto_migrate.php)
 4. Create `Backend/config/database.local.php` (or set `DB_*` env vars) with the
    cPanel credentials — never commit them to the repo
-5. Set up SSL certificate
-6. Configure `.htaccess` for URL rewriting
+5. Create the admin account once (upload + run the one-time, gitignored
+   `update_admin_password.php`, then delete it)
+6. Set up SSL certificate
+7. Configure `.htaccess` for URL rewriting
 
 ## 📈 Performance
 
