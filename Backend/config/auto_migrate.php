@@ -32,6 +32,11 @@ function splitMigrationSql(string $sql): array
     // Strip any USE statement (we are already connected to the right DB)
     $sql = preg_replace('/USE\s+`?\w+`?\s*;/i', '', $sql);
 
+    // Strip any CREATE DATABASE statement (the schema file targets the
+    // "kind_commodities_db" dev name; the live DB may be named differently
+    // e.g. qymwtpra_kind_commodities, so never create a stray database).
+    $sql = preg_replace('/CREATE\s+DATABASE[^;]*;/i', '', $sql);
+
     $statements = [];
     foreach (array_map('trim', explode(';', $sql)) as $stmt) {
         if ($stmt !== '') {
@@ -328,6 +333,7 @@ function ensureKindSchema(PDO $pdo): void
         seedMasterData($pdo);
 
         $configDir = __DIR__;
+        $schemaFile = $configDir . '/schema.sql';
         $poultryFile = $configDir . '/migration_poultry_complete.sql';
         $businessFile = $configDir . '/migration_v2_business.sql';
 
@@ -336,17 +342,23 @@ function ensureKindSchema(PDO $pdo): void
         // on houses/flocks). Later passes create those, then the dependents.
         for ($pass = 0; $pass < 6; $pass++) {
             $existing = $pdo->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN) ?: [];
+            $missingSchema = array_diff(migrationTableNames($schemaFile), $existing);
             $missingPoultry = array_diff(migrationTableNames($poultryFile), $existing);
             $missingBusiness = array_diff(migrationTableNames($businessFile), $existing);
 
-            if (!$missingPoultry && !$missingBusiness) {
+            if (!$missingSchema && !$missingPoultry && !$missingBusiness) {
                 return; // everything present
             }
 
             $tableCountBefore = count($existing);
 
-            // Order matters: the business tables FK-reference poultry tables
-            // (batches, raw_materials, suppliers, walk_in_customers).
+            // Order matters: the schema tables FK-reference users/categories/
+            // products; the business tables FK-reference poultry tables
+            // (batches, raw_materials, suppliers, walk_in_customers). Running
+            // schema first lets the others reference it in the same pass.
+            if ($missingSchema) {
+                runMigrationFile($pdo, $schemaFile);
+            }
             if ($missingPoultry) {
                 runMigrationFile($pdo, $poultryFile);
             }
