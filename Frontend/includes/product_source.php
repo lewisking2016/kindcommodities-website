@@ -35,7 +35,7 @@ function getFallbackProducts(): array
             'product_type' => 'grain',
             'price' => 4500,
             'stock_quantity' => 200,
-            'image_url' => '/Frontend/images/product-placeholder.svg',
+            'image_url' => '/Frontend/images/products/white-maize.jpg',
             'is_featured' => 1,
         ],
         [
@@ -46,7 +46,7 @@ function getFallbackProducts(): array
             'product_type' => 'grain',
             'price' => 4300,
             'stock_quantity' => 180,
-            'image_url' => '/Frontend/images/product-placeholder.svg',
+            'image_url' => '/Frontend/images/products/yellow-maize.jpg',
             'is_featured' => 1,
         ],
         [
@@ -57,7 +57,7 @@ function getFallbackProducts(): array
             'product_type' => 'grain',
             'price' => 5200,
             'stock_quantity' => 120,
-            'image_url' => '/Frontend/images/product-placeholder.svg',
+            'image_url' => '/Frontend/images/products/wheat-grain.jpg',
             'is_featured' => 1,
         ],
         [
@@ -68,7 +68,7 @@ function getFallbackProducts(): array
             'product_type' => 'legume',
             'price' => 7500,
             'stock_quantity' => 90,
-            'image_url' => '/Frontend/images/product-placeholder.svg',
+            'image_url' => '/Frontend/images/products/red-beans.jpg',
             'is_featured' => 1,
         ],
         [
@@ -79,7 +79,7 @@ function getFallbackProducts(): array
             'product_type' => 'legume',
             'price' => 9500,
             'stock_quantity' => 70,
-            'image_url' => '/Frontend/images/product-placeholder.svg',
+            'image_url' => '/Frontend/images/products/green-grams.jpg',
             'is_featured' => 1,
         ],
         [
@@ -90,7 +90,7 @@ function getFallbackProducts(): array
             'product_type' => 'legume',
             'price' => 5500,
             'stock_quantity' => 150,
-            'image_url' => '/Frontend/images/product-placeholder.svg',
+            'image_url' => '/Frontend/images/products/soya-beans.jpg',
             'is_featured' => 1,
         ],
         [
@@ -101,7 +101,7 @@ function getFallbackProducts(): array
             'product_type' => 'oilseed',
             'price' => 4200,
             'stock_quantity' => 100,
-            'image_url' => '/Frontend/images/product-placeholder.svg',
+            'image_url' => '/Frontend/images/products/sunflower-seeds.jpg',
             'is_featured' => 1,
         ],
         [
@@ -112,7 +112,7 @@ function getFallbackProducts(): array
             'product_type' => 'oilseed',
             'price' => 8500,
             'stock_quantity' => 60,
-            'image_url' => '/Frontend/images/product-placeholder.svg',
+            'image_url' => '/Frontend/images/products/sesame-seeds.jpg',
             'is_featured' => 1,
         ],
         [
@@ -123,7 +123,7 @@ function getFallbackProducts(): array
             'product_type' => 'raw_material',
             'price' => 1800,
             'stock_quantity' => 250,
-            'image_url' => '/Frontend/images/product-placeholder.svg',
+            'image_url' => '/Frontend/images/products/maize-bran.jpg',
             'is_featured' => 1,
         ],
         [
@@ -134,7 +134,7 @@ function getFallbackProducts(): array
             'product_type' => 'raw_material',
             'price' => 1500,
             'stock_quantity' => 220,
-            'image_url' => '/Frontend/images/product-placeholder.svg',
+            'image_url' => '/Frontend/images/products/wheat-bran.jpg',
             'is_featured' => 1,
         ],
         [
@@ -145,7 +145,7 @@ function getFallbackProducts(): array
             'product_type' => 'raw_material',
             'price' => 3800,
             'stock_quantity' => 110,
-            'image_url' => '/Frontend/images/product-placeholder.svg',
+            'image_url' => '/Frontend/images/products/sunflower-cake.jpg',
             'is_featured' => 1,
         ],
         [
@@ -156,7 +156,7 @@ function getFallbackProducts(): array
             'product_type' => 'grain',
             'price' => 6200,
             'stock_quantity' => 80,
-            'image_url' => '/Frontend/images/product-placeholder.svg',
+            'image_url' => '/Frontend/images/products/rice-grain.jpg',
             'is_featured' => 1,
         ],
     ];

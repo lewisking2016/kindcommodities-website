@@ -37,7 +37,7 @@ include '../includes/header.php';
             </div>
             <div data-reveal="right">
                 <div class="img-frame frame-gold">
-                    <div class="brand-panel" style="aspect-ratio:4/3;"><b>KC</b><span>Kind Commodities</span></div>
+                    <img src="/Frontend/images/sections/sec-grains.jpg" alt="Quality maize and cereals supplied by Kind Commodities" loading="lazy">
                 </div>
             </div>
         </div>
@@ -52,7 +52,7 @@ include '../includes/header.php';
         <div class="row" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(2.4rem,5vw,4.5rem);align-items:center;">
             <div data-reveal="left" style="order:2;">
                 <div class="img-frame frame-gold">
-                    <div class="brand-panel" style="aspect-ratio:4/3;"><b>KC</b><span>Kind Commodities</span></div>
+                    <img src="/Frontend/images/sections/sec-pulses.jpg" alt="Fresh pulses and produce at a Nairobi market" loading="lazy">
                 </div>
             </div>
             <div data-reveal="right" style="order:1;">
@@ -89,7 +89,7 @@ include '../includes/header.php';
             </div>
             <div data-reveal="right">
                 <div class="img-frame frame-gold">
-                    <div class="brand-panel" style="aspect-ratio:4/3;"><b>KC</b><span>Kind Commodities</span></div>
+                    <img src="/Frontend/images/sections/sec-oilseeds.jpg" alt="Sunflower and oilseed crops supplied by Kind Commodities" loading="lazy">
                 </div>
             </div>
         </div>
@@ -104,7 +104,7 @@ include '../includes/header.php';
         <div class="row" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(2.4rem,5vw,4.5rem);align-items:center;">
             <div data-reveal="left" style="order:2;">
                 <div class="img-frame frame-gold">
-                    <div class="brand-panel" style="aspect-ratio:4/3;"><b>KC</b><span>Kind Commodities</span></div>
+                    <img src="/Frontend/images/sections/sec-raw.jpg" alt="Graded grains and feed raw materials in store" loading="lazy">
                 </div>
             </div>
             <div data-reveal="right" style="order:1;">

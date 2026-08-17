@@ -36,7 +36,7 @@ include '../includes/header.php';
         </div>
         <div data-reveal="right">
             <div class="img-frame frame-gold">
-                <div class="brand-panel" style="aspect-ratio:4/3;"><b>KC</b><span>Kind Commodities</span></div>
+                <img src="/Frontend/images/sections/about-africa.jpg" alt="Local food sellers and buyers at an African grain market" loading="lazy">
             </div>
         </div>
     </div>

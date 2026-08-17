@@ -273,7 +273,7 @@ $pdo = getDB();
 <section class="section-pad" style="background:var(--cream-50);">
     <div class="container" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(2.4rem,5vw,4.5rem);align-items:center;">
         <div class="img-frame frame-gold" data-reveal="left">
-            <div class="brand-panel" style="aspect-ratio:4/3;"><b>KC</b><span>Kind Commodities</span></div>
+            <img src="/Frontend/images/sections/story-africa.jpg" alt="Grain market in Kaduna, Nigeria — sourced with care by Kind Commodities" loading="lazy">
         </div>
         <div data-reveal="right">
             <span class="eyebrow">Our Story</span>

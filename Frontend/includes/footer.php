@@ -82,6 +82,19 @@ $site_address = function_exists('getSetting') ? getSetting('farm_address', 'Keny
                     <a href="#">Terms of Service</a>
                 </div>
             </div>
+
+            <div class="p-footer-credits" style="margin-top:1.4rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.08);font-size:0.72rem;line-height:1.7;color:rgba(255,255,255,0.45);">
+                <strong>Image credits</strong> — Photography via Wikimedia Commons contributors, used under free licenses:
+                <a href="https://commons.wikimedia.org/wiki/File:Grains_market_at_Dan_Daura_village,_Kaduna_State_01.jpg" target="_blank" rel="noopener">Grain market, Kaduna</a> (CC BY-SA 4.0),
+                <a href="https://commons.wikimedia.org/wiki/File:Nigerian_local_food_seller_and_buyer_market_scene.jpg" target="_blank" rel="noopener">Market scene</a> (CC BY-SA 4.0),
+                <a href="https://commons.wikimedia.org/wiki/File:Beautiful_local_market_of_Nariobi,_Kenya.jpg" target="_blank" rel="noopener">Nairobi market</a> (CC BY-SA 4.0),
+                <a href="https://commons.wikimedia.org/wiki/File:Sacks_of_dry_maize.jpg" target="_blank" rel="noopener">Maize sacks</a> (CC BY-SA 4.0),
+                <a href="https://commons.wikimedia.org/wiki/File:KENYAN_HEART_OF_BEANS.jpg" target="_blank" rel="noopener">Kenyan beans</a> (CC BY-SA 4.0),
+                <a href="https://commons.wikimedia.org/wiki/File:Triticum_aestivum-grajnoj.jpg" target="_blank" rel="noopener">Wheat grains</a> (FAL),
+                <a href="https://commons.wikimedia.org/wiki/File:Maize_for_food.jpg" target="_blank" rel="noopener">Maize</a>, <a href="https://commons.wikimedia.org/wiki/File:Grains_showcasing.jpg" target="_blank" rel="noopener">Grains</a>, <a href="https://commons.wikimedia.org/wiki/File:Sunflower_with_seeds_01.jpg" target="_blank" rel="noopener">Sunflower</a> (CC BY-SA 4.0),
+                <a href="https://commons.wikimedia.org/wiki/File:Mung_beans_(Vigna_radiata).jpg" target="_blank" rel="noopener">Green grams</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:WheatBran.jpg" target="_blank" rel="noopener">Bran</a> (CC BY-SA 2.5),
+                <a href="https://commons.wikimedia.org/wiki/File:A_Rice.jpg" target="_blank" rel="noopener">Rice</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Sa_white_sesame_seeds.jpg" target="_blank" rel="noopener">Sesame</a> (CC BY-SA 3.0), <a href="https://commons.wikimedia.org/wiki/File:Bequer-B100-SOJA-SOYBEAM.jpg" target="_blank" rel="noopener">Soya</a> (CC BY-SA 3.0).
+            </div>
         </div>
     </footer>
 
