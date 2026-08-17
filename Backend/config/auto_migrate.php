@@ -156,6 +156,81 @@ function reconcileLegacySchema(PDO $pdo): void
             $pdo->exec("ALTER TABLE users MODIFY role ENUM('super_admin','farm_manager','stock_manager','sales_staff','customer') NULL DEFAULT 'customer'");
         }
     }
+
+    // ── Legacy mirror columns: fresh installs only have the current shapes
+    //    (material_name / current_stock / current_price_per_unit), but several
+    //    stock modules still read the legacy columns (name / stock_tons /
+    //    current_price_per_ton). Mirror them so both generations of code work.
+    if (tableExists($pdo, 'raw_materials')) {
+        $add = [];
+        if (!columnExists($pdo, 'raw_materials', 'name')) {
+            $add[] = 'ADD COLUMN name VARCHAR(100) NULL AFTER id';
+        }
+        if (!columnExists($pdo, 'raw_materials', 'stock_tons')) {
+            $add[] = 'ADD COLUMN stock_tons DECIMAL(12,3) NOT NULL DEFAULT 0';
+        }
+        if (!columnExists($pdo, 'raw_materials', 'current_price_per_ton')) {
+            $add[] = 'ADD COLUMN current_price_per_ton DECIMAL(10,2) NOT NULL DEFAULT 0';
+        }
+        if ($add) {
+            $pdo->exec('ALTER TABLE raw_materials ' . implode(', ', $add));
+        }
+        // Back-fill the mirror columns from the current ones (kg -> tons 1:1000).
+        $pdo->exec("UPDATE raw_materials SET name = material_name WHERE (name IS NULL OR name = '') AND material_name IS NOT NULL");
+        $pdo->exec('UPDATE raw_materials SET stock_tons = current_stock / 1000 WHERE current_stock IS NOT NULL AND stock_tons = 0');
+        $pdo->exec('UPDATE raw_materials SET current_price_per_ton = current_price_per_unit * 1000 WHERE current_price_per_unit IS NOT NULL AND current_price_per_ton = 0');
+    }
+
+    // ── suppliers: legacy code reads suppliers.name (e.g. incoming stock).
+    if (tableExists($pdo, 'suppliers') && !columnExists($pdo, 'suppliers', 'name')) {
+        $pdo->exec('ALTER TABLE suppliers ADD COLUMN name VARCHAR(150) NULL AFTER id');
+        $pdo->exec("UPDATE suppliers SET name = supplier_name WHERE name IS NULL OR name = ''");
+    }
+
+    // ── Legacy tables still used by modules but missing from the current
+    //    migration files — ensure they exist on fresh installs too.
+    $legacyTables = [
+        "CREATE TABLE IF NOT EXISTS recipe_ingredients (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            recipe_id INT NOT NULL,
+            raw_material_id INT NOT NULL,
+            amount_kg DECIMAL(12,3) NOT NULL DEFAULT 0,
+            INDEX idx_ri_recipe (recipe_id),
+            INDEX idx_ri_material (raw_material_id)
+        ) ENGINE=InnoDB",
+        "CREATE TABLE IF NOT EXISTS production_history (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            batch_number VARCHAR(50),
+            recipe_id INT,
+            bag_size_kg DECIMAL(10,2) DEFAULT 0,
+            quantity_bags INT DEFAULT 0,
+            total_cost DECIMAL(12,2) DEFAULT 0,
+            notes TEXT,
+            produced_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB",
+        "CREATE TABLE IF NOT EXISTS stock_alerts (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            alert_type VARCHAR(50) NOT NULL,
+            message TEXT,
+            related_id INT,
+            is_resolved TINYINT(1) NOT NULL DEFAULT 0,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB",
+        "CREATE TABLE IF NOT EXISTS system_logs (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            log_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            level VARCHAR(20) DEFAULT 'info',
+            message TEXT,
+            context TEXT
+        ) ENGINE=InnoDB",
+    ];
+    foreach ($legacyTables as $legacySql) {
+        try {
+            $pdo->exec($legacySql);
+        } catch (Exception $e) {
+            // Ignore — retried on the next request
+        }
+    }
 }
 
 /**
@@ -347,7 +422,7 @@ function ensureKindSchema(PDO $pdo): void
             $missingBusiness = array_diff(migrationTableNames($businessFile), $existing);
 
             if (!$missingSchema && !$missingPoultry && !$missingBusiness) {
-                return; // everything present
+                break; // everything present
             }
 
             $tableCountBefore = count($existing);
@@ -368,9 +443,13 @@ function ensureKindSchema(PDO $pdo): void
 
             $after = $pdo->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN);
             if (count($after) <= $tableCountBefore) {
-                return; // no progress — give up quietly, retried next request
+                break; // no progress — give up quietly, retried next request
             }
         }
+
+        // Second reconcile pass: now that the migration tables exist, add the
+        // legacy mirror columns so legacy modules work on the same request.
+        reconcileLegacySchema($pdo);
     } catch (Exception $e) {
         // Silent — never break the page
     }
