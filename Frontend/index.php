@@ -18,7 +18,7 @@ $pdo = getDB();
 
         <!-- Slide 1 -->
         <div class="swiper-slide hero-slide">
-            <div class="hero-slide-bg" style="background:linear-gradient(120deg,#0B2310 0%,#12351A 45%,#396285 100%);"></div>
+            <img src="/Frontend/images/sections/story-africa.jpg" alt="African grain market with sacks of grain" fetchpriority="high">
             <div class="hero-scrim"></div>
             <div class="container">
                 <div class="hero-content">
@@ -40,7 +40,7 @@ $pdo = getDB();
 
         <!-- Slide 2 -->
         <div class="swiper-slide hero-slide">
-            <div class="hero-slide-bg" style="background:linear-gradient(120deg,#1E3850 0%,#396285 50%,#2B4D6E 100%);"></div>
+            <img src="/Frontend/images/sections/sec-pulses.jpg" alt="Fresh pulses and produce at a Nairobi market">
             <div class="hero-scrim"></div>
             <div class="container">
                 <div class="hero-content">
@@ -62,7 +62,7 @@ $pdo = getDB();
 
         <!-- Slide 3 -->
         <div class="swiper-slide hero-slide">
-            <div class="hero-slide-bg" style="background:linear-gradient(120deg,#12351A 0%,#1B4A24 40%,#809B52 100%);"></div>
+            <img src="/Frontend/images/sections/sec-raw.jpg" alt="Graded grains and raw materials in store">
             <div class="hero-scrim"></div>
             <div class="container">
                 <div class="hero-content">
@@ -273,7 +273,7 @@ $pdo = getDB();
 <section class="section-pad" style="background:var(--cream-50);">
     <div class="container" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(2.4rem,5vw,4.5rem);align-items:center;">
         <div class="img-frame frame-gold" data-reveal="left">
-            <img src="/Frontend/images/sections/story-africa.jpg" alt="Grain market in Kaduna, Nigeria — sourced with care by Kind Commodities" loading="lazy">
+            <img src="/Frontend/images/products/yellow-maize.jpg" alt="Quality maize supplied by Kind Commodities" loading="lazy">
         </div>
         <div data-reveal="right">
             <span class="eyebrow">Our Story</span>

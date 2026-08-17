@@ -468,7 +468,8 @@ body.has-hero .premium-nav:not(.nav-scrolled) .mobile-menu-btn span {
     inset: 0;
     background:
         linear-gradient(90deg, rgba(6, 26, 12, 0.82) 0%, rgba(6, 26, 12, 0.55) 45%, rgba(6, 26, 12, 0.12) 100%),
-        linear-gradient(0deg, rgba(6, 26, 12, 0.65) 0%, transparent 30%);
+        linear-gradient(0deg, rgba(6, 26, 12, 0.65) 0%, transparent 30%),
+        linear-gradient(180deg, rgba(6, 26, 12, 0.55) 0%, transparent 22%);
 }
 
 .hero-content {
