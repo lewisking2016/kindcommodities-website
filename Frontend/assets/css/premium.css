@@ -445,6 +445,12 @@ body.has-hero .premium-nav:not(.nav-scrolled) .mobile-menu-btn span {
 .hero-slide {
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.hero-slide > .container {
+    width: 100%;
 }
 
 .hero-slide > img {
@@ -477,7 +483,7 @@ body.has-hero .premium-nav:not(.nav-scrolled) .mobile-menu-btn span {
     z-index: 2;
     max-width: 780px;
     color: #fff;
-    padding-top: var(--nav-h);
+    padding-top: 0;
 }
 
 .hero-badge {
@@ -1667,7 +1673,7 @@ body {
     }
 
     .hero-content {
-        padding-top: calc(var(--nav-h) - 14px);
+        padding-top: 0;
     }
 
     .hero-badge {
