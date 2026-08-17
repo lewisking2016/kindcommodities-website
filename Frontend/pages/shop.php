@@ -95,7 +95,7 @@ $products = loadDisplayProducts($pdo);
                     <?php
                     if (!empty($products)) {
                         foreach ($products as $index => $product):
-                            $img = $product['img'] ?? '';
+                            $img = $product['img'] ?? $product['image_url'] ?? '';
                             if (!$img) {
                                 $img = match($product['product_type'] ?? 'grain') {
                                     'grain' => '/Frontend/images/product-placeholder.svg',
