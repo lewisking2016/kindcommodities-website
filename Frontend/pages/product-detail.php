@@ -5,7 +5,7 @@
 declare(strict_types=1);
 
 $path_prefix = '../';
-$page_title = 'Product Details | Busia Chicken Farm';
+$page_title = 'Product Details | Kind Commodities Ltd';
 
 include '../includes/header.php';
 
@@ -56,7 +56,7 @@ if (!$product) {
     exit;
 }
 
-$page_title = $product['name'] . ' - Buy Online | Busia Chicken Farm';
+$page_title = $product['name'] . ' - Buy Online | Kind Commodities Ltd';
 $inStock = ($product['stock_quantity'] ?? 0) > 0;
 ?>
 
@@ -79,14 +79,14 @@ $inStock = ($product['stock_quantity'] ?? 0) > 0;
         
         <!-- Left: Image Box -->
         <div style="background: #f8fafc; border-radius: var(--radius-lg); padding: 32px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(0,0,0,0.05); min-height: 380px;">
-            <img src="<?php echo htmlspecialchars($product['image_url'] ?? '/Frontend/images/download (4).png'); ?>" 
+            <img src="<?php echo htmlspecialchars($product['image_url'] ?? '/Frontend/images/product-placeholder.svg'); ?>" 
                  alt="<?php echo htmlspecialchars($product['name']); ?>" 
                  style="max-width: 100%; max-height: 320px; object-fit: contain; border-radius: var(--radius-md);">
         </div>
 
         <!-- Right: Content & Action Box -->
         <div>
-            <span style="display: inline-block; padding: 4px 12px; background: rgba(27,94,32,0.08); color: var(--primary); font-weight: 700; border-radius: var(--radius-pill); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 15px;">
+            <span style="display: inline-block; padding: 4px 12px; background: rgba(57,98,133,0.08); color: var(--primary); font-weight: 700; border-radius: var(--radius-pill); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 15px;">
                 <?php echo htmlspecialchars(str_replace('_', ' ', $product['product_type'] ?? 'Product')); ?>
             </span>
             
@@ -104,8 +104,8 @@ $inStock = ($product['stock_quantity'] ?? 0) > 0;
 
             <!-- Stock Status -->
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 32px;">
-                <span style="width: 10px; height: 10px; border-radius: 50%; background: <?php echo $inStock ? '#16a34a' : '#dc2626'; ?>; display: inline-block;"></span>
-                <span style="font-weight: 600; font-size: 0.9rem; color: <?php echo $inStock ? '#15803d' : '#b91c1c'; ?>;">
+                <span style="width: 10px; height: 10px; border-radius: 50%; background: <?php echo $inStock ? '#3E8A3A' : '#dc2626'; ?>; display: inline-block;"></span>
+                <span style="font-weight: 600; font-size: 0.9rem; color: <?php echo $inStock ? '#2C6B31' : '#b91c1c'; ?>;">
                     <?php echo $inStock ? 'In Stock (' . $product['stock_quantity'] . ' units available)' : 'Out of Stock'; ?>
                 </span>
             </div>

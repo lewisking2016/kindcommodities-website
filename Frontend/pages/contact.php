@@ -1,11 +1,11 @@
 <?php
 /**
- * Contact Us Page � Premium Redesign
+ * Contact Us Page — Premium Redesign
  */
 declare(strict_types=1);
 
 $path_prefix = '../';
-$page_title = 'Contact Us - Busia Chicken Farm';
+$page_title = 'Contact Us - Kind Commodities Ltd';
 
 include '../includes/header.php';
 
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_submit'])) {
 ?>
 
 <!-- Page Hero -->
-<section class="page-hero" style="background-image:url('/Frontend/images/download (8).png');">
+<section class="page-hero" style="background-image:url('/Frontend/images/product-placeholder.svg');">
     <div class="container">
         <nav class="breadcrumb" data-reveal="fade"><a href="/">Home</a><span class="sep">/</span><span>Contact</span></nav>
         <h1 data-reveal="fade" data-reveal-delay="100">Get In <em>Touch</em></h1>
@@ -46,15 +46,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_submit'])) {
         <div data-reveal="left">
             <span class="eyebrow">Contact Information</span>
             <h2 class="section-title">Let's <em>talk</em></h2>
-            <p class="lead">Reach out by phone, email or visit the farm � we respond within 24 hours on all channels.</p>
+            <p class="lead">Reach out by phone, email or visit the farm — we respond within 24 hours on all channels.</p>
 
             <div style="display:grid;gap:1.2rem;margin-top:2rem;">
                 <div class="p-card" style="display:flex;gap:1.1rem;align-items:flex-start;">
                     <div class="p-icon" style="margin:0;flex-shrink:0;"><i data-lucide="phone" style="width:24px;height:24px;"></i></div>
                     <div>
                         <h4 style="margin-bottom:0.2rem;">Phone</h4>
-                        <p style="margin-bottom:0.2rem;"><a href="tel:+254727585599" style="color:var(--brand-600);font-weight:700;">+254 727 585 599</a></p>
-                        <p style="color:var(--gray-400);font-size:0.9rem;margin:0;">Mon � Fri, 8:00 AM � 6:00 PM EAT</p>
+                        <p style="margin-bottom:0.2rem;"><a href="tel:+254700000000" style="color:var(--brand-600);font-weight:700;">+254 700 000 000</a></p>
+                        <p style="color:var(--gray-400);font-size:0.9rem;margin:0;">Mon — Fri, 8:00 AM — 6:00 PM EAT</p>
                     </div>
                 </div>
 
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_submit'])) {
                     <div class="p-icon" style="margin:0;flex-shrink:0;"><i data-lucide="mail" style="width:24px;height:24px;"></i></div>
                     <div>
                         <h4 style="margin-bottom:0.2rem;">Email</h4>
-                        <p style="margin-bottom:0.2rem;"><a href="mailto:info@busiachicken.com" style="color:var(--brand-600);font-weight:700;">info@busiachicken.com</a></p>
+                        <p style="margin-bottom:0.2rem;"><a href="mailto:info@kindcommoditiesltd.com" style="color:var(--brand-600);font-weight:700;">info@kindcommoditiesltd.com</a></p>
                         <p style="color:var(--gray-400);font-size:0.9rem;margin:0;">We aim to respond within 24 hours</p>
                     </div>
                 </div>
@@ -71,8 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_submit'])) {
                     <div class="p-icon" style="margin:0;flex-shrink:0;"><i data-lucide="map-pin" style="width:24px;height:24px;"></i></div>
                     <div>
                         <h4 style="margin-bottom:0.2rem;">Location</h4>
-                        <p style="margin-bottom:0.2rem;font-weight:700;color:var(--brand-950);">Busia Chicken Farm</p>
-                        <p style="color:var(--gray-400);font-size:0.9rem;margin:0;">Nasira AC sub-location, Busibwabo Location, Busia, Kenya</p>
+                        <p style="margin-bottom:0.2rem;font-weight:700;color:var(--brand-950);">Kind Commodities Ltd</p>
+                        <p style="color:var(--gray-400);font-size:0.9rem;margin:0;">Kenya</p>
                     </div>
                 </div>
             </div>
@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_submit'])) {
                 <h3 style="margin-bottom:1.6rem;">Send us a message</h3>
 
                 <?php if ($form_submitted): ?>
-                    <div style="padding:1rem 1.2rem;background:#ECFDF5;border-left:4px solid #059669;color:#065F46;margin-bottom:1.2rem;border-radius:8px;">
+                    <div style="padding:1rem 1.2rem;background:#E9F2DC;border-left:4px solid #2C6B31;color:#12351A;margin-bottom:1.2rem;border-radius:8px;">
                         <strong>Success!</strong> <?php echo $form_message; ?>
                     </div>
                 <?php elseif ($form_message): ?>
@@ -150,7 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_submit'])) {
     <div class="container">
         <div class="section-head center" data-reveal>
             <span class="eyebrow centered">Find Us</span>
-            <h2 class="section-title">Visit our farm in <em>Busia</em></h2>
+            <h2 class="section-title">Visit our farm</h2>
             <p class="lead">We're open for scheduled visits and pickups.</p>
         </div>
         <div class="img-frame" data-reveal="zoom" style="height:450px;box-shadow:var(--shadow-lift);">
@@ -159,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_submit'])) {
                 height="100%"
                 frameborder="0"
                 style="border:0;display:block;"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.5234567890!2d34.1234567!3d0.4567890!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sBusia%20Chicken%20Farm!5e0!3m2!1sen!2ske!4v1234567890"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3981.5234567890!2d34.1234567!3d0.4567890!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sKind%20Commodities%20Ltd!5e0!3m2!1sen!2ske!4v1234567890"
                 allowfullscreen=""
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade">

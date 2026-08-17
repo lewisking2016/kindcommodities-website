@@ -1,11 +1,11 @@
 <?php
 /**
- * E-Commerce Shop Page � Premium Redesign
+ * E-Commerce Shop Page — Premium Redesign
  */
 declare(strict_types=1);
 
 $path_prefix = '../';
-$page_title = 'Shop - Buy Chicken Products & Feeds | Busia Chicken Farm';
+$page_title = 'Shop - Buy Chicken Products & Feeds | Kind Commodities Ltd';
 
 include '../includes/header.php';
 
@@ -17,11 +17,11 @@ $products = loadDisplayProducts($pdo);
 ?>
 
 <!-- Page Hero -->
-<section class="page-hero" style="background-image:url('/Frontend/images/adbg.png');">
+<section class="page-hero" style="background:linear-gradient(135deg,#0B2310 0%,#1B4A24 55%,#396285 100%);">
     <div class="container">
         <nav class="breadcrumb" data-reveal="fade"><a href="/">Home</a><span class="sep">/</span><span>Shop</span></nav>
         <h1 data-reveal="fade" data-reveal-delay="100">The <em>Shop</em></h1>
-        <p data-reveal="fade" data-reveal-delay="200">Browse and purchase premium chicken products, fresh eggs and feeds � delivered to your door.</p>
+        <p data-reveal="fade" data-reveal-delay="200">Browse and purchase premium chicken products, fresh eggs and feeds — delivered to your door.</p>
     </div>
 </section>
 
@@ -98,11 +98,11 @@ $products = loadDisplayProducts($pdo);
                             $img = $product['img'] ?? '';
                             if (!$img) {
                                 $img = match($product['product_type'] ?? 'feed') {
-                                    'feed' => '/Frontend/images/Growers Mash.png',
-                                    'eggs' => '/Frontend/images/download (3).png',
-                                    'chicks' => '/Frontend/images/download (7).png',
-                                    'live_chicken' => '/Frontend/images/download (4).png',
-                                    default => '/Frontend/images/Chick Starter Crumbs.png'
+                                    'feed' => '/Frontend/images/product-placeholder.svg',
+                                    'eggs' => '/Frontend/images/product-placeholder.svg',
+                                    'chicks' => '/Frontend/images/product-placeholder.svg',
+                                    'live_chicken' => '/Frontend/images/product-placeholder.svg',
+                                    default => '/Frontend/images/product-placeholder.svg'
                                 };
                             }
                             $stock = $product['stock_quantity'] ?? 0;

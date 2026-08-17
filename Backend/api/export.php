@@ -65,7 +65,7 @@ try {
     switch ($module) {
 
         // ─────────────────────────────────────────────────────────
-        // ORDERS — matches "busia_orders_report_YYYY-MM-DD.csv"
+        // ORDERS — matches "kind_orders_report_YYYY-MM-DD.csv"
         // ─────────────────────────────────────────────────────────
         case 'orders':
             $sql = "SELECT o.id, o.order_number,
@@ -90,7 +90,7 @@ try {
                     'Date'         => $r['created_at'],
                 ];
             }, $rows);
-            csv_send('busia_orders_report_' . $today . '.csv',
+            csv_send('kind_orders_report_' . $today . '.csv',
                 ['Order ID', 'Order Number', 'Customer', 'Email', 'Amount', 'Status', 'Date'], $out);
             break;
 

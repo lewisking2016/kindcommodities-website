@@ -33,7 +33,7 @@ $customers = ($pdo && tableExists($pdo, 'walk_in_customers'))
     <div class="stat-card"><div class="stat-card-info"><small>Total Owed to You</small><strong id="cr-total-owed" style="color:#dc2626;">KES 0</strong></div><div class="stat-card-icon" style="background:#fee2e2;color:#dc2626;"><i data-lucide="hand-coins" style="width:22px;height:22px;"></i></div></div>
     <div class="stat-card"><div class="stat-card-info"><small>Overdue (Past Due Date)</small><strong id="cr-overdue" style="color:#dc2626;">KES 0</strong></div><div class="stat-card-icon" style="background:#fee2e2;color:#dc2626;"><i data-lucide="alert-triangle" style="width:22px;height:22px;"></i></div></div>
     <div class="stat-card"><div class="stat-card-info"><small>Active Customers w/ Credit</small><strong id="cr-active">0</strong></div><div class="stat-card-icon info"><i data-lucide="users" style="width:22px;height:22px;"></i></div></div>
-    <div class="stat-card"><div class="stat-card-info"><small>Collected This Month</small><strong id="cr-collected" style="color:#16a34a;">KES 0</strong></div><div class="stat-card-icon" style="background:#dcfce7;color:#16a34a;"><i data-lucide="check-circle" style="width:22px;height:22px;"></i></div></div>
+    <div class="stat-card"><div class="stat-card-info"><small>Collected This Month</small><strong id="cr-collected" style="color:#3E8A3A;">KES 0</strong></div><div class="stat-card-icon" style="background:#D3E8B8;color:#3E8A3A;"><i data-lucide="check-circle" style="width:22px;height:22px;"></i></div></div>
 </div>
 
 <div class="admin-card">
@@ -98,7 +98,7 @@ $customers = ($pdo && tableExists($pdo, 'walk_in_customers'))
 <!-- Payment Modal -->
 <div id="pay-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:2000;align-items:center;justify-content:center;">
     <div style="background:#fff;padding:32px;border-radius:12px;width:100%;max-width:420px;box-shadow:0 20px 40px rgba(0,0,0,0.15);">
-        <h3 style="margin:0 0 8px;font-family:'Outfit',sans-serif;color:#16a34a;">Record Payment</h3>
+        <h3 style="margin:0 0 8px;font-family:'Outfit',sans-serif;color:#3E8A3A;">Record Payment</h3>
         <p style="margin:0 0 18px;color:#64748b;font-size:0.85rem;">Customer is paying back their credit.</p>
         <form id="pay-form">
             <input type="hidden" id="pay-credit-id">
@@ -194,8 +194,8 @@ async function loadCredit() {
                 <td>${escapeHtml(c.customer_phone||'—')}</td>
                 <td>${escapeHtml(c.item_description)}</td>
                 <td>KES ${parseFloat(c.total_amount).toFixed(2)}</td>
-                <td style="color:#16a34a;">KES ${parseFloat(c.amount_paid).toFixed(2)}</td>
-                <td><strong style="color:${c.balance>0?'#dc2626':'#16a34a'};">KES ${parseFloat(c.balance).toFixed(2)}</strong></td>
+                <td style="color:#3E8A3A;">KES ${parseFloat(c.amount_paid).toFixed(2)}</td>
+                <td><strong style="color:${c.balance>0?'#dc2626':'#3E8A3A'};">KES ${parseFloat(c.balance).toFixed(2)}</strong></td>
                 <td>${c.due_date||'—'}</td>
                 <td><span class="badge-pill ${statusBadge}">${statusTxt}</span></td>
                 <td>

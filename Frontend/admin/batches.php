@@ -64,7 +64,7 @@ $houses = $pdo ? $pdo->query("SELECT * FROM houses ORDER BY house_name")->fetchA
                     <td><?= htmlspecialchars($b['house_name'] ?? '—', ENT_QUOTES, 'UTF-8') ?></td>
                     <td><span class="badge-pill badge-pill-info"><?= htmlspecialchars($b['batch_type'], ENT_QUOTES, 'UTF-8') ?></span></td>
                     <td><?= htmlspecialchars($b['placement_date'], ENT_QUOTES, 'UTF-8') ?></td>
-                    <td><strong><?= (int)$b['initial_birds'] ?></strong> / <span style="color:<?= $b['current_birds']<$b['initial_birds']*0.9?'#dc2626':'#16a34a' ?>"><?= (int)$b['current_birds'] ?></span></td>
+                    <td><strong><?= (int)$b['initial_birds'] ?></strong> / <span style="color:<?= $b['current_birds']<$b['initial_birds']*0.9?'#dc2626':'#3E8A3A' ?>"><?= (int)$b['current_birds'] ?></span></td>
                     <td><span class="badge-pill <?= $b['status']==='active'?'badge-pill-success':($b['status']==='sold'?'badge-pill-warning':'badge-pill-info') ?>"><?= htmlspecialchars($b['status'], ENT_QUOTES, 'UTF-8') ?></span></td>
                     <td>
                         <div class="tbl-actions">

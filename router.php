@@ -17,7 +17,7 @@ if (is_dir($file) && is_file($file . '/index.php')) {
     return true;
 }
 
-if ($path === '/busiaadmin' || $path === '/busiaadmin/') {
+if ($path === '/kindadmin' || $path === '/kindadmin/') {
     header('Location: /Frontend/admin/login.php', true, 302);
     exit;
 }

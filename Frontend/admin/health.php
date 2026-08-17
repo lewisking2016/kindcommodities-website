@@ -49,7 +49,7 @@ $tabs = [
     <div class="stat-card"><div class="stat-card-info"><small>Vaccinations This Month</small><strong id="hp-kpi-vax">—</strong></div><div class="stat-card-icon accent"><i data-lucide="syringe" style="width:22px;height:22px;"></i></div></div>
     <div class="stat-card"><div class="stat-card-info"><small>Mortality This Week</small><strong id="hp-kpi-mort" style="color:#dc2626;">—</strong></div><div class="stat-card-icon" style="background:#fee2e2;color:#dc2626;"><i data-lucide="skull" style="width:22px;height:22px;"></i></div></div>
     <div class="stat-card"><div class="stat-card-info"><small>Treatments Logged</small><strong id="hp-kpi-treat">—</strong></div><div class="stat-card-icon info"><i data-lucide="pill" style="width:22px;height:22px;"></i></div></div>
-    <div class="stat-card"><div class="stat-card-info"><small>Scheduled Upcoming</small><strong id="hp-kpi-sched">—</strong></div><div class="stat-card-icon" style="background:#fef3c7;color:#d97706;"><i data-lucide="calendar-clock" style="width:22px;height:22px;"></i></div></div>
+    <div class="stat-card"><div class="stat-card-info"><small>Scheduled Upcoming</small><strong id="hp-kpi-sched">—</strong></div><div class="stat-card-icon" style="background:#E9F2DC;color:#2C6B31;"><i data-lucide="calendar-clock" style="width:22px;height:22px;"></i></div></div>
 </div>
 
 <!-- Tab Bar -->
@@ -201,7 +201,7 @@ $tabs = [
 </div>
 
 <script>
-const CSRF = window.BusiaAdmin?.csrfToken || '';
+const CSRF = window.kindadmin?.csrfToken || '';
 let allHealth = [];
 let currentTab = '<?= $tab ?>';
 

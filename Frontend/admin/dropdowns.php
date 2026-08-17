@@ -58,7 +58,7 @@ require_once __DIR__ . '/includes/admin_header.php';
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 16px;">
         <div>
             <h1 style="font-size: 1.75rem; font-weight: 700; color: var(--dark, #0f172a); margin: 0 0 4px 0;">
-                <i data-lucide="list-filter" style="width: 28px; height: 28px; vertical-align: middle; color: var(--primary, #d97706); margin-right: 8px;"></i>
+                <i data-lucide="list-filter" style="width: 28px; height: 28px; vertical-align: middle; color: var(--primary, #2C6B31); margin-right: 8px;"></i>
                 System Lists & Choices
             </h1>
             <p style="color: #64748b; font-size: 0.95rem; margin: 0;">
@@ -70,7 +70,7 @@ require_once __DIR__ . '/includes/admin_header.php';
                 <i data-lucide="folder-plus" style="width: 18px; height: 18px;"></i>
                 <span>New Category Group</span>
             </button>
-            <button onclick="openAddOptionModal()" class="btn btn-primary" style="display: flex; align-items: center; gap: 8px; background: var(--primary, #d97706); color: white; padding: 10px 18px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer;">
+            <button onclick="openAddOptionModal()" class="btn btn-primary" style="display: flex; align-items: center; gap: 8px; background: var(--primary, #2C6B31); color: white; padding: 10px 18px; border-radius: 6px; border: none; font-weight: 600; cursor: pointer;">
                 <i data-lucide="plus-circle" style="width: 18px; height: 18px;"></i>
                 <span>Add New Option</span>
             </button>
@@ -83,7 +83,7 @@ require_once __DIR__ . '/includes/admin_header.php';
     <!-- KPI Summary Cards -->
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 28px;">
         <div style="background: white; border-radius: 12px; padding: 20px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 16px;">
-            <div style="width: 48px; height: 48px; border-radius: 10px; background: #fef3c7; color: #d97706; display: flex; align-items: center; justify-content: center;">
+            <div style="width: 48px; height: 48px; border-radius: 10px; background: #E9F2DC; color: #2C6B31; display: flex; align-items: center; justify-content: center;">
                 <i data-lucide="layers" style="width: 24px; height: 24px;"></i>
             </div>
             <div>
@@ -93,7 +93,7 @@ require_once __DIR__ . '/includes/admin_header.php';
         </div>
 
         <div style="background: white; border-radius: 12px; padding: 20px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 16px;">
-            <div style="width: 48px; height: 48px; border-radius: 10px; background: #dcfce7; color: #16a34a; display: flex; align-items: center; justify-content: center;">
+            <div style="width: 48px; height: 48px; border-radius: 10px; background: #D3E8B8; color: #3E8A3A; display: flex; align-items: center; justify-content: center;">
                 <i data-lucide="check-circle-2" style="width: 24px; height: 24px;"></i>
             </div>
             <div>
@@ -126,9 +126,9 @@ require_once __DIR__ . '/includes/admin_header.php';
                     $isActive = ($g['group_key'] === $selectedGroup);
                 ?>
                     <a href="?group=<?php echo urlencode($g['group_key']); ?>" 
-                       style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 0.92rem; transition: all 0.2s; <?php echo $isActive ? 'background: #fef3c7; color: #92400e; font-weight: 600;' : 'color: #475569; hover:background: #f8fafc;'; ?>">
+                       style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 0.92rem; transition: all 0.2s; <?php echo $isActive ? 'background: #E9F2DC; color: #2C6B31; font-weight: 600;' : 'color: #475569; hover:background: #f8fafc;'; ?>">
                         <span><?php echo htmlspecialchars($g['group_label']); ?></span>
-                        <span style="background: <?php echo $isActive ? '#f59e0b' : '#e2e8f0'; ?>; color: <?php echo $isActive ? '#ffffff' : '#475569'; ?>; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">
+                        <span style="background: <?php echo $isActive ? '#6EAF44' : '#e2e8f0'; ?>; color: <?php echo $isActive ? '#ffffff' : '#475569'; ?>; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">
                             <?php echo $g['active_options']; ?>
                         </span>
                     </a>
@@ -198,7 +198,7 @@ require_once __DIR__ . '/includes/admin_header.php';
                                                 <i data-lucide="shield-check" style="width: 12px; height: 12px; color: #0284c7;"></i> Core System
                                             </span>
                                         <?php else: ?>
-                                            <span style="background: #fef3c7; color: #92400e; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
+                                            <span style="background: #E9F2DC; color: #2C6B31; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
                                                 Custom
                                             </span>
                                         <?php endif; ?>
@@ -207,8 +207,8 @@ require_once __DIR__ . '/includes/admin_header.php';
                                         <button onclick="toggleOptionStatus(<?php echo $opt['id']; ?>)" 
                                                 style="border: none; background: transparent; cursor: pointer; padding: 0;">
                                             <?php if ($opt['is_active']): ?>
-                                                <span style="background: #dcfce7; color: #15803d; padding: 4px 10px; border-radius: 12px; font-size: 0.78rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
-                                                    <span style="width: 6px; height: 6px; border-radius: 50%; background: #16a34a;"></span> Active
+                                                <span style="background: #D3E8B8; color: #2C6B31; padding: 4px 10px; border-radius: 12px; font-size: 0.78rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
+                                                    <span style="width: 6px; height: 6px; border-radius: 50%; background: #3E8A3A;"></span> Active
                                                 </span>
                                             <?php else: ?>
                                                 <span style="background: #fee2e2; color: #b91c1c; padding: 4px 10px; border-radius: 12px; font-size: 0.78rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">
@@ -283,7 +283,7 @@ require_once __DIR__ . '/includes/admin_header.php';
             </div>
             <div style="display: flex; gap: 12px; justify-content: flex-end;">
                 <button type="button" onclick="closeModal('addOptionModal')" style="padding: 10px 18px; border: 1px solid #cbd5e1; border-radius: 6px; background: white; font-weight: 600; cursor: pointer;">Cancel</button>
-                <button type="submit" style="padding: 10px 18px; border: none; border-radius: 6px; background: var(--primary, #d97706); color: white; font-weight: 600; cursor: pointer;">Save Option</button>
+                <button type="submit" style="padding: 10px 18px; border: none; border-radius: 6px; background: var(--primary, #2C6B31); color: white; font-weight: 600; cursor: pointer;">Save Option</button>
             </div>
         </form>
     </div>
@@ -358,7 +358,7 @@ require_once __DIR__ . '/includes/admin_header.php';
             </div>
             <div style="display: flex; gap: 12px; justify-content: flex-end;">
                 <button type="button" onclick="closeModal('addGroupModal')" style="padding: 10px 18px; border: 1px solid #cbd5e1; border-radius: 6px; background: white; font-weight: 600; cursor: pointer;">Cancel</button>
-                <button type="submit" style="padding: 10px 18px; border: none; border-radius: 6px; background: var(--primary, #d97706); color: white; font-weight: 600; cursor: pointer;">Create Category Group</button>
+                <button type="submit" style="padding: 10px 18px; border: none; border-radius: 6px; background: var(--primary, #2C6B31); color: white; font-weight: 600; cursor: pointer;">Create Category Group</button>
             </div>
         </form>
     </div>
@@ -368,9 +368,9 @@ require_once __DIR__ . '/includes/admin_header.php';
 function showAlert(message, isSuccess = true) {
     const banner = document.getElementById('apiAlert');
     banner.style.display = 'block';
-    banner.style.background = isSuccess ? '#dcfce7' : '#fee2e2';
-    banner.style.color = isSuccess ? '#15803d' : '#b91c1c';
-    banner.style.border = isSuccess ? '1px solid #bbf7d0' : '1px solid #fecaca';
+    banner.style.background = isSuccess ? '#D3E8B8' : '#fee2e2';
+    banner.style.color = isSuccess ? '#2C6B31' : '#b91c1c';
+    banner.style.border = isSuccess ? '1px solid #B3D98C' : '1px solid #fecaca';
     banner.textContent = message;
     setTimeout(() => { banner.style.display = 'none'; }, 4000);
 }

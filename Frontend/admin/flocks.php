@@ -9,7 +9,7 @@ if (is_writable($temp_dir)) session_save_path($temp_dir);
 session_start();
 
 if (empty($_SESSION['user_id']) || !in_array($_SESSION['role'] ?? '', ['super_admin','farm_manager','sales_staff'], true)) {
-    echo "<script>window.location.href = '/busiaadmin';</script>";
+    echo "<script>window.location.href = '/kindadmin';</script>";
     exit;
 }
 
@@ -162,7 +162,7 @@ function renderFlocks() {
             <td>${f.breed}</td>
             <td>${Number(f.initial_count).toLocaleString()}</td>
             <td>${Number(f.current_count).toLocaleString()}</td>
-            <td><strong style="color: ${mortalityRate > 5 ? '#dc2626' : '#16a34a'};">${mortalityRate}%</strong> (${deadCount} dead)</td>
+            <td><strong style="color: ${mortalityRate > 5 ? '#dc2626' : '#3E8A3A'};">${mortalityRate}%</strong> (${deadCount} dead)</td>
             <td>${f.hatch_date}</td>
             <td><span class="badge-pill ${statusBadge}">${f.status}</span></td>
             <td>
@@ -212,7 +212,7 @@ async function deleteFlock(id) {
     try {
         const formData = new FormData();
         formData.append('id', id.toString());
-        formData.append('csrf_token', window.BusiaAdmin?.csrfToken || '');
+        formData.append('csrf_token', window.kindadmin?.csrfToken || '');
 
         const response = await fetch('/Backend/api/admin_poultry.php?action=delete_flock', {
             method: 'POST',
@@ -232,7 +232,7 @@ document.getElementById('flock-form').addEventListener('submit', async (e) => {
     const btn = e.target.querySelector('[type="submit"]');
     setBtnLoading(btn, true);
     const formData = new FormData(e.target);
-    formData.append('csrf_token', window.BusiaAdmin?.csrfToken || '');
+    formData.append('csrf_token', window.kindadmin?.csrfToken || '');
     try {
         const response = await fetch('/Backend/api/admin_poultry.php?action=save_flock', {
             method: 'POST',

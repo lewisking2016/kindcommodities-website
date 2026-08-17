@@ -19,7 +19,7 @@ require_once __DIR__ . '/../../Backend/api/dropdowns.php';
 
 // Check admin access
 if (empty($_SESSION['user_id']) || !in_array($_SESSION['role'] ?? '', ['super_admin','farm_manager','sales_staff'], true)) {
-    echo "<script>window.location.href = '/busiaadmin';</script>";
+    echo "<script>window.location.href = '/kindadmin';</script>";
     exit;
 }
 
@@ -248,7 +248,7 @@ if ($pdo) {
 
 <!-- Alerts -->
 <?php if ($success_message): ?>
-<div style="padding: 12px 20px; background: #dcfce7; border: 1px solid #bbf7d0; border-radius: 4px; color: #15803d; font-size: 0.9rem; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+<div style="padding: 12px 20px; background: #D3E8B8; border: 1px solid #B3D98C; border-radius: 4px; color: #2C6B31; font-size: 0.9rem; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
     <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i>
     <?php echo htmlspecialchars($success_message); ?>
 </div>
@@ -345,7 +345,7 @@ if ($pdo) {
                                     <span style="color: var(--admin-primary);"><?php echo number_format($avail_sale); ?> kgs sellable</span>
                                 </div>
                                 <div style="width: 100%; height: 6px; background: #e2e8f0; border-radius: 9999px; overflow: hidden; display: flex;">
-                                    <div style="width: <?php echo $pct; ?>%; height: 100%; background: #f59e0b;" title="Reserved for Production"></div>
+                                    <div style="width: <?php echo $pct; ?>%; height: 100%; background: #6EAF44;" title="Reserved for Production"></div>
                                     <div style="width: <?php echo 100 - $pct; ?>%; height: 100%; background: var(--admin-primary);" title="Available for Direct Sale"></div>
                                 </div>
                                 <span style="font-size: 0.7rem; color: #64748b;">Reserve Floor: <?php echo number_format($reserved); ?> kgs</span>
@@ -435,7 +435,7 @@ if ($pdo) {
                                 <span>Sellable Stock: <strong><?php echo number_format($sellable); ?> kgs</strong></span>
                             </div>
                             <div style="width: 100%; height: 8px; background: #e2e8f0; border-radius: 9999px; overflow: hidden; display: flex;">
-                                <div style="width: <?php echo $fill_pct; ?>%; height: 100%; background: #f59e0b;" title="Production Reserve Floor"></div>
+                                <div style="width: <?php echo $fill_pct; ?>%; height: 100%; background: #6EAF44;" title="Production Reserve Floor"></div>
                                 <div style="width: <?php echo 100 - $fill_pct; ?>%; height: 100%; background: var(--admin-primary);" title="Available for Retail Sale"></div>
                             </div>
                         </div>

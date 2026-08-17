@@ -1,14 +1,14 @@
 /**
- * Busia Chicken Farm — Premium Redesign
+ * Kind Commodities Ltd — Premium Redesign
  * Ultra-clean, modern, minimalist aesthetic.
  */
 
 :root {
     /* Brand Colors - Updated based on Logo */
-    --primary: #1B5E20;       /* Dark Green from Logo */
-    --primary-light: #2E7D32;
-    --accent: #FFC107;        /* Gold/Yellow from Logo accents */
-    --accent-light: #FFD54F;
+    --primary: #396285;       /* Slate Blue from Logo */
+    --primary-light: #4A7BA3;
+    --accent: #6EAF44;        /* Bright Green from Logo */
+    --accent-light: #8FC463;
     
     /* Neutrals */
     --dark: #111827;          /* Tailwind Gray-900 */
@@ -80,7 +80,7 @@
 }
 .form-control:focus {
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(15, 61, 28, 0.1);
+    box-shadow: 0 0 0 3px rgba(57, 98, 133, 0.12);
 }
 
 /* Standard Badges */
@@ -94,8 +94,8 @@
     text-transform: uppercase;
 }
 .badge-primary { background: var(--gray-100); color: var(--primary); }
-.badge-success { background: #ECFDF5; color: #065F46; }
-.badge-warning { background: #FFFBEB; color: #92400E; }
+.badge-success { background: #E9F2DC; color: #12351A; }
+.badge-warning { background: #EDF2E2; color: #6C7E43; }
 .badge-error { background: #FEF2F2; color: #991B1B; }
 
 /* Standard Alerts */
@@ -106,7 +106,7 @@
     border: 1px solid transparent;
 }
 .alert-error { background: #FEF2F2; border-color: #FEE2E2; color: #991B1B; }
-.alert-success { background: #ECFDF5; border-color: #D1FAE5; color: #065F46; }
+.alert-success { background: #E9F2DC; border-color: #D3E8B8; color: #12351A; }
 
 * {
     margin: 0;

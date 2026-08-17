@@ -1,5 +1,5 @@
 /**
- * Busia Chicken Farm — Premium Design Layer
+ * Kind Commodities Ltd — Premium Design Layer
  * "Make it feel 60k": motion, depth, editorial typography.
  * Loaded after all other stylesheets so it can refine the base system.
  */
@@ -8,22 +8,36 @@
    DESIGN TOKENS — PREMIUM EXTENSIONS
    ═══════════════════════════════════════════════════════════════ */
 :root {
-    --brand-950: #082F13;
-    --brand-900: #0B3D17;
-    --brand-800: #124A1F;
-    --brand-700: #14532D;
-    --brand-600: #1B5E20;
-    --brand-500: #23852C;
-    --brand-100: #E7F2E6;
+    --brand-950: #0B2310;
+    --brand-900: #12351A;
+    --brand-800: #1B4A24;
+    --brand-700: #2C6B31;
+    --brand-600: #3E8A3A;
+    --brand-500: #6EAF44;
+    --brand-100: #E9F2DC;
 
-    --gold-600: #C9971C;
-    --gold-500: #E0A82E;
-    --gold-400: #F0B429;
-    --gold-300: #FFC93C;
-    --gold-100: #FDF3D7;
+    --gold-600: #6C7E43;
+    --gold-500: #809B52;
+    --gold-400: #93AC68;
+    --gold-300: #B9C98F;
+    --gold-100: #EDF2E2;
 
-    --cream-50: #FBF8F1;
-    --cream-100: #F6F0E3;
+    --slate-900: #1E3850;
+    --slate-700: #2B4D6E;
+    --slate-600: #396285;
+    --slate-500: #4A7BA3;
+    --slate-300: #9CB6CE;
+    --slate-100: #DDE8F1;
+
+    --slate-900: #1E3850;
+    --slate-700: #2B4D6E;
+    --slate-600: #396285;
+    --slate-500: #4A7BA3;
+    --slate-300: #9CB6CE;
+    --slate-100: #DDE8F1;
+
+    --cream-50: #F9FAF6;
+    --cream-100: #F2F5EA;
 
     --ink: #0F1B12;
 
@@ -37,7 +51,7 @@
 
     --shadow-soft: 0 2px 24px rgba(8, 47, 19, 0.06);
     --shadow-lift: 0 24px 60px -12px rgba(8, 47, 19, 0.22);
-    --shadow-glow: 0 10px 40px -8px rgba(27, 94, 32, 0.45);
+    --shadow-glow: 0 10px 40px -8px rgba(62, 138, 58, 0.45);
 
     --nav-h: 78px;
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -115,7 +129,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .nav-logo {
-    height: 52px;
+    height: 40px;
     width: auto;
     object-fit: contain;
     transition: transform 0.4s var(--ease-out-expo);
@@ -123,6 +137,14 @@ h1, h2, h3, h4, h5, h6 {
 
 .nav-brand:hover .nav-logo {
     transform: scale(1.06) rotate(-2deg);
+}
+
+/* Readability over the dark hero: the transparent logo sits in a white pill */
+body.has-hero .premium-nav:not(.nav-scrolled) .nav-logo {
+    background: #fff;
+    border-radius: 10px;
+    padding: 5px 12px;
+    height: 36px;
 }
 
 /* Links */
@@ -256,7 +278,8 @@ body.has-hero .premium-nav:not(.nav-scrolled) .nav-signin-btn:hover {
     padding: 10px;
     flex-direction: column;
     gap: 5px;
-    z-index: 10;
+    /* Above the mobile drawer (z-900) so the ✕ stays visible/tappable */
+    z-index: 950;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
 }
@@ -290,8 +313,8 @@ body.has-hero .premium-nav:not(.nav-scrolled) .mobile-menu-btn span {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--brand-600), var(--brand-800));
-    box-shadow: 0 8px 24px -8px rgba(27, 94, 32, 0.55);
+    background: linear-gradient(135deg, #4A7BA3, #2B4D6E);
+    box-shadow: 0 8px 24px -8px rgba(62, 138, 58, 0.55);
 }
 
 .btn-primary::after {
@@ -316,14 +339,14 @@ body.has-hero .premium-nav:not(.nav-scrolled) .mobile-menu-btn span {
 }
 
 .btn-accent {
-    background: linear-gradient(135deg, var(--gold-400), var(--gold-500));
-    color: var(--brand-900);
-    box-shadow: 0 8px 24px -8px rgba(240, 180, 41, 0.6);
+    background: linear-gradient(135deg, #6EAF44, #3E8A3A);
+    color: #fff;
+    box-shadow: 0 8px 24px -8px rgba(110, 175, 68, 0.6);
 }
 
 .btn-accent:hover {
     transform: translateY(-3px);
-    box-shadow: 0 14px 34px -8px rgba(240, 180, 41, 0.65);
+    box-shadow: 0 14px 34px -8px rgba(110, 175, 68, 0.65);
 }
 
 .btn-outline {
@@ -392,7 +415,7 @@ body.has-hero .premium-nav:not(.nav-scrolled) .mobile-menu-btn span {
 }
 
 .text-gradient {
-    background: linear-gradient(92deg, var(--gold-400), #FDE68A 55%, var(--gold-500));
+    background: linear-gradient(92deg, var(--gold-400), #B9C98F 55%, var(--gold-500));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -482,8 +505,8 @@ body.has-hero .premium-nav:not(.nav-scrolled) .mobile-menu-btn span {
 }
 
 @keyframes heroPulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(240, 180, 41, 0.55); }
-    50%      { box-shadow: 0 0 0 7px rgba(240, 180, 41, 0); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(110, 175, 68, 0.55); }
+    50%      { box-shadow: 0 0 0 7px rgba(110, 175, 68, 0); }
 }
 
 .hero-title {
@@ -751,7 +774,7 @@ body.has-hero .premium-nav:not(.nav-scrolled) .mobile-menu-btn span {
 .p-card:hover {
     transform: translateY(-10px);
     box-shadow: var(--shadow-lift);
-    border-color: rgba(27, 94, 32, 0.18);
+    border-color: rgba(62, 138, 58, 0.18);
 }
 
 .p-card:hover::before {
@@ -766,7 +789,7 @@ body.has-hero .premium-nav:not(.nav-scrolled) .mobile-menu-btn span {
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, var(--brand-100), #fff);
-    border: 1px solid rgba(27, 94, 32, 0.12);
+    border: 1px solid rgba(62, 138, 58, 0.12);
     color: var(--brand-600);
     margin-bottom: 1.4rem;
     transition: transform 0.5s var(--ease-out-expo), background 0.5s ease;
@@ -829,7 +852,7 @@ body.has-hero .premium-nav:not(.nav-scrolled) .mobile-menu-btn span {
     width: 560px;
     height: 560px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(240, 180, 41, 0.16), transparent 65%);
+    background: radial-gradient(circle, rgba(110, 175, 68, 0.16), transparent 65%);
     top: -220px;
     right: -140px;
     animation: floatBlob 12s ease-in-out infinite;
@@ -900,7 +923,7 @@ body.has-hero .premium-nav:not(.nav-scrolled) .mobile-menu-btn span {
 .product-card:hover {
     transform: translateY(-10px);
     box-shadow: var(--shadow-lift);
-    border-color: rgba(27, 94, 32, 0.16);
+    border-color: rgba(62, 138, 58, 0.16);
 }
 
 .product-image {
@@ -978,7 +1001,7 @@ body.has-hero .premium-nav:not(.nav-scrolled) .mobile-menu-btn span {
     content: "";
     position: absolute;
     inset: 22px -22px -22px 22px;
-    border: 2px solid rgba(240, 180, 41, 0.5);
+    border: 2px solid rgba(110, 175, 68, 0.5);
     border-radius: var(--radius-2xl);
     z-index: -1;
 }
@@ -1003,7 +1026,7 @@ body.has-hero .premium-nav:not(.nav-scrolled) .mobile-menu-btn span {
     width: 320px;
     height: 320px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(240, 180, 41, 0.28), transparent 65%);
+    background: radial-gradient(circle, rgba(110, 175, 68, 0.28), transparent 65%);
 }
 
 .cta-band::after {
@@ -1030,13 +1053,13 @@ body.has-hero .premium-nav:not(.nav-scrolled) .mobile-menu-btn span {
 }
 
 .cta-band .btn-primary {
-    background: linear-gradient(135deg, var(--gold-400), var(--gold-500));
-    color: var(--brand-900);
-    box-shadow: 0 10px 30px -8px rgba(240, 180, 41, 0.7);
+    background: linear-gradient(135deg, #6EAF44, #3E8A3A);
+    color: #fff;
+    box-shadow: 0 10px 30px -8px rgba(110, 175, 68, 0.7);
 }
 
 .cta-band .btn-primary:hover {
-    box-shadow: 0 16px 40px -8px rgba(240, 180, 41, 0.85);
+    box-shadow: 0 16px 40px -8px rgba(110, 175, 68, 0.85);
 }
 
 .cta-band .btn-ghost {
@@ -1357,12 +1380,9 @@ body.has-hero .premium-nav:not(.nav-scrolled) .mobile-menu-btn span {
 }
 
 .p-footer .f-brand img {
-    height: 56px;
+    height: 52px;
     width: auto;
     object-fit: contain;
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 14px;
-    padding: 6px;
 }
 
 .p-footer .f-brand-text {
@@ -1453,8 +1473,8 @@ body.has-hero .premium-nav:not(.nav-scrolled) .mobile-menu-btn span {
 }
 
 .f-newsletter button {
-    background: linear-gradient(135deg, var(--gold-400), var(--gold-500));
-    color: var(--brand-900);
+    background: linear-gradient(135deg, #6EAF44, #3E8A3A);
+    color: #fff;
     border: none;
     border-radius: 4px;
     padding: 0.55rem 1.2rem;
@@ -1467,7 +1487,7 @@ body.has-hero .premium-nav:not(.nav-scrolled) .mobile-menu-btn span {
 
 .f-newsletter button:hover {
     transform: scale(1.04);
-    box-shadow: 0 8px 20px -6px rgba(240, 180, 41, 0.6);
+    box-shadow: 0 8px 20px -6px rgba(110, 175, 68, 0.6);
 }
 
 .p-footer-bottom {
@@ -1556,6 +1576,11 @@ body.has-hero .premium-nav:not(.nav-scrolled) .mobile-menu-btn span {
     }
 
     body.has-hero .premium-nav:not(.nav-scrolled) .mobile-menu-btn span {
+        background: #fff;
+    }
+
+    /* Drawer open over the hero: the ✕ turns dark against the cream drawer */
+    body.has-hero .premium-nav:not(.nav-scrolled) .mobile-menu-btn.active span {
         background: var(--brand-900);
     }
 
@@ -1813,4 +1838,57 @@ input,
 textarea,
 button {
     border-radius: 4px !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   KIND COMMODITIES BRAND — wordmark & media panels (no logo file yet)
+   ═══════════════════════════════════════════════════════════════ */
+.nav-wordmark {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.06rem;
+    letter-spacing: 0.08em;
+    color: var(--brand-900);
+    line-height: 1;
+    white-space: nowrap;
+}
+.nav-wordmark span { color: var(--brand-500); }
+body.has-hero .premium-nav:not(.nav-scrolled) .nav-wordmark { color: #fff; }
+body.has-hero .premium-nav:not(.nav-scrolled) .nav-wordmark span { color: var(--gold-300); }
+
+.hero-slide-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform: scale(1.12);
+    animation: heroKenburns 14s var(--ease-out-expo) forwards;
+    will-change: transform;
+}
+
+.brand-panel {
+    width: 100%;
+    background: linear-gradient(135deg, #396285 0%, #6EAF44 55%, #809B52 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: #fff;
+    text-align: center;
+}
+.brand-panel b {
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    line-height: 1;
+}
+.brand-panel span {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    padding-left: 0.42em;
 }

@@ -32,7 +32,7 @@ $batches = $pdo ? $pdo->query("SELECT id, batch_name, batch_code, current_birds,
     <div class="stat-card"><div class="stat-card-info"><small>Total Spent (All Batches)</small><strong id="cp-total-spent">—</strong></div><div class="stat-card-icon" style="background:#fee2e2;color:#dc2626;"><i data-lucide="trending-down" style="width:22px;height:22px;"></i></div></div>
     <div class="stat-card"><div class="stat-card-info"><small>Spent on Feed</small><strong id="cp-feed-cost">—</strong></div><div class="stat-card-icon accent"><i data-lucide="wheat" style="width:22px;height:22px;"></i></div></div>
     <div class="stat-card"><div class="stat-card-info"><small>Spent on Chicks</small><strong id="cp-chick-cost">—</strong></div><div class="stat-card-icon info"><i data-lucide="egg" style="width:22px;height:22px;"></i></div></div>
-    <div class="stat-card"><div class="stat-card-info"><small>Spent on Drugs</small><strong id="cp-drug-cost">—</strong></div><div class="stat-card-icon" style="background:#fef3c7;color:#d97706;"><i data-lucide="pill" style="width:22px;height:22px;"></i></div></div>
+    <div class="stat-card"><div class="stat-card-info"><small>Spent on Drugs</small><strong id="cp-drug-cost">—</strong></div><div class="stat-card-icon" style="background:#E9F2DC;color:#2C6B31;"><i data-lucide="pill" style="width:22px;height:22px;"></i></div></div>
 </div>
 
 <div class="admin-card">

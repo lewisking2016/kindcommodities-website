@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pdo) {
         try {
             $upsert = $pdo->prepare('INSERT INTO role_permissions (role, module_key, can_view, can_edit) VALUES (?,?,?,?)
                                      ON DUPLICATE KEY UPDATE can_view=VALUES(can_view), can_edit=VALUES(can_edit)');
-            $moduleKeys = busiaModuleKeys();
+            $moduleKeys = kindModuleKeys();
             $changed = 0;
             foreach ($moduleKeys as $m) {
                 $view = isset($_POST['view'][$role][$m]) ? 1 : 0;
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pdo) {
     }
 }
 
-$matrix = function_exists('busiaRolePermissions') ? busiaRolePermissions($pdo) : [];
+$matrix = function_exists('kindRolePermissions') ? kindRolePermissions($pdo) : [];
 ?>
 <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
 
@@ -97,7 +97,7 @@ $matrix = function_exists('busiaRolePermissions') ? busiaRolePermissions($pdo) :
 </div>
 
 <?php if ($message): ?>
-<div style="padding:13px 18px;background:#dcfce7;border:1px solid #bbf7d0;border-radius:8px;color:#166534;margin-bottom:18px;display:flex;align-items:center;gap:10px;">
+<div style="padding:13px 18px;background:#D3E8B8;border:1px solid #B3D98C;border-radius:8px;color:#1B4A24;margin-bottom:18px;display:flex;align-items:center;gap:10px;">
     <i data-lucide="check-circle-2" style="width:18px;height:18px;"></i> <?= htmlspecialchars($message, ENT_QUOTES, 'UTF-8') ?>
 </div>
 <?php endif; ?>

@@ -1,10 +1,10 @@
-# Busia Chicken Farm Website
+# Kind Commodities Ltd Website
 
 Premium poultry e-commerce website with farm management system.
 
 ## 🐔 About
 
-Busia Chicken Farm is a modern, production-ready website for a premium poultry business based in Busia, Kenya. The platform provides:
+Kind Commodities Ltd is a modern, production-ready website for a premium poultry business based in Kenya. The platform provides:
 
 - **E-commerce store** for chickens, eggs, and feeds
 - **Farm management dashboard** for tracking flocks, production, and finances
@@ -51,14 +51,14 @@ Busia Chicken Farm is a modern, production-ready website for a premium poultry b
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/YOUR_USERNAME/busia-chicken-website.git
-cd busia-chicken-website
+git clone https://github.com/YOUR_USERNAME/kind-commodities-website.git
+cd kind-commodities-website
 ```
 
 2. **Set up the database**
 ```bash
 # Create database
-mysql -u root -p -e "CREATE DATABASE busia_chicken_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+mysql -u root -p -e "CREATE DATABASE kind_commodities_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
 
 # Import schema and sample data
 php setup_database.php
@@ -69,7 +69,7 @@ Copy `Backend/config/database.local.example.php` to `Backend/config/database.loc
 and set your credentials (this file is gitignored — never commit real credentials):
 ```php
 $DB_HOST = 'localhost';
-$DB_NAME = 'busia_chicken_db';
+$DB_NAME = 'kind_commodities_db';
 $DB_USER = 'root';
 $DB_PASS = 'your_password';
 ```
@@ -89,7 +89,7 @@ php -S localhost:8000
 ## 🗂️ Project Structure
 
 ```
-busia-chicken-website/
+kind-commodities-website/
 ├── Backend/
 │   ├── api/                    # AJAX endpoints
 │   │   ├── cart.php
@@ -144,11 +144,12 @@ busia-chicken-website/
 ## 🎨 Design System
 
 ### Color Palette
-- **Primary**: `#1B5E20` (Forest Green)
-- **Primary Light**: `#4CAF50` (Vibrant Green)
-- **Accent**: `#FF8F00` (Amber/Gold)
-- **Accent Light**: `#FFC107` (Golden Yellow)
-- **Dark**: `#1A1A2E` (Deep Navy)
+- **Primary**: `#396285` (Slate Blue — buttons, links, focus)
+- **Primary Light**: `#4A7BA3` (Slate Blue light)
+- **Accent**: `#6EAF44` (Bright Green — highlights, secondary CTAs)
+- **Accent Light**: `#8FC463` (Bright Green light)
+- **Olive / Greenish-Gold**: `#809B52` (eyebrows, underlines, chart accents)
+- **Dark**: `#0B2310` (Deep Green — footer, hero, dark sections)
 
 ### Typography
 - **Headings**: Outfit (Google Fonts)
@@ -213,7 +214,7 @@ This is a private commercial project. For issues or feature requests, please con
 
 ## 📄 License
 
-Proprietary - All rights reserved © 2026 Busia Chicken Farm
+Proprietary - All rights reserved © 2026 Kind Commodities Ltd
 
 ## 👨‍💻 Development
 
@@ -230,9 +231,9 @@ Version: 1.0.0
 
 ## 📞 Contact
 
-- **Email**: info@busiachicken.com
-- **Phone**: +254 727 585 599
-- **Address**: Nasira AC Sub-location, Busibwabo, Busia County, Kenya
+- **Email**: info@kindcommoditiesltd.com
+- **Phone**: +254 700 000 000
+- **Address**: Kenya
 
 ---
 

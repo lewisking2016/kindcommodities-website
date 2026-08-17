@@ -260,7 +260,7 @@ async function loadBulkSales() {
                 <td>KES ${parseFloat(s.unit_price).toFixed(2)}</td>
                 <td><strong>KES ${parseFloat(s.total_amount).toFixed(2)}</strong></td>
                 <td>KES ${parseFloat(s.amount_paid).toFixed(2)}</td>
-                <td style="color:${s.balance>0?'#dc2626':'#16a34a'};">KES ${parseFloat(s.balance).toFixed(2)}</td>
+                <td style="color:${s.balance>0?'#dc2626':'#3E8A3A'};">KES ${parseFloat(s.balance).toFixed(2)}</td>
                 <td><span class="badge-pill ${statusBadge}">${s.payment_status}</span><br><small style="color:#64748b;">${s.payment_method}</small></td>
                 <td>
                     <button class="btn btn-trans btn-sm" onclick='openBulkSaleModal(${JSON.stringify(s)})'><i data-lucide="pencil" style="width:13px;height:13px;"></i></button>

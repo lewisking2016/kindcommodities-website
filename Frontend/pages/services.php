@@ -5,13 +5,13 @@
 declare(strict_types=1);
 
 $path_prefix = '../';
-$page_title = 'Our Services - Consulting & Incubator Rentals | Busia Chicken Farm';
+$page_title = 'Our Services - Consulting & Incubator Rentals | Kind Commodities Ltd';
 
 include '../includes/header.php';
 ?>
 
 <!-- Page Hero -->
-<section class="page-hero" style="background-image:url('/Frontend/images/adbg.png');">
+<section class="page-hero" style="background:linear-gradient(135deg,#0B2310 0%,#1B4A24 55%,#396285 100%);">
     <div class="container">
         <nav class="breadcrumb" data-reveal="fade"><a href="/">Home</a><span class="sep">/</span><span>Services</span></nav>
         <h1 data-reveal="fade" data-reveal-delay="100">Our <em>Services</em></h1>
@@ -123,7 +123,7 @@ include '../includes/header.php';
                 <p>Send us an inquiry or visit our offices in Nasira AC sub-location for in-person support.</p>
                 <div style="display:flex;gap:1rem;flex-wrap:wrap;">
                     <a href="/Frontend/pages/contact.php" class="btn btn-primary" data-magnetic>Book Consultation</a>
-                    <a href="tel:+254727585599" class="btn btn-ghost">Call +254 727 585 599</a>
+                    <a href="tel:+254700000000" class="btn btn-ghost">Call +254 700 000 000</a>
                 </div>
             </div>
         </div>

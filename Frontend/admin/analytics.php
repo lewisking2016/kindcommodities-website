@@ -88,7 +88,7 @@ include __DIR__ . '/includes/admin_header.php';
     font-size: 0.72rem;
     font-weight: 600;
     background: rgba(22, 163, 74, 0.1);
-    color: #16a34a;
+    color: #3E8A3A;
 }
 .stat-pill.down { background: rgba(220, 38, 38, 0.1); color: #dc2626; }
 .refresh-btn {
@@ -98,7 +98,7 @@ include __DIR__ . '/includes/admin_header.php';
     width: 52px;
     height: 52px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #1B5E20, #2E7D32);
+    background: linear-gradient(135deg, #396285, #4A7BA3);
     color: #fff;
     border: none;
     box-shadow: 0 8px 24px rgba(27, 94, 32, 0.35);
@@ -136,10 +136,10 @@ include __DIR__ . '/includes/admin_header.php';
     <div class="stat-card">
         <div class="stat-card-info">
             <small>Money In (period)</small>
-            <strong data-countup="0" data-prefix="KES " data-decimals="0" style="font-size:1.4rem;color:#16a34a;">KES 0</strong>
+            <strong data-countup="0" data-prefix="KES " data-decimals="0" style="font-size:1.4rem;color:#3E8A3A;">KES 0</strong>
             <span class="stat-pill" id="kpi-money-in-trend">+0%</span>
         </div>
-        <div class="stat-card-icon" style="background:rgba(22,163,74,0.1);color:#16a34a;"><i data-lucide="trending-up" style="width:22px;height:22px;"></i></div>
+        <div class="stat-card-icon" style="background:rgba(62,138,58,0.1);color:#3E8A3A;"><i data-lucide="trending-up" style="width:22px;height:22px;"></i></div>
     </div>
     <div class="stat-card">
         <div class="stat-card-info">
@@ -185,9 +185,9 @@ include __DIR__ . '/includes/admin_header.php';
     <div class="stat-card">
         <div class="stat-card-info">
             <small>Credit Owed</small>
-            <strong data-countup="0" data-prefix="KES " style="font-size:1.4rem;color:#d97706;">KES 0</strong>
+            <strong data-countup="0" data-prefix="KES " style="font-size:1.4rem;color:#2C6B31;">KES 0</strong>
         </div>
-        <div class="stat-card-icon" style="background:rgba(217,119,6,0.1);color:#d97706;"><i data-lucide="hand-coins" style="width:22px;height:22px;"></i></div>
+        <div class="stat-card-icon" style="background:rgba(217,119,6,0.1);color:#2C6B31;"><i data-lucide="hand-coins" style="width:22px;height:22px;"></i></div>
     </div>
     <div class="stat-card">
         <div class="stat-card-info">
@@ -350,9 +350,9 @@ include __DIR__ . '/includes/admin_header.php';
 </button>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script src="/Frontend/assets/js/busia-charts.js"></script>
+<script src="/Frontend/assets/js/kind-charts.js"></script>
 <script>
-const C = BusiaCharts.C;
+const C = KindCharts.C;
 let charts = {};
 
 function destroyAll() {
@@ -384,8 +384,8 @@ async function loadAll() {
         renderBirdTrend(d.bird_trend);
         renderTopDebtors(d.top_debtors);
         renderRevenue7d(d.sales);
-        BusiaCharts.countUpAll();
-        BusiaCharts.animateCards('.chart-card');
+        KindCharts.countUpAll();
+        KindCharts.animateCards('.chart-card');
         if (typeof lucide !== 'undefined') lucide.createIcons();
     } catch (e) { console.error(e); }
     finally { btn.classList.remove('loading'); }
@@ -452,7 +452,7 @@ function renderKpis(d) {
 }
 
 function renderProfitChart(profit) {
-    const labels = (profit || []).map(p => BusiaCharts.monthLabel(p.month));
+    const labels = (profit || []).map(p => KindCharts.monthLabel(p.month));
     const rev = (profit || []).map(p => +p.revenue || 0);
     const cost = (profit || []).map(p => +p.cost || 0);
     const ctx = document.getElementById('chart-profit');
@@ -461,7 +461,7 @@ function renderProfitChart(profit) {
         data: {
             labels,
             datasets: [
-                { label: 'Revenue', data: rev, backgroundColor: (c) => { const g = c.chart.ctx.createLinearGradient(0,0,0,300); g.addColorStop(0,'rgba(27,94,32,0.85)'); g.addColorStop(1,'rgba(27,94,32,0.35)'); return g; }, borderRadius: 6, maxBarThickness: 30 },
+                { label: 'Revenue', data: rev, backgroundColor: (c) => { const g = c.chart.ctx.createLinearGradient(0,0,0,300); g.addColorStop(0,'rgba(57,98,133,0.85)'); g.addColorStop(1,'rgba(57,98,133,0.35)'); return g; }, borderRadius: 6, maxBarThickness: 30 },
                 { label: 'Costs',   data: cost, backgroundColor: (c) => { const g = c.chart.ctx.createLinearGradient(0,0,0,300); g.addColorStop(0,'rgba(220,38,38,0.85)'); g.addColorStop(1,'rgba(220,38,38,0.35)'); return g; }, borderRadius: 6, maxBarThickness: 30 },
             ],
         },
@@ -474,21 +474,21 @@ function renderProfitChart(profit) {
             },
             scales: {
                 x: { grid: { display: false }, ticks: { color: C.text } },
-                y: { grid: { color: C.grid }, ticks: { color: C.text, callback: v => BusiaCharts.kes(v) }, beginAtZero: true },
+                y: { grid: { color: C.grid }, ticks: { color: C.text, callback: v => KindCharts.kes(v) }, beginAtZero: true },
             },
         },
     });
 }
 
 function renderCashFlowChart(cashbook) {
-    const labels = (cashbook || []).map(c => BusiaCharts.dayLabel(c.day));
+    const labels = (cashbook || []).map(c => KindCharts.dayLabel(c.day));
     const min = (cashbook || []).map(c => +c.money_in || 0);
     const mout = (cashbook || []).map(c => -+c.money_out || 0);
     const ctx = document.getElementById('chart-cashflow');
     charts.cashflow = new Chart(ctx, {
         type: 'bar',
         data: { labels, datasets: [
-            { label: 'Money In',  data: min, backgroundColor: 'rgba(22,163,74,0.8)', borderRadius: 4, stack: 's' },
+            { label: 'Money In',  data: min, backgroundColor: 'rgba(62,138,58,0.8)', borderRadius: 4, stack: 's' },
             { label: 'Money Out', data: mout, backgroundColor: 'rgba(220,38,38,0.8)', borderRadius: 4, stack: 's' },
         ]},
         options: {
@@ -499,24 +499,24 @@ function renderCashFlowChart(cashbook) {
             },
             scales: {
                 x: { grid: { display: false }, ticks: { color: C.text } },
-                y: { grid: { color: C.grid }, ticks: { color: C.text, callback: v => BusiaCharts.kes(v) } },
+                y: { grid: { color: C.grid }, ticks: { color: C.text, callback: v => KindCharts.kes(v) } },
             },
         },
     });
 }
 
 function renderProductionChart(prod) {
-    const labels = (prod || []).map(p => BusiaCharts.dayLabel(p.day));
+    const labels = (prod || []).map(p => KindCharts.dayLabel(p.day));
     const eggs = (prod || []).map(p => +p.eggs || 0);
     const ctx = document.getElementById('chart-production');
-    charts.production = BusiaCharts.areaChart(ctx, labels, eggs, { color: C.amber });
+    charts.production = KindCharts.areaChart(ctx, labels, eggs, { color: C.amber });
 }
 
 function renderTopProductsChart(top) {
     const labels = (top || []).map(p => p.name || '');
     const values = (top || []).map(p => +p.qty || 0);
     const ctx = document.getElementById('chart-top-products');
-    charts.top = BusiaCharts.hBarChart(ctx, labels, values, { color: C.primary });
+    charts.top = KindCharts.hBarChart(ctx, labels, values, { color: C.primary });
 }
 
 function renderMortalityChart(m) {
@@ -568,7 +568,7 @@ function renderGrowthChart(growth, batchName) {
     const labels = (growth || []).map(g => 'Day ' + g.day_number);
     const values = (growth || []).map(g => +g.avg_weight_kg || 0);
     const ctx = document.getElementById('chart-growth');
-    charts.growth = BusiaCharts.lineChart(ctx, labels, [{ data: values, label: 'Avg Weight (kg)', color: C.primary }], {});
+    charts.growth = KindCharts.lineChart(ctx, labels, [{ data: values, label: 'Avg Weight (kg)', color: C.primary }], {});
 }
 
 function renderCreditAging(ca) {
@@ -579,49 +579,49 @@ function renderCreditAging(ca) {
     };
     const colors = [C.green, C.amber, C.red];
     const ctx = document.getElementById('chart-credit-aging');
-    charts.credit = BusiaCharts.donutChart(ctx, data.labels, data.values, { colors, legendPos: 'bottom' });
+    charts.credit = KindCharts.donutChart(ctx, data.labels, data.values, { colors, legendPos: 'bottom' });
 }
 
 function renderLowStockChart(items) {
     const labels = (items || []).map(i => i.material_name || '');
     const values = (items || []).map(i => +i.current_stock || 0);
     const ctx = document.getElementById('chart-low-stock');
-    charts.lowstock = BusiaCharts.hBarChart(ctx, labels, values, { color: C.red });
+    charts.lowstock = KindCharts.hBarChart(ctx, labels, values, { color: C.red });
 }
 
 function renderProductMix(items) {
     const labels = (items || []).map(i => i.product_type || 'Other');
     const values = (items || []).map(i => +i.qty || 0);
     const ctx = document.getElementById('chart-product-mix');
-    charts.productmix = BusiaCharts.donutChart(ctx, labels, values, { legendPos: 'bottom' });
+    charts.productmix = KindCharts.donutChart(ctx, labels, values, { legendPos: 'bottom' });
 }
 
 function renderCustomerTypes(items) {
     const labels = (items || []).map(i => i.customer_type || 'Other');
     const values = (items || []).map(i => +i.cnt || 0);
     const ctx = document.getElementById('chart-customer-types');
-    charts.customertypes = BusiaCharts.donutChart(ctx, labels, values, { legendPos: 'bottom' });
+    charts.customertypes = KindCharts.donutChart(ctx, labels, values, { legendPos: 'bottom' });
 }
 
 function renderBirdTrend(bt) {
-    const labels = (bt || []).map(b => BusiaCharts.dayLabel(b.day));
+    const labels = (bt || []).map(b => KindCharts.dayLabel(b.day));
     const values = (bt || []).map(b => +b.birds || 0);
     const ctx = document.getElementById('chart-bird-trend');
-    charts.birdtrend = BusiaCharts.lineChart(ctx, labels, [{ data: values, label: 'Live Birds', color: C.green }], {});
+    charts.birdtrend = KindCharts.lineChart(ctx, labels, [{ data: values, label: 'Live Birds', color: C.green }], {});
 }
 
 function renderTopDebtors(td) {
     const labels = (td || []).map(d => d.customer_name || '');
     const values = (td || []).map(d => +d.total_owed || 0);
     const ctx = document.getElementById('chart-top-debtors');
-    charts.topdebtors = BusiaCharts.hBarChart(ctx, labels, values, { color: C.amber });
+    charts.topdebtors = KindCharts.hBarChart(ctx, labels, values, { color: C.amber });
 }
 
 function renderRevenue7d(sales) {
-    const labels = (sales || []).map(s => BusiaCharts.dayLabel(s.day));
+    const labels = (sales || []).map(s => KindCharts.dayLabel(s.day));
     const values = (sales || []).map(s => +s.total || 0);
     const ctx = document.getElementById('chart-revenue-7d');
-    charts.revenue7d = BusiaCharts.barChart(ctx, labels, values, { color: C.green, radius: 6 });
+    charts.revenue7d = KindCharts.barChart(ctx, labels, values, { color: C.green, radius: 6 });
 }
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -276,8 +276,8 @@ async function loadFormulaPerformance() {
         }
 
         tbody.innerHTML = result.data.map(p => {
-            const profitColor = p.gross_profit >= 0 ? '#16a34a' : '#dc2626';
-            const marginColor = p.profit_margin_pct >= 20 ? '#16a34a' : (p.profit_margin_pct >= 10 ? '#f59e0b' : '#dc2626');
+            const profitColor = p.gross_profit >= 0 ? '#3E8A3A' : '#dc2626';
+            const marginColor = p.profit_margin_pct >= 20 ? '#3E8A3A' : (p.profit_margin_pct >= 10 ? '#809B52' : '#dc2626');
             return `
             <tr>
                 <td style="font-weight: 700;">${p.formula_name}</td>
@@ -316,12 +316,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 datasets: [{
                     label: 'Revenue',
                     data: values,
-                    borderColor: '#1B5E20',
+                    borderColor: '#396285',
                     backgroundColor: 'rgba(27, 94, 32, 0.08)',
                     fill: true,
                     tension: 0.32,
                     pointRadius: 4,
-                    pointBackgroundColor: '#FFC107',
+                    pointBackgroundColor: '#6EAF44',
                 }]
             },
             options: {

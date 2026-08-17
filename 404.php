@@ -5,7 +5,7 @@
 declare(strict_types=1);
 
 $path_prefix = '';
-$page_title = '404 - Page Not Found | Busia Chicken Farm';
+$page_title = '404 - Page Not Found | Kind Commodities Ltd';
 
 // Check if we are inside a subdirectory to resolve imports
 if (file_exists('Frontend/includes/header.php')) {

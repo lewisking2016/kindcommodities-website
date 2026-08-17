@@ -5,13 +5,13 @@
 declare(strict_types=1);
 
 $path_prefix = '../';
-$page_title = 'Products - Chicken & Feeds | Busia Chicken Farm';
+$page_title = 'Products - Chicken & Feeds | Kind Commodities Ltd';
 
 include '../includes/header.php';
 ?>
 
 <!-- Page Hero -->
-<section class="page-hero" style="background-image:url('/Frontend/images/adbg.png');">
+<section class="page-hero" style="background:linear-gradient(135deg,#0B2310 0%,#1B4A24 55%,#396285 100%);">
     <div class="container">
         <nav class="breadcrumb" data-reveal="fade"><a href="/">Home</a><span class="sep">/</span><span>Products</span></nav>
         <h1 data-reveal="fade" data-reveal-delay="100">Our Premium <em>Products</em></h1>
@@ -36,7 +36,7 @@ include '../includes/header.php';
             </div>
             <div data-reveal="right">
                 <div class="img-frame frame-gold">
-                    <img src="/Frontend/images/download (4).png" alt="Broiler chickens" loading="lazy" style="aspect-ratio:4/3;" data-parallax="0.05">
+                    <div class="brand-panel" style="aspect-ratio:4/3;"><b>KC</b><span>Kind Commodities</span></div>
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@ include '../includes/header.php';
         <div class="row" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(2.4rem,5vw,4.5rem);align-items:center;">
             <div data-reveal="left" style="order:2;">
                 <div class="img-frame frame-gold">
-                    <img src="/Frontend/images/download (3).png" alt="Fresh farm eggs" loading="lazy" style="aspect-ratio:4/3;" data-parallax="0.05">
+                    <div class="brand-panel" style="aspect-ratio:4/3;"><b>KC</b><span>Kind Commodities</span></div>
                 </div>
             </div>
             <div data-reveal="right" style="order:1;">
@@ -88,7 +88,7 @@ include '../includes/header.php';
             </div>
             <div data-reveal="right">
                 <div class="img-frame frame-gold">
-                    <img src="/Frontend/images/download (8).png" alt="Premium animal feeds" loading="lazy" style="aspect-ratio:4/3;" data-parallax="0.05">
+                    <div class="brand-panel" style="aspect-ratio:4/3;"><b>KC</b><span>Kind Commodities</span></div>
                 </div>
             </div>
         </div>
@@ -102,7 +102,7 @@ include '../includes/header.php';
             <div class="container" style="padding:0;">
                 <span class="eyebrow centered" style="color:var(--gold-300);">Bulk Orders</span>
                 <h2>Commercial farming needs?</h2>
-                <p>We offer specialized pricing and dedicated support for large-scale operations. Bulk orders for day-old chicks and feeds include free delivery within Busia County.</p>
+                <p>We offer specialized pricing and dedicated support for large-scale operations. Bulk orders for day-old chicks and feeds include free delivery within our local delivery area.</p>
                 <div style="display:flex;gap:1rem;flex-wrap:wrap;">
                     <a href="/Frontend/pages/contact.php" class="btn btn-primary" data-magnetic>Request Bulk Quote</a>
                     <a href="/Frontend/pages/shop.php" class="btn btn-ghost">Browse the Shop</a>

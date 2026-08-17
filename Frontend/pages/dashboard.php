@@ -18,7 +18,7 @@ if (empty($_SESSION['user_id'])) {
 }
 
 $path_prefix = '../';
-$page_title = 'My Account - Busia Chicken Farm';
+$page_title = 'My Account - Kind Commodities Ltd';
 
 include '../includes/header.php';
 
@@ -196,12 +196,12 @@ if ($pdo) {
         text-transform: capitalize;
     }
 
-    .user-badge-pending { background: #fef3c7; color: #b45309; }
-    .user-badge-completed { background: #dcfce7; color: #15803d; }
+    .user-badge-pending { background: #E9F2DC; color: #2C6B31; }
+    .user-badge-completed { background: #D3E8B8; color: #2C6B31; }
     .user-badge-cancelled { background: #fee2e2; color: #b91c1c; }
     .user-badge-processing { background: #dbeafe; color: #1d4ed8; }
     .user-badge-shipped { background: #e0e7ff; color: #4338ca; }
-    .user-badge-paid { background: #dcfce7; color: #15803d; }
+    .user-badge-paid { background: #D3E8B8; color: #2C6B31; }
 
     .user-profile-field {
         display: flex;
@@ -291,7 +291,7 @@ if ($pdo) {
                 <small>Amount Spent</small>
                 <strong>KES <?php echo number_format($total_spent); ?></strong>
             </div>
-            <div class="user-kpi-icon" style="background: rgba(27, 94, 32, 0.08); color: #1B5E20;">
+            <div class="user-kpi-icon" style="background: rgba(27, 94, 32, 0.08); color: #396285;">
                 <i data-lucide="wallet" style="width: 22px; height: 22px;"></i>
             </div>
         </div>
@@ -300,7 +300,7 @@ if ($pdo) {
                 <small>Pending Orders</small>
                 <strong><?php echo $pending_orders; ?></strong>
             </div>
-            <div class="user-kpi-icon" style="background: rgba(217, 119, 6, 0.1); color: #d97706;">
+            <div class="user-kpi-icon" style="background: rgba(217, 119, 6, 0.1); color: #2C6B31;">
                 <i data-lucide="clock" style="width: 22px; height: 22px;"></i>
             </div>
         </div>

@@ -30,7 +30,7 @@ try {
             try {
                 if (function_exists('apcu_clear_cache')) @apcu_clear_cache();
                 if (function_exists('opcache_reset')) @opcache_reset();
-                $tmp = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'busia_cache';
+                $tmp = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'kind_cache';
                 if (is_dir($tmp)) {
                     $files = glob($tmp . DIRECTORY_SEPARATOR . '*');
                     foreach ($files as $f) { if (is_file($f)) @unlink($f); }
@@ -48,7 +48,7 @@ try {
             $token = bin2hex(random_bytes(8));
             $word = substr(bin2hex(random_bytes(4)), 0, 8);
             $tmpDir = sys_get_temp_dir();
-            $fname = "busia_full_backup_" . date('Ymd_His') . "_" . $token . ".csv";
+            $fname = "kind_full_backup_" . date('Ymd_His') . "_" . $token . ".csv";
             $path = $tmpDir . DIRECTORY_SEPARATOR . $fname;
             $out = fopen($path, 'w');
             if (!$out) throw new Exception('Failed to create backup file');
@@ -127,7 +127,7 @@ try {
         case 'export_orders':
             // Generate CSV for orders
             header('Content-Type: text/csv');
-            header('Content-Disposition: attachment; filename="busia_orders_report_' . date('Y-m-d') . '.csv"');
+            header('Content-Disposition: attachment; filename="kind_orders_report_' . date('Y-m-d') . '.csv"');
 
             $output = fopen('php://output', 'w');
             fputcsv($output, ['Order ID', 'Order Number', 'Customer', 'Email', 'Amount', 'Status', 'Date']);

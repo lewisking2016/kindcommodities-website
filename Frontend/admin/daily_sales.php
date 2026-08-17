@@ -27,8 +27,8 @@ include __DIR__ . '/includes/admin_header.php';
 <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;">
     <div class="stat-card"><div class="stat-card-info"><small>Crates Sold Today</small><strong id="ds-kpi-crates">—</strong></div><div class="stat-card-icon accent"><i data-lucide="package" style="width:22px;height:22px;"></i></div></div>
     <div class="stat-card"><div class="stat-card-info"><small>Sales Today</small><strong id="ds-kpi-sales">—</strong></div><div class="stat-card-icon info"><i data-lucide="banknote" style="width:22px;height:22px;"></i></div></div>
-    <div class="stat-card"><div class="stat-card-info"><small>This Week Sales</small><strong id="ds-kpi-week">—</strong></div><div class="stat-card-icon" style="background:#dcfce7;color:#16a34a;"><i data-lucide="trending-up" style="width:22px;height:22px;"></i></div></div>
-    <div class="stat-card"><div class="stat-card-info"><small>This Month Sales</small><strong id="ds-kpi-month">—</strong></div><div class="stat-card-icon" style="background:#fef3c7;color:#d97706;"><i data-lucide="calendar" style="width:22px;height:22px;"></i></div></div>
+    <div class="stat-card"><div class="stat-card-info"><small>This Week Sales</small><strong id="ds-kpi-week">—</strong></div><div class="stat-card-icon" style="background:#D3E8B8;color:#3E8A3A;"><i data-lucide="trending-up" style="width:22px;height:22px;"></i></div></div>
+    <div class="stat-card"><div class="stat-card-info"><small>This Month Sales</small><strong id="ds-kpi-month">—</strong></div><div class="stat-card-icon" style="background:#E9F2DC;color:#2C6B31;"><i data-lucide="calendar" style="width:22px;height:22px;"></i></div></div>
 </div>
 
 <div class="admin-card">

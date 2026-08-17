@@ -22,7 +22,7 @@ require_once __DIR__ . '/../includes/config.php';
 
 // Check admin access before producing any output (downloads must not leak HTML)
 if (empty($_SESSION['user_id']) || !in_array($_SESSION['role'] ?? '', ['super_admin','farm_manager','sales_staff'], true)) {
-    header('Location: /busiaadmin');
+    header('Location: /kindadmin');
     exit;
 }
 
@@ -480,8 +480,8 @@ include __DIR__ . '/includes/admin_header.php';
 
 <!-- Alerts -->
 <?php if ($success_message): ?>
-<div style="display: flex; align-items: center; gap: 10px; padding: 14px 18px; background: #f0fdf4; border: 1px solid #bbf7d0; border-left: 4px solid #16a34a; border-radius: 6px; color: #166534; font-size: 0.9rem; font-weight: 500; margin-bottom: 24px;">
-    <i data-lucide="check-circle-2" style="width: 18px; height: 18px; color: #16a34a; flex-shrink: 0;"></i>
+<div style="display: flex; align-items: center; gap: 10px; padding: 14px 18px; background: #F2F5EA; border: 1px solid #B3D98C; border-left: 4px solid #3E8A3A; border-radius: 6px; color: #1B4A24; font-size: 0.9rem; font-weight: 500; margin-bottom: 24px;">
+    <i data-lucide="check-circle-2" style="width: 18px; height: 18px; color: #3E8A3A; flex-shrink: 0;"></i>
     <?php echo htmlspecialchars($success_message); ?>
 </div>
 <?php endif; ?>
@@ -558,11 +558,11 @@ include __DIR__ . '/includes/admin_header.php';
     </div>
 
     <?php $export_tiles = [
-        ['products', 'package', 'Products', 'All products with categories, pricing, and stock levels.', 'rgba(27,94,32,.08)', 'var(--admin-primary)'],
+        ['products', 'package', 'Products', 'All products with categories, pricing, and stock levels.', 'rgba(57,98,133,.08)', 'var(--admin-primary)'],
         ['orders', 'shopping-cart', 'Orders', 'Complete order history with customer and payment details.', 'rgba(59,130,246,.1)', '#2563eb'],
-        ['customers', 'users', 'Customers', 'Customer database with contact information and accounts.', 'rgba(255,193,7,.14)', '#b45309'],
+        ['customers', 'users', 'Customers', 'Customer database with contact information and accounts.', 'rgba(255,193,7,.14)', '#2C6B31'],
         ['raw_materials', 'layers', 'Raw Materials', 'Ingredient stock levels and pricing data.', 'rgba(139,92,246,.1)', '#7c3aed'],
-        ['flocks', 'bird', 'Flocks', 'Poultry flock records with breeds, counts, and status.', 'rgba(22,163,74,.1)', '#15803d'],
+        ['flocks', 'bird', 'Flocks', 'Poultry flock records with breeds, counts, and status.', 'rgba(62,138,58,.1)', '#2C6B31'],
         ['expenses', 'dollar-sign', 'Expenses', 'Farm expenses with categories, vendors, and dates.', 'rgba(220,38,38,.08)', '#dc2626'],
     ]; ?>
     <div class="bie-export-grid">
@@ -633,13 +633,13 @@ include __DIR__ . '/includes/admin_header.php';
     </form>
 
     <!-- Live format panel -->
-    <div id="format-panel" style="display: none; margin-top: 24px; padding: 18px 20px; background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px;">
+    <div id="format-panel" style="display: none; margin-top: 24px; padding: 18px 20px; background: #F2F5EA; border: 1px solid #D3E8B8; border-radius: 8px;">
         <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
-            <i data-lucide="info" style="width: 18px; height: 18px; color: #d97706;"></i>
-            <h4 id="format-title" style="margin: 0; font-size: 0.9rem; font-weight: 700; color: #92400e;">CSV columns</h4>
+            <i data-lucide="info" style="width: 18px; height: 18px; color: #2C6B31;"></i>
+            <h4 id="format-title" style="margin: 0; font-size: 0.9rem; font-weight: 700; color: #2C6B31;">CSV columns</h4>
         </div>
         <div id="format-columns" style="line-height: 1;"></div>
-        <p style="margin: 8px 0 0 0; font-size: 0.78rem; color: #92400e;">
+        <p style="margin: 8px 0 0 0; font-size: 0.78rem; color: #2C6B31;">
             <i data-lucide="lightbulb" style="width: 13px; height: 13px; display: inline-block; margin-right: 4px; vertical-align: -2px;"></i>
             TIP: The first row is the header — it is skipped automatically during import.
         </p>
@@ -657,22 +657,22 @@ include __DIR__ . '/includes/admin_header.php';
     </div>
 
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-        <div style="background: #f0fdf4; border: 1px solid #dcfce7; padding: 20px; border-radius: 8px;">
+        <div style="background: #F2F5EA; border: 1px solid #D3E8B8; padding: 20px; border-radius: 8px;">
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
-                <i data-lucide="refresh-cw" style="width: 18px; height: 18px; color: #16a34a;"></i>
-                <h4 style="margin: 0; font-weight: 700; font-size: 0.95rem; color: #166534;">Products, Raw Materials, Customers</h4>
+                <i data-lucide="refresh-cw" style="width: 18px; height: 18px; color: #3E8A3A;"></i>
+                <h4 style="margin: 0; font-weight: 700; font-size: 0.95rem; color: #1B4A24;">Products, Raw Materials, Customers</h4>
             </div>
-            <p style="margin: 0; font-size: 0.85rem; color: #15803d; line-height: 1.6;">
+            <p style="margin: 0; font-size: 0.85rem; color: #2C6B31; line-height: 1.6;">
                 <strong>UPDATE ON DUPLICATE:</strong> if a product or customer with the same name/email already exists, its data is updated instead of creating a new row.
             </p>
         </div>
 
-        <div style="background: #fffbeb; border: 1px solid #fde68a; padding: 20px; border-radius: 8px;">
+        <div style="background: #F2F5EA; border: 1px solid #D3E8B8; padding: 20px; border-radius: 8px;">
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
-                <i data-lucide="plus-circle" style="width: 18px; height: 18px; color: #d97706;"></i>
-                <h4 style="margin: 0; font-weight: 700; font-size: 0.95rem; color: #92400e;">Flocks, Expenses</h4>
+                <i data-lucide="plus-circle" style="width: 18px; height: 18px; color: #2C6B31;"></i>
+                <h4 style="margin: 0; font-weight: 700; font-size: 0.95rem; color: #2C6B31;">Flocks, Expenses</h4>
             </div>
-            <p style="margin: 0; font-size: 0.85rem; color: #b45309; line-height: 1.6;">
+            <p style="margin: 0; font-size: 0.85rem; color: #2C6B31; line-height: 1.6;">
                 <strong>ALWAYS INSERT:</strong> every row creates a new record — ideal for historical data that doesn't need deduplication.
             </p>
         </div>

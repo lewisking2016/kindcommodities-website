@@ -27,7 +27,7 @@ include __DIR__ . '/includes/admin_header.php';
 
 <!-- Today summary -->
 <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;">
-    <div class="stat-card"><div class="stat-card-info"><small>Money In Today</small><strong id="cb-in-today" style="color:#16a34a;">KES 0</strong></div><div class="stat-card-icon" style="background:#dcfce7;color:#16a34a;"><i data-lucide="arrow-down" style="width:22px;height:22px;"></i></div></div>
+    <div class="stat-card"><div class="stat-card-info"><small>Money In Today</small><strong id="cb-in-today" style="color:#3E8A3A;">KES 0</strong></div><div class="stat-card-icon" style="background:#D3E8B8;color:#3E8A3A;"><i data-lucide="arrow-down" style="width:22px;height:22px;"></i></div></div>
     <div class="stat-card"><div class="stat-card-info"><small>Money Out Today</small><strong id="cb-out-today" style="color:#dc2626;">KES 0</strong></div><div class="stat-card-icon" style="background:#fee2e2;color:#dc2626;"><i data-lucide="arrow-up" style="width:22px;height:22px;"></i></div></div>
     <div class="stat-card"><div class="stat-card-info"><small>Profit Today</small><strong id="cb-profit-today">KES 0</strong></div><div class="stat-card-icon accent"><i data-lucide="trending-up" style="width:22px;height:22px;"></i></div></div>
     <div class="stat-card"><div class="stat-card-info"><small>Closing Balance</small><strong id="cb-balance">KES 0</strong></div><div class="stat-card-icon info"><i data-lucide="wallet" style="width:22px;height:22px;"></i></div></div>
@@ -50,7 +50,7 @@ include __DIR__ . '/includes/admin_header.php';
         <table class="admin-table">
             <thead><tr>
                 <th>Date</th>
-                <th style="text-align:right;color:#16a34a;">Money In</th>
+                <th style="text-align:right;color:#3E8A3A;">Money In</th>
                 <th style="text-align:right;color:#dc2626;">Money Out</th>
                 <th>What For</th>
                 <th>Customer / Supplier</th>
@@ -68,7 +68,7 @@ include __DIR__ . '/includes/admin_header.php';
 <!-- Money In Modal -->
 <div id="money-in-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:2000;align-items:center;justify-content:center;">
     <div style="background:#fff;padding:32px;border-radius:12px;width:100%;max-width:480px;box-shadow:0 20px 40px rgba(0,0,0,0.15);">
-        <h3 style="margin:0 0 8px;font-family:'Outfit',sans-serif;color:#16a34a;">Money In</h3>
+        <h3 style="margin:0 0 8px;font-family:'Outfit',sans-serif;color:#3E8A3A;">Money In</h3>
         <p style="margin:0 0 18px;color:#64748b;font-size:0.85rem;">Money received from sales or other income.</p>
         <form id="money-in-form">
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
@@ -217,7 +217,7 @@ async function loadCashbook() {
             const isIn = e.direction === 'in';
             return `<tr>
                 <td>${e.entry_date}</td>
-                <td style="text-align:right;font-weight:700;color:#16a34a;">${isIn ? 'KES ' + parseFloat(e.amount).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}) : ''}</td>
+                <td style="text-align:right;font-weight:700;color:#3E8A3A;">${isIn ? 'KES ' + parseFloat(e.amount).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}) : ''}</td>
                 <td style="text-align:right;font-weight:700;color:#dc2626;">${!isIn ? 'KES ' + parseFloat(e.amount).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}) : ''}</td>
                 <td><span class="badge-pill badge-pill-info">${sourceLabels[e.money_source]||e.money_source}</span><br><small style="color:#64748b;">${escapeHtml(e.description||'')}</small></td>
                 <td>${escapeHtml(e.customer_name||e.supplier_name||'—')}</td>

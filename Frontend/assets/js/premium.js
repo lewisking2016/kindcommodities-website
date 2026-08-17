@@ -1,5 +1,5 @@
 /**
- * Busia Chicken Farm — Premium Motion Layer
+ * Kind Commodities Ltd — Premium Motion Layer
  * Navigation, scroll reveals, counters, parallax, magnetic buttons,
  * hero + product sliders, back-to-top, scroll progress.
  * Vanilla JS + GSAP where available. No external dependencies.

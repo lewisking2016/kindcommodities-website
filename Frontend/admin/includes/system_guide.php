@@ -577,7 +577,7 @@ foreach ($guideSections as $_group) {
                 <?php $pi = 0; foreach ($guideSections as $_group): foreach ($_group as $mod): ?>
                 <div class="guide-step-pane" data-pane-id="<?= $mod['id'] ?>" style="display: <?= $pi === 0 ? 'block' : 'none' ?>;">
                     <h4 style="margin: 0 0 8px 0; font-size: 1.2rem; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 9px;">
-                        <span style="width: 34px; height: 34px; border-radius: 9px; background: rgba(27,94,32,0.08); color: var(--admin-primary); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;"><i data-lucide="<?= $mod['icon'] ?>" style="width: 18px; height: 18px;"></i></span>
+                        <span style="width: 34px; height: 34px; border-radius: 9px; background: rgba(57,98,133,0.08); color: var(--admin-primary); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;"><i data-lucide="<?= $mod['icon'] ?>" style="width: 18px; height: 18px;"></i></span>
                         <?= htmlspecialchars($mod['title'], ENT_QUOTES, 'UTF-8') ?>
                     </h4>
                     <p style="margin: 0 0 16px 0; line-height: 1.6; font-size: 0.92rem; color: #475569;"><?= $mod['summary'] ?></p>
@@ -590,8 +590,8 @@ foreach ($guideSections as $_group) {
                     </ol>
 
                     <?php if (!empty($mod['tips'])): ?>
-                    <div style="font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #d97706; margin-bottom: 8px;">Good to know</div>
-                    <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 7px; font-size: 0.88rem; color: #78350f; line-height: 1.5; background: #fffbeb; border: 1px solid #fde68a; border-radius: 9px; padding: 14px 14px 14px 30px;">
+                    <div style="font-size: 0.74rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #2C6B31; margin-bottom: 8px;">Good to know</div>
+                    <ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 7px; font-size: 0.88rem; color: #1B4A24; line-height: 1.5; background: #F2F5EA; border: 1px solid #D3E8B8; border-radius: 9px; padding: 14px 14px 14px 30px;">
                         <?php foreach ($mod['tips'] as $tip): ?>
                         <li><?= $tip ?></li>
                         <?php endforeach; ?>

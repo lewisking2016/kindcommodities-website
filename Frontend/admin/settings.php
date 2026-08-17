@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_settings'])) {
 </div>
 
 <?php if ($save_message): ?>
-<div style="padding: 12px 20px; background: #dcfce7; border: 1px solid #bbf7d0; border-radius: 4px; color: #15803d; font-size: 0.9rem; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+<div style="padding: 12px 20px; background: #D3E8B8; border: 1px solid #B3D98C; border-radius: 4px; color: #2C6B31; font-size: 0.9rem; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
     <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i>
     <?php echo $save_message; ?>
 </div>
@@ -80,11 +80,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_settings'])) {
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div class="admin-form-group">
                 <label class="admin-form-label">Farm Name</label>
-                <input type="text" name="farm_name" value="<?php echo htmlspecialchars(getSetting('farm_name', 'Busia Chicken Farm')); ?>" class="admin-form-control">
+                <input type="text" name="farm_name" value="<?php echo htmlspecialchars(getSetting('farm_name', 'Kind Commodities Ltd')); ?>" class="admin-form-control">
             </div>
             <div class="admin-form-group">
                 <label class="admin-form-label">Contact Email</label>
-                <input type="email" name="farm_email" value="<?php echo htmlspecialchars(getSetting('farm_email', 'info@busiachicken.com')); ?>" class="admin-form-control">
+                <input type="email" name="farm_email" value="<?php echo htmlspecialchars(getSetting('farm_email', 'info@kindcommoditiesltd.com')); ?>" class="admin-form-control">
             </div>
             <div class="admin-form-group">
                 <label class="admin-form-label">Phone Number</label>
@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_settings'])) {
             </div>
             <div class="admin-form-group">
                 <label class="admin-form-label">Location</label>
-                <input type="text" name="farm_address" value="<?php echo htmlspecialchars(getSetting('farm_address', 'Busia, Kenya')); ?>" class="admin-form-control">
+                <input type="text" name="farm_address" value="<?php echo htmlspecialchars(getSetting('farm_address', 'Kenya')); ?>" class="admin-form-control">
             </div>
             <div class="admin-form-group">
                 <label class="admin-form-label">Currency</label>

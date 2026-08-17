@@ -9,7 +9,7 @@ if (is_writable($temp_dir)) session_save_path($temp_dir);
 session_start();
 
 if (empty($_SESSION['user_id']) || !in_array($_SESSION['role'] ?? '', ['super_admin','farm_manager','stock_manager','sales_staff'], true)) {
-    echo "<script>window.location.href='/busiaadmin';</script>"; exit;
+    echo "<script>window.location.href='/kindadmin';</script>"; exit;
 }
 
 $page_title = 'Inventory & Store - Admin';
@@ -36,7 +36,7 @@ $tabs = [
 </div>
 
 <?php if ($message): ?>
-<div style="padding:13px 18px;background:#dcfce7;border:1px solid #bbf7d0;border-radius:8px;color:#166534;margin-bottom:18px;display:flex;align-items:center;gap:10px;">
+<div style="padding:13px 18px;background:#D3E8B8;border:1px solid #B3D98C;border-radius:8px;color:#1B4A24;margin-bottom:18px;display:flex;align-items:center;gap:10px;">
     <i data-lucide="check-circle-2" style="width:18px;height:18px;"></i> <?= htmlspecialchars($message, ENT_QUOTES, 'UTF-8') ?>
 </div>
 <?php endif; ?>

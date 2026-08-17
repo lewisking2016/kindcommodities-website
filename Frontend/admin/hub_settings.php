@@ -81,7 +81,7 @@ $tabs = [
 </div>
 
 <?php if ($message): ?>
-<div style="padding:13px 18px;background:#dcfce7;border:1px solid #bbf7d0;border-radius:8px;color:#166534;margin-bottom:18px;display:flex;align-items:center;gap:10px;">
+<div style="padding:13px 18px;background:#D3E8B8;border:1px solid #B3D98C;border-radius:8px;color:#1B4A24;margin-bottom:18px;display:flex;align-items:center;gap:10px;">
     <i data-lucide="check-circle-2" style="width:18px;height:18px;"></i> <?php echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?>
 </div>
 <?php endif; ?>
@@ -275,7 +275,7 @@ function renderCalendar() {
         const hasTasks = taskDates[dateStr];
         html += `<div style="text-align:center;padding:7px 4px;border-radius:6px;font-size:0.82rem;position:relative;cursor:default;
             ${isToday ? 'background:var(--admin-primary);color:#fff;font-weight:700;' : 'color:#334155;'}
-            ${hasTasks && !isToday ? 'background:#dcfce7;color:var(--admin-primary);font-weight:600;' : ''}
+            ${hasTasks && !isToday ? 'background:#D3E8B8;color:var(--admin-primary);font-weight:600;' : ''}
             transition:background 0.15s;">
             ${d}
             ${hasTasks ? `<span style="position:absolute;top:2px;right:3px;width:6px;height:6px;background:${isToday?'#fff':'var(--admin-primary)'};border-radius:50%;"></span>` : ''}

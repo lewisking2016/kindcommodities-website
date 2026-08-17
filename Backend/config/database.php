@@ -1,7 +1,7 @@
 <?php
 /**
  * Database Connection & Configuration
- * PDO-based database management for Busia Chicken Farm
+ * PDO-based database management for Kind Commodities Ltd
  */
 declare(strict_types=1);
 
@@ -11,7 +11,7 @@ declare(strict_types=1);
 // Credentials are resolved in this order:
 //   1. Backend/config/database.local.php  (gitignored — never commit this)
 //   2. Environment variables DB_HOST / DB_NAME / DB_USER / DB_PASS
-//   3. Local development defaults (root / empty password / busia_chicken_db)
+//   3. Local development defaults (root / empty password / kind_commodities_db)
 //   4. Legacy production fallback (kept ONLY so the live site keeps
 //      connecting during migration — see note below)
 //
@@ -47,10 +47,10 @@ $isLocalhost = $isCli
         && (str_contains($_SERVER['DOCUMENT_ROOT'], 'Users') || str_contains($_SERVER['DOCUMENT_ROOT'], 'Desktop')));
 
 // Per-environment defaults. The production values are the legacy fallback
-// that keeps the LIVE site (new.decapoli.co.ke) connected — rotate the
+// that keeps the LIVE site (kindcommoditiesltd.com) connected — rotate the
 // password and move them out of this file when possible (see note above).
 $defaults = $isLocalhost
-    ? ['localhost', 'busia_chicken_db', 'root', '']
+    ? ['localhost', 'kind_commodities_db', 'root', '']
     : ['localhost', 'DB_NAME_PLACEHOLDER', 'DB_USER_PLACEHOLDER', 'DB_PASS_PLACEHOLDER'];
 
 define('DB_HOST', $DB_HOST ?? $dbEnv('DB_HOST') ?? $defaults[0]);
@@ -94,9 +94,9 @@ function getDatabaseConnection(): ?PDO {
             PDO::ATTR_EMULATE_PREPARES => false,
         ]);
 
-        if (function_exists('ensureBusiaSchema')) {
+        if (function_exists('ensureKindSchema')) {
             try {
-                ensureBusiaSchema($pdo);
+                ensureKindSchema($pdo);
             } catch (Exception $e) {
                 @error_log('Auto schema ensure failed: ' . $e->getMessage());
             }

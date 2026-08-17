@@ -87,7 +87,7 @@ if ($pdo) {
                 <div class="admin-form-group"><label class="admin-form-label">Customer Name *</label><input class="admin-form-control" id="d-cust" required placeholder="e.g. Kariuki Wholesalers"></div>
                 <div class="admin-form-group"><label class="admin-form-label">Phone</label><input class="admin-form-control" id="d-phone" placeholder="07xx xxx xxx"></div>
                 <div class="admin-form-group"><label class="admin-form-label">Email</label><input class="admin-form-control" type="email" id="d-email" placeholder="customer@email.com"></div>
-                <div class="admin-form-group" style="grid-column:span 2"><label class="admin-form-label">Address / Location</label><input class="admin-form-control" id="d-addr" placeholder="e.g. Busia Town, Block B"></div>
+                <div class="admin-form-group" style="grid-column:span 2"><label class="admin-form-label">Address / Location</label><input class="admin-form-control" id="d-addr" placeholder="e.g. Town, Block B"></div>
                 <div class="admin-form-group"><label class="admin-form-label">Due / Valid Until</label><input class="admin-form-control" type="date" id="d-due"></div>
             </div>
 
@@ -359,10 +359,10 @@ async function viewDoc(id) {
         <div id="printable-doc">
             <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;">
                 <div style="display:flex;align-items:center;gap:10px;">
-                    <img src="/Frontend/images/busia logo.png" style="height:46px;">
+                    <img src="/Frontend/images/kind-logo.png" style="height:42px;">
                     <div>
-                        <div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:1.15rem;color:#0f172a;">Busia Chicken Farm</div>
-                        <div style="font-size:0.78rem;color:#64748b;">Busia, Kenya &nbsp;•&nbsp; new.decapoli.co.ke</div>
+                        <div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:1.15rem;color:#0f172a;">Kind Commodities Ltd</div>
+                        <div style="font-size:0.78rem;color:#64748b;">Kenya &nbsp;•&nbsp; kindcommoditiesltd.com</div>
                     </div>
                 </div>
                 <div style="text-align:right;">
@@ -395,7 +395,7 @@ async function viewDoc(id) {
                     <span style="color:#0f172a;font-weight:700;border-top:1px solid #e2e8f0;padding-top:8px;">TOTAL</span><span style="text-align:right;font-weight:800;color:var(--admin-primary);font-size:1.1rem;border-top:1px solid #e2e8f0;padding-top:8px;">KES ${parseFloat(d.total_amount).toLocaleString(undefined,{minimumFractionDigits:2})}</span>
                 </div>
             </div>
-            ${d.notes ? '<div style="margin-top:18px;padding:12px 14px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;font-size:0.85rem;color:#92400e;"><strong>Notes / Terms:</strong> ' + escapeHtml(d.notes) + '</div>' : ''}
+            ${d.notes ? '<div style="margin-top:18px;padding:12px 14px;background:#F2F5EA;border:1px solid #D3E8B8;border-radius:8px;font-size:0.85rem;color:#2C6B31;"><strong>Notes / Terms:</strong> ' + escapeHtml(d.notes) + '</div>' : ''}
             <div style="margin-top:26px;display:flex;justify-content:space-between;font-size:0.82rem;color:#64748b;">
                 <div>Prepared by: <span style="font-weight:600;color:#0f172a;">${escapeHtml(d.created_by_name || 'Admin')}</span></div>
                 <div>Generated on ${new Date().toLocaleDateString()}</div>

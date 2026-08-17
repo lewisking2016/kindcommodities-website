@@ -26,8 +26,8 @@ include __DIR__ . '/includes/admin_header.php';
 <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;">
     <div class="stat-card"><div class="stat-card-info"><small>Hatches This Week</small><strong id="h-week">0</strong></div><div class="stat-card-icon accent"><i data-lucide="egg" style="width:22px;height:22px;"></i></div></div>
     <div class="stat-card"><div class="stat-card-info"><small>Total Chicks Hatched</small><strong id="h-total">0</strong></div><div class="stat-card-icon info"><i data-lucide="baby" style="width:22px;height:22px;"></i></div></div>
-    <div class="stat-card"><div class="stat-card-info"><small>Avg Hatchability</small><strong id="h-pct">0%</strong></div><div class="stat-card-icon" style="background:#dcfce7;color:#16a34a;"><i data-lucide="percent" style="width:22px;height:22px;"></i></div></div>
-    <div class="stat-card"><div class="stat-card-info"><small>Active Hatches</small><strong id="h-active">0</strong></div><div class="stat-card-icon" style="background:#fef3c7;color:#d97706;"><i data-lucide="clock" style="width:22px;height:22px;"></i></div></div>
+    <div class="stat-card"><div class="stat-card-info"><small>Avg Hatchability</small><strong id="h-pct">0%</strong></div><div class="stat-card-icon" style="background:#D3E8B8;color:#3E8A3A;"><i data-lucide="percent" style="width:22px;height:22px;"></i></div></div>
+    <div class="stat-card"><div class="stat-card-info"><small>Active Hatches</small><strong id="h-active">0</strong></div><div class="stat-card-icon" style="background:#E9F2DC;color:#2C6B31;"><i data-lucide="clock" style="width:22px;height:22px;"></i></div></div>
 </div>
 
 <div class="admin-card">

@@ -1,5 +1,5 @@
 /**
- * Busia Chicken Farm - Main JavaScript
+ * Kind Commodities Ltd - Main JavaScript
  * Premium animations, interactions, and functionality
  */
 
@@ -9,7 +9,7 @@
 // GLOBAL APP OBJECT
 // ═══════════════════════════════════════════════════════════════
 
-const BusiaApp = {
+const KindApp = {
     // Configuration
     config: {
         scrollThreshold: 100,
@@ -26,7 +26,7 @@ const BusiaApp = {
         this.setupShopFilters();
         this.setupCounterAnimation();
         this.setupModalHandlers();
-        console.log('Busia App initialized');
+        console.log('Kind App initialized');
     },
 
     // ═══════════════════════════════════════════════════════════════
@@ -67,7 +67,7 @@ const BusiaApp = {
     setupMobileMenu() {
         // Mobile drawer is fully handled by premium.js (CSS-class hamburger animation,
         // slide-in panel, aria state, Escape/outside-click close). Kept as a no-op
-        // here so pages that rely on BusiaApp.init() still behave consistently.
+        // here so pages that rely on KindApp.init() still behave consistently.
     },
 
     // ═══════════════════════════════════════════════════════════════
@@ -466,11 +466,11 @@ const BusiaApp = {
 // ═══════════════════════════════════════════════════════════════
 
 document.addEventListener('DOMContentLoaded', () => {
-    BusiaApp.init();
+    KindApp.init();
 });
 
 // Re-initialize on page load
 window.addEventListener('load', () => {
-    BusiaApp.onPageLoad();
+    KindApp.onPageLoad();
 });
 

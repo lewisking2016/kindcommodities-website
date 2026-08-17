@@ -1,5 +1,5 @@
 /**
- * Busia Chicken — Charts Library
+ * Kind Commodities — Charts Library
  * Reusable animated Chart.js helpers + count-up stat cards.
  * All charts share the same color palette and animation timing.
  */
@@ -8,12 +8,12 @@
 
     // Brand colors
     const C = {
-        primary:   '#1B5E20',
-        primaryLt: '#2E7D32',
-        accent:    '#FFC107',
-        amber:     '#FF8F00',
-        green:     '#16a34a',
-        greenLt:   '#86efac',
+        primary:   '#396285',
+        primaryLt: '#4A7BA3',
+        accent:    '#6EAF44',
+        amber:     '#809B52',
+        green:     '#3E8A3A',
+        greenLt:   '#8FC463',
         red:       '#dc2626',
         redLt:     '#fca5a5',
         blue:      '#2563eb',
@@ -436,7 +436,7 @@
     }
 
     // Export
-    global.BusiaCharts = {
+    global.KindCharts = {
         C,
         lineChart, barChart, hBarChart, stackedBar, donutChart, areaChart, comboChart,
         sparkline, countUp, countUpAll, animateCards,

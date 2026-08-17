@@ -8,10 +8,10 @@ if (!isset($path_prefix)) {
     $path_prefix = '';
 }
 
-$site_name = function_exists('getSetting') ? getSetting('farm_name', 'Busia Chicken Farm') : 'Busia Chicken Farm';
-$site_email = function_exists('getSetting') ? getSetting('farm_email', 'info@busiachicken.com') : 'info@busiachicken.com';
-$site_phone = function_exists('getSetting') ? getSetting('farm_phone', '+254 727 585 599') : '+254 727 585 599';
-$site_address = function_exists('getSetting') ? getSetting('farm_address', 'Nasira AC Sub-location, Busia, Kenya') : 'Nasira AC Sub-location, Busia, Kenya';
+$site_name = function_exists('getSetting') ? getSetting('farm_name', 'Kind Commodities Ltd') : 'Kind Commodities Ltd';
+$site_email = function_exists('getSetting') ? getSetting('farm_email', 'info@kindcommoditiesltd.com') : 'info@kindcommoditiesltd.com';
+$site_phone = function_exists('getSetting') ? getSetting('farm_phone', '+254 700 000 000') : '+254 700 000 000';
+$site_address = function_exists('getSetting') ? getSetting('farm_address', 'Kenya') : 'Kenya';
 ?>
 
     <!-- Footer -->
@@ -21,8 +21,7 @@ $site_address = function_exists('getSetting') ? getSetting('farm_address', 'Nasi
                 <!-- Brand -->
                 <div>
                     <div class="f-brand">
-                        <img src="/Frontend/images/busia logo.png" alt="Busia Chicken Farm Logo">
-                        <span class="f-brand-text">BUSIA<span>CHICKEN</span></span>
+                        <img src="/Frontend/images/kind-logo.png" alt="Kind Commodities Ltd Logo">
                     </div>
                     <p class="f-desc">
                         Leading supplier of premium-grade poultry, fresh eggs, and specially formulated feeds across East Africa. From our family farm to your table — quality you can trust.

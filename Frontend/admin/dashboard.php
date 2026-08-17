@@ -10,7 +10,7 @@ session_start();
 
 // Admin access check
 if (empty($_SESSION['user_id']) || !in_array($_SESSION['role'] ?? '', ['super_admin','farm_manager', 'stock_manager', 'sales_staff'], true)) {
-    echo "<script>window.location.href = '/busiaadmin';</script>";
+    echo "<script>window.location.href = '/kindadmin';</script>";
     exit;
 }
 
@@ -22,7 +22,7 @@ $deniedModule = isset($_GET['denied']) ? 'that module' : '';
 ?>
 
 <?php if (isset($_GET['denied'])): ?>
-<div style="padding:13px 18px;background:#fef3c7;border:1px solid #fde68a;border-radius:8px;color:#92400e;margin-bottom:18px;display:flex;align-items:center;gap:10px;">
+<div style="padding:13px 18px;background:#E9F2DC;border:1px solid #D3E8B8;border-radius:8px;color:#2C6B31;margin-bottom:18px;display:flex;align-items:center;gap:10px;">
     <i data-lucide="shield-alert" style="width:18px;height:18px;flex-shrink:0;"></i>
     <span>Your role doesn't have permission to open that module. Ask the Super Admin to grant access under <strong>Settings → Roles &amp; Permissions</strong>.</span>
 </div>
@@ -197,7 +197,7 @@ $deniedModule = isset($_GET['denied']) ? 'that module' : '';
             <div class="stat-card-info">
                 <small>Total Revenue</small>
                 <strong id="kpi-sales">KES 0</strong>
-                <span style="font-size: 0.8rem; color: #16a34a; font-weight: 600; margin-top: 4px; display: inline-flex; align-items: center; gap: 4px;">
+                <span style="font-size: 0.8rem; color: #3E8A3A; font-weight: 600; margin-top: 4px; display: inline-flex; align-items: center; gap: 4px;">
                     <i data-lucide="trending-up" style="width: 14px; height: 14px;"></i> +18.5% this month
                 </span>
             </div>
@@ -210,7 +210,7 @@ $deniedModule = isset($_GET['denied']) ? 'that module' : '';
             <div class="stat-card-info">
                 <small>Orders Completed</small>
                 <strong id="kpi-orders">0</strong>
-                <span style="font-size: 0.8rem; color: #16a34a; font-weight: 600; margin-top: 4px; display: inline-flex; align-items: center; gap: 4px;">
+                <span style="font-size: 0.8rem; color: #3E8A3A; font-weight: 600; margin-top: 4px; display: inline-flex; align-items: center; gap: 4px;">
                     <i data-lucide="check" style="width: 14px; height: 14px;"></i> +9.1% conversion
                 </span>
             </div>
@@ -223,7 +223,7 @@ $deniedModule = isset($_GET['denied']) ? 'that module' : '';
             <div class="stat-card-info">
                 <small>Avg. Order Value</small>
                 <strong id="kpi-avg">KES 0</strong>
-                <span style="font-size: 0.8rem; color: #16a34a; font-weight: 600; margin-top: 4px; display: inline-flex; align-items: center; gap: 4px;">
+                <span style="font-size: 0.8rem; color: #3E8A3A; font-weight: 600; margin-top: 4px; display: inline-flex; align-items: center; gap: 4px;">
                     <i data-lucide="trending-up" style="width: 14px; height: 14px;"></i> +5.2% growth
                 </span>
             </div>
@@ -236,11 +236,11 @@ $deniedModule = isset($_GET['denied']) ? 'that module' : '';
             <div class="stat-card-info">
                 <small>Healthy Flocks</small>
                 <strong id="kpi-flock-summary">—</strong>
-                <span style="font-size: 0.8rem; color: #16a34a; font-weight: 600; margin-top: 4px; display: inline-flex; align-items: center; gap: 4px;">
+                <span style="font-size: 0.8rem; color: #3E8A3A; font-weight: 600; margin-top: 4px; display: inline-flex; align-items: center; gap: 4px;">
                     <i data-lucide="check-circle" style="width: 14px; height: 14px;"></i> Active
                 </span>
             </div>
-            <div class="stat-card-icon accent" style="background: rgba(22, 163, 74, 0.1); color: #16a34a;">
+            <div class="stat-card-icon accent" style="background: rgba(22, 163, 74, 0.1); color: #3E8A3A;">
                 <i data-lucide="layers"></i>
             </div>
         </div>
@@ -264,7 +264,7 @@ $deniedModule = isset($_GET['denied']) ? 'that module' : '';
             
             <div style="display: flex; flex-direction: column; gap: 12px;">
                 <div style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: rgba(27, 94, 32, 0.04); border-radius: 4px; border: 1px solid rgba(27, 94, 32, 0.08);">
-                    <div style="width: 10px; height: 10px; background: #16a34a; border-radius: 50%;"></div>
+                    <div style="width: 10px; height: 10px; background: #3E8A3A; border-radius: 50%;"></div>
                     <div style="flex-grow: 1;">
                         <h5 style="margin: 0; font-size: 0.9rem; color: var(--admin-text-heading);">Platform Status</h5>
                         <p style="margin: 0; font-size: 0.75rem; color: #64748b;">All systems operational</p>
@@ -272,7 +272,7 @@ $deniedModule = isset($_GET['denied']) ? 'that module' : '';
                 </div>
 
                 <div style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: rgba(27, 94, 32, 0.04); border-radius: 4px; border: 1px solid rgba(27, 94, 32, 0.08);">
-                    <i data-lucide="bird" style="width: 16px; height: 16px; color: #16a34a;"></i>
+                    <i data-lucide="bird" style="width: 16px; height: 16px; color: #3E8A3A;"></i>
                     <div style="flex-grow: 1;">
                         <h5 style="margin: 0; font-size: 0.9rem; color: var(--admin-text-heading);"><span id="kpi-active-flocks">0</span> Active Flocks</h5>
                         <p style="margin: 0; font-size: 0.75rem; color: #64748b;">Currently producing</p>
@@ -330,7 +330,7 @@ $deniedModule = isset($_GET['denied']) ? 'that module' : '';
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-<script src="/Frontend/assets/js/busia-charts.js"></script>
+<script src="/Frontend/assets/js/kind-charts.js"></script>
 <script>
 let dashCharts = {};
 async function loadDashboard() {
@@ -350,21 +350,21 @@ async function loadDashboard() {
     const orders = (data.data.orders || []).map((item) => ({ date: item.day, value: Number(item.cnt) }));
     const topProducts = data.data.top_products || [];
 
-    const labels = sales.map((item) => BusiaCharts.dayLabel(item.date));
+    const labels = sales.map((item) => KindCharts.dayLabel(item.date));
 
     // Revenue trend (line/area)
-    dashCharts.sales = BusiaCharts.areaChart(document.getElementById('chart-sales'), labels, sales.map(i => i.value), { color: BusiaCharts.C.primary });
+    dashCharts.sales = KindCharts.areaChart(document.getElementById('chart-sales'), labels, sales.map(i => i.value), { color: KindCharts.C.primary });
 
     // Orders (bar)
-    dashCharts.orders = BusiaCharts.barChart(document.getElementById('chart-orders'), labels, orders.map(i => i.value), { color: BusiaCharts.C.amber, radius: 4 });
+    dashCharts.orders = KindCharts.barChart(document.getElementById('chart-orders'), labels, orders.map(i => i.value), { color: KindCharts.C.amber, radius: 4 });
 
     // Top products (horizontal bar)
     if (document.getElementById('chart-top-products') && topProducts.length) {
-        dashCharts.top = BusiaCharts.hBarChart(
+        dashCharts.top = KindCharts.hBarChart(
             document.getElementById('chart-top-products'),
             topProducts.map(p => p.name || ''),
             topProducts.map(p => +p.qty || 0),
-            { color: BusiaCharts.C.primary }
+            { color: KindCharts.C.primary }
         );
     }
 
@@ -377,14 +377,14 @@ async function loadDashboard() {
         } else {
             tbody.innerHTML = acts.map(a => {
                 const name = ((a.first_name || '') + ' ' + (a.last_name || '')).trim() || 'Guest';
-                const color = a.status === 'completed' ? '#16a34a' : a.status === 'cancelled' ? '#dc2626' : '#d97706';
+                const color = a.status === 'completed' ? '#3E8A3A' : a.status === 'cancelled' ? '#dc2626' : '#2C6B31';
                 return `<tr><td><strong>${escapeHtml(name)}</strong> — order #${a.id} for KES ${parseFloat(a.total_amount||0).toLocaleString()} <span style="color:${color};font-size:0.78rem;text-transform:uppercase;font-weight:600;">${a.status}</span></td><td style="text-align:right;color:#64748b;font-size:0.85rem;">${(a.created_at||'').split(' ')[0]}</td></tr>`;
             }).join('');
         }
     }
 
     // Update small KPI numbers with count-up
-    if (typeof BusiaCharts !== 'undefined') BusiaCharts.countUpAll();
+    if (typeof KindCharts !== 'undefined') KindCharts.countUpAll();
     if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 function escapeHtml(s){ if(s==null) return ''; return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]); }

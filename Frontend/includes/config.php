@@ -38,12 +38,12 @@ define('APP_ENV', $_ENV['APP_ENV'] ?? 'development');
 define('APP_DEBUG', APP_ENV === 'development');
 
 // Site Information
-define('SITE_NAME', 'Busia Chicken Farm');
+define('SITE_NAME', 'Kind Commodities Ltd');
 define('SITE_TAGLINE', 'Premium Poultry Products & Farm Management');
 define('SITE_DESCRIPTION', 'Leading poultry supplier in East Africa. Quality layers, broilers, day-old chicks, and premium feeds.');
-define('SITE_EMAIL', 'info@busiachicken.com');
-define('SITE_PHONE', '+254 727 585 599');
-define('SITE_ADDRESS', 'Nasira AC Sub-location, Busibwabo Location, Busia County, Kenya');
+define('SITE_EMAIL', 'info@kindcommoditiesltd.com');
+define('SITE_PHONE', '+254 700 000 000');
+define('SITE_ADDRESS', 'Kenya');
 
 // Pagination
 define('ITEMS_PER_PAGE', 12);
@@ -74,7 +74,7 @@ define('ORDER_STATUS', [
 
 // Delivery Zones
 define('DELIVERY_ZONES', [
-    'busia' => ['name' => 'Busia County', 'cost' => 0],
+    'local' => ['name' => 'Local Area', 'cost' => 0],
     'kakamega' => ['name' => 'Kakamega County', 'cost' => 500],
     'kisumu' => ['name' => 'Kisumu County', 'cost' => 1000],
     'kisii' => ['name' => 'Kisii County', 'cost' => 1200],
@@ -137,8 +137,8 @@ function getDB(): ?PDO {
     if (!empty($GLOBALS['pdo'])) {
         // Auto-run new tables if missing — keeps the live site self-healing
         @require_once __DIR__ . '/../../Backend/config/auto_migrate.php';
-        if (function_exists('ensureBusiaSchema')) {
-            ensureBusiaSchema($GLOBALS['pdo']);
+        if (function_exists('ensureKindSchema')) {
+            ensureKindSchema($GLOBALS['pdo']);
         }
     }
     return $GLOBALS['pdo'];

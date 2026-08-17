@@ -16,7 +16,7 @@ if (!isset($page_title)) $page_title = 'Admin Console';
 // Admin access check (Basic authentication for ANY admin area)
 if (empty($_SESSION['user_id']) || !in_array($_SESSION['role'] ?? '', ['super_admin', 'farm_manager', 'stock_manager', 'sales_staff'], true)) {
     // Redirect to login if not authorized
-    header('Location: /busiaadmin');
+    header('Location: /kindadmin');
     exit;
 }
 
@@ -28,24 +28,24 @@ $isAdmin = in_array($_SESSION['role'] ?? '', ['super_admin', 'farm_manager'], tr
    auto_migrate.php). super_admin is always allowed; every other role
    is checked against the matrix for the module they are opening, and
    the sidebar hides entries the role cannot view. */
-$busia_current_module = function_exists('busiaModuleKeyForScript') ? busiaModuleKeyForScript(basename($_SERVER['SCRIPT_NAME'])) : '';
-$busia_perms = function_exists('busiaRolePermissions') ? busiaRolePermissions(null) : [];
-$busia_role_perms = $busia_perms[$_SESSION['role'] ?? ''] ?? [];
-$GLOBALS['_busia_role_perms'] = $busia_role_perms;
-if (!function_exists('busiaCanView')) {
-    function busiaCanView(string $module): bool {
+$kind_current_module = function_exists('kindModuleKeyForScript') ? kindModuleKeyForScript(basename($_SERVER['SCRIPT_NAME'])) : '';
+$kind_perms = function_exists('kindRolePermissions') ? kindRolePermissions(null) : [];
+$kind_role_perms = $kind_perms[$_SESSION['role'] ?? ''] ?? [];
+$GLOBALS['_kind_role_perms'] = $kind_role_perms;
+if (!function_exists('kindCanView')) {
+    function kindCanView(string $module): bool {
         if (($_SESSION['role'] ?? '') === 'super_admin') return true;
-        $perms = $GLOBALS['_busia_role_perms'] ?? [];
+        $perms = $GLOBALS['_kind_role_perms'] ?? [];
         return (bool)($perms[$module]['view'] ?? 0);
     }
-    function busiaCanEdit(string $module): bool {
+    function kindCanEdit(string $module): bool {
         if (($_SESSION['role'] ?? '') === 'super_admin') return true;
-        $perms = $GLOBALS['_busia_role_perms'] ?? [];
+        $perms = $GLOBALS['_kind_role_perms'] ?? [];
         return (bool)($perms[$module]['edit'] ?? 0);
     }
 }
 // Block modules the role has no view permission for.
-if ($busia_current_module !== '' && $busia_current_module !== 'dashboard' && !busiaCanView($busia_current_module)) {
+if ($kind_current_module !== '' && $kind_current_module !== 'dashboard' && !kindCanView($kind_current_module)) {
     header('Location: /Frontend/admin/dashboard.php?denied=1');
     exit;
 }
@@ -54,8 +54,8 @@ if ($busia_current_module !== '' && $busia_current_module !== 'dashboard' && !bu
    Every admin page gets a "Quick Actions" menu in the top bar with
    shortcuts to that page's main add/edit forms. Pages may override by
    setting $quickActions before including this header. */
-if (!function_exists('busiaDefaultQuickActions')) {
-    function busiaDefaultQuickActions(string $script): array {
+if (!function_exists('kindDefaultQuickActions')) {
+    function kindDefaultQuickActions(string $script): array {
         $map = [
             'dashboard.php' => [
                 ['label' => 'New Customer Order', 'icon' => 'shopping-bag', 'href' => '/Frontend/admin/orders.php'],
@@ -146,7 +146,7 @@ if (!function_exists('busiaDefaultQuickActions')) {
     }
 }
 if (!isset($quickActions)) {
-    $quickActions = busiaDefaultQuickActions(basename($_SERVER['SCRIPT_NAME']));
+    $quickActions = kindDefaultQuickActions(basename($_SERVER['SCRIPT_NAME']));
 }
 
 $csrf_token = function_exists('generateCSRFToken') ? generateCSRFToken() : ($_SESSION['csrf_token'] ?? '');
@@ -164,12 +164,12 @@ $csrf_token = function_exists('generateCSRFToken') ? generateCSRFToken() : ($_SE
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/vendor/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style.css">
-    <link rel="icon" type="image/png" href="/Frontend/images/busia logo.png">
+    <link rel="icon" type="image/svg+xml" href="/Frontend/images/favicon.svg">
     <style>
         :root {
-            --admin-primary: #1B5E20;
-            --admin-primary-light: #2E7D32;
-            --admin-accent: #FFC107;
+            --admin-primary: #396285;
+            --admin-primary-light: #4A7BA3;
+            --admin-accent: #6EAF44;
             --admin-dark: #0f172a;
             --admin-sidebar-bg: #ffffff;
             --admin-body-bg: #f8fafc;
@@ -549,7 +549,7 @@ $csrf_token = function_exists('generateCSRFToken') ? generateCSRFToken() : ($_SE
 
         .stat-card-icon.accent {
             background: rgba(255, 193, 7, 0.1);
-            color: #d97706;
+            color: #2C6B31;
         }
 
         .stat-card-icon.info {
@@ -602,13 +602,13 @@ $csrf_token = function_exists('generateCSRFToken') ? generateCSRFToken() : ($_SE
         }
 
         .badge-pill-success {
-            background: #dcfce7;
-            color: #15803d;
+            background: #D3E8B8;
+            color: #2C6B31;
         }
 
         .badge-pill-warning {
-            background: #fef3c7;
-            color: #b45309;
+            background: #E9F2DC;
+            color: #2C6B31;
         }
 
         .badge-pill-danger {
@@ -697,19 +697,19 @@ $csrf_token = function_exists('generateCSRFToken') ? generateCSRFToken() : ($_SE
             background: linear-gradient(135deg, var(--admin-primary) 0%, var(--admin-primary-light) 100%);
             color: #ffffff;
             border-color: transparent;
-            box-shadow: 0 2px 8px rgba(27,94,32,0.2);
+            box-shadow: 0 2px 8px rgba(57,98,133,0.2);
         }
 
         .admin-layout .btn-primary:hover {
             background: linear-gradient(135deg, #145214 0%, var(--admin-primary) 100%);
-            box-shadow: 0 4px 16px rgba(27,94,32,0.3);
+            box-shadow: 0 4px 16px rgba(57,98,133,0.3);
             transform: translateY(-1px);
             color: #ffffff;
         }
 
         .admin-layout .btn-primary:active {
             transform: translateY(0);
-            box-shadow: 0 1px 4px rgba(27,94,32,0.2);
+            box-shadow: 0 1px 4px rgba(57,98,133,0.2);
         }
 
         /* Outline — border only */
@@ -720,7 +720,7 @@ $csrf_token = function_exists('generateCSRFToken') ? generateCSRFToken() : ($_SE
         }
 
         .admin-layout .btn-outline:hover {
-            background: rgba(27,94,32,0.06);
+            background: rgba(57,98,133,0.06);
             border-color: var(--admin-primary);
             color: var(--admin-primary);
             transform: translateY(-1px);
@@ -756,15 +756,15 @@ $csrf_token = function_exists('generateCSRFToken') ? generateCSRFToken() : ($_SE
 
         /* Warning variant */
         .admin-layout .btn-warning {
-            background: #fef3c7;
-            border: 1.5px solid #fde68a;
-            color: #b45309;
+            background: #E9F2DC;
+            border: 1.5px solid #D3E8B8;
+            color: #2C6B31;
         }
 
         .admin-layout .btn-warning:hover {
-            background: #fde68a;
-            border-color: #fbbf24;
-            color: #78350f;
+            background: #D3E8B8;
+            border-color: #809B52;
+            color: #1B4A24;
             transform: translateY(-1px);
         }
 
@@ -892,8 +892,8 @@ $csrf_token = function_exists('generateCSRFToken') ? generateCSRFToken() : ($_SE
 </head>
 <body class="admin-layout">
 <script>
-    window.BusiaAdmin = window.BusiaAdmin || {};
-    window.BusiaAdmin.csrfToken = <?php echo json_encode($csrf_token); ?>;
+    window.kindadmin = window.kindadmin || {};
+    window.kindadmin.csrfToken = <?php echo json_encode($csrf_token); ?>;
 </script>
 <div class="admin-shell">
     <div id="admin-nav-backdrop" class="admin-nav-backdrop"></div>

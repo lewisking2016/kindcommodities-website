@@ -12,7 +12,7 @@ $page_title = 'Setup - Admin';
 include __DIR__ . '/includes/admin_header.php';
 
 if (empty($_SESSION['user_id']) || !in_array(isset($_SESSION['role']) ? $_SESSION['role'] : '', ['super_admin', 'farm_manager'], true)) {
-    header('Location: /busiaadmin');
+    header('Location: /kindadmin');
     exit;
 }
 
@@ -76,7 +76,7 @@ if ($pdo) {
 </div>
 
 <?php if ($message): ?>
-<div style="padding:14px 18px;background:#dcfce7;border:1px solid #bbf7d0;border-radius:6px;color:#166534;margin-bottom:20px;">
+<div style="padding:14px 18px;background:#D3E8B8;border:1px solid #B3D98C;border-radius:6px;color:#1B4A24;margin-bottom:20px;">
     <?php echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?>
 </div>
 <?php endif; ?>

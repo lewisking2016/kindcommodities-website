@@ -16,7 +16,7 @@ $has_old_total_birds = strpos($content, 'total_birds') !== false;
 
 echo "<!DOCTYPE html><html><head><title>Server File Check</title>";
 echo "<style>body{font-family:sans-serif;padding:40px;background:#f5f5f5;max-width:800px;margin:0 auto;}";
-echo ".ok{color:#16a34a;font-weight:bold;} .fail{color:#dc2626;font-weight:bold;} .box{background:#fff;padding:20px;border-radius:8px;margin:10px 0;border:1px solid #e5e7eb;}</style></head><body>";
+echo ".ok{color:#3E8A3A;font-weight:bold;} .fail{color:#dc2626;font-weight:bold;} .box{background:#fff;padding:20px;border-radius:8px;margin:10px 0;border:1px solid #e5e7eb;}</style></head><body>";
 
 echo "<h1>🔍 Server File Version Check</h1>";
 echo "<p>Checking: <code>$file</code></p>";
@@ -40,7 +40,7 @@ echo "<p>Has old 'total_birds' (WRONG): " . ($has_old_total_birds ? "<span class
 echo "</div>";
 
 if ($has_phone_number && $has_financial_records && $has_initial_count && !$has_old_phone && !$has_old_expenses && !$has_old_total_birds) {
-    echo "<div class='box' style='background:#dcfce7;border-color:#16a34a;'>";
+    echo "<div class='box' style='background:#D3E8B8;border-color:#3E8A3A;'>";
     echo "<h2 class='ok'>✓ FILE IS UP TO DATE!</h2>";
     echo "<p>The server has the latest version. Exports should work now.</p>";
     echo "</div>";

@@ -5,7 +5,7 @@
 declare(strict_types=1);
 
 $path_prefix = '../';
-$page_title = 'FAQs - Busia Chicken Farm';
+$page_title = 'FAQs - Kind Commodities Ltd';
 
 include '../includes/header.php';
 ?>
@@ -152,7 +152,7 @@ include '../includes/header.php';
                     <div class="faq-toggle">▼</div>
                 </div>
                 <div class="faq-answer">
-                    You can order through our website shop, call +254 727 585 599, or visit our farm. Orders are processed immediately and we confirm delivery within 24 hours. Bulk orders should be placed at least 3 days in advance.
+                    You can order through our website shop, call +254 700 000 000, or visit our farm. Orders are processed immediately and we confirm delivery within 24 hours. Bulk orders should be placed at least 3 days in advance.
                 </div>
             </div>
 
@@ -162,7 +162,7 @@ include '../includes/header.php';
                     <div class="faq-toggle">▼</div>
                 </div>
                 <div class="faq-answer">
-                    Minimum order is KES 2,000. Free delivery is offered on orders above KES 5,000 within Busia County. Smaller orders within Busia incur a KES 500 delivery charge.
+                    Minimum order is KES 2,000. Free delivery is offered on orders above KES 5,000 within our local area. Smaller local orders incur a KES 500 delivery charge.
                 </div>
             </div>
 
@@ -172,7 +172,7 @@ include '../includes/header.php';
                     <div class="faq-toggle">▼</div>
                 </div>
                 <div class="faq-answer">
-                    Orders within Busia: 1-2 days. Orders to Kakamega/Kisumu: 2-3 days. Orders to Kisii: 3-4 days. Emergency orders can be arranged for same-day delivery in Busia. Call us for urgent requests.
+                    Local orders: 1-2 days. Orders to Kakamega/Kisumu: 2-3 days. Orders to Kisii: 3-4 days. Emergency orders can be arranged for same-day delivery. Call us for urgent requests.
                 </div>
             </div>
 
@@ -182,13 +182,13 @@ include '../includes/header.php';
                     <div class="faq-toggle">▼</div>
                 </div>
                 <div class="faq-answer">
-                    We accept M-Pesa, bank transfers, and cash on delivery (COD). Online orders require M-Pesa payment or bank deposit. COD available for orders within Busia County.
+                    We accept M-Pesa, bank transfers, and cash on delivery (COD). Online orders require M-Pesa payment or bank deposit. COD available for local orders.
                 </div>
             </div>
 
             <div class="faq-item fade-up stagger-4">
                 <div class="faq-question">
-                    <span>Can you deliver outside Busia County?</span>
+                    <span>Can you deliver outside my area?</span>
                     <div class="faq-toggle">▼</div>
                 </div>
                 <div class="faq-answer">
@@ -282,7 +282,7 @@ include '../includes/header.php';
                     <div class="faq-toggle">▼</div>
                 </div>
                 <div class="faq-answer">
-                    Call us immediately: +254 727 585 599. We have a vet on call for emergency advice. Isolate sick birds, improve ventilation, and ensure clean water. Don't delay—early treatment saves lives and prevents spread.
+                    Call us immediately: +254 700 000 000. We have a vet on call for emergency advice. Isolate sick birds, improve ventilation, and ensure clean water. Don't delay—early treatment saves lives and prevents spread.
                 </div>
             </div>
 
@@ -292,7 +292,7 @@ include '../includes/header.php';
                     <div class="faq-toggle">▼</div>
                 </div>
                 <div class="faq-answer">
-                    Yes! Farm visits are welcome by appointment for biosafety reasons. Call +254 727 585 599 to schedule. Educational groups and business partners get special rates. We provide facility tours and hands-on training.
+                    Yes! Farm visits are welcome by appointment for biosafety reasons. Call +254 700 000 000 to schedule. Educational groups and business partners get special rates. We provide facility tours and hands-on training.
                 </div>
             </div>
         </div>

@@ -29,7 +29,7 @@ $pdo = getDatabaseConnection();
 if (!$pdo) { http_response_code(500); exit('Database unavailable'); }
 $role = $_SESSION['role'];
 if ($role !== 'super_admin') {
-    $perms = function_exists('busiaRolePermissions') ? busiaRolePermissions($pdo) : [];
+    $perms = function_exists('kindRolePermissions') ? kindRolePermissions($pdo) : [];
     if (!(($perms[$role]['lpo']['view'] ?? 0) || ($perms[$role]['lpo']['edit'] ?? 0))) {
         http_response_code(403);
         exit('You do not have permission to view LPO documents');
@@ -47,10 +47,10 @@ $itemsStmt = $pdo->prepare('SELECT * FROM lpo_items WHERE doc_id=? ORDER BY id')
 $itemsStmt->execute([$id]);
 $items = $itemsStmt->fetchAll(PDO::FETCH_ASSOC);
 
-$farmName  = getSetting('farm_name', 'Busia Chicken Farm');
-$farmEmail = getSetting('farm_email', 'info@busiachicken.com');
+$farmName  = getSetting('farm_name', 'Kind Commodities Ltd');
+$farmEmail = getSetting('farm_email', 'info@kindcommoditiesltd.com');
 $farmPhone = getSetting('farm_phone', '+254 700 000 000');
-$farmAddr  = getSetting('farm_address', 'Busia, Kenya');
+$farmAddr  = getSetting('farm_address', 'Kenya');
 $currency  = getSetting('currency', 'KES');
 $typeLabel = ['quotation' => 'QUOTATION', 'lpo' => 'LOCAL PURCHASE ORDER', 'invoice' => 'INVOICE'][$doc['doc_type']] ?? strtoupper($doc['doc_type']);
 
@@ -101,11 +101,12 @@ function pdfWrap(string $s, float $maxWidth, float $size = 9): array {
 }
 
 /** Convert the farm logo PNG → JPEG composited onto the header band green
- *  (#1B5E20) so the transparent logo blends seamlessly with the band — no
- *  white box. Alpha-blending is enabled so soft edges blend against green. */
+ *  (#396285) so a transparent PNG logo blends seamlessly with the band —
+ *  no white box. If the logo is not a transparent PNG (e.g. the current
+ *  JPG), this returns null and the PDF renders the band text-only. */
 function pdfLogoJpeg(): ?string {
-    $png = dirname(__DIR__, 2) . '/Frontend/images/busia logo.png';
-    $cache = sys_get_temp_dir() . '/busia_logo_577.jpg';
+    $png = dirname(__DIR__, 2) . '/Frontend/images/kind-logo.png';
+    $cache = sys_get_temp_dir() . '/kind_logo_577.jpg';
     if (!is_file($png) || !function_exists('imagecreatefrompng')) return null;
     if (is_file($cache) && filemtime($cache) >= filemtime($png)) return $cache;
     try {
@@ -115,7 +116,7 @@ function pdfLogoJpeg(): ?string {
         $canvas = imagecreatetruecolor($w, $h);
         imagealphablending($canvas, true);
         imagesavealpha($canvas, false);
-        $green = imagecolorallocate($canvas, 27, 94, 32); // matches $green band
+        $green = imagecolorallocate($canvas, 57, 98, 133); // matches $green band
         imagefill($canvas, 0, 0, $green);
         imagecopy($canvas, $src, 0, 0, 0, 0, $w, $h);
         imagejpeg($canvas, $cache, 90);
@@ -197,8 +198,8 @@ if ($logoPath) {
     $info = @getimagesize($logoPath);
     if ($info) { $G->logo = ['file' => $logoPath, 'w' => $info[0], 'h' => $info[1]]; }
 }
-$green  = [0.106, 0.369, 0.125];   // #1B5E20 brand green
-$greenD = [0.05, 0.22, 0.08];      // deep green for the total bar
+$green  = [0.224, 0.384, 0.522];  // #396285 slate blue
+$greenD = [0.118, 0.216, 0.313];   // deep slate for the total bar
 $dark   = [0.07, 0.11, 0.17];      // #12202F near-black
 $gray   = [0.39, 0.43, 0.48];      // #64748B
 $amber  = [0.93, 0.76, 0.20];      // accent rule under the band

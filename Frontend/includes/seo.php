@@ -13,29 +13,29 @@ function generateOrganizationSchema(): string
     return json_encode([
         '@context' => 'https://schema.org',
         '@type' => 'Organization',
-        'name' => 'Busia Chicken Farm',
-        'alternateName' => 'Busia Chicken Ltd',
-        'url' => 'https://busiachicken.com',
-        'logo' => 'https://busiachicken.com/assets/images/logo.png',
+        'name' => 'Kind Commodities Ltd',
+        'alternateName' => 'Kind Commodities Ltd',
+        'url' => 'https://kindcommoditiesltd.com',
+        'logo' => '',
         'description' => 'Leading poultry supplier in East Africa. Premium chickens, eggs, and animal feeds.',
         'sameAs' => [
-            'https://www.facebook.com/busiachicken',
-            'https://twitter.com/busiachicken',
-            'https://www.instagram.com/busiachicken'
+            'https://www.facebook.com/kindcommodities',
+            'https://twitter.com/kindcommodities',
+            'https://www.instagram.com/kindcommodities'
         ],
         'address' => [
             '@type' => 'PostalAddress',
-            'streetAddress' => 'Nasira AC sub-location, Busibwabo Location',
-            'addressLocality' => 'Busia',
-            'addressRegion' => 'Busia County',
-            'postalCode' => '50400',
+            'streetAddress' => 'Kind Commodities Ltd',
+            'addressLocality' => 'Kenya',
+            'addressRegion' => 'Kenya',
+            'postalCode' => '',
             'addressCountry' => 'KE'
         ],
         'contactPoint' => [
             '@type' => 'ContactPoint',
             'contactType' => 'Customer Service',
-            'telephone' => '+254-727-585599',
-            'email' => 'info@busiachicken.com',
+            'telephone' => '+254-700-000000',
+            'email' => 'info@kindcommoditiesltd.com',
             'areaServed' => ['KE', 'UG', 'TZ'],
             'availableLanguage' => ['en', 'sw']
         ]
@@ -50,16 +50,16 @@ function generateLocalBusinessSchema(): string
     return json_encode([
         '@context' => 'https://schema.org',
         '@type' => 'LocalBusiness',
-        'name' => 'Busia Chicken Farm',
-        'image' => 'https://busiachicken.com/assets/images/farm.jpg',
+        'name' => 'Kind Commodities Ltd',
+        'image' => '',
         'description' => 'Poultry farming, egg production, and premium animal feeds',
         'address' => [
             '@type' => 'PostalAddress',
-            'streetAddress' => 'Nasira AC sub-location',
-            'addressLocality' => 'Busia',
+            'streetAddress' => 'Kind Commodities Ltd',
+            'addressLocality' => 'Kenya',
             'addressCountry' => 'KE'
         ],
-        'telephone' => '+254-727-585599',
+        'telephone' => '+254-700-000000',
         'priceRange' => 'KES 500 - 50000',
         'openingHoursSpecification' => [
             [
@@ -76,8 +76,8 @@ function generateLocalBusinessSchema(): string
             ]
         ],
         'sameAs' => [
-            'https://www.facebook.com/busiachicken',
-            'https://www.instagram.com/busiachicken'
+            'https://www.facebook.com/kindcommodities',
+            'https://www.instagram.com/kindcommodities'
         ]
     ], JSON_UNESCAPED_SLASHES);
 }
@@ -95,7 +95,7 @@ function generateProductSchema(array $product): string
         'description' => $product['description'] ?? '',
         'brand' => [
             '@type' => 'Brand',
-            'name' => 'Busia Chicken Farm'
+            'name' => 'Kind Commodities Ltd'
         ],
         'offers' => [
             '@type' => 'Offer',
@@ -223,7 +223,7 @@ Disallow: /api/
 Disallow: /config/
 Disallow: /logs/
 
-Sitemap: https://busiachicken.com/sitemap.xml
+Sitemap: https://kindcommoditiesltd.com/sitemap.xml
 ROBOTS;
 }
 
@@ -272,7 +272,7 @@ function getCanonicalURL(string $currentUrl = ''): string
 {
     if (empty($currentUrl)) {
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https://' : 'http://';
-        $host = $_SERVER['HTTP_HOST'] ?? 'busiachicken.com';
+        $host = $_SERVER['HTTP_HOST'] ?? 'kindcommoditiesltd.com';
         $path = strtok($_SERVER['REQUEST_URI'] ?? '', '?');
         $currentUrl = $protocol . $host . $path;
     }

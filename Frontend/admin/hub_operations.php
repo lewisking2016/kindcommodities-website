@@ -9,7 +9,7 @@ if (is_writable($temp_dir)) session_save_path($temp_dir);
 session_start();
 
 if (empty($_SESSION['user_id']) || !in_array($_SESSION['role'] ?? '', ['super_admin','farm_manager','stock_manager','sales_staff'], true)) {
-    echo "<script>window.location.href='/busiaadmin';</script>"; exit;
+    echo "<script>window.location.href='/kindadmin';</script>"; exit;
 }
 
 $page_title = 'Farm Operations - Admin';
@@ -47,7 +47,7 @@ $tabs = [
 </div>
 
 <?php if ($message): ?>
-<div style="padding:13px 18px;background:#dcfce7;border:1px solid #bbf7d0;border-radius:8px;color:#166534;margin-bottom:18px;display:flex;align-items:center;gap:10px;">
+<div style="padding:13px 18px;background:#D3E8B8;border:1px solid #B3D98C;border-radius:8px;color:#1B4A24;margin-bottom:18px;display:flex;align-items:center;gap:10px;">
     <i data-lucide="check-circle-2" style="width:18px;height:18px;"></i> <?= htmlspecialchars($message, ENT_QUOTES,'UTF-8') ?>
 </div>
 <?php endif; ?>
@@ -123,7 +123,7 @@ $tabs = [
 
 <script>
 window.flocks_list = [];
-const CSRF = window.BusiaAdmin?.csrfToken || '';
+const CSRF = window.kindadmin?.csrfToken || '';
 
 async function loadFlocks() {
     setTbLoading('flocks-body', 7, 'Loading flocks...');
@@ -168,7 +168,7 @@ function renderFlocks(eggMap={}) {
             <td><strong>${f.flock_name}</strong><br><small style="color:#64748b;">${f.location||'—'}</small></td>
             <td>${f.breed||'—'}<br><small style="color:#94a3b8;text-transform:capitalize;">${f.flock_type||'layer'}</small></td>
             <td><strong>${Number(f.current_count||0).toLocaleString()}</strong></td>
-            <td><span style="color:${eggsToday>0?'#16a34a':'#94a3b8'};font-weight:700;">${eggsToday.toLocaleString()}</span></td>
+            <td><span style="color:${eggsToday>0?'#3E8A3A':'#94a3b8'};font-weight:700;">${eggsToday.toLocaleString()}</span></td>
             <td>${ageWks}</td>
             <td><span class="badge-pill ${sc}">${f.status}</span></td>
             <td><div class="tbl-actions">
@@ -249,7 +249,7 @@ document.addEventListener('DOMContentLoaded', loadFlocks);
         <div class="stat-card"><div class="stat-card-info"><small>Eggs This Week</small><strong id="prod-kpi-eggs">—</strong></div><div class="stat-card-icon accent"><i data-lucide="egg" style="width:22px;height:22px;"></i></div></div>
         <div class="stat-card"><div class="stat-card-info"><small>Feed This Week (kg)</small><strong id="prod-kpi-feed">—</strong></div><div class="stat-card-icon info"><i data-lucide="layers" style="width:22px;height:22px;"></i></div></div>
         <div class="stat-card"><div class="stat-card-info"><small>Mortality This Week</small><strong id="prod-kpi-mort" style="color:#dc2626;">—</strong></div><div class="stat-card-icon" style="background:#fee2e2;color:#dc2626;"><i data-lucide="alert-triangle" style="width:22px;height:22px;"></i></div></div>
-        <div class="stat-card"><div class="stat-card-info"><small>Cracked / Rejected</small><strong id="prod-kpi-cracked">—</strong></div><div class="stat-card-icon" style="background:#fef3c7;color:#d97706;"><i data-lucide="x-circle" style="width:22px;height:22px;"></i></div></div>
+        <div class="stat-card"><div class="stat-card-info"><small>Cracked / Rejected</small><strong id="prod-kpi-cracked">—</strong></div><div class="stat-card-icon" style="background:#E9F2DC;color:#2C6B31;"><i data-lucide="x-circle" style="width:22px;height:22px;"></i></div></div>
     </div>
     <div class="table-responsive">
         <table class="admin-table">

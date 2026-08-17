@@ -114,8 +114,8 @@ if ($pdo) {
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;">
             <div class="stat-card"><div class="stat-card-info"><small>Total Feed</small><strong id="fcr-feed">—</strong></div><div class="stat-card-icon accent"><i data-lucide="wheat" style="width:22px;height:22px;"></i></div></div>
             <div class="stat-card"><div class="stat-card-info"><small>Total Eggs</small><strong id="fcr-eggs">—</strong></div><div class="stat-card-icon info"><i data-lucide="egg" style="width:22px;height:22px;"></i></div></div>
-            <div class="stat-card"><div class="stat-card-info"><small>Total Meat (kg)</small><strong id="fcr-meat">—</strong></div><div class="stat-card-icon" style="background:#fef3c7;color:#d97706;"><i data-lucide="drumstick" style="width:22px;height:22px;"></i></div></div>
-            <div class="stat-card"><div class="stat-card-info"><small>FCR</small><strong id="fcr-ratio" style="font-size:1.6rem;">—</strong><small id="fcr-grade" style="display:block;margin-top:4px;"></small></div><div class="stat-card-icon" style="background:#dcfce7;color:#16a34a;"><i data-lucide="bar-chart-3" style="width:22px;height:22px;"></i></div></div>
+            <div class="stat-card"><div class="stat-card-info"><small>Total Meat (kg)</small><strong id="fcr-meat">—</strong></div><div class="stat-card-icon" style="background:#E9F2DC;color:#2C6B31;"><i data-lucide="drumstick" style="width:22px;height:22px;"></i></div></div>
+            <div class="stat-card"><div class="stat-card-info"><small>FCR</small><strong id="fcr-ratio" style="font-size:1.6rem;">—</strong><small id="fcr-grade" style="display:block;margin-top:4px;"></small></div><div class="stat-card-icon" style="background:#D3E8B8;color:#3E8A3A;"><i data-lucide="bar-chart-3" style="width:22px;height:22px;"></i></div></div>
         </div>
         <div class="admin-card" style="background:#f8fafc;border:1px solid #e2e8f0;">
             <h4 style="margin:0 0 10px;font-family:'Outfit',sans-serif;">What this means</h4>
@@ -281,17 +281,17 @@ async function loadFcr() {
         document.getElementById('fcr-meat').textContent = d.total_meat_kg.toFixed(1) + ' kg';
         const ratio = d.fcr;
         let grade = 'Average';
-        let gradeColor = '#d97706';
+        let gradeColor = '#2C6B31';
         let explanation = '';
         if (d.batch.batch_type === 'broiler') {
-            if (ratio > 0 && ratio <= 1.6) { grade = 'Excellent'; gradeColor = '#16a34a'; explanation = 'FCR of ' + ratio + ' is excellent for broilers. You are using feed very efficiently. Keep it up!'; }
-            else if (ratio > 0 && ratio <= 1.9) { grade = 'Good'; gradeColor = '#16a34a'; explanation = 'FCR of ' + ratio + ' is good for broilers. Industry standard is 1.6-1.9.'; }
-            else if (ratio > 0 && ratio <= 2.2) { grade = 'Average'; gradeColor = '#d97706'; explanation = 'FCR of ' + ratio + ' is average. Try to improve feed quality and reduce mortality.'; }
+            if (ratio > 0 && ratio <= 1.6) { grade = 'Excellent'; gradeColor = '#3E8A3A'; explanation = 'FCR of ' + ratio + ' is excellent for broilers. You are using feed very efficiently. Keep it up!'; }
+            else if (ratio > 0 && ratio <= 1.9) { grade = 'Good'; gradeColor = '#3E8A3A'; explanation = 'FCR of ' + ratio + ' is good for broilers. Industry standard is 1.6-1.9.'; }
+            else if (ratio > 0 && ratio <= 2.2) { grade = 'Average'; gradeColor = '#2C6B31'; explanation = 'FCR of ' + ratio + ' is average. Try to improve feed quality and reduce mortality.'; }
             else { grade = 'Needs Work'; gradeColor = '#dc2626'; explanation = 'FCR of ' + ratio + ' is high. Look at feed quality, mortality, and water intake.'; }
         } else {
-            if (ratio > 0 && ratio <= 2.0) { grade = 'Excellent'; gradeColor = '#16a34a'; explanation = 'FCR of ' + ratio + ' is excellent for layers. Very efficient feed conversion.'; }
-            else if (ratio > 0 && ratio <= 2.4) { grade = 'Good'; gradeColor = '#16a34a'; explanation = 'FCR of ' + ratio + ' is good. You are in a healthy range.'; }
-            else { grade = 'Needs Work'; gradeColor = '#d97706'; explanation = 'FCR of ' + ratio + ' is high. Check for feed wastage, disease, or poor quality feed.'; }
+            if (ratio > 0 && ratio <= 2.0) { grade = 'Excellent'; gradeColor = '#3E8A3A'; explanation = 'FCR of ' + ratio + ' is excellent for layers. Very efficient feed conversion.'; }
+            else if (ratio > 0 && ratio <= 2.4) { grade = 'Good'; gradeColor = '#3E8A3A'; explanation = 'FCR of ' + ratio + ' is good. You are in a healthy range.'; }
+            else { grade = 'Needs Work'; gradeColor = '#2C6B31'; explanation = 'FCR of ' + ratio + ' is high. Check for feed wastage, disease, or poor quality feed.'; }
         }
         document.getElementById('fcr-ratio').textContent = ratio > 0 ? ratio.toFixed(2) : '—';
         document.getElementById('fcr-ratio').style.color = gradeColor;

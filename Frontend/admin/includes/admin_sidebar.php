@@ -22,14 +22,14 @@ function navLinkWithSub(string $href, string $icon, string $label, bool $active,
     foreach ($submodules as $tKey => $item) {
         if (is_array($item)) {
             $permKey = $item['perm'] ?? '';
-            if ($permKey === '' && function_exists('busiaModuleKeyForScript')) {
-                $permKey = busiaModuleKeyForScript(basename(parse_url($item['href'] ?? '', PHP_URL_PATH)));
+            if ($permKey === '' && function_exists('kindModuleKeyForScript')) {
+                $permKey = kindModuleKeyForScript(basename(parse_url($item['href'] ?? '', PHP_URL_PATH)));
             }
             if ($permKey === '') $permKey = (string)$tKey;
         } else {
             $permKey = (string)$tKey;
         }
-        if (function_exists('busiaCanView') && !busiaCanView($permKey)) {
+        if (function_exists('kindCanView') && !kindCanView($permKey)) {
             continue; // role has no view permission for this sub-module
         }
         $visible[$tKey] = $item;
@@ -40,7 +40,7 @@ function navLinkWithSub(string $href, string $icon, string $label, bool $active,
     $submodules = $visible;
 
     $base = $active
-        ? 'background:linear-gradient(135deg,#1B5E20,#2E7D32);color:#fff;box-shadow:0 4px 14px rgba(27,94,32,0.22);'
+        ? 'background:linear-gradient(135deg,#396285,#4A7BA3);color:#fff;box-shadow:0 4px 14px rgba(57,98,133,0.22);'
         : 'color:#475569;';
     $linkClass = 'nav-item' . ($active ? ' active' : '');
     // Only the active group is expanded by default; the rest stay collapsed
@@ -61,7 +61,7 @@ function navLinkWithSub(string $href, string $icon, string $label, bool $active,
                 <i data-lucide="chevron-down" style="width:15px;height:15px;display:block;"></i>
             </button>
         </div>
-        <ul class="nav-subs" style="list-style:none;padding-left:24px;margin:2px 0 8px 0;flex-direction:column;gap:4px;border-left:2px solid rgba(27,94,32,0.15);display:{$subsDisplay};">
+        <ul class="nav-subs" style="list-style:none;padding-left:24px;margin:2px 0 8px 0;flex-direction:column;gap:4px;border-left:2px solid rgba(57,98,133,0.15);display:{$subsDisplay};">
 HTML;
 
     foreach ($submodules as $tKey => $item) {
@@ -95,7 +95,7 @@ HTML;
 
 function navLinkDirect(string $href, string $icon, string $label, bool $active): string {
     $base = $active
-        ? 'background:linear-gradient(135deg,#1B5E20,#2E7D32);color:#fff;box-shadow:0 4px 14px rgba(27,94,32,0.22);'
+        ? 'background:linear-gradient(135deg,#396285,#4A7BA3);color:#fff;box-shadow:0 4px 14px rgba(57,98,133,0.22);'
         : 'color:#475569;';
     $linkClass = 'nav-item' . ($active ? ' active' : '');
     return <<<HTML
@@ -113,13 +113,13 @@ HTML;
     .nav-group-open .nav-chevron svg { transform: rotate(180deg); }
     .nav-subs { transition: opacity 0.15s ease; }
 </style>
-<nav id="admin-nav" style="width:264px;background:#fff;border-right:1px solid rgba(203,213,225,0.7);padding:18px 14px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;box-shadow:2px 0 16px rgba(15,23,42,0.03);box-sizing:border-box;z-index:100;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(27,94,32,0.15) transparent;flex-shrink:0;">
+<nav id="admin-nav" style="width:264px;background:#fff;border-right:1px solid rgba(203,213,225,0.7);padding:18px 14px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;box-shadow:2px 0 16px rgba(15,23,42,0.03);box-sizing:border-box;z-index:100;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(57,98,133,0.15) transparent;flex-shrink:0;">
 
     <!-- Brand -->
     <div style="display:flex;align-items:center;gap:11px;margin-bottom:28px;padding:0 4px;">
-        <img src="/Frontend/images/busia logo.png" alt="Busia Chicken" style="height:44px;width:auto;border-radius:8px;">
+        <img src="/Frontend/images/product-placeholder.svg" alt="Kind Commodities" style="height:44px;width:auto;border-radius:8px;">
         <div>
-            <p style="margin:0;font-family:'Outfit',sans-serif;font-size:1.05rem;font-weight:800;color:#0f172a;letter-spacing:-0.3px;">Busia Chicken</p>
+            <p style="margin:0;font-family:'Outfit',sans-serif;font-size:1.05rem;font-weight:800;color:#0f172a;letter-spacing:-0.3px;">Kind Commodities</p>
             <small style="display:block;color:#64748b;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">Admin Console</small>
         </div>
     </div>
@@ -226,7 +226,7 @@ HTML;
     <!-- User info & logout -->
     <div style="margin-top:auto;padding-top:14px;border-top:1px solid rgba(203,213,225,0.6);">
         <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f8fafc;border-radius:8px;margin-bottom:10px;">
-            <div style="width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,#1B5E20,#FFC107);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-family:'Outfit',sans-serif;font-size:0.95rem;flex-shrink:0;">
+            <div style="width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,#396285,#6EAF44);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-family:'Outfit',sans-serif;font-size:0.95rem;flex-shrink:0;">
                 <?php echo strtoupper(substr($_SESSION['first_name'] ?? $_SESSION['username'] ?? 'A', 0, 1)); ?>
             </div>
             <div style="min-width:0;">

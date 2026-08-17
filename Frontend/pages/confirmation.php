@@ -12,7 +12,7 @@ if (is_writable($temp_dir)) {
 session_start();
 
 $path_prefix = '../';
-$page_title = 'Order Confirmation - Busia Chicken Farm';
+$page_title = 'Order Confirmation - Kind Commodities Ltd';
 
 include '../includes/header.php';
 
@@ -31,7 +31,7 @@ $order = $_SESSION['last_order'];
 <section style="padding: var(--space-4xl) 0 var(--space-2xl); background-color: var(--gray-50); border-bottom: 1px solid var(--gray-200);">
     <div class="container" style="text-align: center;">
         <h1 style="margin-bottom: var(--space-sm);">Order Complete</h1>
-        <p style="font-size: 1.125rem; color: var(--gray-600);">Thank you for shopping with Busia Chicken Farm.</p>
+        <p style="font-size: 1.125rem; color: var(--gray-600);">Thank you for shopping with Kind Commodities Ltd.</p>
     </div>
 </section>
 
@@ -39,7 +39,7 @@ $order = $_SESSION['last_order'];
 <section style="padding: var(--space-4xl) 0; background-color: var(--white);">
     <div class="container">
         <div style="max-width: 600px; margin: 0 auto; text-align: center;">
-            <div style="width: 80px; height: 80px; background: #ECFDF5; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-xl); color: var(--success);">
+            <div style="width: 80px; height: 80px; background: #E9F2DC; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--space-xl); color: var(--success);">
                 <i data-lucide="check-circle" style="width: 40px; height: 40px;"></i>
             </div>
             
@@ -96,7 +96,7 @@ $order = $_SESSION['last_order'];
                     <div>
                         <h4 style="color: #1D4ED8; margin-bottom: 8px;">Bank Transfer Instructions</h4>
                         <p style="color: #1E3A8A; font-size: 0.95rem; margin: 0;">
-                            Please transfer the total amount to KCB Bank, Account Name: Busia Chicken Farm, Account No: <strong>1234567890</strong>. Use <strong><?php echo htmlspecialchars($order['order_number']); ?></strong> as the payment reference.
+                            Please transfer the total amount to KCB Bank, Account Name: Kind Commodities Ltd, Account No: <strong>1234567890</strong>. Use <strong><?php echo htmlspecialchars($order['order_number']); ?></strong> as the payment reference.
                         </p>
                     </div>
                 </div>

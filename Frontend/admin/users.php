@@ -19,7 +19,7 @@ require_once __DIR__ . '/../../Backend/api/dropdowns.php';
 
 // Check admin access
 if (empty($_SESSION['user_id']) || !in_array($_SESSION['role'] ?? '', ['super_admin', 'farm_manager', 'sales_staff'], true)) {
-    header("Location: /busiaadmin");
+    header("Location: /kindadmin");
     exit;
 }
 
@@ -198,7 +198,7 @@ if ($pdo) {
 
 <!-- Alerts -->
 <?php if ($success_message): ?>
-<div style="padding: 12px 20px; background: #dcfce7; border: 1px solid #bbf7d0; border-radius: 4px; color: #15803d; font-size: 0.9rem; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
+<div style="padding: 12px 20px; background: #D3E8B8; border: 1px solid #B3D98C; border-radius: 4px; color: #2C6B31; font-size: 0.9rem; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
     <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i>
     <?php echo htmlspecialchars($success_message); ?>
 </div>

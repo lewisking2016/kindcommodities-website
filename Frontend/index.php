@@ -1,11 +1,11 @@
 <?php
 /**
- * Homepage — Busia Chicken Farm
+ * Homepage — Kind Commodities Ltd
  * Premium redesign: motion, storytelling, editorial polish.
  */
 declare(strict_types=1);
 
-$page_title = 'Busia Chicken Farm - Premium Poultry & Farm Management Solutions';
+$page_title = 'Kind Commodities Ltd - Premium Poultry & Farm Management Solutions';
 include 'includes/header.php';
 
 $pdo = getDB();
@@ -17,11 +17,11 @@ $pdo = getDB();
 
         <!-- Slide 1 -->
         <div class="swiper-slide hero-slide">
-            <img src="/Frontend/images/download (8).png" alt="Busia Chicken Farm — poultry farm overview" fetchpriority="high">
+            <div class="hero-slide-bg" style="background:linear-gradient(120deg,#0B2310 0%,#12351A 45%,#396285 100%);"></div>
             <div class="hero-scrim"></div>
             <div class="container">
                 <div class="hero-content">
-                    <span class="hero-badge hero-anim"><span class="dot"></span> Welcome to Busia Chicken Farm</span>
+                    <span class="hero-badge hero-anim"><span class="dot"></span> Welcome to Kind Commodities Ltd</span>
                     <h1 class="hero-title hero-anim">Quality Poultry for <em>East Africa</em></h1>
                     <p class="hero-sub hero-anim">Premium broilers, layers and day-old chicks — raised with care, delivered with confidence, and backed by a decade of sustainable farming excellence.</p>
                     <div class="hero-cta hero-anim">
@@ -39,7 +39,7 @@ $pdo = getDB();
 
         <!-- Slide 2 -->
         <div class="swiper-slide hero-slide">
-            <img src="/Frontend/images/download (4).png" alt="Premium egg production">
+            <div class="hero-slide-bg" style="background:linear-gradient(120deg,#1E3850 0%,#396285 50%,#2B4D6E 100%);"></div>
             <div class="hero-scrim"></div>
             <div class="container">
                 <div class="hero-content">
@@ -61,7 +61,7 @@ $pdo = getDB();
 
         <!-- Slide 3 -->
         <div class="swiper-slide hero-slide">
-            <img src="/Frontend/images/download (2).png" alt="Expert farm management team">
+            <div class="hero-slide-bg" style="background:linear-gradient(120deg,#12351A 0%,#1B4A24 40%,#809B52 100%);"></div>
             <div class="hero-scrim"></div>
             <div class="container">
                 <div class="hero-content">
@@ -104,7 +104,7 @@ $pdo = getDB();
 <section class="section-pad bg-white">
     <div class="container">
         <div class="section-head center" data-reveal>
-            <span class="eyebrow centered">Why Busia Chicken</span>
+            <span class="eyebrow centered">Why Kind Commodities</span>
             <h2 class="section-title">Farming done <em>right</em>, from hatch to harvest</h2>
             <p class="lead">We combine traditional farming wisdom with modern technology to deliver the best poultry products in the region.</p>
         </div>
@@ -195,11 +195,11 @@ $pdo = getDB();
                     if (!$img) {
                         $type = $product['product_type'] ?? 'feed';
                         $img = match($type) {
-                            'feed' => '/Frontend/images/Growers Mash.png',
-                            'eggs' => '/Frontend/images/download (3).png',
-                            'chicks' => '/Frontend/images/download (7).png',
-                            'live_chicken' => '/Frontend/images/download (4).png',
-                            default => '/Frontend/images/Chick Starter Crumbs.png'
+                            'feed' => '/Frontend/images/product-placeholder.svg',
+                            'eggs' => '/Frontend/images/product-placeholder.svg',
+                            'chicks' => '/Frontend/images/product-placeholder.svg',
+                            'live_chicken' => '/Frontend/images/product-placeholder.svg',
+                            default => '/Frontend/images/product-placeholder.svg'
                         };
                     }
                 ?>
@@ -272,12 +272,12 @@ $pdo = getDB();
 <section class="section-pad" style="background:var(--cream-50);">
     <div class="container" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(2.4rem,5vw,4.5rem);align-items:center;">
         <div class="img-frame frame-gold" data-reveal="left">
-            <img src="/Frontend/images/download (2).png" alt="Busia Chicken Farm team" loading="lazy" style="aspect-ratio:4/3;" data-parallax="0.06">
+            <div class="brand-panel" style="aspect-ratio:4/3;"><b>KC</b><span>Kind Commodities</span></div>
         </div>
         <div data-reveal="right">
             <span class="eyebrow">Our Story</span>
             <h2 class="section-title">From 500 birds to <em>East Africa's</em> trusted farm</h2>
-            <p class="lead">Founded in 2015 in Nasira AC, Busia, we've grown from a small family operation into a modern poultry facility serving thousands of customers — without ever losing the personal touch.</p>
+            <p class="lead">Founded in 2015, we've grown from a small family operation into a modern poultry facility serving thousands of customers — without ever losing the personal touch.</p>
             <ul class="check-list" style="margin:1.6rem 0 2.2rem;">
                 <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>State-of-the-art incubation &amp; biosafety facilities</li>
                 <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Vaccinated, disease-free birds with <em>95%+ hatch rates</em></li>
@@ -303,7 +303,7 @@ $pdo = getDB();
             <figure class="testimonial-card">
                 <span class="quote-mark">&ldquo;</span>
                 <div class="stars">★★★★★</div>
-                <blockquote>I've bought day-old chicks from Busia for three seasons now. Mortality is almost zero and the support team actually answers the phone.</blockquote>
+                <blockquote>I've bought day-old chicks from Kind Commodities for three seasons now. Mortality is almost zero and the support team actually answers the phone.</blockquote>
                 <figcaption>
                     <span class="avatar">JM</span>
                     <span><span class="t-name">James Muriithi</span><br><span class="t-role">Broiler Farmer, Eldoret</span></span>
@@ -324,7 +324,7 @@ $pdo = getDB();
                 <blockquote>Fresh eggs delivered to our restaurant every morning, without fail. The quality is unmatched in the county.</blockquote>
                 <figcaption>
                     <span class="avatar">DO</span>
-                    <span><span class="t-name">Daniel Ochieng</span><br><span class="t-role">Restaurant Owner, Busia Town</span></span>
+                    <span><span class="t-name">Daniel Ochieng</span><br><span class="t-role">Restaurant Owner</span></span>
                 </figcaption>
             </figure>
         </div>
@@ -338,7 +338,7 @@ $pdo = getDB();
             <div class="container" style="padding:0;">
                 <span class="eyebrow centered" style="color:var(--gold-300);">Let's Get Started</span>
                 <h2>Ready to elevate your farm?</h2>
-                <p>Join thousands of successful farmers using Busia Chicken products and management tools. Whether you're a family, a restaurant or a commercial operation — we've got you covered.</p>
+                <p>Join thousands of successful farmers using Kind Commodities products and management tools. Whether you're a family, a restaurant or a commercial operation — we've got you covered.</p>
                 <div style="display:flex;gap:1rem;flex-wrap:wrap;">
                     <a href="/Frontend/pages/register.php" class="btn btn-primary" data-magnetic>Create Account</a>
                     <a href="/Frontend/pages/contact.php" class="btn btn-ghost">Contact Sales</a>

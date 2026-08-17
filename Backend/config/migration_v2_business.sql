@@ -1,11 +1,11 @@
 -- ══════════════════════════════════════════════════════════════
--- Busia Chicken Farm — Business & Operations Module Migration
+-- Kind Commodities Ltd — Business & Operations Module Migration
 -- Adds: Costs & Profit, Cashbook, Customer Credit (Owed),
 --       Feeding Program, FCR, Procurement / Purchase Orders,
 --       Broiler Workflow, Hatchery, Auto-reorder, Quality Tests
 -- ══════════════════════════════════════════════════════════════
 
-USE busia_chicken_db;
+USE kind_commodities_db;
 
 -- ─────────────────────────────────────────────────────────────
 -- 1. BATCH COSTS — track money spent per batch

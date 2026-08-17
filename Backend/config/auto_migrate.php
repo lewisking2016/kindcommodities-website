@@ -157,7 +157,7 @@ function reconcileLegacySchema(PDO $pdo): void
  * List of every admin module key (used by role permissions and the sidebar).
  * Keep in sync with admin_sidebar.php sub-module keys.
  */
-function busiaModuleKeys(): array
+function kindModuleKeys(): array
 {
     return [
         'dashboard',
@@ -179,7 +179,7 @@ function busiaModuleKeys(): array
 /**
  * Map an admin script name to its module key ('' when unknown).
  */
-function busiaModuleKeyForScript(string $script): string
+function kindModuleKeyForScript(string $script): string
 {
     $map = [
         'dashboard.php' => 'dashboard',
@@ -208,9 +208,9 @@ function busiaModuleKeyForScript(string $script): string
  * Default permission grants per role. super_admin and farm_manager get full
  * access; limited roles get their own module sets. 'customer' gets nothing.
  */
-function busiaDefaultRolePermissions(): array
+function kindDefaultRolePermissions(): array
 {
-    $all = busiaModuleKeys();
+    $all = kindModuleKeys();
     $perms = [];
     foreach ($all as $m) {
         $perms['super_admin'][$m] = ['view' => 1, 'edit' => 1];
@@ -236,12 +236,12 @@ function busiaDefaultRolePermissions(): array
  * Load the role_permissions matrix for every role.
  * Returns ['role' => ['module' => ['view'=>bool,'edit'=>bool]]]
  */
-function busiaRolePermissions(?PDO $pdo = null): array
+function kindRolePermissions(?PDO $pdo = null): array
 {
     static $cache = null;
     if ($cache !== null) return $cache;
     if ($pdo === null) $pdo = getDatabaseConnection();
-    $cache = busiaDefaultRolePermissions();
+    $cache = kindDefaultRolePermissions();
     if (!$pdo) return $cache;
     try {
         if (!tableExists($pdo, 'role_permissions')) return $cache;
@@ -301,7 +301,7 @@ function seedMasterData(PDO $pdo): void
 
     // ── Role permissions matrix (idempotent) ──
     if (tableExists($pdo, 'role_permissions')) {
-        $defaults = busiaDefaultRolePermissions();
+        $defaults = kindDefaultRolePermissions();
         $stmt = $pdo->prepare('INSERT IGNORE INTO role_permissions (role, module_key, can_view, can_edit) VALUES (?,?,?,?)');
         foreach ($defaults as $role => $mods) {
             foreach ($mods as $mod => $p) {
@@ -314,7 +314,7 @@ function seedMasterData(PDO $pdo): void
 /**
  * Ensure all module tables exist. No-op when everything is present.
  */
-function ensureBusiaSchema(PDO $pdo): void
+function ensureKindSchema(PDO $pdo): void
 {
     static $checked = false;
     if ($checked) return;

@@ -172,7 +172,7 @@ if (!in_array($tab, $validTabs, true)) $tab = 'ingredients';
 </div>
 
 <script>
-const CSRF = window.BusiaAdmin?.csrfToken || '';
+const CSRF = window.kindadmin?.csrfToken || '';
 const currentTab = '<?= $tab ?>';
 let allMaterials = [];
 
@@ -251,7 +251,7 @@ async function loadMovements() {
                 <td>${m.movement_date}</td>
                 <td><strong>${escapeHtml(m.material_name||'—')}</strong></td>
                 <td><span class="badge-pill ${isIn?'badge-pill-success':'badge-pill-warning'}">${m.movement_type}</span></td>
-                <td style="color:${isIn?'#16a34a':'#dc2626'};font-weight:700;">${isIn?'+':''}${qty.toFixed(2)} ${m.unit||''}</td>
+                <td style="color:${isIn?'#3E8A3A':'#dc2626'};font-weight:700;">${isIn?'+':''}${qty.toFixed(2)} ${m.unit||''}</td>
                 <td><strong>${parseFloat(m.balance_after).toFixed(2)}</strong></td>
                 <td>KES ${parseFloat(m.unit_cost).toFixed(2)}</td>
                 <td>KES ${parseFloat(m.total_cost).toFixed(2)}</td>

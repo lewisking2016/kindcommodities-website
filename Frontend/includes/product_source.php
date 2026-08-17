@@ -35,7 +35,7 @@ function getFallbackProducts(): array
             'product_type' => 'live_chicken',
             'price' => 450,
             'stock_quantity' => 50,
-            'image_url' => '/Frontend/images/download (4).png',
+            'image_url' => '/Frontend/images/product-placeholder.svg',
             'is_featured' => 1,
         ],
         [
@@ -46,7 +46,7 @@ function getFallbackProducts(): array
             'product_type' => 'eggs',
             'price' => 420,
             'stock_quantity' => 100,
-            'image_url' => '/Frontend/images/download (3).png',
+            'image_url' => '/Frontend/images/product-placeholder.svg',
             'is_featured' => 1,
         ],
         [
@@ -57,7 +57,7 @@ function getFallbackProducts(): array
             'product_type' => 'chicks',
             'price' => 80,
             'stock_quantity' => 1000,
-            'image_url' => '/Frontend/images/download (7).png',
+            'image_url' => '/Frontend/images/product-placeholder.svg',
             'is_featured' => 1,
         ],
         [
@@ -68,7 +68,7 @@ function getFallbackProducts(): array
             'product_type' => 'feed',
             'price' => 3200,
             'stock_quantity' => 100,
-            'image_url' => '/Frontend/images/Chick Starter Crumbs.png',
+            'image_url' => '/Frontend/images/product-placeholder.svg',
             'is_featured' => 1,
         ],
         [
@@ -79,18 +79,18 @@ function getFallbackProducts(): array
             'product_type' => 'feed',
             'price' => 2500,
             'stock_quantity' => 150,
-            'image_url' => '/Frontend/images/Growers Mash.png',
+            'image_url' => '/Frontend/images/product-placeholder.svg',
             'is_featured' => 1,
         ],
         [
             'id' => 6,
-            'name' => 'Busia Premium Mix',
-            'slug' => 'busia-premium-mix',
+            'name' => 'Kind Premium Mix',
+            'slug' => 'kind-premium-mix',
             'description' => 'Our signature blend. Multi-purpose feed suitable for all poultry types.',
             'product_type' => 'feed',
             'price' => 3100,
             'stock_quantity' => 200,
-            'image_url' => '/Frontend/images/kienyeji mash.png',
+            'image_url' => '/Frontend/images/product-placeholder.svg',
             'is_featured' => 1,
         ],
     ];

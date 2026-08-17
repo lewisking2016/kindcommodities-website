@@ -1,7 +1,7 @@
 <?php
 /**
  * Admin — Online Orders
- * Mirrors the busia_orders_report CSV structure:
+ * Mirrors the kind_orders_report CSV structure:
  *   Order ID, Order Number, Customer, Email, Amount, Status, Date
  */
 declare(strict_types=1);
@@ -16,7 +16,7 @@ include __DIR__ . '/includes/admin_header.php';
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
     <div>
         <h1 style="margin:0;font-family:'Outfit',sans-serif;font-size:1.6rem;color:var(--admin-text-heading);font-weight:800;">Online Orders</h1>
-        <p style="margin:4px 0 0;color:#64748b;font-size:0.9rem;">Manage orders placed through the public website. Match the busia_orders_report CSV export structure.</p>
+        <p style="margin:4px 0 0;color:#64748b;font-size:0.9rem;">Manage orders placed through the public website. Match the kind_orders_report CSV export structure.</p>
     </div>
     <div style="display:flex;gap:8px;">
         <a href="/Backend/api/export.php?module=orders" class="btn btn-outline"><i data-lucide="download" style="width:15px;height:15px;"></i> Export CSV</a>
@@ -27,9 +27,9 @@ include __DIR__ . '/includes/admin_header.php';
 <!-- KPIs -->
 <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;">
     <div class="stat-card"><div class="stat-card-info"><small>Orders Today</small><strong id="ord-kpi-today">—</strong></div><div class="stat-card-icon accent"><i data-lucide="shopping-cart" style="width:22px;height:22px;"></i></div></div>
-    <div class="stat-card"><div class="stat-card-info"><small>Pending</small><strong id="ord-kpi-pending">—</strong></div><div class="stat-card-icon" style="background:#fef3c7;color:#d97706;"><i data-lucide="clock" style="width:22px;height:22px;"></i></div></div>
+    <div class="stat-card"><div class="stat-card-info"><small>Pending</small><strong id="ord-kpi-pending">—</strong></div><div class="stat-card-icon" style="background:#E9F2DC;color:#2C6B31;"><i data-lucide="clock" style="width:22px;height:22px;"></i></div></div>
     <div class="stat-card"><div class="stat-card-info"><small>Revenue This Month</small><strong id="ord-kpi-month">—</strong></div><div class="stat-card-icon info"><i data-lucide="banknote" style="width:22px;height:22px;"></i></div></div>
-    <div class="stat-card"><div class="stat-card-info"><small>Avg Order Value</small><strong id="ord-kpi-avg">—</strong></div><div class="stat-card-icon" style="background:#dcfce7;color:#16a34a;"><i data-lucide="trending-up" style="width:22px;height:22px;"></i></div></div>
+    <div class="stat-card"><div class="stat-card-info"><small>Avg Order Value</small><strong id="ord-kpi-avg">—</strong></div><div class="stat-card-icon" style="background:#D3E8B8;color:#3E8A3A;"><i data-lucide="trending-up" style="width:22px;height:22px;"></i></div></div>
 </div>
 
 <div class="admin-card">

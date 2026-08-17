@@ -12,7 +12,7 @@ if (is_writable($temp_dir)) {
 session_start();
 
 $path_prefix = '../';
-$page_title = 'Shopping Cart - Busia Chicken Farm';
+$page_title = 'Shopping Cart - Kind Commodities Ltd';
 
 include '../includes/header.php';
 
@@ -108,11 +108,11 @@ if (!empty($_SESSION['cart'])) {
                                     $img = $item['image'];
                                     if (!$img) {
                                         $img = match($item['product_type']) {
-                                            'feed' => '/Frontend/images/Growers Mash.png',
-                                            'eggs' => '/Frontend/images/download (3).png',
-                                            'chicks' => '/Frontend/images/download (7).png',
-                                            'live_chicken' => '/Frontend/images/download (4).png',
-                                            default => '/Frontend/images/Chick Starter Crumbs.png'
+                                            'feed' => '/Frontend/images/product-placeholder.svg',
+                                            'eggs' => '/Frontend/images/product-placeholder.svg',
+                                            'chicks' => '/Frontend/images/product-placeholder.svg',
+                                            'live_chicken' => '/Frontend/images/product-placeholder.svg',
+                                            default => '/Frontend/images/product-placeholder.svg'
                                         };
                                     }
                                 ?>

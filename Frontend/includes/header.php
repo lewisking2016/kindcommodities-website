@@ -69,7 +69,7 @@ $is_home = ($currentPage === 'home');
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/premium.css<?php echo assetVer('assets/css/premium.css'); ?>">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/Frontend/images/busia logo.png">
+    <link rel="icon" type="image/svg+xml" href="/Frontend/images/favicon.svg">
 </head>
 <body class="<?php echo $is_home ? 'has-hero' : ''; ?>">
 
@@ -80,8 +80,8 @@ $is_home = ($currentPage === 'home');
     <nav class="navbar premium-nav" id="site-nav">
         <div class="container nav-inner">
             <!-- Brand Logo (the logo carries the name - keep it minimal) -->
-            <a href="/" class="nav-brand" aria-label="Busia Chicken Farm - Home">
-                <img src="/Frontend/images/busia logo.png" alt="Busia Chicken Farm" class="nav-logo">
+            <a href="/" class="nav-brand" aria-label="Kind Commodities Ltd - Home">
+                <img src="/Frontend/images/kind-logo.png" alt="Kind Commodities Ltd" class="nav-logo">
             </a>
 
             <!-- Mobile Menu Button -->

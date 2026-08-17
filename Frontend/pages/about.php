@@ -5,16 +5,16 @@
 declare(strict_types=1);
 
 $path_prefix = '../';
-$page_title = 'About Us - Busia Chicken Farm';
+$page_title = 'About Us - Kind Commodities Ltd';
 
 include '../includes/header.php';
 ?>
 
 <!-- Page Hero -->
-<section class="page-hero" style="background-image:url('/Frontend/images/download (2).png');">
+<section class="page-hero" style="background-image:url('/Frontend/images/product-placeholder.svg');">
     <div class="container">
         <nav class="breadcrumb" data-reveal="fade"><a href="/">Home</a><span class="sep">/</span><span>About</span></nav>
-        <h1 data-reveal="fade" data-reveal-delay="100">About <em>Busia Chicken Farm</em></h1>
+        <h1 data-reveal="fade" data-reveal-delay="100">About <em>Kind Commodities Ltd</em></h1>
         <p data-reveal="fade" data-reveal-delay="200">Leading poultry supplier in East Africa — premium quality chickens, eggs and animal feeds since 2015.</p>
     </div>
 </section>
@@ -25,7 +25,7 @@ include '../includes/header.php';
         <div data-reveal="left">
             <span class="eyebrow">Our Story</span>
             <h2 class="section-title">From a small family operation to <em>industry leaders</em></h2>
-            <p class="lead">Founded in 2015, Busia Chicken Farm started as a small family operation in Nasira AC, Busia. What began with just 500 birds has grown into a modern poultry production facility serving thousands of customers across East Africa.</p>
+            <p class="lead">Founded in 2015, Kind Commodities Ltd started as a small family operation. What began with just 500 birds has grown into a modern poultry production facility serving thousands of customers across East Africa.</p>
             <p class="lead">Our journey has been driven by a commitment to quality, innovation, and sustainable farming practices. We've invested in state-of-the-art facilities, modern incubation equipment, and strict biosafety protocols to ensure every product meets international standards.</p>
             <ul class="check-list" style="margin-top:1.8rem;">
                 <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>100% biosafety compliant standards</li>
@@ -35,7 +35,7 @@ include '../includes/header.php';
         </div>
         <div data-reveal="right">
             <div class="img-frame frame-gold">
-                <img src="/Frontend/images/download (3).png" alt="Busia Chicken Farm — fresh eggs" loading="lazy" style="aspect-ratio:4/3;" data-parallax="0.05">
+                <div class="brand-panel" style="aspect-ratio:4/3;"><b>KC</b><span>Kind Commodities</span></div>
             </div>
         </div>
     </div>

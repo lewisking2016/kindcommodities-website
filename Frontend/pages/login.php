@@ -12,7 +12,7 @@ if (is_writable($temp_dir)) {
 session_start();
 
 $path_prefix = '../';
-$page_title = 'Login - Busia Chicken Farm';
+$page_title = 'Login - Kind Commodities Ltd';
 
 include '../includes/header.php';
 $csrf_token = function_exists('generateCSRFToken') ? generateCSRFToken() : ($_SESSION['csrf_token'] ?? '');

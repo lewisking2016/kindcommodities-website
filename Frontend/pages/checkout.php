@@ -11,7 +11,7 @@ if (is_writable($temp_dir)) {
 }
 
 $path_prefix = '../';
-$page_title = 'Checkout - Busia Chicken Farm';
+$page_title = 'Checkout - Kind Commodities Ltd';
 
 include '../includes/header.php';
 $csrf_token = function_exists('generateCSRFToken') ? generateCSRFToken() : ($_SESSION['csrf_token'] ?? '');
@@ -88,7 +88,7 @@ $total_amount = $subtotal + $delivery_charge;
                         </div>
                         <div>
                             <label style="display: block; font-weight: 500; margin-bottom: 0.5rem; color: var(--dark);">Phone Number *</label>
-                            <input type="tel" name="phone" required placeholder="e.g. 0727585599" style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--gray-200); border-radius: 4px; outline: none;">
+                            <input type="tel" name="phone" required placeholder="e.g. 0700000000" style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--gray-200); border-radius: 4px; outline: none;">
                         </div>
                     </div>
                     
@@ -117,7 +117,7 @@ $total_amount = $subtotal + $delivery_charge;
                                 <div style="font-weight: 600; color: var(--dark);">M-Pesa</div>
                                 <div style="font-size: 0.85rem; color: var(--gray-500);">Pay instantly using your phone</div>
                             </div>
-                            <span style="display: inline-flex; align-items: center; justify-content: center; height: 24px; padding: 0 10px; border-radius: 9999px; background: #d1fae5; color: #065f46; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em;">
+                            <span style="display: inline-flex; align-items: center; justify-content: center; height: 24px; padding: 0 10px; border-radius: 9999px; background: #D3E8B8; color: #12351A; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em;">
                                 M-PESA
                             </span>
                         </label>
@@ -159,11 +159,11 @@ $total_amount = $subtotal + $delivery_charge;
                             <div style="position: relative;">
                             <?php
                                 $fallbackImage = match($p['product_type'] ?? 'feed') {
-                                    'feed' => '/Frontend/images/Growers Mash.png',
-                                    'eggs' => '/Frontend/images/download (3).png',
-                                    'chicks' => '/Frontend/images/download (7).png',
-                                    'live_chicken' => '/Frontend/images/download (4).png',
-                                    default => '/Frontend/images/Chick Starter Crumbs.png'
+                                    'feed' => '/Frontend/images/product-placeholder.svg',
+                                    'eggs' => '/Frontend/images/product-placeholder.svg',
+                                    'chicks' => '/Frontend/images/product-placeholder.svg',
+                                    'live_chicken' => '/Frontend/images/product-placeholder.svg',
+                                    default => '/Frontend/images/product-placeholder.svg'
                                 };
                             ?>
                             <img src="<?php echo $p['image_url'] ?: $fallbackImage; ?>" style="width: 56px; height: 56px; border-radius: 4px; object-fit: cover; border: 1px solid var(--gray-200);">
@@ -236,19 +236,19 @@ document.getElementById('checkout-form').addEventListener('submit', async (e) =>
         
         if (result.success) {
             // Success - show confirmation
-            BusiaApp.showNotification('Order placed successfully!', 'success');
+            KindApp.showNotification('Order placed successfully!', 'success');
             setTimeout(() => {
                 window.location.href = '/Frontend/pages/confirmation.php';
             }, 1500);
         } else {
-            BusiaApp.showNotification(result.message || 'Checkout failed', 'error');
+            KindApp.showNotification(result.message || 'Checkout failed', 'error');
             submitBtn.disabled = false;
             submitBtn.innerHTML = 'Place Order <i data-lucide="check-circle" style="width: 18px; height: 18px;"></i>';
             lucide.createIcons();
         }
     } catch (error) {
         console.error('Checkout error:', error);
-        BusiaApp.showNotification('Error processing order', 'error');
+        KindApp.showNotification('Error processing order', 'error');
         submitBtn.disabled = false;
         submitBtn.innerHTML = 'Place Order <i data-lucide="check-circle" style="width: 18px; height: 18px;"></i>';
         lucide.createIcons();

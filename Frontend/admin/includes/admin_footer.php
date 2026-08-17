@@ -27,7 +27,7 @@ declare(strict_types=1);
         const nav = document.getElementById('admin-nav');
         if (!nav) return;
 
-        const SKEY = 'busiaAdminNavScroll';
+        const SKEY = 'kindadminNavScroll';
 
         const saved = sessionStorage.getItem(SKEY);
         if (saved !== null && saved !== '' && !isNaN(parseInt(saved, 10))) {
@@ -123,7 +123,7 @@ declare(strict_types=1);
             const chevron = group.querySelector('.nav-chevron');
             if (!ul || !chevron) return;
             const link = group.querySelector('a');
-            const key = 'busiaNavOpen:' + (chevron.dataset.navGroupKey || (link ? link.getAttribute('href') : '') || '');
+            const key = 'kindNavOpen:' + (chevron.dataset.navGroupKey || (link ? link.getAttribute('href') : '') || '');
             const isActive = !!group.querySelector('a.nav-item.active');
             const apply = (open) => {
                 ul.style.display = open ? 'flex' : 'none';

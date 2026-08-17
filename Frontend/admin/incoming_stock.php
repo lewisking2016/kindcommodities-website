@@ -9,7 +9,7 @@ if (is_writable($temp_dir)) session_save_path($temp_dir);
 session_start();
 
 if (empty($_SESSION['user_id']) || !in_array($_SESSION['role'] ?? '', ['super_admin','farm_manager', 'stock_manager', 'sales_staff'], true)) {
-    echo "<script>window.location.href = '/busiaadmin';</script>";
+    echo "<script>window.location.href = '/kindadmin';</script>";
     exit;
 }
 
@@ -340,7 +340,7 @@ function renderSuppliers() {
 function renderAutoOrders(data) {
     const tbody = document.getElementById('auto-orders-body');
     if (!data || !data.length) {
-        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; color:#16a34a; padding: 30px; font-weight:600;">✓ All Good! Everything is well stocked. Nothing needs to be ordered right now.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; color:#3E8A3A; padding: 30px; font-weight:600;">✓ All Good! Everything is well stocked. Nothing needs to be ordered right now.</td></tr>';
         return;
     }
 
@@ -411,7 +411,7 @@ async function deleteShipment(id) {
     try {
         const formData = new FormData();
         formData.append('id', id.toString());
-        formData.append('csrf_token', window.BusiaAdmin?.csrfToken || '');
+        formData.append('csrf_token', window.kindadmin?.csrfToken || '');
 
         const response = await fetch('/Backend/api/admin_incoming_stock.php?action=delete_incoming_shipment', {
             method: 'POST',
@@ -458,7 +458,7 @@ async function deleteSupplier(id) {
     try {
         const formData = new FormData();
         formData.append('id', id.toString());
-        formData.append('csrf_token', window.BusiaAdmin?.csrfToken || '');
+        formData.append('csrf_token', window.kindadmin?.csrfToken || '');
 
         const response = await fetch('/Backend/api/admin_incoming_stock.php?action=delete_supplier', {
             method: 'POST',
@@ -477,7 +477,7 @@ async function deleteSupplier(id) {
 document.getElementById('shipment-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    formData.append('csrf_token', window.BusiaAdmin?.csrfToken || '');
+    formData.append('csrf_token', window.kindadmin?.csrfToken || '');
     try {
         const response = await fetch('/Backend/api/admin_incoming_stock.php?action=save_incoming_shipment', {
             method: 'POST',
@@ -496,7 +496,7 @@ document.getElementById('shipment-form').addEventListener('submit', async (e) =>
 document.getElementById('supplier-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    formData.append('csrf_token', window.BusiaAdmin?.csrfToken || '');
+    formData.append('csrf_token', window.kindadmin?.csrfToken || '');
     try {
         const response = await fetch('/Backend/api/admin_incoming_stock.php?action=save_supplier', {
             method: 'POST',
