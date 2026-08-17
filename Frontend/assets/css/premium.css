@@ -856,6 +856,7 @@ body.has-hero .premium-nav:not(.nav-scrolled) .mobile-menu-btn span {
     background: linear-gradient(135deg, var(--brand-950) 0%, var(--brand-800) 55%, var(--brand-700) 100%);
     position: relative;
     overflow: hidden;
+    padding: clamp(4rem, 8vw, 6.5rem) 0;
 }
 
 .stats-band::before {
@@ -898,10 +899,16 @@ body.has-hero .premium-nav:not(.nav-scrolled) .mobile-menu-btn span {
 .stat-item b {
     display: block;
     font-family: var(--font-display);
-    font-size: clamp(2.3rem, 4.4vw, 3.1rem);
-    font-weight: 800;
+    font-size: clamp(3rem, 6.2vw, 4.6rem);
+    font-weight: 900;
     line-height: 1;
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.7rem;
+    letter-spacing: -0.02em;
+    background: linear-gradient(120deg, #F6D36B 0%, #F2C14E 40%, #6EAF44 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
 }
 
 .stat-item b em {
@@ -913,11 +920,12 @@ body.has-hero .premium-nav:not(.nav-scrolled) .mobile-menu-btn span {
 }
 
 .stat-item span {
-    font-size: 0.95rem;
-    letter-spacing: 0.1em;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.78);
-    max-width: 14rem;
+    color: rgba(255, 255, 255, 0.88);
+    max-width: 16rem;
     margin: 0 auto;
 }
 
@@ -1657,13 +1665,13 @@ body {
     }
 
     .stat-item b {
-        font-size: clamp(2rem, 11vw, 2.6rem);
+        font-size: clamp(2.4rem, 12vw, 3.1rem);
     }
 
     .stat-item span {
-        font-size: 0.8rem;
-        letter-spacing: 0.07em;
-        max-width: 8rem;
+        font-size: 0.85rem;
+        letter-spacing: 0.08em;
+        max-width: 9rem;
     }
 
     .hero-swiper,
