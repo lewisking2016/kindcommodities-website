@@ -21,7 +21,7 @@ $products = loadDisplayProducts($pdo);
     <div class="container">
         <nav class="breadcrumb" data-reveal="fade"><a href="/">Home</a><span class="sep">/</span><span>Shop</span></nav>
         <h1 data-reveal="fade" data-reveal-delay="100">The <em>Shop</em></h1>
-        <p data-reveal="fade" data-reveal-delay="200">Browse and order quality grains, pulses, oilseeds and feed raw materials — delivered to your door.</p>
+        <p data-reveal="fade" data-reveal-delay="200">See what's in stock today. Prices move with the market, so call for a live quote.</p>
     </div>
 </section>
 
@@ -31,7 +31,7 @@ $products = loadDisplayProducts($pdo);
         <div class="section-head" data-reveal>
             <span class="eyebrow">Our Products</span>
             <h2 class="section-title">Shop <em>Grains &amp; Raw Materials</em></h2>
-            <p class="lead">Grains, pulses, oilseeds and feed raw materials — ready to order and delivered to your door.</p>
+            <p class="lead">Grain, beans, oilseeds and feed raw materials — in stock and ready to load.</p>
         </div>
 
         <div class="shop-layout" style="display:grid;grid-template-columns:250px 1fr;gap:clamp(1.6rem,3vw,3rem);align-items:start;">

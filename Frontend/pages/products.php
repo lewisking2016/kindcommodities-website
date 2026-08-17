@@ -16,7 +16,7 @@ include '../includes/header.php';
     <div class="container">
         <nav class="breadcrumb" data-reveal="fade"><a href="/">Home</a><span class="sep">/</span><span>Products</span></nav>
         <h1 data-reveal="fade" data-reveal-delay="100">Our Premium <em>Products</em></h1>
-        <p data-reveal="fade" data-reveal-delay="200">Discover our range of quality grains, pulses, oilseeds and feed raw materials — graded, tested and ready for delivery.</p>
+        <p data-reveal="fade" data-reveal-delay="200">What we have in the stores right now — and what we can source for you if it isn't here.</p>
     </div>
 </section>
 

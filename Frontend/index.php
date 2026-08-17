@@ -18,21 +18,21 @@ $pdo = getDB();
 
         <!-- Slide 1 -->
         <div class="swiper-slide hero-slide">
-            <img src="/Frontend/images/sections/story-africa.jpg" alt="African grain market with sacks of grain" fetchpriority="high">
+            <img src="/Frontend/images/sections/story-africa.jpg" alt="Grain market with sacks of maize in Africa" fetchpriority="high">
             <div class="hero-scrim"></div>
             <div class="container">
                 <div class="hero-content">
-                    <span class="hero-badge hero-anim"><span class="dot"></span> Welcome to Kind Commodities Ltd</span>
-                    <h1 class="hero-title hero-anim">Quality Grains for <em>East Africa</em></h1>
-                    <p class="hero-sub hero-anim">Maize, wheat, rice and more — sourced from trusted growers, graded to standard, and delivered in bulk with fair, transparent pricing.</p>
+                    <span class="hero-badge hero-anim"><span class="dot"></span> Grain &amp; Produce Traders</span>
+                    <h1 class="hero-title hero-anim">Quality grains, from our farmers to <em>your business</em></h1>
+                    <p class="hero-sub hero-anim">We buy maize, wheat and rice from farmers we know, dry and grade it ourselves, then supply millers, traders and families across the region — one bag or a full truckload.</p>
                     <div class="hero-cta hero-anim">
-                        <a href="/Frontend/pages/shop.php" class="btn btn-primary" data-magnetic>Explore Products</a>
+                        <a href="/Frontend/pages/shop.php" class="btn btn-primary" data-magnetic>See What We Sell</a>
                         <a href="/Frontend/pages/about.php" class="btn btn-outline">Our Story</a>
                     </div>
                     <div class="hero-stats hero-anim">
-                        <div class="hero-stat"><b><span data-counter="10" data-suffix="k+">0</span></b><span>Tonnes delivered annually</span></div>
-                        <div class="hero-stat"><b><span data-counter="500" data-suffix="+">0</span></b><span>Happy clients</span></div>
-                        <div class="hero-stat"><b><span data-counter="10" data-suffix="+">0</span></b><span>Years in business</span></div>
+                        <div class="hero-stat"><b><span data-counter="10" data-suffix="k+">0</span></b><span>Tonnes moved a year</span></div>
+                        <div class="hero-stat"><b><span data-counter="500" data-suffix="+">0</span></b><span>Regular buyers</span></div>
+                        <div class="hero-stat"><b><span data-counter="10" data-suffix="+">0</span></b><span>Years in the trade</span></div>
                     </div>
                 </div>
             </div>
@@ -40,21 +40,21 @@ $pdo = getDB();
 
         <!-- Slide 2 -->
         <div class="swiper-slide hero-slide">
-            <img src="/Frontend/images/sections/sec-pulses.jpg" alt="Fresh pulses and produce at a Nairobi market">
+            <img src="/Frontend/images/sections/sec-pulses.jpg" alt="Fresh produce and pulses at a Nairobi market">
             <div class="hero-scrim"></div>
             <div class="container">
                 <div class="hero-content">
-                    <span class="hero-badge hero-anim"><span class="dot"></span> Pulses &amp; Legumes</span>
-                    <h1 class="hero-title hero-anim">Naturally <em>Nutritious</em></h1>
-                    <p class="hero-sub hero-anim">Beans, green grams, soya and more — carefully sorted, graded and packed for homes, exporters and processors across the region.</p>
+                    <span class="hero-badge hero-anim"><span class="dot"></span> Beans &amp; Legumes</span>
+                    <h1 class="hero-title hero-anim">Beans and pulses, cleaned and graded <em>the way buyers want them</em></h1>
+                    <p class="hero-sub hero-anim">Red beans, green grams and soya — hand-sorted, moisture-checked and packed for local tables and export markets, whether you need a single bag or a container.</p>
                     <div class="hero-cta hero-anim">
                         <a href="/Frontend/pages/shop.php?category=pulses" class="btn btn-primary" data-magnetic>Shop Pulses</a>
-                        <a href="/Frontend/pages/products.php" class="btn btn-outline">See Our Products</a>
+                        <a href="/Frontend/pages/products.php" class="btn btn-outline">All Products</a>
                     </div>
                     <div class="hero-stats hero-anim">
-                        <div class="hero-stat"><b><span data-counter="15" data-suffix="+">0</span></b><span>Commodities supplied</span></div>
-                        <div class="hero-stat"><b><span data-counter="100" data-suffix="%">0</span></b><span>Quality graded &amp; tested</span></div>
-                        <div class="hero-stat"><b><span data-counter="24" data-suffix="h">0</span></b><span>Response time</span></div>
+                        <div class="hero-stat"><b><span data-counter="15" data-suffix="+">0</span></b><span>Commodities we trade</span></div>
+                        <div class="hero-stat"><b><span data-counter="100" data-suffix="%">0</span></b><span>Graded before dispatch</span></div>
+                        <div class="hero-stat"><b><span data-counter="24" data-suffix="h">0</span></b><span>Quotes in a day</span></div>
                     </div>
                 </div>
             </div>
@@ -62,21 +62,21 @@ $pdo = getDB();
 
         <!-- Slide 3 -->
         <div class="swiper-slide hero-slide">
-            <img src="/Frontend/images/sections/sec-raw.jpg" alt="Graded grains and raw materials in store">
+            <img src="/Frontend/images/sections/sec-raw.jpg" alt="People sorting graded grains in store">
             <div class="hero-scrim"></div>
             <div class="container">
                 <div class="hero-content">
                     <span class="hero-badge hero-anim"><span class="dot"></span> Raw Materials &amp; Feed Ingredients</span>
-                    <h1 class="hero-title hero-anim">Built for <em>Industry</em></h1>
-                    <p class="hero-sub hero-anim">Bran, oilseed cakes and milling by-products — dependable bulk supply for feed manufacturers, millers and agribusinesses.</p>
+                    <h1 class="hero-title hero-anim">Steady supply that keeps <em>the mills running</em></h1>
+                    <p class="hero-sub hero-anim">Bran, oilcake and milling by-products in dependable volume — so feed manufacturers and processors never have to scramble for stock.</p>
                     <div class="hero-cta hero-anim">
-                        <a href="/Frontend/pages/services.php" class="btn btn-primary" data-magnetic>Explore Services</a>
-                        <a href="/Frontend/pages/contact.php" class="btn btn-outline">Partner With Us</a>
+                        <a href="/Frontend/pages/services.php" class="btn btn-primary" data-magnetic>Our Services</a>
+                        <a href="/Frontend/pages/contact.php" class="btn btn-outline">Talk to Us</a>
                     </div>
                     <div class="hero-stats hero-anim">
-                        <div class="hero-stat"><b><span data-counter="98" data-suffix="%">0</span></b><span>On-time delivery rate</span></div>
-                        <div class="hero-stat"><b><span data-counter="500" data-suffix="t+">0</span></b><span>Consistent monthly stock</span></div>
-                        <div class="hero-stat"><b><span data-counter="6" data-suffix="">0</span></b><span>Counties served daily</span></div>
+                        <div class="hero-stat"><b><span data-counter="98" data-suffix="%">0</span></b><span>On-time deliveries</span></div>
+                        <div class="hero-stat"><b><span data-counter="500" data-suffix="t+">0</span></b><span>In store most months</span></div>
+                        <div class="hero-stat"><b><span data-counter="6" data-suffix="">0</span></b><span>Counties we serve</span></div>
                     </div>
                 </div>
             </div>
@@ -91,7 +91,7 @@ $pdo = getDB();
 <div class="marquee" aria-hidden="true">
     <div class="marquee-track">
         <?php
-        $words = ['AUTHENTICITY', 'QUALITY', 'RELIABILITY', 'SUSTAINABILITY', 'INTEGRITY', 'EXCELLENCE', 'TRUSTED', 'GRADED'];
+        $words = ['GRADED', 'DRIED', 'WEIGHED', 'PACKED', 'DELIVERED', 'TRUSTED', 'FAIR PRICES', 'ON TIME'];
         for ($copy = 0; $copy < 2; $copy++) {
             foreach ($words as $w) {
                 echo '<span>' . $w . '</span>';
@@ -106,40 +106,40 @@ $pdo = getDB();
     <div class="container">
         <div class="section-head center" data-reveal>
             <span class="eyebrow centered">Why Kind Commodities</span>
-            <h2 class="section-title">Commodity trading done <em>right</em>, from grower to buyer</h2>
-            <p class="lead">We combine deep sourcing networks with rigorous quality standards to deliver the best grains and raw materials in the region.</p>
+            <h2 class="section-title">What you get when you <em>deal with us</em></h2>
+            <p class="lead">No fluff. We grade honestly, price fairly and deliver when we say we will — that's how we've kept customers for a decade.</p>
         </div>
 
         <div class="grid-3" data-reveal-group style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.8rem;">
             <div class="p-card">
                 <div class="p-icon"><i data-lucide="shield-check" style="width:28px;height:28px;"></i></div>
-                <h3>Quality Assurance</h3>
-                <p>Every consignment is graded, moisture-tested and inspected against set standards before it leaves our stores.</p>
+                <h3>Checked, Not Just Claimed</h3>
+                <p>Every lot is graded and moisture-tested before it leaves our stores. If it isn't up to standard, we don't sell it.</p>
             </div>
             <div class="p-card">
                 <div class="p-icon"><i data-lucide="warehouse" style="width:28px;height:28px;"></i></div>
-                <h3>Reliable Bulk Supply</h3>
-                <p>Consistent volume, season after season — backed by our store network and long-term grower contracts.</p>
+                <h3>We Keep Stock</h3>
+                <p>Steady volumes season after season, backed by our own stores and long-term agreements with growers.</p>
             </div>
             <div class="p-card">
                 <div class="p-icon"><i data-lucide="scale" style="width:28px;height:28px;"></i></div>
-                <h3>Fair, Transparent Pricing</h3>
-                <p>Market-based rates quoted clearly up front — no hidden charges, no surprises at delivery.</p>
+                <h3>Prices That Make Sense</h3>
+                <p>We quote from the market, not from guesswork. What we agree is what you pay — no surprises on delivery day.</p>
             </div>
             <div class="p-card">
                 <div class="p-icon"><i data-lucide="truck" style="width:28px;height:28px;"></i></div>
-                <h3>Timely Delivery</h3>
-                <p>Well-maintained transport and careful logistics move your order on schedule — right to your door or depot.</p>
+                <h3>Delivered When We Say</h3>
+                <p>Our own transport and careful loading mean your order arrives on schedule — dry, clean and properly bagged.</p>
             </div>
             <div class="p-card">
                 <div class="p-icon"><i data-lucide="leaf" style="width:28px;height:28px;"></i></div>
-                <h3>Sourcing Expertise</h3>
-                <p>An established network of trusted growers and aggregators means we can source what you need, when you need it.</p>
+                <h3>We Know Our Growers</h3>
+                <p>Years of working with farmers across the region mean we can still find what you need, even when it's scarce.</p>
             </div>
             <div class="p-card">
                 <div class="p-icon"><i data-lucide="heart-handshake" style="width:28px;height:28px;"></i></div>
-                <h3>Customer First</h3>
-                <p>Honest advice, flexible terms and long-term partnerships with the traders, millers and families we serve.</p>
+                <h3>Business the Old-Fashioned Way</h3>
+                <p>Straight answers, honest advice and relationships that last well beyond a single order.</p>
             </div>
         </div>
     </div>
@@ -151,7 +151,7 @@ $pdo = getDB();
         <div class="grid-4" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.6rem;">
             <div class="stat-item" data-reveal>
                 <b><span data-counter="10" data-suffix="k+">0</span></b>
-                <span>Tonnes Delivered Annually</span>
+                <span>Tonnes Delivered a Year</span>
             </div>
             <div class="stat-item" data-reveal data-reveal-delay="120">
                 <b><span data-counter="500" data-suffix="+">0</span></b>
@@ -175,8 +175,8 @@ $pdo = getDB();
         <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:1.6rem;flex-wrap:wrap;margin-bottom:2.4rem;" data-reveal>
             <div>
                 <span class="eyebrow">Best Sellers</span>
-                <h2 class="section-title" style="margin-bottom:0.4rem;">Featured <em>Products</em></h2>
-                <p class="lead" style="margin:0;">Premium grains, pulses and raw materials — ready to order.</p>
+                <h2 class="section-title" style="margin-bottom:0.4rem;">What's <em>moving</em> this week</h2>
+                <p class="lead" style="margin:0;">Current stock — prices change with the market, call us for today's quote.</p>
             </div>
             <a href="/Frontend/pages/shop.php" class="btn btn-outline">View Full Shop <i data-lucide="arrow-right" style="width:16px;height:16px;"></i></a>
         </div>
@@ -240,30 +240,30 @@ $pdo = getDB();
     <div class="container">
         <div class="section-head center" data-reveal>
             <span class="eyebrow centered">How It Works</span>
-            <h2 class="section-title">From grower to <em>your business</em></h2>
-            <p class="lead">A simple, transparent journey — so you always know exactly what you're getting.</p>
+            <h2 class="section-title">Ordering with us is <em>straightforward</em></h2>
+            <p class="lead">Four steps, no runaround. Here's how most orders go.</p>
         </div>
 
         <div class="grid-4" data-reveal-group style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.8rem;">
             <div class="p-card num-card">
                 <span class="step-no">01</span>
-                <h3>Enquire &amp; Sample</h3>
-                <p>Tell us what you need — by phone, WhatsApp or the website. We confirm availability and can arrange samples instantly.</p>
+                <h3>Tell Us What You Need</h3>
+                <p>A call, a message or the website — tell us the commodity, grade and quantity. We reply the same day.</p>
             </div>
             <div class="p-card num-card">
                 <span class="step-no">02</span>
-                <h3>Grade &amp; Quote</h3>
-                <p>Every consignment is graded and moisture-tested, and you receive a clear, market-based quote.</p>
+                <h3>See a Sample First</h3>
+                <p>We show you the current stock and can share samples, so you know exactly what you're buying.</p>
             </div>
             <div class="p-card num-card">
                 <span class="step-no">03</span>
-                <h3>Pack &amp; Dispatch</h3>
-                <p>Carefully packed in clean bags and loaded for safe, monitored transport — on time, every time.</p>
+                <h3>We Agree Terms</h3>
+                <p>Price, quantity, delivery date and payment — agreed up front, nothing hidden.</p>
             </div>
             <div class="p-card num-card">
                 <span class="step-no">04</span>
-                <h3>Deliver &amp; Support</h3>
-                <p>Reliable delivery to your door or depot, with ongoing supply support for your growing business.</p>
+                <h3>Delivered, Then Supported</h3>
+                <p>Your order arrives on schedule, and we stay around for repeat supply as your business grows.</p>
             </div>
         </div>
     </div>
@@ -277,16 +277,16 @@ $pdo = getDB();
         </div>
         <div data-reveal="right">
             <span class="eyebrow">Our Story</span>
-            <h2 class="section-title">From a family farm to <em>East Africa's</em> trusted commodity supplier</h2>
-            <p class="lead">Founded in 2015, we've grown from a small family operation into a modern grain and raw materials trader serving thousands of customers — without ever losing the personal touch.</p>
+            <h2 class="section-title">We started with a family farm, one pickup and a <em>promise to pay farmers on time</em></h2>
+            <p class="lead">In 2015 we began buying a little extra maize from neighbours and selling it to local traders. Today we supply hundreds of buyers across the region — and the way we work hasn't changed.</p>
             <ul class="check-list" style="margin:1.6rem 0 2.2rem;">
-                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Licensed, certified &amp; compliant grain handling</li>
-                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Every batch graded &amp; moisture-tested to standard</li>
-                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Fair prices &amp; long-term grower partnerships</li>
+                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Farmers get paid on time — they're our partners, not suppliers</li>
+                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Every batch is graded and moisture-checked before it ships</li>
+                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Honest prices — the quote we give is the price you pay</li>
             </ul>
             <div style="display:flex;gap:1rem;flex-wrap:wrap;">
                 <a href="/Frontend/pages/about.php" class="btn btn-primary" data-magnetic>Read Our Story</a>
-                <a href="/Frontend/pages/services.php" class="btn btn-outline">Explore Services</a>
+                <a href="/Frontend/pages/services.php" class="btn btn-outline">What We Do</a>
             </div>
         </div>
     </div>
@@ -297,14 +297,14 @@ $pdo = getDB();
     <div class="container">
         <div class="section-head center" data-reveal>
             <span class="eyebrow centered">Testimonials</span>
-            <h2 class="section-title">Clients who <em>trust us</em></h2>
+            <h2 class="section-title">What our buyers <em>say</em></h2>
         </div>
 
         <div class="grid-3" data-reveal-group style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.8rem;">
             <figure class="testimonial-card">
                 <span class="quote-mark">&ldquo;</span>
                 <div class="stars">★★★★★</div>
-                <blockquote>I've sourced maize and soya from Kind Commodities for three seasons now. The grading is consistent and the delivery never misses a window.</blockquote>
+                <blockquote>We've bought maize and soya from Kind for three seasons now. The grading is consistent and the delivery never misses the window we agree on.</blockquote>
                 <figcaption>
                     <span class="avatar">JM</span>
                     <span><span class="t-name">James Muriithi</span><br><span class="t-role">Grain Trader, Eldoret</span></span>
@@ -313,7 +313,7 @@ $pdo = getDB();
             <figure class="testimonial-card">
                 <span class="quote-mark">&ldquo;</span>
                 <div class="stars">★★★★★</div>
-                <blockquote>Their bran and oilseed cakes keep our feed line running without a single shortage. The support team actually answers the phone.</blockquote>
+                <blockquote>Their bran and oilcake keep our feed line running with no shortages. When we call, someone actually picks up.</blockquote>
                 <figcaption>
                     <span class="avatar">AN</span>
                     <span><span class="t-name">Alice Nekesa</span><br><span class="t-role">Feed Manufacturer, Bungoma</span></span>
@@ -322,7 +322,7 @@ $pdo = getDB();
             <figure class="testimonial-card">
                 <span class="quote-mark">&ldquo;</span>
                 <div class="stars">★★★★★</div>
-                <blockquote>Quality beans and green grams delivered to our mill every month, without fail. The quality is unmatched in the county.</blockquote>
+                <blockquote>Beans and green grams reach our mill every month, clean and well dried. That kind of reliability is hard to find.</blockquote>
                 <figcaption>
                     <span class="avatar">DO</span>
                     <span><span class="t-name">Daniel Ochieng</span><br><span class="t-role">Mill Owner, Kakamega</span></span>
@@ -337,12 +337,12 @@ $pdo = getDB();
     <div class="container">
         <div class="cta-band" data-reveal="zoom">
             <div class="container" style="padding:0;">
-                <span class="eyebrow centered" style="color:var(--gold-300);">Let's Get Started</span>
-                <h2>Ready to source quality grains?</h2>
-                <p>Join hundreds of successful traders, millers and manufacturers using Kind Commodities products and supply support. Whether you need a single bag or bulk truckloads — we've got you covered.</p>
+                <span class="eyebrow centered" style="color:var(--gold-300);">Let's Talk Grain</span>
+                <h2>Need a quote by Friday?</h2>
+                <p>Whether you need a single 90kg bag or a full truckload, we're ready. Call, message or stop by the stores — we'll sort you out.</p>
                 <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-                    <a href="/Frontend/pages/register.php" class="btn btn-primary" data-magnetic>Create Account</a>
-                    <a href="/Frontend/pages/contact.php" class="btn btn-ghost">Contact Sales</a>
+                    <a href="/Frontend/pages/contact.php" class="btn btn-primary" data-magnetic>Get a Quote</a>
+                    <a href="/Frontend/pages/register.php" class="btn btn-ghost">Create an Account</a>
                 </div>
             </div>
         </div>

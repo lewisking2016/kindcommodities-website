@@ -16,7 +16,7 @@ include '../includes/header.php';
     <div class="container">
         <nav class="breadcrumb" data-reveal="fade"><a href="/">Home</a><span class="sep">/</span><span>Services</span></nav>
         <h1 data-reveal="fade" data-reveal-delay="100">Our <em>Services</em></h1>
-        <p data-reveal="fade" data-reveal-delay="200">Reliable sourcing, grading and delivery of grains and raw materials — so your business never runs short.</p>
+        <p data-reveal="fade" data-reveal-delay="200">Sourcing, grading and delivery of grains and raw materials — so your business never runs short.</p>
     </div>
 </section>
 
@@ -26,7 +26,7 @@ include '../includes/header.php';
         <div class="section-head center" data-reveal>
             <span class="eyebrow centered">What We Offer</span>
             <h2 class="section-title">Commodity solutions &amp; <em>services</em></h2>
-            <p class="lead">We go beyond simple supply to ensure local businesses succeed with dependable, quality-focused support.</p>
+            <p class="lead">We don't just sell you a bag of maize — we make sure you can keep getting it, week after week, season after season.</p>
         </div>
 
         <div class="grid-3" data-reveal-group style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.8rem;">

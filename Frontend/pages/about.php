@@ -16,7 +16,7 @@ include '../includes/header.php';
     <div class="container">
         <nav class="breadcrumb" data-reveal="fade"><a href="/">Home</a><span class="sep">/</span><span>About</span></nav>
         <h1 data-reveal="fade" data-reveal-delay="100">About <em>Kind Commodities Ltd</em></h1>
-        <p data-reveal="fade" data-reveal-delay="200">Trusted grain and raw materials supplier in East Africa — quality commodities, honest pricing and reliable supply since 2015.</p>
+        <p data-reveal="fade" data-reveal-delay="200">We buy and sell grain, pulses and feed raw materials across East Africa — since 2015, and still doing it the honest way.</p>
     </div>
 </section>
 
@@ -27,7 +27,7 @@ include '../includes/header.php';
             <span class="eyebrow">Our Story</span>
             <h2 class="section-title">From a small family operation to <em>industry leaders</em></h2>
             <p class="lead">Founded in 2015, Kind Commodities Ltd started as a small family operation. What began with a modest harvest has grown into a modern grain and raw materials trading business serving thousands of customers across East Africa.</p>
-            <p class="lead">Our journey has been driven by a commitment to quality, integrity and sustainable sourcing. We've invested in proper storage facilities, grading and moisture-testing equipment, and a network of trusted growers to ensure every consignment meets international standards.</p>
+            <p class="lead">We've grown by doing simple things well: buying good produce, paying farmers on time and delivering what we promised. Along the way we built proper stores, grading and moisture-testing equipment, and relationships with growers who know we'll be back next season.</p>
             <ul class="check-list" style="margin-top:1.8rem;">
                 <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Licensed, certified &amp; compliant commodity handling</li>
                 <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Graded, moisture-tested &amp; clean every time</li>
