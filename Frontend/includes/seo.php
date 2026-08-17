@@ -17,7 +17,7 @@ function generateOrganizationSchema(): string
         'alternateName' => 'Kind Commodities Ltd',
         'url' => 'https://kindcommoditiesltd.com',
         'logo' => '',
-        'description' => 'Leading poultry supplier in East Africa. Premium chickens, eggs, and animal feeds.',
+        'description' => 'Trusted supplier of quality grains, pulses, oilseeds and feed raw materials across East Africa.',
         'sameAs' => [
             'https://www.facebook.com/kindcommodities',
             'https://twitter.com/kindcommodities',
@@ -52,7 +52,7 @@ function generateLocalBusinessSchema(): string
         '@type' => 'LocalBusiness',
         'name' => 'Kind Commodities Ltd',
         'image' => '',
-        'description' => 'Poultry farming, egg production, and premium animal feeds',
+        'description' => 'Grain and raw materials trading: quality maize, wheat, rice, pulses, oilseeds and feed ingredients',
         'address' => [
             '@type' => 'PostalAddress',
             'streetAddress' => 'Kind Commodities Ltd',

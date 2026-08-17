@@ -160,9 +160,9 @@ $total_amount = $subtotal + $delivery_charge;
                             <?php
                                 $fallbackImage = match($p['product_type'] ?? 'feed') {
                                     'feed' => '/Frontend/images/product-placeholder.svg',
-                                    'eggs' => '/Frontend/images/product-placeholder.svg',
-                                    'chicks' => '/Frontend/images/product-placeholder.svg',
-                                    'live_chicken' => '/Frontend/images/product-placeholder.svg',
+                                    'legume' => '/Frontend/images/product-placeholder.svg',
+                                    'oilseed' => '/Frontend/images/product-placeholder.svg',
+                                    'raw_material' => '/Frontend/images/product-placeholder.svg',
                                     default => '/Frontend/images/product-placeholder.svg'
                                 };
                             ?>

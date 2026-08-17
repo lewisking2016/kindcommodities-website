@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register_submit'])) {
                     <i data-lucide="user-plus" style="width: 24px; height: 24px;"></i>
                 </div>
                 <h2>Create Account</h2>
-                <p style="color: var(--gray-600); margin-top: var(--space-xs);">Join our poultry farming community today.</p>
+                <p style="color: var(--gray-600); margin-top: var(--space-xs);">Join our grains &amp; raw materials trading community today.</p>
             </div>
 
             <?php if (!empty($errors)): ?>

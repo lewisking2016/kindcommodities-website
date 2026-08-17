@@ -16,16 +16,16 @@ CREATE TABLE IF NOT EXISTS `system_dropdowns` (
 -- Seed Default Dropdown Groups and Options
 INSERT IGNORE INTO `system_dropdowns` (`group_key`, `group_label`, `option_value`, `option_label`, `sort_order`, `is_active`, `is_system`) VALUES
 -- Product Categories
-('product_categories', 'Product Categories', 'broilers', 'Broilers', 1, 1, 1),
-('product_categories', 'Product Categories', 'layers', 'Layers', 2, 1, 1),
-('product_categories', 'Product Categories', 'day-old-chicks', 'Day-Old Chicks', 3, 1, 1),
-('product_categories', 'Product Categories', 'feeds', 'Feeds', 4, 1, 1),
+('product_categories', 'Product Categories', 'cereals', 'Grains & Cereals', 1, 1, 1),
+('product_categories', 'Product Categories', 'pulses', 'Pulses & Legumes', 2, 1, 1),
+('product_categories', 'Product Categories', 'oilseeds', 'Oilseeds & Nuts', 3, 1, 1),
+('product_categories', 'Product Categories', 'feed_ingredients', 'Feed Raw Materials', 4, 1, 1),
 
 -- Product Types
-('product_types', 'Product Types', 'live_chicken', 'Live Chicken', 1, 1, 1),
-('product_types', 'Product Types', 'eggs', 'Eggs', 2, 1, 1),
-('product_types', 'Product Types', 'chicks', 'Chicks', 3, 1, 1),
-('product_types', 'Product Types', 'feed', 'Feeds', 4, 1, 1),
+('product_types', 'Product Types', 'grain', 'Grains & Cereals', 1, 1, 1),
+('product_types', 'Product Types', 'legume', 'Pulses & Legumes', 2, 1, 1),
+('product_types', 'Product Types', 'oilseed', 'Oilseeds & Nuts', 3, 1, 1),
+('product_types', 'Product Types', 'raw_material', 'Feed Raw Materials', 4, 1, 1),
 
 -- Order Statuses
 ('order_statuses', 'Order Statuses', 'pending', 'Pending', 1, 1, 1),

@@ -83,7 +83,7 @@ if (!empty($_SESSION['cart'])) {
                 </div>
                 <h2 style="margin-bottom: var(--space-md);">Your cart is empty</h2>
                 <p style="color: var(--gray-600); margin-bottom: var(--space-2xl); max-width: 400px; margin-left: auto; margin-right: auto;">
-                    Looks like you haven't added any products to your cart yet. Browse our shop to find the best poultry products.
+                    Looks like you haven't added any products to your cart yet. Browse our shop to find the best grains and raw materials.
                 </p>
                 <a href="/Frontend/pages/shop.php" class="btn btn-primary">Start Shopping</a>
             </div>
@@ -109,9 +109,9 @@ if (!empty($_SESSION['cart'])) {
                                     if (!$img) {
                                         $img = match($item['product_type']) {
                                             'feed' => '/Frontend/images/product-placeholder.svg',
-                                            'eggs' => '/Frontend/images/product-placeholder.svg',
-                                            'chicks' => '/Frontend/images/product-placeholder.svg',
-                                            'live_chicken' => '/Frontend/images/product-placeholder.svg',
+                                            'legume' => '/Frontend/images/product-placeholder.svg',
+                                            'oilseed' => '/Frontend/images/product-placeholder.svg',
+                                            'raw_material' => '/Frontend/images/product-placeholder.svg',
                                             default => '/Frontend/images/product-placeholder.svg'
                                         };
                                     }

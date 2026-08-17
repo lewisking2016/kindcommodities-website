@@ -1,11 +1,12 @@
 <?php
 /**
  * Products Page — Premium Redesign
+ * Kind Commodities Ltd — grains & raw materials.
  */
 declare(strict_types=1);
 
 $path_prefix = '../';
-$page_title = 'Products - Chicken & Feeds | Kind Commodities Ltd';
+$page_title = 'Products - Grains, Pulses & Raw Materials | Kind Commodities Ltd';
 
 include '../includes/header.php';
 ?>
@@ -15,24 +16,24 @@ include '../includes/header.php';
     <div class="container">
         <nav class="breadcrumb" data-reveal="fade"><a href="/">Home</a><span class="sep">/</span><span>Products</span></nav>
         <h1 data-reveal="fade" data-reveal-delay="100">Our Premium <em>Products</em></h1>
-        <p data-reveal="fade" data-reveal-delay="200">Discover our range of high-quality chicken products and specially formulated animal feeds designed for optimal growth and productivity.</p>
+        <p data-reveal="fade" data-reveal-delay="200">Discover our range of quality grains, pulses, oilseeds and feed raw materials — graded, tested and ready for delivery.</p>
     </div>
 </section>
 
-<!-- Broilers -->
+<!-- Grains & Cereals -->
 <section class="section-pad bg-white">
     <div class="container">
         <div class="row" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(2.4rem,5vw,4.5rem);align-items:center;">
             <div data-reveal="left">
-                <span class="eyebrow">Meat Production</span>
-                <h2 class="section-title">Broiler <em>Chickens</em></h2>
-                <p class="lead">High-quality broilers bred for superior meat yield and rapid growth cycles — vaccinated, disease-free and raised on premium nutrition standards. Perfect for commercial processing and retail meat supply.</p>
+                <span class="eyebrow">Staple Crops</span>
+                <h2 class="section-title">Grains &amp; <em>Cereals</em></h2>
+                <p class="lead">Premium grains sourced from trusted growers — clean, well-dried and graded for milling, processing, feed and human consumption. Available in bags or bulk.</p>
                 <ul class="check-list" style="margin:1.6rem 0 2.2rem;">
-                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Ross 308 &amp; Cobb 500 breeds</li>
-                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Market weight in 6–7 weeks</li>
-                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Excellent feed conversion ratio</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>White &amp; yellow maize, wheat and rice</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Sorghum, millet and barley</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Graded &amp; moisture-tested to standard</li>
                 </ul>
-                <a href="/Frontend/pages/shop.php?category=broilers" class="btn btn-primary" data-magnetic>Shop Broilers</a>
+                <a href="/Frontend/pages/shop.php?category=cereals" class="btn btn-primary" data-magnetic>Shop Grains</a>
             </div>
             <div data-reveal="right">
                 <div class="img-frame frame-gold">
@@ -45,7 +46,7 @@ include '../includes/header.php';
 
 <hr class="ornament-line">
 
-<!-- Layers & Eggs -->
+<!-- Pulses & Legumes -->
 <section class="section-pad bg-white">
     <div class="container">
         <div class="row" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(2.4rem,5vw,4.5rem);align-items:center;">
@@ -55,15 +56,15 @@ include '../includes/header.php';
                 </div>
             </div>
             <div data-reveal="right" style="order:1;">
-                <span class="eyebrow">Egg Production</span>
-                <h2 class="section-title">Layers &amp; Fresh <em>Eggs</em></h2>
-                <p class="lead">High-yielding layer chickens producing premium quality eggs. Optimized for consistent production and excellent shell quality — harvested daily from our modern facilities.</p>
+                <span class="eyebrow">High-Protein Crops</span>
+                <h2 class="section-title">Pulses &amp; <em>Legumes</em></h2>
+                <p class="lead">Nutritious, high-demand pulses — carefully sorted and graded for local markets, exporters and processors who value consistency.</p>
                 <ul class="check-list" style="margin:1.6rem 0 2.2rem;">
-                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>ISA Brown &amp; Lohmann layers</li>
-                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>300+ eggs per bird per year</li>
-                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Grade A farm-fresh eggs (30-egg trays)</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Red beans, green grams &amp; soya beans</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Cowpeas, pigeon peas &amp; chickpeas</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Uniform, clean &amp; ready for export packing</li>
                 </ul>
-                <a href="/Frontend/pages/shop.php?category=layers" class="btn btn-primary" data-magnetic>Shop Layers &amp; Eggs</a>
+                <a href="/Frontend/pages/shop.php?category=pulses" class="btn btn-primary" data-magnetic>Shop Pulses</a>
             </div>
         </div>
     </div>
@@ -71,25 +72,51 @@ include '../includes/header.php';
 
 <hr class="ornament-line">
 
-<!-- Feeds -->
+<!-- Oilseeds & Nuts -->
 <section class="section-pad bg-white">
     <div class="container">
         <div class="row" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(2.4rem,5vw,4.5rem);align-items:center;">
             <div data-reveal="left">
-                <span class="eyebrow">Nutrition</span>
-                <h2 class="section-title">Premium Animal <em>Feeds</em></h2>
-                <p class="lead">Specially formulated animal feeds designed for optimal growth, productivity and health — balanced with essential nutrients, amino acids and vitamins for maximum performance.</p>
+                <span class="eyebrow">Oil &amp; Protein</span>
+                <h2 class="section-title">Oilseeds &amp; <em>Nuts</em></h2>
+                <p class="lead">Quality oilseeds for crushing and processing — clean, well-dried and graded for excellent oil yield and export appeal.</p>
                 <ul class="check-list" style="margin:1.6rem 0 2.2rem;">
-                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Starter, grower and finisher feeds</li>
-                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Premium layer mash with calcium</li>
-                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Available in 50kg bulk bags</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Sunflower seeds &amp; sesame seeds</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Groundnuts &amp; other oil crops</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>High purity, suitable for oil &amp; food markets</li>
                 </ul>
-                <a href="/Frontend/pages/shop.php?category=feeds" class="btn btn-primary" data-magnetic>Shop Feeds</a>
+                <a href="/Frontend/pages/shop.php?category=oilseeds" class="btn btn-primary" data-magnetic>Shop Oilseeds</a>
             </div>
             <div data-reveal="right">
                 <div class="img-frame frame-gold">
                     <div class="brand-panel" style="aspect-ratio:4/3;"><b>KC</b><span>Kind Commodities</span></div>
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<hr class="ornament-line">
+
+<!-- Feed Raw Materials -->
+<section class="section-pad bg-white">
+    <div class="container">
+        <div class="row" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(2.4rem,5vw,4.5rem);align-items:center;">
+            <div data-reveal="left" style="order:2;">
+                <div class="img-frame frame-gold">
+                    <div class="brand-panel" style="aspect-ratio:4/3;"><b>KC</b><span>Kind Commodities</span></div>
+                </div>
+            </div>
+            <div data-reveal="right" style="order:1;">
+                <span class="eyebrow">Feed &amp; Industry Inputs</span>
+                <h2 class="section-title">Feed Raw <em>Materials</em></h2>
+                <p class="lead">Consistent, quality raw materials for feed manufacturers, millers and agribusinesses — dependable supply that keeps production lines moving.</p>
+                <ul class="check-list" style="margin:1.6rem 0 2.2rem;">
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Maize bran, wheat bran &amp; rice bran</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Sunflower cake, soya meal &amp; other oilcakes</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Available in 50kg bags &amp; bulk lots</li>
+                </ul>
+                <a href="/Frontend/pages/shop.php?category=feed_ingredients" class="btn btn-primary" data-magnetic>Shop Raw Materials</a>
             </div>
         </div>
     </div>
@@ -101,8 +128,8 @@ include '../includes/header.php';
         <div class="cta-band" data-reveal="zoom">
             <div class="container" style="padding:0;">
                 <span class="eyebrow centered" style="color:var(--gold-300);">Bulk Orders</span>
-                <h2>Commercial farming needs?</h2>
-                <p>We offer specialized pricing and dedicated support for large-scale operations. Bulk orders for day-old chicks and feeds include free delivery within our local delivery area.</p>
+                <h2>Commercial supply needs?</h2>
+                <p>We offer specialized pricing and dedicated support for large-scale operations. Bulk grain and raw material orders include scheduled delivery within our local delivery area.</p>
                 <div style="display:flex;gap:1rem;flex-wrap:wrap;">
                     <a href="/Frontend/pages/contact.php" class="btn btn-primary" data-magnetic>Request Bulk Quote</a>
                     <a href="/Frontend/pages/shop.php" class="btn btn-ghost">Browse the Shop</a>

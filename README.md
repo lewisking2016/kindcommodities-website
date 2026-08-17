@@ -1,13 +1,13 @@
 # Kind Commodities Ltd Website
 
-Premium poultry e-commerce website with farm management system.
+Premium grains & raw materials trading website with an operations management system.
 
-## 🐔 About
+## 🌾 About
 
-Kind Commodities Ltd is a modern, production-ready website for a premium poultry business based in Kenya. The platform provides:
+Kind Commodities Ltd is a modern, production-ready website for a grains and raw materials trading business based in Kenya. The platform provides:
 
-- **E-commerce store** for chickens, eggs, and feeds
-- **Farm management dashboard** for tracking flocks, production, and finances
+- **E-commerce store** for grains, pulses, oilseeds, and feed raw materials
+- **Operations dashboard** for tracking stock, production, and finances
 - **Admin panel** for managing products, orders, and reports
 - **Responsive design** optimized for all devices
 - **Premium UI** with smooth animations and micro-interactions
@@ -16,7 +16,7 @@ Kind Commodities Ltd is a modern, production-ready website for a premium poultry
 
 ### Public Features
 - Full-screen hero slider with auto-advance
-- Product catalog with categories (Broilers, Layers, Chicks, Feeds)
+- Product catalog with categories (Grains & Cereals, Pulses & Legumes, Oilseeds & Nuts, Feed Raw Materials)
 - Shopping cart with session management
 - Checkout with Bank Transfer & Cash on Delivery
 - Responsive mobile-first design

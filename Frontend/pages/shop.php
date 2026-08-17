@@ -5,7 +5,7 @@
 declare(strict_types=1);
 
 $path_prefix = '../';
-$page_title = 'Shop - Buy Chicken Products & Feeds | Kind Commodities Ltd';
+$page_title = 'Shop - Grains & Raw Materials | Kind Commodities Ltd';
 
 include '../includes/header.php';
 
@@ -21,7 +21,7 @@ $products = loadDisplayProducts($pdo);
     <div class="container">
         <nav class="breadcrumb" data-reveal="fade"><a href="/">Home</a><span class="sep">/</span><span>Shop</span></nav>
         <h1 data-reveal="fade" data-reveal-delay="100">The <em>Shop</em></h1>
-        <p data-reveal="fade" data-reveal-delay="200">Browse and purchase premium chicken products, fresh eggs and feeds — delivered to your door.</p>
+        <p data-reveal="fade" data-reveal-delay="200">Browse and order quality grains, pulses, oilseeds and feed raw materials — delivered to your door.</p>
     </div>
 </section>
 
@@ -30,8 +30,8 @@ $products = loadDisplayProducts($pdo);
     <div class="container">
         <div class="section-head" data-reveal>
             <span class="eyebrow">Our Products</span>
-            <h2 class="section-title">Shop <em>Poultry &amp; Feeds</em></h2>
-            <p class="lead">Fresh eggs, day-old chicks, live birds and premium feeds — ready to order and delivered to your door.</p>
+            <h2 class="section-title">Shop <em>Grains &amp; Raw Materials</em></h2>
+            <p class="lead">Grains, pulses, oilseeds and feed raw materials — ready to order and delivered to your door.</p>
         </div>
 
         <div class="shop-layout" style="display:grid;grid-template-columns:250px 1fr;gap:clamp(1.6rem,3vw,3rem);align-items:start;">
@@ -97,11 +97,11 @@ $products = loadDisplayProducts($pdo);
                         foreach ($products as $index => $product):
                             $img = $product['img'] ?? '';
                             if (!$img) {
-                                $img = match($product['product_type'] ?? 'feed') {
-                                    'feed' => '/Frontend/images/product-placeholder.svg',
-                                    'eggs' => '/Frontend/images/product-placeholder.svg',
-                                    'chicks' => '/Frontend/images/product-placeholder.svg',
-                                    'live_chicken' => '/Frontend/images/product-placeholder.svg',
+                                $img = match($product['product_type'] ?? 'grain') {
+                                    'grain' => '/Frontend/images/product-placeholder.svg',
+                                    'legume' => '/Frontend/images/product-placeholder.svg',
+                                    'oilseed' => '/Frontend/images/product-placeholder.svg',
+                                    'raw_material' => '/Frontend/images/product-placeholder.svg',
                                     default => '/Frontend/images/product-placeholder.svg'
                                 };
                             }

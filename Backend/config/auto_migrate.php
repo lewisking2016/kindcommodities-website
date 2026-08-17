@@ -388,6 +388,34 @@ function seedMasterData(PDO $pdo): void
         foreach ($sizes as $s) {
             $stmt->execute($s);
         }
+
+        // ── Product taxonomy: pivot from poultry to grains & raw materials ──
+        // Rename the legacy poultry dropdown options in place (preserving IDs
+        // and product_type references) and ensure the new commodity options
+        // exist. Idempotent — safe to run on every connection.
+        $taxonomyMaps = [
+            'product_types' => [
+                ['live_chicken', 'grain', 'Grains & Cereals', 1],
+                ['eggs', 'legume', 'Pulses & Legumes', 2],
+                ['chicks', 'oilseed', 'Oilseeds & Nuts', 3],
+                ['feed', 'raw_material', 'Feed Raw Materials', 4],
+            ],
+            'product_categories' => [
+                ['broilers', 'cereals', 'Grains & Cereals', 1],
+                ['layers', 'pulses', 'Pulses & Legumes', 2],
+                ['day-old-chicks', 'oilseeds', 'Oilseeds & Nuts', 3],
+                ['feeds', 'feed_ingredients', 'Feed Raw Materials', 4],
+            ],
+        ];
+        $upd = $pdo->prepare('UPDATE system_dropdowns SET option_value = ?, option_label = ?, sort_order = ? WHERE group_key = ? AND option_value = ?');
+        $ins = $pdo->prepare('INSERT IGNORE INTO system_dropdowns (group_key, group_label, option_value, option_label, sort_order, is_active, is_system) VALUES (?,?,?,?,?,1,1)');
+        foreach ($taxonomyMaps as $group => $rows) {
+            $groupLabel = ($group === 'product_types') ? 'Product Types' : 'Product Categories';
+            foreach ($rows as $r) {
+                $upd->execute([$r[1], $r[2], $r[3], $group, $r[0]]);
+                $ins->execute([$group, $groupLabel, $r[1], $r[2], $r[3]]);
+            }
+        }
     }
 
     // ── Role permissions matrix (idempotent) ──

@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_submit'])) {
     <div class="container">
         <nav class="breadcrumb" data-reveal="fade"><a href="/">Home</a><span class="sep">/</span><span>Contact</span></nav>
         <h1 data-reveal="fade" data-reveal-delay="100">Get In <em>Touch</em></h1>
-        <p data-reveal="fade" data-reveal-delay="200">Have questions about our products or want to discuss a bulk order? We're here to help.</p>
+        <p data-reveal="fade" data-reveal-delay="200">Have questions about our commodities or want to discuss a bulk order? We're here to help.</p>
     </div>
 </section>
 
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_submit'])) {
         <div data-reveal="left">
             <span class="eyebrow">Contact Information</span>
             <h2 class="section-title">Let's <em>talk</em></h2>
-            <p class="lead">Reach out by phone, email or visit the farm — we respond within 24 hours on all channels.</p>
+            <p class="lead">Reach out by phone, email or visit our offices — we respond within 24 hours on all channels.</p>
 
             <div style="display:grid;gap:1.2rem;margin-top:2rem;">
                 <div class="p-card" style="display:flex;gap:1.1rem;align-items:flex-start;">
@@ -150,8 +150,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_submit'])) {
     <div class="container">
         <div class="section-head center" data-reveal>
             <span class="eyebrow centered">Find Us</span>
-            <h2 class="section-title">Visit our farm</h2>
-            <p class="lead">We're open for scheduled visits and pickups.</p>
+            <h2 class="section-title">Visit our offices &amp; stores</h2>
+            <p class="lead">We're open for scheduled visits, stock inspections and pickups.</p>
         </div>
         <div class="img-frame" data-reveal="zoom" style="height:450px;box-shadow:var(--shadow-lift);">
             <iframe

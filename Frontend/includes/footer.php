@@ -24,7 +24,7 @@ $site_address = function_exists('getSetting') ? getSetting('farm_address', 'Keny
                         <img src="/Frontend/images/kind-logo.png" alt="Kind Commodities Ltd Logo">
                     </div>
                     <p class="f-desc">
-                        Leading supplier of premium-grade poultry, fresh eggs, and specially formulated feeds across East Africa. From our family farm to your table — quality you can trust.
+                        Trusted supplier of quality grains, pulses, oilseeds and feed raw materials across East Africa. From our growers to your industry — quality you can rely on.
                     </p>
                     <div class="f-socials">
                         <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
@@ -50,9 +50,9 @@ $site_address = function_exists('getSetting') ? getSetting('farm_address', 'Keny
                     <h4>Shop</h4>
                     <ul>
                         <li><a href="/Frontend/pages/products.php">All Products</a></li>
-                        <li><a href="/Frontend/pages/shop.php?category=chicks">Day-Old Chicks</a></li>
-                        <li><a href="/Frontend/pages/shop.php?category=feeds">Feeds</a></li>
-                        <li><a href="/Frontend/pages/shop.php?category=eggs">Fresh Eggs</a></li>
+                        <li><a href="/Frontend/pages/shop.php?category=cereals">Grains &amp; Cereals</a></li>
+                        <li><a href="/Frontend/pages/shop.php?category=pulses">Pulses &amp; Legumes</a></li>
+                        <li><a href="/Frontend/pages/shop.php?category=oilseeds">Oilseeds &amp; Nuts</a></li>
                         <li><a href="/Frontend/pages/cart.php">Your Cart</a></li>
                     </ul>
                 </div>
@@ -66,7 +66,7 @@ $site_address = function_exists('getSetting') ? getSetting('farm_address', 'Keny
                         <li><i data-lucide="map-pin" style="width:16px;height:16px;"></i><span><?php echo htmlspecialchars($site_address, ENT_QUOTES, 'UTF-8'); ?></span></li>
                     </ul>
                     <div class="f-newsletter">
-                        <p>Join our newsletter for farm updates &amp; special offers.</p>
+                        <p>Join our newsletter for market updates &amp; special offers.</p>
                         <form>
                             <input type="email" placeholder="Your email address" aria-label="Email address" required>
                             <button type="submit">Subscribe</button>

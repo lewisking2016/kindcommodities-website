@@ -1,6 +1,6 @@
 <?php
 /**
- * FAQ Page
+ * FAQ Page — Kind Commodities Ltd (grains & raw materials)
  */
 declare(strict_types=1);
 
@@ -25,126 +25,71 @@ include '../includes/header.php';
 <section class="hero" style="min-height: 60vh;">
     <div class="container hero-content fade-up">
         <h1>Frequently Asked Questions</h1>
-        <p style="color: white; opacity: 0.9;">Find answers to common questions about our products and services.</p>
+        <p style="color: white; opacity: 0.9;">Find answers to common questions about our grains, raw materials and services.</p>
     </div>
 </section>
 
 <!-- FAQ Sections -->
 <section style="padding: var(--space-3xl) 0; background-color: var(--white);">
     <div class="container" style="max-width: 900px;">
-        <!-- Product FAQs -->
+        <!-- Product & Quality FAQs -->
         <div style="margin-bottom: var(--space-3xl);">
-            <h2 style="margin-bottom: var(--space-xl);">Products & Chickens</h2>
+            <h2 style="margin-bottom: var(--space-xl);">Products & Quality</h2>
 
             <div class="faq-item fade-up">
                 <div class="faq-question">
-                    <span>What breeds of chickens do you offer?</span>
+                    <span>What grains and raw materials do you supply?</span>
                     <div class="faq-toggle">▼</div>
                 </div>
                 <div class="faq-answer">
-                    We offer three main breeds: Ross 308 and Cobb 500 for broilers, ISA Brown for layers, and Lohmann for white egg production. All birds are sourced from certified hatcheries and meet international standards.
+                    We supply quality grains and cereals (maize, wheat, rice, sorghum, millet, barley), pulses and legumes (red beans, green grams, soya beans, cowpeas), oilseeds (sunflower, sesame, groundnuts), and feed raw materials (maize bran, wheat bran, rice bran, sunflower cake, soya meal). Contact us for our full current stock list.
                 </div>
             </div>
 
             <div class="faq-item fade-up stagger-1">
                 <div class="faq-question">
-                    <span>Are your chicks vaccinated?</span>
+                    <span>How do you ensure the quality of your commodities?</span>
                     <div class="faq-toggle">▼</div>
                 </div>
                 <div class="faq-answer">
-                    Yes, all day-old chicks are vaccinated against common poultry diseases including Newcastle, Gumboro, and Marek's disease before delivery. We provide vaccination records with each order.
+                    Every consignment is visually inspected, graded and moisture-tested before dispatch. We only source from verified growers and aggregators, and we reject anything that doesn't meet our standards. Quality documentation is available on request for bulk orders.
                 </div>
             </div>
 
             <div class="faq-item fade-up stagger-2">
                 <div class="faq-question">
-                    <span>What's the difference between broilers and layers?</span>
+                    <span>What moisture levels are your grains dried to?</span>
                     <div class="faq-toggle">▼</div>
                 </div>
                 <div class="faq-answer">
-                    Broilers are meat chickens bred for rapid growth and reach market weight (2-2.5kg) in 6-7 weeks. Layers are egg-laying chickens that produce 300+ eggs per year over 18+ months of production.
+                    Our grains are typically dried to safe storage moisture — around 12–13.5% for maize and comparable standards for other cereals — to prevent spoilage and aflatoxin risk. Exact levels are shared with the batch documentation.
                 </div>
             </div>
 
             <div class="faq-item fade-up stagger-3">
                 <div class="faq-question">
-                    <span>How do I care for day-old chicks?</span>
+                    <span>Can I request a sample before ordering?</span>
                     <div class="faq-toggle">▼</div>
                 </div>
                 <div class="faq-answer">
-                    New chicks need: warm brooder (35°C for first week), clean bedding, starter feed, fresh water, and protection from predators. We provide detailed care guides with every order and offer phone support.
+                    Yes. For bulk orders we can arrange a representative sample of the current stock so you can verify grade, colour and cleanliness before you commit. Just ask your sales contact.
                 </div>
             </div>
 
             <div class="faq-item fade-up stagger-4">
                 <div class="faq-question">
-                    <span>What's the hatch rate guarantee?</span>
+                    <span>Are your products safe and certified?</span>
                     <div class="faq-toggle">▼</div>
                 </div>
                 <div class="faq-answer">
-                    We guarantee 95% hatch rate on all day-old chicks. If hatch rate falls below 95%, we provide replacement chicks at no charge. Proper care is essential to achieve this rate.
+                    We operate as a licensed grain dealer with compliant handling and storage practices. Our products are sourced and handled to food-safety standards, and we are VAT registered and KRA compliant.
                 </div>
             </div>
         </div>
 
-        <!-- Feed FAQs -->
+        <!-- Bulk Orders & Delivery FAQs -->
         <div style="margin-bottom: var(--space-3xl);">
-            <h2 style="margin-bottom: var(--space-xl);">Animal Feeds</h2>
-
-            <div class="faq-item fade-up">
-                <div class="faq-question">
-                    <span>What ingredients are in your feeds?</span>
-                    <div class="faq-toggle">▼</div>
-                </div>
-                <div class="faq-answer">
-                    Our feeds contain quality grains (maize), protein sources (soybean meal), minerals, vitamins, and probiotics. All ingredients meet food safety standards and are sourced from certified suppliers. Detailed ingredient lists available on request.
-                </div>
-            </div>
-
-            <div class="faq-item fade-up stagger-1">
-                <div class="faq-question">
-                    <span>When should I switch from starter to grower feed?</span>
-                    <div class="faq-toggle">▼</div>
-                </div>
-                <div class="faq-answer">
-                    Switch from starter (0-4 weeks) to grower (4-8 weeks) at 4 weeks of age. For broilers, use finisher feed (8+ weeks) until market. For layers, switch to layer mash at 16 weeks when they start laying.
-                </div>
-            </div>
-
-            <div class="faq-item fade-up stagger-2">
-                <div class="faq-question">
-                    <span>How much feed does a chicken need daily?</span>
-                    <div class="faq-toggle">▼</div>
-                </div>
-                <div class="faq-answer">
-                    Day-old chicks: 5-10g/day. Growing chicks: 20-40g/day. Adult layers: 100-120g/day. Adult broilers: 100-150g/day. Feed consumption varies by breed, age, and environmental conditions.
-                </div>
-            </div>
-
-            <div class="faq-item fade-up stagger-3">
-                <div class="faq-question">
-                    <span>How long can I store feed?</span>
-                    <div class="faq-toggle">▼</div>
-                </div>
-                <div class="faq-answer">
-                    Feed should be stored in cool, dry conditions away from moisture and pests. Properly stored feed lasts 2-3 months. Once opened, use within 2-4 weeks for optimal nutrition. Store in metal bins or sealed containers.
-                </div>
-            </div>
-
-            <div class="faq-item fade-up stagger-4">
-                <div class="faq-question">
-                    <span>Do you offer bulk discounts on feed?</span>
-                    <div class="faq-toggle">▼</div>
-                </div>
-                <div class="faq-answer">
-                    Yes! Orders of 6-20 bags: 5% discount. Orders of 21-50 bags: 10% discount. Orders of 51+ bags: 15% discount. Contact our sales team for custom pricing on very large orders.
-                </div>
-            </div>
-        </div>
-
-        <!-- Ordering FAQs -->
-        <div style="margin-bottom: var(--space-3xl);">
-            <h2 style="margin-bottom: var(--space-xl);">Ordering & Delivery</h2>
+            <h2 style="margin-bottom: var(--space-xl);">Bulk Orders & Delivery</h2>
 
             <div class="faq-item fade-up">
                 <div class="faq-question">
@@ -152,17 +97,17 @@ include '../includes/header.php';
                     <div class="faq-toggle">▼</div>
                 </div>
                 <div class="faq-answer">
-                    You can order through our website shop, call +254 700 000 000, or visit our farm. Orders are processed immediately and we confirm delivery within 24 hours. Bulk orders should be placed at least 3 days in advance.
+                    You can order through our website shop, call +254 700 000 000, or visit our offices. Bulk orders are confirmed with a clear quote and delivery schedule — we recommend placing them at least 3 days in advance.
                 </div>
             </div>
 
             <div class="faq-item fade-up stagger-1">
                 <div class="faq-question">
-                    <span>What's the minimum order value?</span>
+                    <span>What is the minimum order value?</span>
                     <div class="faq-toggle">▼</div>
                 </div>
                 <div class="faq-answer">
-                    Minimum order is KES 2,000. Free delivery is offered on orders above KES 5,000 within our local area. Smaller local orders incur a KES 500 delivery charge.
+                    The minimum order is KES 2,000. Free delivery is offered on orders above KES 5,000 within our local area. Smaller local orders incur a KES 500 delivery charge.
                 </div>
             </div>
 
@@ -172,127 +117,162 @@ include '../includes/header.php';
                     <div class="faq-toggle">▼</div>
                 </div>
                 <div class="faq-answer">
-                    Local orders: 1-2 days. Orders to Kakamega/Kisumu: 2-3 days. Orders to Kisii: 3-4 days. Emergency orders can be arranged for same-day delivery. Call us for urgent requests.
+                    Local orders: 1-2 days. Orders to Kakamega/Kisumu: 2-3 days. Orders to Kisii: 3-4 days. Emergency and bulk truckload orders can be arranged faster — call us for urgent requests.
                 </div>
             </div>
 
             <div class="faq-item fade-up stagger-3">
-                <div class="faq-question">
-                    <span>What payment methods do you accept?</span>
-                    <div class="faq-toggle">▼</div>
-                </div>
-                <div class="faq-answer">
-                    We accept M-Pesa, bank transfers, and cash on delivery (COD). Online orders require M-Pesa payment or bank deposit. COD available for local orders.
-                </div>
-            </div>
-
-            <div class="faq-item fade-up stagger-4">
                 <div class="faq-question">
                     <span>Can you deliver outside my area?</span>
                     <div class="faq-toggle">▼</div>
                 </div>
                 <div class="faq-answer">
-                    Yes! We deliver to Kakamega, Kisumu, and Kisii counties. Delivery charges vary by location (KES 500-1,200). We're expanding to more regions. Contact us for custom delivery arrangements.
-                </div>
-            </div>
-        </div>
-
-        <!-- Payment & Returns FAQs -->
-        <div style="margin-bottom: var(--space-3xl);">
-            <h2 style="margin-bottom: var(--space-xl);">Payment & Returns</h2>
-
-            <div class="faq-item fade-up">
-                <div class="faq-question">
-                    <span>Is M-Pesa payment secure?</span>
-                    <div class="faq-toggle">▼</div>
-                </div>
-                <div class="faq-answer">
-                    Absolutely. M-Pesa is managed by Safaricom and uses encrypted transactions. Your payment details are safe. We use official M-Pesa API for all transactions with no hidden charges.
-                </div>
-            </div>
-
-            <div class="faq-item fade-up stagger-1">
-                <div class="faq-question">
-                    <span>What's your return/refund policy?</span>
-                    <div class="faq-toggle">▼</div>
-                </div>
-                <div class="faq-answer">
-                    For defective products: Full refund within 24 hours of delivery with proof. For chicks: Replacement chicks provided if mortality exceeds 5% in first 48 hours. For feeds: Exchange if damaged or contaminated upon delivery.
-                </div>
-            </div>
-
-            <div class="faq-item fade-up stagger-2">
-                <div class="faq-question">
-                    <span>Do you offer payment plans?</span>
-                    <div class="faq-toggle">▼</div>
-                </div>
-                <div class="faq-answer">
-                    For bulk orders (51+ bags or 500+ chicks), we offer 2-week payment terms for established customers. Contact our sales team to discuss flexible payment arrangements.
-                </div>
-            </div>
-
-            <div class="faq-item fade-up stagger-3">
-                <div class="faq-question">
-                    <span>Is there a warranty on the chicks?</span>
-                    <div class="faq-toggle">▼</div>
-                </div>
-                <div class="faq-answer">
-                    Yes. All chicks come with a 48-hour survival warranty. If mortality exceeds 5%, we provide replacement chicks at no cost. Proper brooding conditions must be maintained. We provide care instructions.
-                </div>
-            </div>
-        </div>
-
-        <!-- Farm Management FAQs -->
-        <div>
-            <h2 style="margin-bottom: var(--space-xl);">Farm Management & Support</h2>
-
-            <div class="faq-item fade-up">
-                <div class="faq-question">
-                    <span>Do you offer farm consulting services?</span>
-                    <div class="faq-toggle">▼</div>
-                </div>
-                <div class="faq-answer">
-                    Yes! We provide free phone support and paid farm visits. Our team can help with facility design, biosafety protocols, feed optimization, and productivity improvements. Contact us for consultation rates.
-                </div>
-            </div>
-
-            <div class="faq-item fade-up stagger-1">
-                <div class="faq-question">
-                    <span>What's the best season to start farming?</span>
-                    <div class="faq-toggle">▼</div>
-                </div>
-                <div class="faq-answer">
-                    Poultry farming year-round, but best results in dry seasons (Jan-Feb, July-Sept). Rainy seasons require extra biosafety precautions. We can help plan your farming calendar for optimal productivity.
-                </div>
-            </div>
-
-            <div class="faq-item fade-up stagger-2">
-                <div class="faq-question">
-                    <span>How do I join the digital farm management system?</span>
-                    <div class="faq-toggle">▼</div>
-                </div>
-                <div class="faq-answer">
-                    Customers can log into our dashboard to track flock records, production data, expenses, and get personalized recommendations. Free for all customers. Mobile app coming soon. Register at login page.
-                </div>
-            </div>
-
-            <div class="faq-item fade-up stagger-3">
-                <div class="faq-question">
-                    <span>What should I do if birds get sick?</span>
-                    <div class="faq-toggle">▼</div>
-                </div>
-                <div class="faq-answer">
-                    Call us immediately: +254 700 000 000. We have a vet on call for emergency advice. Isolate sick birds, improve ventilation, and ensure clean water. Don't delay—early treatment saves lives and prevents spread.
+                    Yes! We deliver to Kakamega, Kisumu and Kisii counties and can arrange transport further afield. Delivery charges vary by location (KES 500-1,200) and are quoted before dispatch. Contact us for custom arrangements.
                 </div>
             </div>
 
             <div class="faq-item fade-up stagger-4">
                 <div class="faq-question">
-                    <span>Can I visit the farm?</span>
+                    <span>Do you supply in bulk truckloads?</span>
                     <div class="faq-toggle">▼</div>
                 </div>
                 <div class="faq-answer">
-                    Yes! Farm visits are welcome by appointment for biosafety reasons. Call +254 700 000 000 to schedule. Educational groups and business partners get special rates. We provide facility tours and hands-on training.
+                    Yes — bulk supply is our core strength. We supply by the bag, the tonne, or full truckloads to millers, feed manufacturers, institutions and traders, with scheduled recurring deliveries available.
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment & Pricing FAQs -->
+        <div style="margin-bottom: var(--space-3xl);">
+            <h2 style="margin-bottom: var(--space-xl);">Payment & Pricing</h2>
+
+            <div class="faq-item fade-up">
+                <div class="faq-question">
+                    <span>What payment methods do you accept?</span>
+                    <div class="faq-toggle">▼</div>
+                </div>
+                <div class="faq-answer">
+                    We accept M-Pesa, bank transfers and cash on delivery (COD) for local orders. Online orders require M-Pesa payment or bank deposit.
+                </div>
+            </div>
+
+            <div class="faq-item fade-up stagger-1">
+                <div class="faq-question">
+                    <span>How are your prices set?</span>
+                    <div class="faq-toggle">▼</div>
+                </div>
+                <div class="faq-answer">
+                    Prices are based on current market rates, grade and quantity, and are quoted transparently up front — no hidden charges. Bulk and recurring orders attract special pricing.
+                </div>
+            </div>
+
+            <div class="faq-item fade-up stagger-2">
+                <div class="faq-question">
+                    <span>Do you offer bulk discounts?</span>
+                    <div class="faq-toggle">▼</div>
+                </div>
+                <div class="faq-answer">
+                    Yes! Larger volumes earn better rates: orders of 6-20 bags: 5% discount. Orders of 21-50 bags: 10% discount. Orders of 51+ bags: 15% discount. Contact our sales team for custom pricing on very large orders.
+                </div>
+            </div>
+
+            <div class="faq-item fade-up stagger-3">
+                <div class="faq-question">
+                    <span>Do you offer payment terms for regular clients?</span>
+                    <div class="faq-toggle">▼</div>
+                </div>
+                <div class="faq-answer">
+                    For established customers with bulk recurring orders, we offer short credit terms on a case-by-case basis. Contact our sales team to discuss flexible payment arrangements.
+                </div>
+            </div>
+
+            <div class="faq-item fade-up stagger-4">
+                <div class="faq-question">
+                    <span>What is your return/refund policy?</span>
+                    <div class="faq-toggle">▼</div>
+                </div>
+                <div class="faq-answer">
+                    If a delivered consignment is damaged or does not match the agreed grade, notify us within 24 hours of delivery and we will replace or refund it. Claims require photographic evidence.
+                </div>
+            </div>
+        </div>
+
+        <!-- Storage & Handling FAQs -->
+        <div style="margin-bottom: var(--space-3xl);">
+            <h2 style="margin-bottom: var(--space-xl);">Storage & Handling</h2>
+
+            <div class="faq-item fade-up">
+                <div class="faq-question">
+                    <span>How should I store grains and raw materials?</span>
+                    <div class="faq-toggle">▼</div>
+                </div>
+                <div class="faq-answer">
+                    Store in a cool, dry, well-ventilated space off the floor and away from walls. Keep bags sealed and protected from moisture and pests. Properly stored grains last several months; check periodically for signs of heating or weevils.
+                </div>
+            </div>
+
+            <div class="faq-item fade-up stagger-1">
+                <div class="faq-question">
+                    <span>Do you offer storage or warehousing?</span>
+                    <div class="faq-toggle">▼</div>
+                </div>
+                <div class="faq-answer">
+                    Yes — we maintain clean, dry stores and can hold stock for scheduled pickup or delivery. Ask us about short-term storage arrangements for bulk orders.
+                </div>
+            </div>
+
+            <div class="faq-item fade-up stagger-2">
+                <div class="faq-question">
+                    <span>How is my order packed?</span>
+                    <div class="faq-toggle">▼</div>
+                </div>
+                <div class="faq-answer">
+                    Commodities are packed in clean, strong bags — typically 50kg or 90kg — clearly labelled, and covered during transport to protect against weather and contamination.
+                </div>
+            </div>
+        </div>
+
+        <!-- Sourcing & Partnership FAQs -->
+        <div>
+            <h2 style="margin-bottom: var(--space-xl);">Sourcing & Partnership</h2>
+
+            <div class="faq-item fade-up">
+                <div class="faq-question">
+                    <span>Do you buy from farmers?</span>
+                    <div class="faq-toggle">▼</div>
+                </div>
+                <div class="faq-answer">
+                    Yes! We work with farmers and small aggregators across the region. If you have quality produce to sell, contact us for current buying prices and delivery arrangements to our stores.
+                </div>
+            </div>
+
+            <div class="faq-item fade-up stagger-1">
+                <div class="faq-question">
+                    <span>Can you source custom commodities for me?</span>
+                    <div class="faq-toggle">▼</div>
+                </div>
+                <div class="faq-answer">
+                    Yes — if we don't currently stock what you need, our sourcing team will find it through our grower and trader network. Share your spec (commodity, grade, quantity) and we'll get back to you.
+                </div>
+            </div>
+
+            <div class="faq-item fade-up stagger-2">
+                <div class="faq-question">
+                    <span>How do I join the trading platform?</span>
+                    <div class="faq-toggle">▼</div>
+                </div>
+                <div class="faq-answer">
+                    Customers can register for an account to track orders, view invoices and manage repeat supply. Free for all customers — register at the login page.
+                </div>
+            </div>
+
+            <div class="faq-item fade-up stagger-3">
+                <div class="faq-question">
+                    <span>Can I visit your premises?</span>
+                    <div class="faq-toggle">▼</div>
+                </div>
+                <div class="faq-answer">
+                    Yes! Visits and stock inspections are welcome by appointment. Call +254 700 000 000 to schedule. We provide store tours and sample inspections for serious buyers.
                 </div>
             </div>
         </div>

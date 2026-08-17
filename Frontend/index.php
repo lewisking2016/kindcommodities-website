@@ -2,10 +2,11 @@
 /**
  * Homepage — Kind Commodities Ltd
  * Premium redesign: motion, storytelling, editorial polish.
+ * Focus: grains & raw materials trading.
  */
 declare(strict_types=1);
 
-$page_title = 'Kind Commodities Ltd - Premium Poultry & Farm Management Solutions';
+$page_title = 'Kind Commodities Ltd - Quality Grains & Raw Materials';
 include 'includes/header.php';
 
 $pdo = getDB();
@@ -22,15 +23,15 @@ $pdo = getDB();
             <div class="container">
                 <div class="hero-content">
                     <span class="hero-badge hero-anim"><span class="dot"></span> Welcome to Kind Commodities Ltd</span>
-                    <h1 class="hero-title hero-anim">Quality Poultry for <em>East Africa</em></h1>
-                    <p class="hero-sub hero-anim">Premium broilers, layers and day-old chicks — raised with care, delivered with confidence, and backed by a decade of sustainable farming excellence.</p>
+                    <h1 class="hero-title hero-anim">Quality Grains for <em>East Africa</em></h1>
+                    <p class="hero-sub hero-anim">Maize, wheat, rice and more — sourced from trusted growers, graded to standard, and delivered in bulk with fair, transparent pricing.</p>
                     <div class="hero-cta hero-anim">
                         <a href="/Frontend/pages/shop.php" class="btn btn-primary" data-magnetic>Explore Products</a>
                         <a href="/Frontend/pages/about.php" class="btn btn-outline">Our Story</a>
                     </div>
                     <div class="hero-stats hero-anim">
-                        <div class="hero-stat"><b><span data-counter="10" data-suffix="k+">0</span></b><span>Chickens raised annually</span></div>
-                        <div class="hero-stat"><b><span data-counter="5" data-suffix="k+">0</span></b><span>Happy customers</span></div>
+                        <div class="hero-stat"><b><span data-counter="10" data-suffix="k+">0</span></b><span>Tonnes delivered annually</span></div>
+                        <div class="hero-stat"><b><span data-counter="500" data-suffix="+">0</span></b><span>Happy clients</span></div>
                         <div class="hero-stat"><b><span data-counter="10" data-suffix="+">0</span></b><span>Years in business</span></div>
                     </div>
                 </div>
@@ -43,16 +44,16 @@ $pdo = getDB();
             <div class="hero-scrim"></div>
             <div class="container">
                 <div class="hero-content">
-                    <span class="hero-badge hero-anim"><span class="dot"></span> The Egg People</span>
-                    <h1 class="hero-title hero-anim">Farm-Fresh Eggs, <em>Every Day</em></h1>
-                    <p class="hero-sub hero-anim">State-of-the-art layer facilities producing the freshest, most nutritious eggs — harvested daily and delivered to your family or business.</p>
+                    <span class="hero-badge hero-anim"><span class="dot"></span> Pulses &amp; Legumes</span>
+                    <h1 class="hero-title hero-anim">Naturally <em>Nutritious</em></h1>
+                    <p class="hero-sub hero-anim">Beans, green grams, soya and more — carefully sorted, graded and packed for homes, exporters and processors across the region.</p>
                     <div class="hero-cta hero-anim">
-                        <a href="/Frontend/pages/shop.php?category=eggs" class="btn btn-primary" data-magnetic>Order Fresh Eggs</a>
+                        <a href="/Frontend/pages/shop.php?category=pulses" class="btn btn-primary" data-magnetic>Shop Pulses</a>
                         <a href="/Frontend/pages/products.php" class="btn btn-outline">See Our Products</a>
                     </div>
                     <div class="hero-stats hero-anim">
-                        <div class="hero-stat"><b><span data-counter="300" data-suffix="+">0</span></b><span>Eggs per bird per year</span></div>
-                        <div class="hero-stat"><b><span data-counter="100" data-suffix="%">0</span></b><span>Biosafety compliant</span></div>
+                        <div class="hero-stat"><b><span data-counter="15" data-suffix="+">0</span></b><span>Commodities supplied</span></div>
+                        <div class="hero-stat"><b><span data-counter="100" data-suffix="%">0</span></b><span>Quality graded &amp; tested</span></div>
                         <div class="hero-stat"><b><span data-counter="24" data-suffix="h">0</span></b><span>Response time</span></div>
                     </div>
                 </div>
@@ -65,17 +66,17 @@ $pdo = getDB();
             <div class="hero-scrim"></div>
             <div class="container">
                 <div class="hero-content">
-                    <span class="hero-badge hero-anim"><span class="dot"></span> Expert Farm Management</span>
-                    <h1 class="hero-title hero-anim">Trusted by <em>Thousands</em></h1>
-                    <p class="hero-sub hero-anim">From consulting and incubator rentals to premium feeds — our dedicated team helps farmers grow with confidence.</p>
+                    <span class="hero-badge hero-anim"><span class="dot"></span> Raw Materials &amp; Feed Ingredients</span>
+                    <h1 class="hero-title hero-anim">Built for <em>Industry</em></h1>
+                    <p class="hero-sub hero-anim">Bran, oilseed cakes and milling by-products — dependable bulk supply for feed manufacturers, millers and agribusinesses.</p>
                     <div class="hero-cta hero-anim">
                         <a href="/Frontend/pages/services.php" class="btn btn-primary" data-magnetic>Explore Services</a>
                         <a href="/Frontend/pages/contact.php" class="btn btn-outline">Partner With Us</a>
                     </div>
                     <div class="hero-stats hero-anim">
-                        <div class="hero-stat"><b><span data-counter="95" data-suffix="%+">0</span></b><span>Hatch success rate</span></div>
-                        <div class="hero-stat"><b><span data-counter="40" data-suffix="%">0</span></b><span>Saved on feed costs</span></div>
-                        <div class="hero-stat"><b><span data-counter="6" data-suffix="-7">0</span></b><span>Weeks to market weight</span></div>
+                        <div class="hero-stat"><b><span data-counter="98" data-suffix="%">0</span></b><span>On-time delivery rate</span></div>
+                        <div class="hero-stat"><b><span data-counter="500" data-suffix="t+">0</span></b><span>Consistent monthly stock</span></div>
+                        <div class="hero-stat"><b><span data-counter="6" data-suffix="">0</span></b><span>Counties served daily</span></div>
                     </div>
                 </div>
             </div>
@@ -90,7 +91,7 @@ $pdo = getDB();
 <div class="marquee" aria-hidden="true">
     <div class="marquee-track">
         <?php
-        $words = ['AUTHENTICITY', 'QUALITY', 'RELIABILITY', 'SUSTAINABILITY', 'INNOVATION', 'EXCELLENCE', 'TRUSTED', 'NUTRITIOUS'];
+        $words = ['AUTHENTICITY', 'QUALITY', 'RELIABILITY', 'SUSTAINABILITY', 'INTEGRITY', 'EXCELLENCE', 'TRUSTED', 'GRADED'];
         for ($copy = 0; $copy < 2; $copy++) {
             foreach ($words as $w) {
                 echo '<span>' . $w . '</span>';
@@ -105,40 +106,40 @@ $pdo = getDB();
     <div class="container">
         <div class="section-head center" data-reveal>
             <span class="eyebrow centered">Why Kind Commodities</span>
-            <h2 class="section-title">Farming done <em>right</em>, from hatch to harvest</h2>
-            <p class="lead">We combine traditional farming wisdom with modern technology to deliver the best poultry products in the region.</p>
+            <h2 class="section-title">Commodity trading done <em>right</em>, from grower to buyer</h2>
+            <p class="lead">We combine deep sourcing networks with rigorous quality standards to deliver the best grains and raw materials in the region.</p>
         </div>
 
         <div class="grid-3" data-reveal-group style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.8rem;">
             <div class="p-card">
                 <div class="p-icon"><i data-lucide="shield-check" style="width:28px;height:28px;"></i></div>
-                <h3>Premium Quality</h3>
-                <p>Rigorous health checks, premium feeds and strict biosafety protocols ensure our birds are the healthiest in the region.</p>
+                <h3>Quality Assurance</h3>
+                <p>Every consignment is graded, moisture-tested and inspected against set standards before it leaves our stores.</p>
+            </div>
+            <div class="p-card">
+                <div class="p-icon"><i data-lucide="warehouse" style="width:28px;height:28px;"></i></div>
+                <h3>Reliable Bulk Supply</h3>
+                <p>Consistent volume, season after season — backed by our store network and long-term grower contracts.</p>
+            </div>
+            <div class="p-card">
+                <div class="p-icon"><i data-lucide="scale" style="width:28px;height:28px;"></i></div>
+                <h3>Fair, Transparent Pricing</h3>
+                <p>Market-based rates quoted clearly up front — no hidden charges, no surprises at delivery.</p>
             </div>
             <div class="p-card">
                 <div class="p-icon"><i data-lucide="truck" style="width:28px;height:28px;"></i></div>
-                <h3>Reliable Delivery</h3>
-                <p>Timely, safe transportation of live birds and fresh eggs — direct to your farm or business, in carefully monitored transit.</p>
+                <h3>Timely Delivery</h3>
+                <p>Well-maintained transport and careful logistics move your order on schedule — right to your door or depot.</p>
             </div>
             <div class="p-card">
-                <div class="p-icon"><i data-lucide="graduation-cap" style="width:28px;height:28px;"></i></div>
-                <h3>Expert Support</h3>
-                <p>Consulting, incubator rentals and feed-formulation training help you maximize yield and cut operating costs.</p>
-            </div>
-            <div class="p-card">
-                <div class="p-icon"><i data-lucide="egg" style="width:28px;height:28px;"></i></div>
-                <h3>Farm-Fresh Eggs</h3>
-                <p>Grade-A eggs harvested daily from modern layer houses — packed in 30-egg trays for homes, shops and hotels.</p>
-            </div>
-            <div class="p-card">
-                <div class="p-icon"><i data-lucide="dna" style="width:28px;height:28px;"></i></div>
-                <h3>Superior Genetics</h3>
-                <p>Ross 308, Cobb 500, ISA Brown and Lohmann breeds — vaccinated, disease-free and bred for performance.</p>
+                <div class="p-icon"><i data-lucide="leaf" style="width:28px;height:28px;"></i></div>
+                <h3>Sourcing Expertise</h3>
+                <p>An established network of trusted growers and aggregators means we can source what you need, when you need it.</p>
             </div>
             <div class="p-card">
                 <div class="p-icon"><i data-lucide="heart-handshake" style="width:28px;height:28px;"></i></div>
                 <h3>Customer First</h3>
-                <p>Transparent pricing, honest advice and long-term partnerships with the farmers and families we serve.</p>
+                <p>Honest advice, flexible terms and long-term partnerships with the traders, millers and families we serve.</p>
             </div>
         </div>
     </div>
@@ -150,11 +151,11 @@ $pdo = getDB();
         <div class="grid-4" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.6rem;">
             <div class="stat-item" data-reveal>
                 <b><span data-counter="10" data-suffix="k+">0</span></b>
-                <span>Chickens Raised Annually</span>
+                <span>Tonnes Delivered Annually</span>
             </div>
             <div class="stat-item" data-reveal data-reveal-delay="120">
-                <b><span data-counter="5" data-suffix="k+">0</span></b>
-                <span>Satisfied Customers</span>
+                <b><span data-counter="500" data-suffix="+">0</span></b>
+                <span>Satisfied Clients</span>
             </div>
             <div class="stat-item" data-reveal data-reveal-delay="240">
                 <b><span data-counter="10" data-suffix="+">0</span></b>
@@ -175,7 +176,7 @@ $pdo = getDB();
             <div>
                 <span class="eyebrow">Best Sellers</span>
                 <h2 class="section-title" style="margin-bottom:0.4rem;">Featured <em>Products</em></h2>
-                <p class="lead" style="margin:0;">Premium poultry, eggs and feeds — ready to order.</p>
+                <p class="lead" style="margin:0;">Premium grains, pulses and raw materials — ready to order.</p>
             </div>
             <a href="/Frontend/pages/shop.php" class="btn btn-outline">View Full Shop <i data-lucide="arrow-right" style="width:16px;height:16px;"></i></a>
         </div>
@@ -193,12 +194,12 @@ $pdo = getDB();
                 foreach ($products as $index => $product):
                     $img = $product['img'] ?? $product['image_url'] ?? '';
                     if (!$img) {
-                        $type = $product['product_type'] ?? 'feed';
+                        $type = $product['product_type'] ?? 'grain';
                         $img = match($type) {
-                            'feed' => '/Frontend/images/product-placeholder.svg',
-                            'eggs' => '/Frontend/images/product-placeholder.svg',
-                            'chicks' => '/Frontend/images/product-placeholder.svg',
-                            'live_chicken' => '/Frontend/images/product-placeholder.svg',
+                            'grain' => '/Frontend/images/product-placeholder.svg',
+                            'legume' => '/Frontend/images/product-placeholder.svg',
+                            'oilseed' => '/Frontend/images/product-placeholder.svg',
+                            'raw_material' => '/Frontend/images/product-placeholder.svg',
                             default => '/Frontend/images/product-placeholder.svg'
                         };
                     }
@@ -213,7 +214,7 @@ $pdo = getDB();
                         </a>
                         <div class="product-body">
                             <h4 class="product-name"><?php echo htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8'); ?></h4>
-                            <p class="product-description"><?php echo htmlspecialchars($product['description'] ?? $product['desc'] ?? 'Premium quality poultry product.'); ?></p>
+                            <p class="product-description"><?php echo htmlspecialchars($product['description'] ?? $product['desc'] ?? 'Premium quality commodity product.'); ?></p>
                             <div class="product-meta">
                                 <span class="product-price">KES <?php echo number_format((float)$product['price'], 0); ?></span>
                             </div>
@@ -239,30 +240,30 @@ $pdo = getDB();
     <div class="container">
         <div class="section-head center" data-reveal>
             <span class="eyebrow centered">How It Works</span>
-            <h2 class="section-title">From our farm to <em>your table</em></h2>
+            <h2 class="section-title">From grower to <em>your business</em></h2>
             <p class="lead">A simple, transparent journey — so you always know exactly what you're getting.</p>
         </div>
 
         <div class="grid-4" data-reveal-group style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.8rem;">
             <div class="p-card num-card">
                 <span class="step-no">01</span>
-                <h3>Select &amp; Order</h3>
-                <p>Choose your chicks, birds, eggs or feeds online or by phone. Our team confirms availability instantly.</p>
+                <h3>Enquire &amp; Sample</h3>
+                <p>Tell us what you need — by phone, WhatsApp or the website. We confirm availability and can arrange samples instantly.</p>
             </div>
             <div class="p-card num-card">
                 <span class="step-no">02</span>
-                <h3>Vaccinated &amp; Checked</h3>
-                <p>Every bird passes health and vaccination protocols before it leaves the farm gates.</p>
+                <h3>Grade &amp; Quote</h3>
+                <p>Every consignment is graded and moisture-tested, and you receive a clear, market-based quote.</p>
             </div>
             <div class="p-card num-card">
                 <span class="step-no">03</span>
-                <h3>Packed &amp; Delivered</h3>
-                <p>Carefully packed and transported in monitored conditions — on time, every time.</p>
+                <h3>Pack &amp; Dispatch</h3>
+                <p>Carefully packed in clean bags and loaded for safe, monitored transport — on time, every time.</p>
             </div>
             <div class="p-card num-card">
                 <span class="step-no">04</span>
-                <h3>Grow With Support</h3>
-                <p>Ongoing consulting, feed advice and after-sale support to help your flock thrive.</p>
+                <h3>Deliver &amp; Support</h3>
+                <p>Reliable delivery to your door or depot, with ongoing supply support for your growing business.</p>
             </div>
         </div>
     </div>
@@ -276,12 +277,12 @@ $pdo = getDB();
         </div>
         <div data-reveal="right">
             <span class="eyebrow">Our Story</span>
-            <h2 class="section-title">From 500 birds to <em>East Africa's</em> trusted farm</h2>
-            <p class="lead">Founded in 2015, we've grown from a small family operation into a modern poultry facility serving thousands of customers — without ever losing the personal touch.</p>
+            <h2 class="section-title">From a family farm to <em>East Africa's</em> trusted commodity supplier</h2>
+            <p class="lead">Founded in 2015, we've grown from a small family operation into a modern grain and raw materials trader serving thousands of customers — without ever losing the personal touch.</p>
             <ul class="check-list" style="margin:1.6rem 0 2.2rem;">
-                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>State-of-the-art incubation &amp; biosafety facilities</li>
-                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Vaccinated, disease-free birds with <em>95%+ hatch rates</em></li>
-                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Feed formulas that cut costs by up to <em>40%</em></li>
+                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Licensed, certified &amp; compliant grain handling</li>
+                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Every batch graded &amp; moisture-tested to standard</li>
+                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Fair prices &amp; long-term grower partnerships</li>
             </ul>
             <div style="display:flex;gap:1rem;flex-wrap:wrap;">
                 <a href="/Frontend/pages/about.php" class="btn btn-primary" data-magnetic>Read Our Story</a>
@@ -296,35 +297,35 @@ $pdo = getDB();
     <div class="container">
         <div class="section-head center" data-reveal>
             <span class="eyebrow centered">Testimonials</span>
-            <h2 class="section-title">Farmers who <em>trust us</em></h2>
+            <h2 class="section-title">Clients who <em>trust us</em></h2>
         </div>
 
         <div class="grid-3" data-reveal-group style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.8rem;">
             <figure class="testimonial-card">
                 <span class="quote-mark">&ldquo;</span>
                 <div class="stars">★★★★★</div>
-                <blockquote>I've bought day-old chicks from Kind Commodities for three seasons now. Mortality is almost zero and the support team actually answers the phone.</blockquote>
+                <blockquote>I've sourced maize and soya from Kind Commodities for three seasons now. The grading is consistent and the delivery never misses a window.</blockquote>
                 <figcaption>
                     <span class="avatar">JM</span>
-                    <span><span class="t-name">James Muriithi</span><br><span class="t-role">Broiler Farmer, Eldoret</span></span>
+                    <span><span class="t-name">James Muriithi</span><br><span class="t-role">Grain Trader, Eldoret</span></span>
                 </figcaption>
             </figure>
             <figure class="testimonial-card">
                 <span class="quote-mark">&ldquo;</span>
                 <div class="stars">★★★★★</div>
-                <blockquote>The incubator rental service changed our hatchery. We now hatch over 2,000 chicks a month with an amazing success rate.</blockquote>
+                <blockquote>Their bran and oilseed cakes keep our feed line running without a single shortage. The support team actually answers the phone.</blockquote>
                 <figcaption>
                     <span class="avatar">AN</span>
-                    <span><span class="t-name">Alice Nekesa</span><br><span class="t-role">Hatchery Owner, Bungoma</span></span>
+                    <span><span class="t-name">Alice Nekesa</span><br><span class="t-role">Feed Manufacturer, Bungoma</span></span>
                 </figcaption>
             </figure>
             <figure class="testimonial-card">
                 <span class="quote-mark">&ldquo;</span>
                 <div class="stars">★★★★★</div>
-                <blockquote>Fresh eggs delivered to our restaurant every morning, without fail. The quality is unmatched in the county.</blockquote>
+                <blockquote>Quality beans and green grams delivered to our mill every month, without fail. The quality is unmatched in the county.</blockquote>
                 <figcaption>
                     <span class="avatar">DO</span>
-                    <span><span class="t-name">Daniel Ochieng</span><br><span class="t-role">Restaurant Owner</span></span>
+                    <span><span class="t-name">Daniel Ochieng</span><br><span class="t-role">Mill Owner, Kakamega</span></span>
                 </figcaption>
             </figure>
         </div>
@@ -337,8 +338,8 @@ $pdo = getDB();
         <div class="cta-band" data-reveal="zoom">
             <div class="container" style="padding:0;">
                 <span class="eyebrow centered" style="color:var(--gold-300);">Let's Get Started</span>
-                <h2>Ready to elevate your farm?</h2>
-                <p>Join thousands of successful farmers using Kind Commodities products and management tools. Whether you're a family, a restaurant or a commercial operation — we've got you covered.</p>
+                <h2>Ready to source quality grains?</h2>
+                <p>Join hundreds of successful traders, millers and manufacturers using Kind Commodities products and supply support. Whether you need a single bag or bulk truckloads — we've got you covered.</p>
                 <div style="display:flex;gap:1rem;flex-wrap:wrap;">
                     <a href="/Frontend/pages/register.php" class="btn btn-primary" data-magnetic>Create Account</a>
                     <a href="/Frontend/pages/contact.php" class="btn btn-ghost">Contact Sales</a>

@@ -39,8 +39,8 @@ define('APP_DEBUG', APP_ENV === 'development');
 
 // Site Information
 define('SITE_NAME', 'Kind Commodities Ltd');
-define('SITE_TAGLINE', 'Premium Poultry Products & Farm Management');
-define('SITE_DESCRIPTION', 'Leading poultry supplier in East Africa. Quality layers, broilers, day-old chicks, and premium feeds.');
+define('SITE_TAGLINE', 'Quality Grains & Raw Materials');
+define('SITE_DESCRIPTION', 'Trusted supplier of quality grains, pulses, oilseeds and feed raw materials across East Africa. Bulk supply, fair prices, reliable delivery.');
 define('SITE_EMAIL', 'info@kindcommoditiesltd.com');
 define('SITE_PHONE', '+254 700 000 000');
 define('SITE_ADDRESS', 'Kenya');
@@ -86,16 +86,18 @@ define('FREE_DELIVERY_THRESHOLD', 5000);
 
 // Product Categories
 define('PRODUCT_CATEGORIES', [
-    'chicken' => 'Chicken Products',
-    'feeds' => 'Animal Feeds'
+    'cereals' => 'Grains & Cereals',
+    'pulses' => 'Pulses & Legumes',
+    'oilseeds' => 'Oilseeds & Nuts',
+    'feed_ingredients' => 'Feed Raw Materials'
 ]);
 
 // Product Types
 define('PRODUCT_TYPES', [
-    'live_chicken' => 'Live Chicken',
-    'chicks' => 'Day-Old Chicks',
-    'eggs' => 'Eggs',
-    'feed' => 'Animal Feed'
+    'grain' => 'Grains & Cereals',
+    'legume' => 'Pulses & Legumes',
+    'oilseed' => 'Oilseeds & Nuts',
+    'raw_material' => 'Feed Raw Materials'
 ]);
 
 // Include Backend Configuration Files
