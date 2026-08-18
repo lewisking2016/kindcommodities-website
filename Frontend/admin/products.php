@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Admin - Product Management (Full CRUD)
  * Clean SaaS Minimalist Design
@@ -261,54 +261,590 @@ if ($pdo) {
 }
 ?>
 
-<!-- Alerts -->
+<style>
+/* â”€â”€â”€ Products Catalog Premium Design â”€â”€â”€ */
+.pc-hero {
+    background: linear-gradient(135deg, #0B2310 0%, #1B5E20 60%, #2E7D32 100%);
+    border-radius: 16px;
+    padding: 32px 36px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    position: relative;
+    overflow: hidden;
+}
+.pc-hero::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 220px; height: 220px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+}
+.pc-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 40%;
+    width: 280px; height: 280px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 50%;
+}
+.pc-hero-text h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 6px;
+    letter-spacing: -0.5px;
+}
+.pc-hero-text p {
+    color: rgba(255,255,255,0.72);
+    margin: 0;
+    font-size: 0.95rem;
+}
+.pc-hero-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+.pc-btn-white {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    color: #1B5E20;
+    padding: 11px 22px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+.pc-btn-white:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+.pc-btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    padding: 11px 22px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+.pc-btn-ghost:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+}
+/* Stats row */
+.pc-stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+}
+.pc-stat-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 20px 22px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 2px 12px rgba(15,23,42,0.04);
+    transition: all 0.2s ease;
+}
+.pc-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(15,23,42,0.08);
+}
+.pc-stat-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+.pc-stat-info small {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #64748b;
+}
+.pc-stat-info strong {
+    display: block;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #0f172a;
+    margin-top: 2px;
+    line-height: 1;
+}
+/* Search & Filter */
+.pc-filter-bar {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(15,23,42,0.03);
+}
+.pc-search-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 180px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px 14px;
+}
+.pc-search-input input {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 0.9rem;
+    width: 100%;
+    color: #1e293b;
+}
+.pc-search-input input::placeholder { color: #94a3b8; }
+/* Table card */
+.pc-table-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(15,23,42,0.04);
+    margin-bottom: 28px;
+}
+.pc-table-head th {
+    padding: 14px 20px;
+    background: #f8fafc;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid #e2e8f0;
+    white-space: nowrap;
+}
+.pc-table-body td {
+    padding: 16px 20px;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: middle;
+    font-size: 0.9rem;
+    color: #334155;
+}
+.pc-table-body tr:last-child td { border-bottom: none; }
+.pc-table-body tr:hover td { background: #fafbfc; }
+.pc-product-thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #e8f5e9 0%, #f0fdf4 100%);
+    border: 1px solid #d1fae5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pc-product-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.pc-product-name {
+    font-weight: 700;
+    color: #0f172a;
+    font-size: 0.92rem;
+}
+.pc-product-cat {
+    font-size: 0.78rem;
+    color: #64748b;
+    margin-top: 2px;
+}
+.pc-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+.pc-badge-green { background: #dcfce7; color: #15803d; }
+.pc-badge-red { background: #fee2e2; color: #b91c1c; }
+.pc-badge-orange { background: #fff7ed; color: #c2410c; }
+.pc-badge-blue { background: #dbeafe; color: #1d4ed8; }
+.pc-badge-type {
+    background: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+.pc-price {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    color: #1B5E20;
+}
+.pc-stock-val {
+    font-weight: 700;
+    font-size: 0.92rem;
+}
+.pc-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.pc-action-btn:hover { transform: scale(1.1); }
+.pc-action-edit {
+    background: #f0fdf4;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+}
+.pc-action-edit:hover { background: #dcfce7; }
+.pc-action-delete {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+.pc-action-delete:hover { background: #fee2e2; }
+/* Raw Material section */
+.pc-rm-section {
+    background: linear-gradient(135deg, #f8fafc 0%, #f0fdf4 100%);
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 28px;
+}
+.pc-rm-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+}
+.pc-rm-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+.pc-rm-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 18px 20px;
+    box-shadow: 0 2px 8px rgba(15,23,42,0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+/* â”€â”€â”€ Premium Modal Design â”€â”€â”€ */
+.pc-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 15, 30, 0.65);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 9999;
+    overflow-y: auto;
+    padding: 32px 16px;
+}
+.pc-modal {
+    background: #fff;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 660px;
+    margin: 0 auto;
+    box-shadow: 0 32px 64px -12px rgba(0,0,0,0.3);
+    overflow: hidden;
+}
+.pc-modal-header {
+    background: linear-gradient(135deg, #0B2310 0%, #1B5E20 100%);
+    padding: 24px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.pc-modal-header h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.pc-modal-close {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+.pc-modal-close:hover { background: rgba(255,255,255,0.25); transform: scale(1.1); }
+.pc-modal-body {
+    padding: 28px;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+.pc-modal-body::-webkit-scrollbar { width: 5px; }
+.pc-modal-body::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+.pc-modal-footer {
+    padding: 20px 28px;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    background: #fafafa;
+}
+.pc-form-group { margin-bottom: 18px; }
+.pc-form-label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #374151;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+.pc-form-control {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: #1e293b;
+    background: #f8fafc;
+    outline: none;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+.pc-form-control:focus {
+    border-color: #1B5E20;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(27, 94, 32, 0.12);
+}
+.pc-form-section-title {
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #1B5E20;
+    margin: 20px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #dcfce7;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+.pc-image-upload-zone {
+    border: 2px dashed #cbd5e1;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    background: #f8fafc;
+    transition: all 0.2s;
+    cursor: pointer;
+    position: relative;
+}
+.pc-image-upload-zone:hover { border-color: #1B5E20; background: #f0fdf4; }
+.pc-image-preview {
+    width: 72px;
+    height: 72px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    border: 2px solid #e2e8f0;
+}
+.pc-image-preview img { width: 100%; height: 100%; object-fit: cover; }
+.pc-modal-submit {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #1B5E20 0%, #2E7D32 100%);
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(27,94,32,0.3);
+    transition: all 0.2s;
+}
+.pc-modal-submit:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(27,94,32,0.4); }
+.pc-modal-cancel {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #f1f5f9;
+    color: #475569;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 1.5px solid #e2e8f0;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.pc-modal-cancel:hover { background: #e2e8f0; }
+@media (max-width: 640px) {
+    .pc-stats-row { grid-template-columns: 1fr 1fr; }
+    .pc-hero { padding: 22px; }
+    .pc-hero-text h1 { font-size: 1.4rem; }
+}
+</style>
+
 <?php if ($success_message): ?>
-<div style="padding: 12px 20px; background: #D3E8B8; border: 1px solid #B3D98C; border-radius: 4px; color: #2C6B31; font-size: 0.9rem; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
-    <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i>
+<div style="padding: 14px 20px; background: linear-gradient(135deg, #dcfce7, #f0fdf4); border: 1px solid #86efac; border-radius: 12px; color: #15803d; font-size: 0.9rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; font-weight: 600;">
+    <i data-lucide="check-circle-2" style="width: 18px; height: 18px; flex-shrink: 0;"></i>
     <?php echo htmlspecialchars($success_message); ?>
 </div>
 <?php endif; ?>
 <?php if ($error_message): ?>
-<div style="padding: 12px 20px; background: #fee2e2; border: 1px solid #fecaca; border-radius: 4px; color: #b91c1c; font-size: 0.9rem; margin-bottom: 20px; display: flex; align-items: center; gap: 8px;">
-    <i data-lucide="alert-circle" style="width: 16px; height: 16px;"></i>
+<div style="padding: 14px 20px; background: linear-gradient(135deg, #fee2e2, #fef2f2); border: 1px solid #fca5a5; border-radius: 12px; color: #dc2626; font-size: 0.9rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; font-weight: 600;">
+    <i data-lucide="alert-circle" style="width: 18px; height: 18px; flex-shrink: 0;"></i>
     <?php echo htmlspecialchars($error_message); ?>
 </div>
 <?php endif; ?>
 
-<!-- Page Header -->
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 16px;">
-    <div>
-        <h2 style="margin: 0; font-family: 'Outfit', sans-serif; font-size: 1.5rem; color: var(--admin-text-heading);">Product Catalog</h2>
-        <p style="margin: 4px 0 0 0; font-size: 0.875rem; color: #475569;">Add, edit, and monitor your farm inventory levels.</p>
+<!-- Hero Header -->
+<div class="pc-hero">
+    <div class="pc-hero-text" style="position: relative; z-index: 1;">
+        <h1><i data-lucide="package" style="width:26px;height:26px;vertical-align:middle;margin-right:10px;opacity:0.9;"></i>Product Catalog</h1>
+        <p>Manage your full product range â€” grains, raw materials, feed ingredients & more.</p>
     </div>
-    <button onclick="document.getElementById('add-modal').style.display='flex'" class="btn btn-primary" style="border-radius: 4px; display: flex; align-items: center; gap: 8px;">
-        <i data-lucide="plus" style="width: 18px; height: 18px;"></i>
-        <span>Add Product</span>
-    </button>
+    <div class="pc-hero-actions">
+        <a href="/Backend/api/export.php?module=products" class="pc-btn-ghost">
+            <i data-lucide="download" style="width:16px;height:16px;"></i> Export CSV
+        </a>
+        <button onclick="openModal('add-modal')" class="pc-btn-white">
+            <i data-lucide="plus-circle" style="width:16px;height:16px;"></i> Add Product
+        </button>
+    </div>
 </div>
 
-<div class="admin-card" style="padding: 0; overflow: hidden; border-radius: 4px;">
-    <!-- Search & Filter Bar -->
-    <form method="GET" style="display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; background: #fafafa; border-bottom: 1px solid var(--admin-border); flex-wrap: wrap; gap: 12px;">
-        <div style="display: flex; align-items: center; gap: 10px; flex: 1; min-width: 200px;">
-            <i data-lucide="search" style="width: 18px; height: 18px; color: #94a3b8;"></i>
-            <input type="text" name="search" value="<?php echo htmlspecialchars($search); ?>" placeholder="Search products..." style="background: transparent; border: none; outline: none; font-size: 0.9rem; width: 100%;">
+<!-- Stats Row -->
+<?php
+$totalProducts   = count($products);
+$activeProducts  = count(array_filter($products, fn($p) => $p['is_active']));
+$lowStockCount   = count(array_filter($products, fn($p) => $p['stock_quantity'] < ($p['low_stock_threshold'] ?? 10)));
+$totalStockValue = array_sum(array_map(fn($p) => (float)$p['price'] * (int)$p['stock_quantity'], $products));
+?>
+<div class="pc-stats-row">
+    <div class="pc-stat-card">
+        <div class="pc-stat-icon" style="background: linear-gradient(135deg, #dbeafe, #eff6ff);">
+            <i data-lucide="package" style="width:22px;height:22px;color:#2563eb;"></i>
         </div>
-        <div style="display: flex; gap: 8px;">
-            <select name="type" style="padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.85rem; outline: none; background: #ffffff;">
-                <?php echo renderDropdownOptions('product_types', $type_filter, 'All Types'); ?>
-            </select>
-            <button type="submit" class="btn btn-outline" style="border-radius: 4px; padding: 6px 16px; font-size: 0.85rem;">Filter</button>
-            <?php if ($search || $type_filter): ?>
-                <a href="products.php" style="padding: 6px 12px; font-size: 0.85rem; color: #64748b; text-decoration: none;">Clear</a>
-            <?php endif; ?>
+        <div class="pc-stat-info">
+            <small>Total Products</small>
+            <strong><?= $totalProducts ?></strong>
         </div>
-    </form>
+    </div>
+    <div class="pc-stat-card">
+        <div class="pc-stat-icon" style="background: linear-gradient(135deg, #dcfce7, #f0fdf4);">
+            <i data-lucide="check-circle-2" style="width:22px;height:22px;color:#15803d;"></i>
+        </div>
+        <div class="pc-stat-info">
+            <small>Active</small>
+            <strong><?= $activeProducts ?></strong>
+        </div>
+    </div>
+    <div class="pc-stat-card">
+        <div class="pc-stat-icon" style="background: linear-gradient(135deg, #fef9c3, #fffde7);">
+            <i data-lucide="alert-triangle" style="width:22px;height:22px;color:#d97706;"></i>
+        </div>
+        <div class="pc-stat-info">
+            <small>Low Stock</small>
+            <strong><?= $lowStockCount ?></strong>
+        </div>
+    </div>
+    <div class="pc-stat-card">
+        <div class="pc-stat-icon" style="background: linear-gradient(135deg, #fce7f3, #fdf2f8);">
+            <i data-lucide="trending-up" style="width:22px;height:22px;color:#9d174d;"></i>
+        </div>
+        <div class="pc-stat-info">
+            <small>Catalog Value</small>
+            <strong style="font-size:1.1rem;">KES <?= number_format($totalStockValue / 1000, 0) ?>K</strong>
+        </div>
+    </div>
+</div>
 
-    <!-- Product Table -->
+<!-- Search & Filter -->
+<form method="GET" class="pc-filter-bar">
+    <div class="pc-search-input">
+        <i data-lucide="search" style="width:18px;height:18px;color:#94a3b8;flex-shrink:0;"></i>
+        <input type="text" name="search" value="<?= htmlspecialchars($search) ?>" placeholder="Search products by name...">
+    </div>
+    <select name="type" class="pc-form-control" style="max-width:180px;padding:10px 14px;border-radius:8px;">
+        <?php echo renderDropdownOptions('product_types', $type_filter, 'All Types'); ?>
+    </select>
+    <button type="submit" class="pc-modal-submit" style="padding:10px 20px;">
+        <i data-lucide="filter" style="width:15px;height:15px;"></i> Filter
+    </button>
+    <?php if ($search || $type_filter): ?>
+        <a href="products.php" class="pc-modal-cancel" style="text-decoration:none;">Clear</a>
+    <?php endif; ?>
+</form>
+
+<!-- Products Table -->
+<div class="pc-table-card">
     <div class="table-responsive">
-        <table class="admin-table">
-            <thead>
+        <table style="width:100%;border-collapse:collapse;">
+            <thead class="pc-table-head">
                 <tr>
                     <th>Product</th>
                     <th>Type</th>
@@ -316,71 +852,82 @@ if ($pdo) {
                     <th>Stock</th>
                     <th>Quality</th>
                     <th>Status</th>
-                    <th style="text-align: right;">Actions</th>
+                    <th style="text-align:right;">Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="pc-table-body">
                 <?php if (!empty($products)): ?>
                 <?php foreach ($products as $product): ?>
                 <tr>
                     <td>
-                        <div style="display: flex; align-items: center; gap: 12px;">
-                            <div style="width: 48px; height: 48px; background: #f1f5f9; border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid var(--admin-border);">
+                        <div style="display:flex;align-items:center;gap:12px;">
+                            <div class="pc-product-thumb">
                                 <?php if ($product['image_url']): ?>
-                                    <img src="<?php echo htmlspecialchars($product['image_url']); ?>" alt="" style="width: 100%; height: 100%; object-fit: cover;">
+                                    <img src="<?= htmlspecialchars($product['image_url']) ?>" alt="">
                                 <?php else: ?>
-                                    <i data-lucide="package" style="width: 20px; height: 20px; color: #94a3b8;"></i>
+                                    <i data-lucide="package" style="width:20px;height:20px;color:#16a34a;"></i>
                                 <?php endif; ?>
                             </div>
-                            <div style="font-weight: 600; color: var(--admin-text-heading);"><?php echo htmlspecialchars($product['name']); ?></div>
+                            <div>
+                                <div class="pc-product-name"><?= htmlspecialchars($product['name']) ?></div>
+                                <?php if ($product['category_name']): ?>
+                                    <div class="pc-product-cat"><?= htmlspecialchars($product['category_name']) ?></div>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     </td>
-                    <td style="color: #475569; font-size: 0.9rem;">
-                        <?php echo ucfirst(str_replace('_', ' ', $product['product_type'] ?? 'General')); ?>
-                    </td>
-                    <td style="font-weight: 600; color: var(--admin-text-heading);">
-                        KES <?php echo number_format((float)$product['price']); ?>
+                    <td>
+                        <span class="pc-badge-type"><?= ucfirst(str_replace('_', ' ', $product['product_type'] ?? 'General')) ?></span>
                     </td>
                     <td>
-                        <span style="font-weight: 500; <?php echo ($product['stock_quantity'] < ($product['low_stock_threshold'] ?? 10)) ? 'color: #dc2626; font-weight: 600;' : 'color: #475569;'; ?>">
-                            <?php echo $product['stock_quantity']; ?> bags
-                            <?php if (!empty($product['stock_weight_kg'])): ?>
-                                <br><span style="font-size:0.75rem;color:#64748b;">• <?php echo number_format((float)$product['stock_weight_kg'], 0); ?> kg
-                                </span>
-                            <?php endif; ?>
-                        </span>
-                    </td>
-                    <td style="font-size: 0.8rem;">
-                        <?php if (!empty($product['grade'])): ?><span style="color:#475569;font-weight:600;">Grade: <?php echo htmlspecialchars($product['grade']); ?></span><br><?php endif; ?>
-                        <?php if (!empty($product['moisture_pct'])): ?><span style="color:#64748b;">Moisture: <?php echo $product['moisture_pct']; ?>%</span><br><?php endif; ?>
-                        <?php if (!empty($product['origin'])): ?><span style="color:#64748b;">Origin: <?php echo htmlspecialchars($product['origin']); ?></span><?php endif; ?>
-                        <?php if (empty($product['grade']) && empty($product['moisture_pct']) && empty($product['origin'])): ?><span style="color:#94a3b8;">—</span><?php endif; ?>
+                        <div class="pc-price">KES <?= number_format((float)$product['price']) ?></div>
+                        <?php if (!empty($product['price_per_kg'])): ?>
+                            <div style="font-size:0.75rem;color:#64748b;margin-top:2px;">KES <?= number_format((float)$product['price_per_kg'], 2) ?>/kg</div>
+                        <?php endif; ?>
                     </td>
                     <td>
-                        <form method="POST" style="display: inline;">
-                            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
+                        <?php $isLow = $product['stock_quantity'] < ($product['low_stock_threshold'] ?? 10); ?>
+                        <div class="pc-stock-val" style="color:<?= $isLow ? '#dc2626' : '#0f172a' ?>;">
+                            <?= number_format($product['stock_quantity']) ?> bags
+                        </div>
+                        <?php if (!empty($product['stock_weight_kg'])): ?>
+                            <div style="font-size:0.75rem;color:#64748b;margin-top:2px;"><?= number_format((float)$product['stock_weight_kg'], 0) ?> kg</div>
+                        <?php endif; ?>
+                        <?php if ($isLow): ?>
+                            <span class="pc-badge pc-badge-orange" style="font-size:0.68rem;margin-top:3px;">Low Stock</span>
+                        <?php endif; ?>
+                    </td>
+                    <td style="font-size:0.82rem;color:#475569;">
+                        <?php if (!empty($product['grade'])): ?><div><b>Grade:</b> <?= htmlspecialchars($product['grade']) ?></div><?php endif; ?>
+                        <?php if (!empty($product['moisture_pct'])): ?><div>Moisture: <?= $product['moisture_pct'] ?>%</div><?php endif; ?>
+                        <?php if (!empty($product['origin'])): ?><div>Origin: <?= htmlspecialchars($product['origin']) ?></div><?php endif; ?>
+                        <?php if (empty($product['grade']) && empty($product['moisture_pct']) && empty($product['origin'])): ?><span style="color:#cbd5e1;">â€”</span><?php endif; ?>
+                    </td>
+                    <td>
+                        <form method="POST" style="display:inline;">
+                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token, ENT_QUOTES) ?>">
                             <input type="hidden" name="action" value="toggle_status">
-                            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                            <button type="submit" style="background: none; border: none; cursor: pointer; padding: 0;">
+                            <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
+                            <button type="submit" style="background:none;border:none;cursor:pointer;padding:0;">
                                 <?php if ($product['is_active']): ?>
-                                    <span class="badge-pill badge-pill-success">Active</span>
+                                    <span class="pc-badge pc-badge-green">â— Active</span>
                                 <?php else: ?>
-                                    <span class="badge-pill badge-pill-danger">Inactive</span>
+                                    <span class="pc-badge pc-badge-red">â— Inactive</span>
                                 <?php endif; ?>
                             </button>
                         </form>
                     </td>
-                    <td style="text-align: right;">
-                        <div style="display: flex; gap: 8px; justify-content: flex-end;">
-                            <button title="Edit" onclick="openEditModal(<?php echo htmlspecialchars(json_encode($product)); ?>)" style="background: none; border: none; cursor: pointer; color: #94a3b8; padding: 4px; transition: color 0.2s;" onmouseover="this.style.color='var(--admin-primary)'" onmouseout="this.style.color='#94a3b8'">
-                                <i data-lucide="edit-3" style="width: 16px; height: 16px;"></i>
+                    <td>
+                        <div style="display:flex;gap:8px;justify-content:flex-end;align-items:center;">
+                            <button title="Edit" onclick="openEditModal(<?= htmlspecialchars(json_encode($product)) ?>)" class="pc-action-btn pc-action-edit">
+                                <i data-lucide="pencil" style="width:15px;height:15px;"></i>
                             </button>
-                            <form method="POST" onsubmit="return confirm('Delete this product permanently?');" style="display: inline;">
-                                <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
+                            <form method="POST" onsubmit="return confirm('Permanently delete this product?');" style="display:inline;">
+                                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token, ENT_QUOTES) ?>">
                                 <input type="hidden" name="action" value="delete_product">
-                                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                                <button type="submit" title="Delete" style="background: none; border: none; cursor: pointer; color: #94a3b8; padding: 4px; transition: color 0.2s;" onmouseover="this.style.color='#dc2626'" onmouseout="this.style.color='#94a3b8'">
-                                    <i data-lucide="trash-2" style="width: 16px; height: 16px;"></i>
+                                <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
+                                <button type="submit" title="Delete" class="pc-action-btn pc-action-delete">
+                                    <i data-lucide="trash-2" style="width:15px;height:15px;"></i>
                                 </button>
                             </form>
                         </div>
@@ -389,293 +936,329 @@ if ($pdo) {
                 <?php endforeach; ?>
                 <?php else: ?>
                 <tr>
-                    <td colspan="7" style="text-align: center; padding: 30px; color: #64748b;">No products found.</td>
+                    <td colspan="7" style="text-align:center;padding:60px 20px;">
+                        <div style="display:flex;flex-direction:column;align-items:center;gap:12px;color:#94a3b8;">
+                            <i data-lucide="package-open" style="width:48px;height:48px;opacity:0.4;"></i>
+                            <p style="margin:0;font-size:1rem;font-weight:600;">No products found</p>
+                            <p style="margin:0;font-size:0.85rem;">Try adjusting your search or add your first product.</p>
+                        </div>
+                    </td>
                 </tr>
                 <?php endif; ?>
             </tbody>
         </table>
     </div>
+</div>
 
-    <!-- ========== RAW MATERIAL SALES SUB-MODULE ========== -->
-    <div class="admin-card" style="margin-top: 32px; padding: 24px; border: 1px solid var(--admin-border); border-radius: 8px; background: #ffffff;">
-        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-            <div style="background: rgba(27, 94, 32, 0.1); color: var(--admin-primary); width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-                <i data-lucide="percent" style="width: 20px; height: 20px;"></i>
+<!-- Raw Material Sales Section -->
+<div class="pc-rm-section">
+    <div class="pc-rm-header">
+        <div class="pc-rm-icon">
+            <i data-lucide="percent" style="width:20px;height:20px;"></i>
+        </div>
+        <div>
+            <h3 style="margin:0;font-family:'Outfit',sans-serif;font-size:1.1rem;color:#0f172a;font-weight:700;">Raw Material Sales & Protection Control</h3>
+            <p style="margin:2px 0 0;font-size:0.82rem;color:#64748b;">Direct retail of ingredients while safeguarding production reserves.</p>
+        </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
+        <?php 
+        $linked_found = false;
+        foreach ($products as $p):
+            if (!empty($p['raw_material_id'])):
+                $linked_found = true;
+                $total   = (float)$p['raw_material_stock'];
+                $reserve = (float)$p['reserved_production_kg'];
+                $sellable = max(0.0, $total - $reserve);
+                $fill_pct = $total > 0 ? min(100.0, ($reserve / $total) * 100) : 0;
+        ?>
+        <div class="pc-rm-card">
+            <div style="display:flex;justify-content:space-between;align-items:start;gap:8px;">
+                <div>
+                    <div style="font-weight:700;font-size:0.95rem;color:#0f172a;"><?= htmlspecialchars($p['name']) ?></div>
+                    <div style="font-size:0.78rem;color:#64748b;margin-top:2px;">Linked: <?= htmlspecialchars($p['linked_raw_material_name']) ?></div>
+                </div>
+                <span class="pc-badge pc-badge-green" style="font-size:0.7rem;white-space:nowrap;">Raw Material</span>
             </div>
+            <div style="font-size:0.82rem;color:#64748b;">Selling: <strong style="color:#1B5E20;">KES <?= number_format($p['price'], 2) ?>/kg</strong></div>
             <div>
-                <h3 style="margin: 0; font-family: 'Outfit', sans-serif; font-size: 1.2rem; color: var(--admin-text-heading);">Raw Material Sales & Protection Control</h3>
-                <p style="margin: 2px 0 0 0; font-size: 0.8rem; color: #64748b;">Direct retail of ingredients while automatically safeguarding safety production reserves.</p>
+                <div style="display:flex;justify-content:space-between;font-size:0.78rem;color:#475569;margin-bottom:6px;">
+                    <span>Reserve: <b><?= number_format($reserve) ?> kg</b></span>
+                    <span>Sellable: <b><?= number_format($sellable) ?> kg</b></span>
+                </div>
+                <div style="width:100%;height:8px;background:#e2e8f0;border-radius:99px;overflow:hidden;display:flex;">
+                    <div style="width:<?= $fill_pct ?>%;height:100%;background:linear-gradient(90deg,#6EAF44,#4CAF50);" title="Production Reserve"></div>
+                    <div style="width:<?= 100 - $fill_pct ?>%;height:100%;background:linear-gradient(90deg,#1B5E20,#2E7D32);" title="Sellable"></div>
+                </div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid #f1f5f9;padding-top:12px;font-size:0.78rem;color:#64748b;">
+                <span>Total: <b><?= number_format($total) ?> kg</b></span>
+                <button onclick="openEditModal(<?= htmlspecialchars(json_encode($p)) ?>)" class="pc-btn-white" style="font-size:0.75rem;padding:6px 14px;border-radius:8px;color:#1B5E20;box-shadow:0 2px 8px rgba(27,94,32,0.15);">
+                    Adjust Reserve
+                </button>
             </div>
         </div>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px;">
-            <?php 
-            $linked_found = false;
-            foreach ($products as $p): 
-                if (!empty($p['raw_material_id'])): 
-                    $linked_found = true;
-                    $total = (float)$p['raw_material_stock'];
-                    $reserve = (float)$p['reserved_production_kg'];
-                    $sellable = max(0.0, $total - $reserve);
-                    $fill_pct = $total > 0 ? min(100.0, ($reserve / $total) * 100) : 0;
-            ?>
-                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 16px; position: relative; display: flex; flex-direction: column; justify-content: space-between;">
-                    <div>
-                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
-                            <span style="font-weight: 700; font-size: 0.95rem; color: var(--admin-text-heading);"><?php echo htmlspecialchars($p['name']); ?></span>
-                            <span class="badge-pill badge-pill-success" style="font-size: 0.7rem;">Linked to <?php echo htmlspecialchars($p['linked_raw_material_name']); ?></span>
-                        </div>
-                        <p style="margin: 0 0 12px; font-size: 0.8rem; color: #64748b;">Selling Price: <strong>KES <?php echo number_format($p['price'], 2); ?> / kg</strong></p>
-                        
-                        <div style="margin-bottom: 12px;">
-                            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #475569; margin-bottom: 4px;">
-                                <span>Production Reserve: <strong><?php echo number_format($reserve); ?> kgs</strong></span>
-                                <span>Sellable Stock: <strong><?php echo number_format($sellable); ?> kgs</strong></span>
-                            </div>
-                            <div style="width: 100%; height: 8px; background: #e2e8f0; border-radius: 9999px; overflow: hidden; display: flex;">
-                                <div style="width: <?php echo $fill_pct; ?>%; height: 100%; background: #6EAF44;" title="Production Reserve Floor"></div>
-                                <div style="width: <?php echo 100 - $fill_pct; ?>%; height: 100%; background: var(--admin-primary);" title="Available for Retail Sale"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #e2e8f0; padding-top: 12px; margin-top: 12px; font-size: 0.75rem; color: #64748b;">
-                        <span>Total physical stock: <strong><?php echo number_format($total); ?> kgs</strong></span>
-                        <button onclick="openEditModal(<?php echo htmlspecialchars(json_encode($p)); ?>)" class="btn btn-trans btn-sm" style="font-size:0.7rem; padding: 4px 8px;">Adjust Reserve</button>
-                    </div>
-                </div>
-            <?php 
-                endif;
-            endforeach; 
-            if (!$linked_found):
-            ?>
-                <div style="grid-column: 1 / -1; text-align: center; padding: 32px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 6px; color: #64748b; font-size: 0.9rem;">
-                    <i data-lucide="alert-circle" style="width: 24px; height: 24px; color: #94a3b8; margin-bottom: 8px;"></i>
-                    <p style="margin: 0;">No products are currently configured for direct Raw Material Sales.</p>
-                    <p style="margin: 4px 0 0; font-size: 0.8rem;">Edit an existing product or add a new one, then configure the "Link Raw Material" settings.</p>
-                </div>
-            <?php endif; ?>
+        <?php
+            endif;
+        endforeach;
+        if (!$linked_found):
+        ?>
+        <div style="grid-column:1/-1;text-align:center;padding:40px;background:#fff;border:1.5px dashed #cbd5e1;border-radius:12px;">
+            <i data-lucide="link-off" style="width:32px;height:32px;color:#cbd5e1;margin-bottom:10px;"></i>
+            <p style="margin:0;color:#64748b;font-weight:600;">No Raw Material products configured yet.</p>
+            <p style="margin:6px 0 0;color:#94a3b8;font-size:0.85rem;">Edit a product and set "Link Raw Material" to enable direct sales control.</p>
         </div>
+        <?php endif; ?>
     </div>
 </div>
 
-<!-- ========== ADD PRODUCT MODAL ========== -->
-<div id="add-modal" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 9999; overflow-y: auto; padding: 40px 16px;">
-    <div style="background: #fff; border-radius: 12px; width: 100%; max-width: 640px; padding: 32px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); position: relative; margin: 0 auto;">
-        <button onclick="document.getElementById('add-modal').style.display='none'" style="position: absolute; top: 20px; right: 20px; background: none; border: none; cursor: pointer; color: #94a3b8; font-size: 1.4rem; transition: color 0.2s;" onmouseover="this.style.color='#64748b'" onmouseout="this.style.color='#94a3b8'">✕</button>
-        <h3 style="margin: 0 0 24px 0; font-family: 'Outfit', sans-serif; font-size: 1.35rem; color: var(--admin-text-heading); font-weight: 700;">Add New Product</h3>
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• ADD PRODUCT MODAL â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<div id="add-modal" class="pc-modal-overlay" onclick="if(event.target===this)closeModal('add-modal')">
+    <div class="pc-modal">
+        <div class="pc-modal-header">
+            <h3><i data-lucide="plus-circle" style="width:20px;height:20px;"></i> Add New Product</h3>
+            <button class="pc-modal-close" onclick="closeModal('add-modal')">âœ•</button>
+        </div>
         <form method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
+            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token, ENT_QUOTES) ?>">
             <input type="hidden" name="action" value="add_product">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                <div class="admin-form-group" style="grid-column: span 2;">
-                    <label class="admin-form-label">Product Image</label>
-                    <div style="display: flex; align-items: center; gap: 16px; border: 1px dashed #cbd5e1; padding: 16px; border-radius: 4px;">
-                        <div id="add-preview" style="width: 60px; height: 60px; background: #f8fafc; border-radius: 4px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #e2e8f0;">
-                            <i data-lucide="image" style="width: 24px; height: 24px; color: #94a3b8;"></i>
+            <div class="pc-modal-body">
+                <!-- Image Upload -->
+                <div class="pc-form-group">
+                    <label class="pc-form-label">Product Image</label>
+                    <div class="pc-image-upload-zone" onclick="document.getElementById('add-image-input').click()">
+                        <div id="add-preview" class="pc-image-preview">
+                            <i data-lucide="image" style="width:26px;height:26px;color:#94a3b8;"></i>
                         </div>
-                        <div style="flex: 1;">
-                            <input type="file" name="product_image" accept="image/*" onchange="previewImage(this, 'add-preview')" style="font-size: 0.8rem;">
-                            <p style="margin: 4px 0 0 0; font-size: 0.7rem; color: #64748b;">Recommended: Square image, max 2MB.</p>
-                        </div>
+                        <input type="file" id="add-image-input" name="product_image" accept="image/*" onchange="previewImage(this,'add-preview')" style="display:none;">
+                        <p style="margin:0;font-size:0.82rem;color:#64748b;">Click to upload product image</p>
+                        <p style="margin:4px 0 0;font-size:0.75rem;color:#94a3b8;">JPG, PNG, WEBP â€” max 5MB</p>
                     </div>
                 </div>
-                <div class="admin-form-group">
-                    <label class="admin-form-label">Product Name *</label>
-                    <input type="text" name="name" required class="admin-form-control">
+
+                <!-- Core Info -->
+                <div class="pc-form-section-title">
+                    <i data-lucide="info" style="width:14px;height:14px;"></i> Core Information
                 </div>
-                <div class="admin-form-group">
-                    <label class="admin-form-label">Category *</label>
-                    <select name="category_id" required class="admin-form-control">
-                        <?php foreach ($categories as $cat): ?>
-                            <option value="<?php echo $cat['id']; ?>"><?php echo htmlspecialchars($cat['name']); ?></option>
-                        <?php endforeach; ?>
-                    </select>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+                    <div class="pc-form-group" style="grid-column:span 2;">
+                        <label class="pc-form-label">Product Name *</label>
+                        <input type="text" name="name" required class="pc-form-control" placeholder="e.g. Premium Maize (Grade 1)">
+                    </div>
+                    <div class="pc-form-group">
+                        <label class="pc-form-label">Category *</label>
+                        <select name="category_id" required class="pc-form-control">
+                            <?php foreach ($categories as $cat): ?>
+                                <option value="<?= $cat['id'] ?>"><?= htmlspecialchars($cat['name']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="pc-form-group">
+                        <label class="pc-form-label">Product Type *</label>
+                        <select name="product_type" required class="pc-form-control">
+                            <?php echo renderDropdownOptions('product_types', null, '-- Select Type --'); ?>
+                        </select>
+                    </div>
+                    <div class="pc-form-group">
+                        <label class="pc-form-label">Price (KES) *</label>
+                        <input type="number" name="price" required min="0" step="0.01" class="pc-form-control" placeholder="0.00">
+                    </div>
+                    <div class="pc-form-group">
+                        <label class="pc-form-label">Stock Quantity (bags) *</label>
+                        <input type="number" name="stock_quantity" required min="0" class="pc-form-control" placeholder="0">
+                    </div>
+                    <div class="pc-form-group">
+                        <label class="pc-form-label">Link Raw Material</label>
+                        <select name="raw_material_id" class="pc-form-control">
+                            <option value="">None</option>
+                            <?php foreach ($raw_materials_list as $rm): ?>
+                                <option value="<?= $rm['id'] ?>"><?= htmlspecialchars($rm['name']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="pc-form-group">
+                        <label class="pc-form-label">Safety Production Floor (kg)</label>
+                        <input type="number" name="reserved_production_kg" class="pc-form-control" min="0" value="0" step="0.01" placeholder="0">
+                    </div>
                 </div>
-                <div class="admin-form-group">
-                    <label class="admin-form-label">Product Type *</label>
-                    <select name="product_type" required class="admin-form-control">
-                        <?php echo renderDropdownOptions('product_types', null, '-- Select Type --'); ?>
-                    </select>
+                <div class="pc-form-group">
+                    <label class="pc-form-label">Description</label>
+                    <textarea name="description" rows="3" class="pc-form-control" style="resize:vertical;" placeholder="Short description of the product..."></textarea>
                 </div>
-                <div class="admin-form-group">
-                    <label class="admin-form-label">Price (KES) *</label>
-                    <input type="number" name="price" required min="0" step="0.01" class="admin-form-control">
+
+                <!-- Quality & Weight -->
+                <div class="pc-form-section-title">
+                    <i data-lucide="scale" style="width:14px;height:14px;"></i> Quality & Weight Details
                 </div>
-                <div class="admin-form-group">
-                    <label class="admin-form-label">Stock Quantity *</label>
-                    <input type="number" name="stock_quantity" required min="0" class="admin-form-control">
-                </div>
-                <div class="admin-form-group">
-                    <label class="admin-form-label">Link Raw Material (For Direct Sale)</label>
-                    <select name="raw_material_id" class="admin-form-control">
-                        <option value="">None (Not a raw material)</option>
-                        <?php foreach ($raw_materials_list as $rm): ?>
-                            <option value="<?php echo $rm['id']; ?>"><?php echo htmlspecialchars($rm['name']); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="admin-form-group">
-                    <label class="admin-form-label">Safety Production Floor (kgs)</label>
-                    <input type="number" name="reserved_production_kg" class="admin-form-control" min="0" value="0" step="0.01">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+                    <div class="pc-form-group"><label class="pc-form-label">Unit Weight (kg)</label><input type="number" name="unit_weight_kg" step="0.01" class="pc-form-control" placeholder="e.g. 90"></div>
+                    <div class="pc-form-group"><label class="pc-form-label">Stock Weight (kg)</label><input type="number" name="stock_weight_kg" step="0.001" class="pc-form-control" placeholder="Total kg in stock"></div>
+                    <div class="pc-form-group"><label class="pc-form-label">Price per kg (KES)</label><input type="number" name="price_per_kg" step="0.01" class="pc-form-control" placeholder="Auto-calculated"></div>
+                    <div class="pc-form-group"><label class="pc-form-label">Low Stock Threshold</label><input type="number" name="low_stock_threshold" value="10" min="0" class="pc-form-control"></div>
+                    <div class="pc-form-group"><label class="pc-form-label">Moisture %</label><input type="number" name="moisture_pct" step="0.01" min="0" max="100" class="pc-form-control" placeholder="e.g. 13.5"></div>
+                    <div class="pc-form-group"><label class="pc-form-label">Grade</label><input name="grade" class="pc-form-control" placeholder="e.g. Grade 1, Premium"></div>
+                    <div class="pc-form-group"><label class="pc-form-label">Foreign Material %</label><input type="number" name="foreign_material_pct" step="0.01" min="0" max="100" class="pc-form-control" placeholder="e.g. 1.2"></div>
+                    <div class="pc-form-group"><label class="pc-form-label">Origin</label><input name="origin" class="pc-form-control" placeholder="e.g. Nakuru"></div>
                 </div>
             </div>
-            <div class="admin-form-group" style="margin-top: 8px;">
-                <label class="admin-form-label">Description</label>
-                <textarea name="description" rows="3" class="admin-form-control" style="resize: vertical;"></textarea>
-            </div>
-            <div style="border-top: 1px solid #e2e8f0; padding-top: 16px; margin-top: 12px;">
-                <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--admin-text-heading); margin-bottom: 12px;">Quality & Weight Details</h4>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
-                    <div class="admin-form-group"><label class="admin-form-label">Unit Weight (kg)</label><input type="number" name="unit_weight_kg" step="0.01" class="admin-form-control" placeholder="e.g. 90"></div>
-                    <div class="admin-form-group"><label class="admin-form-label">Stock Weight (kg)</label><input type="number" name="stock_weight_kg" step="0.001" class="admin-form-control" placeholder="Total kg in stock"></div>
-                    <div class="admin-form-group"><label class="admin-form-label">Price per kg (KES)</label><input type="number" name="price_per_kg" step="0.01" class="admin-form-control" placeholder="Auto-calculated"></div>
-                    <div class="admin-form-group"><label class="admin-form-label">Low Stock Alert Threshold</label><input type="number" name="low_stock_threshold" value="10" min="0" class="admin-form-control"></div>
-                    <div class="admin-form-group"><label class="admin-form-label">Moisture %</label><input type="number" name="moisture_pct" step="0.01" min="0" max="100" class="admin-form-control" placeholder="e.g. 13.5"></div>
-                    <div class="admin-form-group"><label class="admin-form-label">Grade</label><input name="grade" class="admin-form-control" placeholder="e.g. Grade 1, Premium"></div>
-                    <div class="admin-form-group"><label class="admin-form-label">Foreign Material %</label><input type="number" name="foreign_material_pct" step="0.01" min="0" max="100" class="admin-form-control" placeholder="e.g. 1.2"></div>
-                    <div class="admin-form-group"><label class="admin-form-label">Origin</label><input name="origin" class="admin-form-control" placeholder="e.g. Nakuru"></div>
-                </div>
-            </div>
-            <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 20px;">
-                <button type="button" onclick="document.getElementById('add-modal').style.display='none'" class="btn btn-outline" style="border-radius: 4px;">Cancel</button>
-                <button type="submit" class="btn btn-primary" style="border-radius: 4px;">Add Product</button>
+            <div class="pc-modal-footer">
+                <button type="button" class="pc-modal-cancel" onclick="closeModal('add-modal')">Cancel</button>
+                <button type="submit" class="pc-modal-submit">
+                    <i data-lucide="check-circle" style="width:16px;height:16px;"></i> Add Product
+                </button>
             </div>
         </form>
     </div>
 </div>
 
-<!-- ========== EDIT PRODUCT MODAL ========== -->
-<div id="edit-modal" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 9999; overflow-y: auto; padding: 40px 16px;">
-    <div style="background: #fff; border-radius: 12px; width: 100%; max-width: 640px; padding: 32px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); position: relative; margin: 0 auto;">
-        <button onclick="document.getElementById('edit-modal').style.display='none'" style="position: absolute; top: 20px; right: 20px; background: none; border: none; cursor: pointer; color: #94a3b8; font-size: 1.4rem; transition: color 0.2s;" onmouseover="this.style.color='#64748b'" onmouseout="this.style.color='#94a3b8'">✕</button>
-        <h3 style="margin: 0 0 24px 0; font-family: 'Outfit', sans-serif; font-size: 1.35rem; color: var(--admin-text-heading); font-weight: 700;">Edit Product</h3>
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• EDIT PRODUCT MODAL â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<div id="edit-modal" class="pc-modal-overlay" onclick="if(event.target===this)closeModal('edit-modal')">
+    <div class="pc-modal">
+        <div class="pc-modal-header">
+            <h3><i data-lucide="pencil" style="width:20px;height:20px;"></i> Edit Product</h3>
+            <button class="pc-modal-close" onclick="closeModal('edit-modal')">âœ•</button>
+        </div>
         <form method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
+            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token, ENT_QUOTES) ?>">
             <input type="hidden" name="action" value="edit_product">
             <input type="hidden" name="product_id" id="edit-id">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                <div class="admin-form-group" style="grid-column: span 2;">
-                    <label class="admin-form-label">Update Product Image</label>
-                    <div style="display: flex; align-items: center; gap: 16px; border: 1px dashed #cbd5e1; padding: 16px; border-radius: 4px;">
-                        <div id="edit-preview" style="width: 60px; height: 60px; background: #f8fafc; border-radius: 4px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #e2e8f0;">
-                            <i data-lucide="image" style="width: 24px; height: 24px; color: #94a3b8;"></i>
+            <div class="pc-modal-body">
+                <!-- Image -->
+                <div class="pc-form-group">
+                    <label class="pc-form-label">Update Product Image</label>
+                    <div class="pc-image-upload-zone" onclick="document.getElementById('edit-image-input').click()">
+                        <div id="edit-preview" class="pc-image-preview">
+                            <i data-lucide="image" style="width:26px;height:26px;color:#94a3b8;"></i>
                         </div>
-                        <div style="flex: 1;">
-                            <input type="file" name="product_image" accept="image/*" onchange="previewImage(this, 'edit-preview')" style="font-size: 0.8rem;">
-                            <p style="margin: 4px 0 0 0; font-size: 0.7rem; color: #64748b;">Leave empty to keep current image.</p>
-                        </div>
+                        <input type="file" id="edit-image-input" name="product_image" accept="image/*" onchange="previewImage(this,'edit-preview')" style="display:none;">
+                        <p style="margin:0;font-size:0.82rem;color:#64748b;">Click to change image</p>
+                        <p style="margin:4px 0 0;font-size:0.75rem;color:#94a3b8;">Leave empty to keep current image</p>
                     </div>
                 </div>
-                <div class="admin-form-group">
-                    <label class="admin-form-label">Product Name *</label>
-                    <input type="text" name="name" id="edit-name" required class="admin-form-control">
+
+                <div class="pc-form-section-title"><i data-lucide="info" style="width:14px;height:14px;"></i> Core Information</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+                    <div class="pc-form-group" style="grid-column:span 2;">
+                        <label class="pc-form-label">Product Name *</label>
+                        <input type="text" name="name" id="edit-name" required class="pc-form-control">
+                    </div>
+                    <div class="pc-form-group">
+                        <label class="pc-form-label">Category *</label>
+                        <select name="category_id" id="edit-category" required class="pc-form-control">
+                            <?php foreach ($categories as $cat): ?>
+                                <option value="<?= $cat['id'] ?>"><?= htmlspecialchars($cat['name']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="pc-form-group">
+                        <label class="pc-form-label">Product Type *</label>
+                        <select name="product_type" id="edit-type" required class="pc-form-control">
+                            <?php echo renderDropdownOptions('product_types', null, '-- Select Type --'); ?>
+                        </select>
+                    </div>
+                    <div class="pc-form-group">
+                        <label class="pc-form-label">Price (KES) *</label>
+                        <input type="number" name="price" id="edit-price" required min="0" step="0.01" class="pc-form-control">
+                    </div>
+                    <div class="pc-form-group">
+                        <label class="pc-form-label">Stock Quantity (bags) *</label>
+                        <input type="number" name="stock_quantity" id="edit-stock" required min="0" class="pc-form-control">
+                    </div>
+                    <div class="pc-form-group">
+                        <label class="pc-form-label">Link Raw Material</label>
+                        <select name="raw_material_id" id="edit-raw-material-id" class="pc-form-control">
+                            <option value="">None</option>
+                            <?php foreach ($raw_materials_list as $rm): ?>
+                                <option value="<?= $rm['id'] ?>"><?= htmlspecialchars($rm['name']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="pc-form-group">
+                        <label class="pc-form-label">Safety Production Floor (kg)</label>
+                        <input type="number" name="reserved_production_kg" id="edit-reserved-production-kg" class="pc-form-control" min="0" step="0.01">
+                    </div>
                 </div>
-                <div class="admin-form-group">
-                    <label class="admin-form-label">Category *</label>
-                    <select name="category_id" id="edit-category" required class="admin-form-control">
-                        <?php foreach ($categories as $cat): ?>
-                            <option value="<?php echo $cat['id']; ?>"><?php echo htmlspecialchars($cat['name']); ?></option>
-                        <?php endforeach; ?>
-                    </select>
+                <div class="pc-form-group">
+                    <label class="pc-form-label">Description</label>
+                    <textarea name="description" id="edit-desc" rows="3" class="pc-form-control" style="resize:vertical;"></textarea>
                 </div>
-                <div class="admin-form-group">
-                    <label class="admin-form-label">Product Type *</label>
-                    <select name="product_type" id="edit-type" required class="admin-form-control">
-                        <?php echo renderDropdownOptions('product_types', null, '-- Select Type --'); ?>
-                    </select>
-                </div>
-                <div class="admin-form-group">
-                    <label class="admin-form-label">Price (KES) *</label>
-                    <input type="number" name="price" id="edit-price" required min="0" step="0.01" class="admin-form-control">
-                </div>
-                <div class="admin-form-group">
-                    <label class="admin-form-label">Stock Quantity *</label>
-                    <input type="number" name="stock_quantity" id="edit-stock" required min="0" class="admin-form-control">
-                </div>
-                <div class="admin-form-group">
-                    <label class="admin-form-label">Link Raw Material (For Direct Sale)</label>
-                    <select name="raw_material_id" id="edit-raw-material-id" class="admin-form-control" style="width:100%; height:42px;">
-                        <option value="">None (Not a raw material)</option>
-                        <?php foreach ($raw_materials_list as $rm): ?>
-                            <option value="<?php echo $rm['id']; ?>"><?php echo htmlspecialchars($rm['name']); ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="admin-form-group">
-                    <label class="admin-form-label">Safety Production Floor (kgs)</label>
-                    <input type="number" name="reserved_production_kg" id="edit-reserved-production-kg" class="admin-form-control" min="0" step="0.01">
+
+                <div class="pc-form-section-title"><i data-lucide="scale" style="width:14px;height:14px;"></i> Quality & Weight Details</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+                    <div class="pc-form-group"><label class="pc-form-label">Unit Weight (kg)</label><input type="number" name="unit_weight_kg" id="edit-unit-weight" step="0.01" class="pc-form-control"></div>
+                    <div class="pc-form-group"><label class="pc-form-label">Stock Weight (kg)</label><input type="number" name="stock_weight_kg" id="edit-stock-weight" step="0.001" class="pc-form-control"></div>
+                    <div class="pc-form-group"><label class="pc-form-label">Price per kg (KES)</label><input type="number" name="price_per_kg" id="edit-price-kg" step="0.01" class="pc-form-control"></div>
+                    <div class="pc-form-group"><label class="pc-form-label">Low Stock Threshold</label><input type="number" name="low_stock_threshold" id="edit-low-stock" min="0" class="pc-form-control"></div>
+                    <div class="pc-form-group"><label class="pc-form-label">Moisture %</label><input type="number" name="moisture_pct" id="edit-moisture" step="0.01" min="0" max="100" class="pc-form-control"></div>
+                    <div class="pc-form-group"><label class="pc-form-label">Grade</label><input name="grade" id="edit-grade" class="pc-form-control"></div>
+                    <div class="pc-form-group"><label class="pc-form-label">Foreign Material %</label><input type="number" name="foreign_material_pct" id="edit-foreign" step="0.01" min="0" max="100" class="pc-form-control"></div>
+                    <div class="pc-form-group"><label class="pc-form-label">Origin</label><input name="origin" id="edit-origin" class="pc-form-control"></div>
                 </div>
             </div>
-            <div class="admin-form-group" style="margin-top: 8px;">
-                <label class="admin-form-label">Description</label>
-                <textarea name="description" id="edit-desc" rows="3" class="admin-form-control" style="resize: vertical;"></textarea>
-            </div>
-            <div style="border-top: 1px solid #e2e8f0; padding-top: 16px; margin-top: 12px;">
-                <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--admin-text-heading); margin-bottom: 12px;">Quality & Weight Details</h4>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
-                    <div class="admin-form-group"><label class="admin-form-label">Unit Weight (kg)</label><input type="number" name="unit_weight_kg" id="edit-unit-weight" step="0.01" class="admin-form-control"></div>
-                    <div class="admin-form-group"><label class="admin-form-label">Stock Weight (kg)</label><input type="number" name="stock_weight_kg" id="edit-stock-weight" step="0.001" class="admin-form-control"></div>
-                    <div class="admin-form-group"><label class="admin-form-label">Price per kg (KES)</label><input type="number" name="price_per_kg" id="edit-price-kg" step="0.01" class="admin-form-control"></div>
-                    <div class="admin-form-group"><label class="admin-form-label">Low Stock Threshold</label><input type="number" name="low_stock_threshold" id="edit-low-stock" min="0" class="admin-form-control"></div>
-                    <div class="admin-form-group"><label class="admin-form-label">Moisture %</label><input type="number" name="moisture_pct" id="edit-moisture" step="0.01" min="0" max="100" class="admin-form-control"></div>
-                    <div class="admin-form-group"><label class="admin-form-label">Grade</label><input name="grade" id="edit-grade" class="admin-form-control"></div>
-                    <div class="admin-form-group"><label class="admin-form-label">Foreign Material %</label><input type="number" name="foreign_material_pct" id="edit-foreign" step="0.01" min="0" max="100" class="admin-form-control"></div>
-                    <div class="admin-form-group"><label class="admin-form-label">Origin</label><input name="origin" id="edit-origin" class="admin-form-control"></div>
-                </div>
-            </div>
-            <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 20px;">
-                <button type="button" onclick="document.getElementById('edit-modal').style.display='none'" class="btn btn-outline" style="border-radius: 4px;">Cancel</button>
-                <button type="submit" class="btn btn-primary" style="border-radius: 4px;">Save Changes</button>
+            <div class="pc-modal-footer">
+                <button type="button" class="pc-modal-cancel" onclick="closeModal('edit-modal')">Cancel</button>
+                <button type="submit" class="pc-modal-submit">
+                    <i data-lucide="save" style="width:16px;height:16px;"></i> Save Changes
+                </button>
             </div>
         </form>
     </div>
 </div>
 
 <script>
+function openModal(id) {
+    document.getElementById(id).style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
+    document.body.style.overflow = '';
+}
 function previewImage(input, previewId) {
     const preview = document.getElementById(previewId);
     if (input.files && input.files[0]) {
         const reader = new FileReader();
-        reader.onload = function(e) {
-            preview.innerHTML = `<img src="${e.target.result}" style="width: 100%; height: 100%; object-fit: cover;">`;
-        }
+        reader.onload = e => {
+            preview.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;">`;
+        };
         reader.readAsDataURL(input.files[0]);
     }
 }
-
 function openEditModal(product) {
-    document.getElementById('edit-id').value = product.id;
-    document.getElementById('edit-name').value = product.name;
-    document.getElementById('edit-category').value = product.category_id;
-    document.getElementById('edit-type').value = product.product_type;
-    document.getElementById('edit-price').value = product.price;
-    document.getElementById('edit-stock').value = product.stock_quantity;
-    document.getElementById('edit-desc').value = product.description || '';
-    document.getElementById('edit-unit-weight').value = product.unit_weight_kg || '';
-    document.getElementById('edit-stock-weight').value = product.stock_weight_kg || '';
-    document.getElementById('edit-price-kg').value = product.price_per_kg || '';
-    document.getElementById('edit-low-stock').value = product.low_stock_threshold || 10;
-    document.getElementById('edit-moisture').value = product.moisture_pct || '';
-    document.getElementById('edit-grade').value = product.grade || '';
-    document.getElementById('edit-foreign').value = product.foreign_material_pct || '';
-    document.getElementById('edit-origin').value = product.origin || '';
-    document.getElementById('edit-raw-material-id').value = product.raw_material_id || '';
-    document.getElementById('edit-reserved-production-kg').value = product.reserved_production_kg || 0;
-    
-    // Set preview
+    document.getElementById('edit-id').value             = product.id;
+    document.getElementById('edit-name').value           = product.name;
+    document.getElementById('edit-category').value       = product.category_id;
+    document.getElementById('edit-type').value           = product.product_type;
+    document.getElementById('edit-price').value          = product.price;
+    document.getElementById('edit-stock').value          = product.stock_quantity;
+    document.getElementById('edit-desc').value           = product.description || '';
+    document.getElementById('edit-unit-weight').value    = product.unit_weight_kg || '';
+    document.getElementById('edit-stock-weight').value   = product.stock_weight_kg || '';
+    document.getElementById('edit-price-kg').value       = product.price_per_kg || '';
+    document.getElementById('edit-low-stock').value      = product.low_stock_threshold || 10;
+    document.getElementById('edit-moisture').value       = product.moisture_pct || '';
+    document.getElementById('edit-grade').value          = product.grade || '';
+    document.getElementById('edit-foreign').value        = product.foreign_material_pct || '';
+    document.getElementById('edit-origin').value         = product.origin || '';
+    document.getElementById('edit-raw-material-id').value            = product.raw_material_id || '';
+    document.getElementById('edit-reserved-production-kg').value     = product.reserved_production_kg || 0;
     const preview = document.getElementById('edit-preview');
     if (product.image_url) {
-        preview.innerHTML = `<img src="${product.image_url}" style="width: 100%; height: 100%; object-fit: cover;">`;
+        preview.innerHTML = `<img src="${product.image_url}" style="width:100%;height:100%;object-fit:cover;">`;
     } else {
-        preview.innerHTML = `<i data-lucide="image" style="width: 24px; height: 24px; color: #94a3b8;"></i>`;
+        preview.innerHTML = `<i data-lucide="image" style="width:26px;height:26px;color:#94a3b8;"></i>`;
         if (typeof lucide !== 'undefined') lucide.createIcons();
     }
-    
-    document.getElementById('edit-modal').style.display = 'flex';
+    openModal('edit-modal');
 }
+// Escape key to close modals
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+        closeModal('add-modal');
+        closeModal('edit-modal');
+    }
+});
 </script>
 
-<?php
-include __DIR__ . '/includes/admin_footer.php';
-?>
+<?php include __DIR__ . '/includes/admin_footer.php'; ?>
