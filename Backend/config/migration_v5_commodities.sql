@@ -35,7 +35,7 @@ SET @cat_pulses  = (SELECT id FROM categories WHERE slug = 'pulses' LIMIT 1);
 SET @cat_feed    = (SELECT id FROM categories WHERE slug = 'feed_ingredients' LIMIT 1);
 
 -- ── GRAINS & PULSES ──
-INSERT INTO products (category_id, name, slug, description, product_type, price, stock_quantity, image_url, is_active, is_featured) VALUES
+INSERT IGNORE INTO products (category_id, name, slug, description, product_type, price, stock_quantity, image_url, is_active, is_featured) VALUES
 (@cat_cereals, 'Maize (90kg Bag)', 'maize-90kg', 'Premium quality maize, machine-sorted and dried to safe moisture levels. Ideal for milling, feed and human consumption.', 'grain', 4500, 200, '/Frontend/images/product-placeholder.svg', 1, 1),
 (@cat_cereals, 'Wheat (90kg Bag)', 'wheat-90kg', 'Clean, well-dried wheat grain suitable for milling, baking and feed industries.', 'grain', 5200, 150, '/Frontend/images/product-placeholder.svg', 1, 1),
 (@cat_cereals, 'Barley (90kg Bag)', 'barley-90kg', 'Quality barley grain for malting, brewing, animal feed and food processing.', 'grain', 4800, 100, '/Frontend/images/product-placeholder.svg', 1, 1),
@@ -47,7 +47,7 @@ INSERT INTO products (category_id, name, slug, description, product_type, price,
 (@cat_pulses, 'Cowpeas (90kg Bag)', 'cowpeas-90kg', 'Clean cowpeas suitable for food processing and direct consumption.', 'legume', 7000, 80, '/Frontend/images/product-placeholder.svg', 1, 0);
 
 -- ── FEED RAW MATERIALS ──
-INSERT INTO products (category_id, name, slug, description, product_type, price, stock_quantity, image_url, is_active, is_featured) VALUES
+INSERT IGNORE INTO products (category_id, name, slug, description, product_type, price, stock_quantity, image_url, is_active, is_featured) VALUES
 (@cat_feed, 'Maize Bran / Germ (50kg Bag)', 'maize-bran-50kg', 'Fresh maize bran and germ, a staple raw material for animal feed formulation. Rich in fibre and energy.', 'raw_material', 1800, 250, '/Frontend/images/product-placeholder.svg', 1, 1),
 (@cat_feed, 'Wheat Bran / Pollard (50kg Bag)', 'wheat-bran-50kg', 'Clean wheat bran and pollard with consistent quality — essential for animal feed rations.', 'raw_material', 1500, 220, '/Frontend/images/product-placeholder.svg', 1, 1),
 (@cat_feed, 'Rice Polish / Bran (50kg Bag)', 'rice-bran-50kg', 'Nutritious rice polish and bran, an excellent energy source for livestock feed.', 'raw_material', 1600, 180, '/Frontend/images/product-placeholder.svg', 1, 1),

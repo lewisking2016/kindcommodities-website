@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS categories (
     name VARCHAR(100) NOT NULL UNIQUE,
     slug VARCHAR(100) NOT NULL UNIQUE,
     description TEXT,
-    category_type ENUM('chicken', 'feed') DEFAULT 'chicken',
+    category_type VARCHAR(30) NOT NULL DEFAULT 'feed',
     icon_class VARCHAR(50),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS products (
     name VARCHAR(150) NOT NULL,
     slug VARCHAR(150) NOT NULL UNIQUE,
     description TEXT,
-    product_type ENUM('live_chicken', 'meat', 'eggs', 'chicks', 'feed') NOT NULL,
+    product_type VARCHAR(30) NOT NULL DEFAULT 'grain',
     price DECIMAL(10, 2) NOT NULL,
     stock_quantity INT DEFAULT 0,
     weight_kg DECIMAL(5, 2),

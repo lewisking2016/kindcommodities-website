@@ -5,6 +5,16 @@
 -- ══════════════════════════════════════════════════════════════
 
 -- ─────────────────────────────────────────────────────────────
+-- 0. FIX PRODUCT_TYPE ENUM — pivot from poultry to commodities
+--    The original ENUM only had poultry types. We need grain, legume,
+--    raw_material for the commodity business.
+-- ─────────────────────────────────────────────────────────────
+ALTER TABLE products MODIFY COLUMN product_type VARCHAR(30) NOT NULL DEFAULT 'grain';
+
+-- Also fix categories.category_type ENUM
+ALTER TABLE categories MODIFY COLUMN category_type VARCHAR(30) NOT NULL DEFAULT 'feed';
+
+-- ─────────────────────────────────────────────────────────────
 -- 1. PRODUCTS TABLE — add weight, quality, barcode columns
 -- ─────────────────────────────────────────────────────────────
 -- Weight-based stock

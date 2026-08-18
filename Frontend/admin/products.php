@@ -313,8 +313,8 @@ if ($pdo) {
                     <th>Product</th>
                     <th>Type</th>
                     <th>Price</th>
-                    <th>Stock Level</th>
-                    <th>Stock Brain</th>
+                    <th>Stock</th>
+                    <th>Quality</th>
                     <th>Status</th>
                     <th style="text-align: right;">Actions</th>
                 </tr>
@@ -350,32 +350,11 @@ if ($pdo) {
                             <?php endif; ?>
                         </span>
                     </td>
-                    <td>
-                        <?php if (!empty($product['raw_material_id'])): ?>
-                            <?php 
-                                $total_stock = (float)($product['raw_material_stock'] ?? 0);
-                                $reserved = (float)($product['reserved_production_kg'] ?? 0);
-                                $avail_sale = max(0.0, $total_stock - $reserved);
-                                $pct = $total_stock > 0 ? min(100.0, ($reserved / $total_stock) * 100) : 0;
-                            ?>
-                            <div style="font-size: 0.8rem; display: flex; flex-direction: column; gap: 4px;">
-                                <div style="display: flex; justify-content: space-between; font-weight: 700; color: #475569;">
-                                    <span><?php echo htmlspecialchars($product['linked_raw_material_name']); ?></span>
-                                    <span style="color: var(--admin-primary);"><?php echo number_format($avail_sale); ?> kgs sellable</span>
-                                </div>
-                                <div style="width: 100%; height: 6px; background: #e2e8f0; border-radius: 9999px; overflow: hidden; display: flex;">
-                                    <div style="width: <?php echo $pct; ?>%; height: 100%; background: #6EAF44;" title="Reserved for Production"></div>
-                                    <div style="width: <?php echo 100 - $pct; ?>%; height: 100%; background: var(--admin-primary);" title="Available for Direct Sale"></div>
-                                </div>
-                                <span style="font-size: 0.7rem; color: #64748b;">Reserve Floor: <?php echo number_format($reserved); ?> kgs</span>
-                            </div>
-                        <?php elseif ($product['product_type'] === 'feed'): ?>
-                            <span class="badge-pill badge-pill-success" style="display: inline-flex; align-items: center; gap: 4px;">
-                                <i data-lucide="package" style="width: 12px; height: 12px;"></i> Feed
-                            </span>
-                        <?php else: ?>
-                            <span style="color: #94a3b8; font-size: 0.8rem;">N/A</span>
-                        <?php endif; ?>
+                    <td style="font-size: 0.8rem;">
+                        <?php if (!empty($product['grade'])): ?><span style="color:#475569;font-weight:600;">Grade: <?php echo htmlspecialchars($product['grade']); ?></span><br><?php endif; ?>
+                        <?php if (!empty($product['moisture_pct'])): ?><span style="color:#64748b;">Moisture: <?php echo $product['moisture_pct']; ?>%</span><br><?php endif; ?>
+                        <?php if (!empty($product['origin'])): ?><span style="color:#64748b;">Origin: <?php echo htmlspecialchars($product['origin']); ?></span><?php endif; ?>
+                        <?php if (empty($product['grade']) && empty($product['moisture_pct']) && empty($product['origin'])): ?><span style="color:#94a3b8;">—</span><?php endif; ?>
                     </td>
                     <td>
                         <form method="POST" style="display: inline;">
@@ -410,7 +389,7 @@ if ($pdo) {
                 <?php endforeach; ?>
                 <?php else: ?>
                 <tr>
-                    <td colspan="6" style="text-align: center; padding: 30px; color: #64748b;">No products found.</td>
+                    <td colspan="7" style="text-align: center; padding: 30px; color: #64748b;">No products found.</td>
                 </tr>
                 <?php endif; ?>
             </tbody>
