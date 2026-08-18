@@ -78,6 +78,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pdo) {
 $suppliers = [];
 if ($pdo) {
     try {
+        // Ensure suppliers table exists
+        $pdo->exec("CREATE TABLE IF NOT EXISTS suppliers (id INT AUTO_INCREMENT PRIMARY KEY, supplier_name VARCHAR(150) NOT NULL, contact_person VARCHAR(100), phone VARCHAR(20), email VARCHAR(100), address TEXT, location VARCHAR(100), payment_terms VARCHAR(100) DEFAULT 'Cash on Delivery', rating TINYINT DEFAULT 5, is_active TINYINT(1) DEFAULT 1, notes TEXT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP) ENGINE=InnoDB");
+        $pdo->exec("CREATE TABLE IF NOT EXISTS supplier_deliveries (id INT AUTO_INCREMENT PRIMARY KEY, supplier_id INT NOT NULL, product_id INT, delivery_date DATE NOT NULL, quantity_kg DECIMAL(12,3) DEFAULT 0, bags_count INT DEFAULT 0, unit_cost DECIMAL(10,2) DEFAULT 0, total_cost DECIMAL(12,2) DEFAULT 0, moisture_pct DECIMAL(5,2) DEFAULT NULL, grade VARCHAR(20) DEFAULT NULL, quality_notes TEXT, invoice_number VARCHAR(50), payment_status ENUM('pending','partial','paid') DEFAULT 'pending', payment_method VARCHAR(50) DEFAULT 'cash', recorded_by INT, notes TEXT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP) ENGINE=InnoDB");
         $suppliers = $pdo->query("SELECT s.*, COUNT(sd.id) as delivery_count, COALESCE(SUM(sd.total_cost),0) as total_purchased FROM suppliers s LEFT JOIN supplier_deliveries sd ON sd.supplier_id = s.id GROUP BY s.id ORDER BY s.supplier_name ASC")->fetchAll(PDO::FETCH_ASSOC);
     } catch (Exception $e) { $suppliers = []; }
 }

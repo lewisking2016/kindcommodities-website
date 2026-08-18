@@ -110,6 +110,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pdo) {
     }
 }
 
+// Ensure tables exist
+if ($pdo) {
+    try {
+        $pdo->exec("CREATE TABLE IF NOT EXISTS contracts (id INT AUTO_INCREMENT PRIMARY KEY, contract_number VARCHAR(30) NOT NULL UNIQUE, contract_type ENUM('purchase','sale') NOT NULL, party_name VARCHAR(150) NOT NULL, party_phone VARCHAR(20), party_email VARCHAR(100), party_type ENUM('grower','customer','broker','other') DEFAULT 'customer', product_id INT, commodity_name VARCHAR(100) NOT NULL, quantity_kg DECIMAL(12,3) DEFAULT 0, delivered_kg DECIMAL(12,3) DEFAULT 0, unit_price DECIMAL(10,2) DEFAULT 0, total_value DECIMAL(14,2) DEFAULT 0, currency VARCHAR(5) DEFAULT 'KES', contract_date DATE NOT NULL, delivery_start DATE, delivery_end DATE, delivery_location VARCHAR(200), payment_terms VARCHAR(200) DEFAULT 'Cash on Delivery', quality_specs TEXT, status ENUM('draft','active','fulfilled','cancelled','expired') DEFAULT 'draft', notes TEXT, created_by INT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP) ENGINE=InnoDB");
+        $pdo->exec("CREATE TABLE IF NOT EXISTS contract_deliveries (id INT AUTO_INCREMENT PRIMARY KEY, contract_id INT NOT NULL, delivery_date DATE NOT NULL, quantity_kg DECIMAL(12,3) DEFAULT 0, bags_count INT DEFAULT 0, moisture_pct DECIMAL(5,2) DEFAULT NULL, grade VARCHAR(20) DEFAULT NULL, vehicle_plate VARCHAR(20), driver_name VARCHAR(100), driver_phone VARCHAR(20), waybill_number VARCHAR(50), quality_notes TEXT, received_by VARCHAR(100), recorded_by INT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP) ENGINE=InnoDB");
+    } catch (Exception $e) {}
+}
+
 // Fetch contracts
 $contracts = [];
 $products = [];
