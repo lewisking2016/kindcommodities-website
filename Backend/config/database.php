@@ -70,8 +70,8 @@ $pdoOptions = [
 // Connection String (DSN)
 $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=" . DB_CHARSET;
 
-// Auto-migration helper is safe to include repeatedly
-@require_once __DIR__ . '/auto_migrate.php';
+// Auto-migration: ensureKindSchema() is only called via Backend/run_migration.php
+// Including auto_migrate.php on every request wastes shared hosting resources.
 
 // Global PDO instance
 $pdo = null;
