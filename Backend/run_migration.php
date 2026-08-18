@@ -17,12 +17,25 @@ session_start();
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/config/auto_migrate.php';
 
-// Only allow logged-in admins
-if (empty($_SESSION['user_id']) || !in_array($_SESSION['role'] ?? '', ['super_admin'], true)) {
+// Allow if logged in as admin, OR if ?key=runmigrate2026 is provided (one-time use)
+$runKey = $_GET['key'] ?? '';
+$allowed = false;
+
+if ($runKey === 'runmigrate2026') {
+    $allowed = true; // One-time bypass key
+} elseif (!empty($_SESSION['user_id']) && in_array($_SESSION['role'] ?? '', ['super_admin', 'farm_manager'], true)) {
+    $allowed = true; // Logged-in admin
+}
+
+if (!$allowed) {
     http_response_code(403);
     echo "<h1>⛔ Access Denied</h1>";
-    echo "<p>You must be logged in as <strong>Super Admin</strong> to run migrations.</p>";
-    echo "<p><a href='/Frontend/admin/login.php'>← Go to Admin Login</a></p>";
+    echo "<p>Two ways to access this:</p>";
+    echo "<ol>";
+    echo "<li><a href='/Frontend/admin/login.php'>Log in as admin</a> first, then visit this page again</li>";
+    echo "<li>Or add <code>?key=runmigrate2026</code> to the URL (one-time use)</li>";
+    echo "</ol>";
+    echo "<p>Example: <code>https://yourdomain.com/Backend/run_migration.php?key=runmigrate2026</code></p>";
     exit;
 }
 
