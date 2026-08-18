@@ -94,13 +94,9 @@ function getDatabaseConnection(): ?PDO {
             PDO::ATTR_EMULATE_PREPARES => false,
         ]);
 
-        if (function_exists('ensureKindSchema')) {
-            try {
-                ensureKindSchema($pdo);
-            } catch (Exception $e) {
-                @error_log('Auto schema ensure failed: ' . $e->getMessage());
-            }
-        }
+        // NOTE: ensureKindSchema() is already called by getDB() in config.php.
+        // Removed duplicate call here to prevent running migrations twice per request,
+        // which caused 508 Insufficient Resource errors on shared hosting.
 
         return $pdo;
     } catch (PDOException $e) {

@@ -90,6 +90,11 @@ function migrationTableNames(string $file): array
  */
 function reconcileLegacySchema(PDO $pdo): void
 {
+    // Fast exit if already reconciled this request
+    static $reconciled = false;
+    if ($reconciled) return;
+    $reconciled = true;
+
     // ── raw_materials ──
     if (tableExists($pdo, 'raw_materials')) {
         $add = [];
@@ -342,82 +347,46 @@ function kindRolePermissions(?PDO $pdo = null): array
 }
 
 /**
- * Idempotent master-data seeding: egg grades (incl. Small/Medium/Large),
- * chicken sizes, user-role dropdown entries and the role_permissions matrix.
- * Runs on every connection but is a handful of INSERT IGNOREs — cheap.
+ * Idempotent master-data seeding: commodity taxonomy, user-role dropdowns,
+ * and the role_permissions matrix. Runs only once per migration cycle.
  */
 function seedMasterData(PDO $pdo): void
 {
-    // ── Egg grades: add the standard market sizes alongside B14/B15/Cracked ──
-    if (tableExists($pdo, 'egg_grades')) {
-        $stmt = $pdo->prepare('INSERT IGNORE INTO egg_grades (grade_code, grade_name, weight_min_grams, weight_max_grams, pieces_per_crate, description, is_active) VALUES (?,?,?,?,?,?,1)');
-        $grades = [
-            ['PW', 'Peewee', 1, 41, 30, 'Very small eggs (< 42g)'],
-            ['S',  'Small', 42, 49, 30, 'Small sized eggs'],
-            ['M',  'Medium', 50, 55, 30, 'Medium sized eggs'],
-            ['L',  'Large', 56, 64, 30, 'Large sized eggs'],
-            ['J',  'Jumbo', 71, 999, 30, 'Jumbo sized eggs (> 70g)'],
-        ];
-        foreach ($grades as $g) {
-            $stmt->execute($g);
-        }
+    // Fast exit if already seeded — check a lightweight flag
+    static $seeded = false;
+    if ($seeded) return;
+    $seeded = true;
+
+    if (!tableExists($pdo, 'system_dropdowns')) return;
+
+    // ── User roles (only 3 INSERT IGNOREs — cheap) ──
+    $stmt = $pdo->prepare('INSERT IGNORE INTO system_dropdowns (group_key, group_label, option_value, option_label, sort_order, is_active, is_system) VALUES (?,?,?,?,?,1,1)');
+    $stmt->execute(['user_roles', 'User Roles', 'super_admin', 'Super Admin', 0]);
+    $stmt->execute(['user_roles', 'User Roles', 'farm_manager', 'Farm Manager', 1]);
+    $stmt->execute(['user_roles', 'User Roles', 'sales_staff', 'Sales Staff', 4]);
+
+    // ── Commodity product types (only INSERT IGNORE — no UPDATEs) ──
+    $commodityTypes = [
+        ['product_types', 'Product Types', 'grain', 'Grains & Cereals', 1],
+        ['product_types', 'Product Types', 'legume', 'Pulses & Legumes', 2],
+        ['product_types', 'Product Types', 'raw_material', 'Feed Raw Materials', 3],
+    ];
+    $commodityCats = [
+        ['product_categories', 'Product Categories', 'cereals', 'Grains & Cereals', 1],
+        ['product_categories', 'Product Categories', 'pulses', 'Pulses & Legumes', 2],
+        ['product_categories', 'Product Categories', 'feed_ingredients', 'Feed Raw Materials', 3],
+    ];
+    foreach (array_merge($commodityTypes, $commodityCats) as $row) {
+        $stmt->execute($row);
     }
 
-    // ── Chicken sizes dropdown group (for product / sale size options) ──
-    if (tableExists($pdo, 'system_dropdowns')) {
-        $stmt = $pdo->prepare('INSERT IGNORE INTO system_dropdowns (group_key, group_label, option_value, option_label, sort_order, is_active, is_system) VALUES (?,?,?,?,?,1,1)');
-        $sizes = [
-            ['chicken_sizes', 'Chicken Sizes', 'peewee', 'Peewee', 1],
-            ['chicken_sizes', 'Chicken Sizes', 'small', 'Small', 2],
-            ['chicken_sizes', 'Chicken Sizes', 'medium', 'Medium', 3],
-            ['chicken_sizes', 'Chicken Sizes', 'large', 'Large', 4],
-            ['chicken_sizes', 'Chicken Sizes', 'extra_large', 'Extra Large', 5],
-            ['chicken_sizes', 'Chicken Sizes', 'jumbo', 'Jumbo', 6],
-            // User roles used by the code (older seed only had 'admin')
-            ['user_roles', 'User Roles', 'super_admin', 'Super Admin', 0],
-            ['user_roles', 'User Roles', 'farm_manager', 'Farm Manager', 1],
-            ['user_roles', 'User Roles', 'sales_staff', 'Sales Staff', 4],
-        ];
-        foreach ($sizes as $s) {
-            $stmt->execute($s);
-        }
-
-        // ── Product taxonomy: pivot from poultry to grains & raw materials ──
-        // Rename the legacy poultry dropdown options in place (preserving IDs
-        // and product_type references) and ensure the new commodity options
-        // exist. Idempotent — safe to run on every connection.
-        $taxonomyMaps = [
-            'product_types' => [
-                ['live_chicken', 'grain', 'Grains & Cereals', 1],
-                ['eggs', 'legume', 'Pulses & Legumes', 2],
-                ['chicks', 'oilseed', 'Oilseeds & Nuts', 3],
-                ['feed', 'raw_material', 'Feed Raw Materials', 4],
-            ],
-            'product_categories' => [
-                ['broilers', 'cereals', 'Grains & Cereals', 1],
-                ['layers', 'pulses', 'Pulses & Legumes', 2],
-                ['day-old-chicks', 'oilseeds', 'Oilseeds & Nuts', 3],
-                ['feeds', 'feed_ingredients', 'Feed Raw Materials', 4],
-            ],
-        ];
-        $upd = $pdo->prepare('UPDATE system_dropdowns SET option_value = ?, option_label = ?, sort_order = ? WHERE group_key = ? AND option_value = ?');
-        $ins = $pdo->prepare('INSERT IGNORE INTO system_dropdowns (group_key, group_label, option_value, option_label, sort_order, is_active, is_system) VALUES (?,?,?,?,?,1,1)');
-        foreach ($taxonomyMaps as $group => $rows) {
-            $groupLabel = ($group === 'product_types') ? 'Product Types' : 'Product Categories';
-            foreach ($rows as $r) {
-                $upd->execute([$r[1], $r[2], $r[3], $group, $r[0]]);
-                $ins->execute([$group, $groupLabel, $r[1], $r[2], $r[3]]);
-            }
-        }
-    }
-
-    // ── Role permissions matrix (idempotent) ──
+    // ── Role permissions matrix (idempotent INSERT IGNORE) ──
     if (tableExists($pdo, 'role_permissions')) {
         $defaults = kindDefaultRolePermissions();
-        $stmt = $pdo->prepare('INSERT IGNORE INTO role_permissions (role, module_key, can_view, can_edit) VALUES (?,?,?,?)');
+        $permStmt = $pdo->prepare('INSERT IGNORE INTO role_permissions (role, module_key, can_view, can_edit) VALUES (?,?,?,?)');
         foreach ($defaults as $role => $mods) {
             foreach ($mods as $mod => $p) {
-                $stmt->execute([$role, $mod, $p['view'], $p['edit']]);
+                $permStmt->execute([$role, $mod, $p['view'], $p['edit']]);
             }
         }
     }
@@ -432,7 +401,9 @@ function ensureKindSchema(PDO $pdo): void
     if ($checked) return;
     $checked = true;
 
-    // Check if migration has already been completed (skip on subsequent requests)
+    // CRITICAL: Check migration-complete flag FIRST — before any heavy work.
+    // This prevents expensive ALTER TABLE, UPDATE, and INSERT operations
+    // from running on every single request on shared hosting.
     try {
         $flag = $pdo->query("SELECT setting_value FROM site_settings WHERE setting_key = 'migration_v6_completed'")->fetchColumn();
         if ($flag === '1') return; // Migration already done, skip entirely
@@ -441,9 +412,7 @@ function ensureKindSchema(PDO $pdo): void
     }
 
     try {
-        // Always reconcile legacy column shapes first (idempotent, cheap) so
-        // existing databases get the columns the current modules read even
-        // when every table already exists.
+        // Only run expensive operations when migration hasn't completed yet
         reconcileLegacySchema($pdo);
         seedMasterData($pdo);
 

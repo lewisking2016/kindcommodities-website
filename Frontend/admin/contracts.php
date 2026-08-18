@@ -110,19 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pdo) {
     }
 }
 
-// Ensure tables exist
-if ($pdo) {
-    try {
-        $pdo->exec("CREATE TABLE IF NOT EXISTS contracts (id INT AUTO_INCREMENT PRIMARY KEY, contract_number VARCHAR(30) NOT NULL UNIQUE, contract_type ENUM('purchase','sale') NOT NULL, party_name VARCHAR(150) NOT NULL, party_phone VARCHAR(20), party_email VARCHAR(100), party_type ENUM('grower','customer','broker','other') DEFAULT 'customer', product_id INT, commodity_name VARCHAR(100) NOT NULL, quantity_kg DECIMAL(12,3) DEFAULT 0, delivered_kg DECIMAL(12,3) DEFAULT 0, unit_price DECIMAL(10,2) DEFAULT 0, total_value DECIMAL(14,2) DEFAULT 0, currency VARCHAR(5) DEFAULT 'KES', contract_date DATE NOT NULL, delivery_start DATE, delivery_end DATE, delivery_location VARCHAR(200), payment_terms VARCHAR(200) DEFAULT 'Cash on Delivery', quality_specs TEXT, status ENUM('draft','active','fulfilled','cancelled','expired') DEFAULT 'draft', notes TEXT, created_by INT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP) ENGINE=InnoDB");
-        $pdo->exec("CREATE TABLE IF NOT EXISTS contract_deliveries (id INT AUTO_INCREMENT PRIMARY KEY, contract_id INT NOT NULL, delivery_date DATE NOT NULL, quantity_kg DECIMAL(12,3) DEFAULT 0, bags_count INT DEFAULT 0, moisture_pct DECIMAL(5,2) DEFAULT NULL, grade VARCHAR(20) DEFAULT NULL, vehicle_plate VARCHAR(20), driver_name VARCHAR(100), driver_phone VARCHAR(20), waybill_number VARCHAR(50), quality_notes TEXT, received_by VARCHAR(100), recorded_by INT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP) ENGINE=InnoDB");
-        // Seed sample contracts if table is empty
-        $conCount = (int)$pdo->query("SELECT COUNT(*) FROM contracts")->fetchColumn();
-        if ($conCount === 0) {
-            $year = date('Y');
-            $pdo->exec("INSERT INTO contracts (contract_number, contract_type, party_name, party_phone, party_type, commodity_name, quantity_kg, unit_price, total_value, contract_date, delivery_start, delivery_end, delivery_location, payment_terms, quality_specs, status, created_by) VALUES ('{$year}-0001', 'purchase', 'Nakuru Grain Merchants', '+254 722 000 001', 'grower', 'Maize', 50000, 42, 2100000, CURDATE(), DATE_ADD(CURDATE(), INTERVAL 1 MONTH), DATE_ADD(CURDATE(), INTERVAL 3 MONTH), 'Nakuru', '30 days credit', 'Moisture max 13%, Grade 1', 'active', 1), ('{$year}-0002', 'sale', 'Kariuki Wholesalers', '+254 733 111 222', 'customer', 'Wheat', 20000, 55, 1100000, CURDATE(), CURDATE(), DATE_ADD(CURDATE(), INTERVAL 2 MONTH), 'Nakuru Warehouse', 'Cash on Delivery', 'Moisture max 12%', 'active', 1)");
-        }
-    } catch (Exception $e) {}
-}
+// Tables are created by migration — no inline CREATE TABLE needed
 
 // Fetch contracts
 $contracts = [];

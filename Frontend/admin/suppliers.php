@@ -78,15 +78,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pdo) {
 $suppliers = [];
 if ($pdo) {
     try {
-        // Ensure suppliers table exists
-        $pdo->exec("CREATE TABLE IF NOT EXISTS suppliers (id INT AUTO_INCREMENT PRIMARY KEY, supplier_name VARCHAR(150) NOT NULL, contact_person VARCHAR(100), phone VARCHAR(20), email VARCHAR(100), address TEXT, location VARCHAR(100), payment_terms VARCHAR(100) DEFAULT 'Cash on Delivery', rating TINYINT DEFAULT 5, is_active TINYINT(1) DEFAULT 1, notes TEXT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP) ENGINE=InnoDB");
-        $pdo->exec("CREATE TABLE IF NOT EXISTS supplier_deliveries (id INT AUTO_INCREMENT PRIMARY KEY, supplier_id INT NOT NULL, product_id INT, delivery_date DATE NOT NULL, quantity_kg DECIMAL(12,3) DEFAULT 0, bags_count INT DEFAULT 0, unit_cost DECIMAL(10,2) DEFAULT 0, total_cost DECIMAL(12,2) DEFAULT 0, moisture_pct DECIMAL(5,2) DEFAULT NULL, grade VARCHAR(20) DEFAULT NULL, quality_notes TEXT, invoice_number VARCHAR(50), payment_status ENUM('pending','partial','paid') DEFAULT 'pending', payment_method VARCHAR(50) DEFAULT 'cash', recorded_by INT, notes TEXT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP) ENGINE=InnoDB");
-        // Seed default suppliers if table is empty
-        $supCount = (int)$pdo->query("SELECT COUNT(*) FROM suppliers")->fetchColumn();
-        if ($supCount === 0) {
-            $pdo->exec("INSERT INTO suppliers (supplier_name, contact_person, phone, location, payment_terms, rating, is_active) VALUES ('Nakuru Grain Merchants', 'John Kamau', '+254 722 000 001', 'Nakuru', '30 days credit', 5, 1), ('Eldoret Wheat Farmers Co-op', 'Mary Chebet', '+254 733 000 002', 'Eldoret', 'Cash on Delivery', 4, 1), ('Bungoma Beans Supply', 'Peter Wanjala', '+254 712 000 003', 'Bungoma', '14 days credit', 4, 1), ('Kisumu Oil Mills', 'Alice Atieno', '+254 700 000 004', 'Kisumu', 'Cash on Delivery', 5, 1)");
-        }
-        $suppliers = $pdo->query("SELECT s.*, COUNT(sd.id) as delivery_count, COALESCE(SUM(sd.total_cost),0) as total_purchased FROM suppliers s LEFT JOIN supplier_deliveries sd ON sd.supplier_id = s.id GROUP BY s.id ORDER BY s.supplier_name ASC")->fetchAll(PDO::FETCH_ASSOC);
+        // Tables are created by migration — no inline CREATE TABLE needed
+        $suppliers = $pdo->query("SELECT s.*, COALESCE(del.cnt,0) as delivery_count, COALESCE(del.tot,0) as total_purchased FROM suppliers s LEFT JOIN (SELECT supplier_id, COUNT(*) as cnt, SUM(total_cost) as tot FROM supplier_deliveries GROUP BY supplier_id) del ON del.supplier_id = s.id ORDER BY s.supplier_name ASC")->fetchAll(PDO::FETCH_ASSOC);
     } catch (Exception $e) { $suppliers = []; }
 }
 ?>
