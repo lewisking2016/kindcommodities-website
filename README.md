@@ -6,7 +6,7 @@ Premium grains & raw materials trading website with an operations management sys
 
 Kind Commodities Ltd is a modern, production-ready website for a grains and raw materials trading business based in Kenya. The platform provides:
 
-- **E-commerce store** for grains, pulses, oilseeds, and feed raw materials
+- **E-commerce store** for grains, pulses, and feed raw materials
 - **Operations dashboard** for tracking stock, production, and finances
 - **Admin panel** for managing products, orders, and reports
 - **Responsive design** optimized for all devices
@@ -16,7 +16,7 @@ Kind Commodities Ltd is a modern, production-ready website for a grains and raw 
 
 ### Public Features
 - Full-screen hero slider with auto-advance
-- Product catalog with categories (Grains & Cereals, Pulses & Legumes, Oilseeds & Nuts, Feed Raw Materials)
+- Product catalog with categories (Grains & Cereals, Pulses & Legumes, Feed Raw Materials)
 - Shopping cart with session management
 - Checkout with Bank Transfer & Cash on Delivery
 - Responsive mobile-first design

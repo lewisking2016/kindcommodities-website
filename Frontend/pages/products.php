@@ -72,24 +72,24 @@ include '../includes/header.php';
 
 <hr class="ornament-line">
 
-<!-- Oilseeds & Nuts -->
+<!-- Feed Raw Materials -->
 <section class="section-pad bg-white">
     <div class="container">
         <div class="row" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(2.4rem,5vw,4.5rem);align-items:center;">
             <div data-reveal="left">
-                <span class="eyebrow">Oil &amp; Protein</span>
-                <h2 class="section-title">Oilseeds &amp; <em>Nuts</em></h2>
-                <p class="lead">Quality oilseeds for crushing and processing — clean, well-dried and graded for excellent oil yield and export appeal.</p>
+                <span class="eyebrow">Feed Industry</span>
+                <h2 class="section-title">Feed Raw <em>Materials</em></h2>
+                <p class="lead">Quality by-products and feed ingredients — bran, cake and polish for animal feed manufacturers.</p>
                 <ul class="check-list" style="margin:1.6rem 0 2.2rem;">
-                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Sunflower seeds &amp; sesame seeds</li>
-                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Groundnuts &amp; other oil crops</li>
-                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>High purity, suitable for oil &amp; food markets</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Maize bran, wheat bran &amp; rice polish</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Sunflower cake, soya cake &amp; cotton cake</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>Bulk supply for feed mills &amp; manufacturers</li>
                 </ul>
-                <a href="/Frontend/pages/shop.php?category=oilseeds" class="btn btn-primary" data-magnetic>Shop Oilseeds</a>
+                <a href="/Frontend/pages/shop.php?category=feed_ingredients" class="btn btn-primary" data-magnetic>Shop Feed Materials</a>
             </div>
             <div data-reveal="right">
                 <div class="img-frame frame-gold">
-                    <img src="/Frontend/images/sections/sec-oilseeds.jpg" alt="Sunflower and oilseed crops supplied by Kind Commodities" loading="lazy">
+                    <img src="/Frontend/images/sections/sec-oilseeds.jpg" alt="Feed raw materials supplied by Kind Commodities" loading="lazy">
                 </div>
             </div>
         </div>

@@ -31,7 +31,7 @@ $products = loadDisplayProducts($pdo);
         <div class="section-head" data-reveal>
             <span class="eyebrow">Our Products</span>
             <h2 class="section-title">Shop <em>Grains &amp; Raw Materials</em></h2>
-            <p class="lead">Grain, beans, oilseeds and feed raw materials — in stock and ready to load.</p>
+            <p class="lead">Grains, beans and feed raw materials — in stock and ready to load.</p>
         </div>
 
         <div class="shop-layout" style="display:grid;grid-template-columns:250px 1fr;gap:clamp(1.6rem,3vw,3rem);align-items:start;">

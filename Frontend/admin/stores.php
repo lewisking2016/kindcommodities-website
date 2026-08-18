@@ -376,7 +376,7 @@ if (!in_array($tab, $validTabs, true)) $tab = 'ingredients';
     <div class="sm-modal">
         <div class="sm-modal-header blue-header">
             <h3 id="material-modal-title"><i data-lucide="package" style="width:20px;height:20px;"></i> Add Material</h3>
-            <button class="sm-modal-close" onclick="closeMaterialModal()">âœ•</button>
+            <button class="sm-modal-close" onclick="closeMaterialModal()">×</button>
         </div>
         <form id="material-form">
             <div class="sm-modal-body">
@@ -440,7 +440,7 @@ if (!in_array($tab, $validTabs, true)) $tab = 'ingredients';
     <div class="sm-modal">
         <div class="sm-modal-header green-header">
             <h3><i data-lucide="arrow-down-circle" style="width:20px;height:20px;"></i> Record Stock Movement</h3>
-            <button class="sm-modal-close" onclick="closeMovementModal()">âœ•</button>
+            <button class="sm-modal-close" onclick="closeMovementModal()">×</button>
         </div>
         <form id="movement-form">
             <div class="sm-modal-body">
@@ -557,7 +557,7 @@ async function loadMaterials() {
             const catColor = {'feed_ingredient':'#0369a1','drug':'#7c3aed','vaccine':'#db2777','packaging':'#d97706','other':'#64748b'}[m.category]||'#64748b';
             return `<tr>
                 <td><strong style="color:#0f172a;">${escapeHtml(m.material_name)}</strong></td>
-                <td><span class="sm-code">${escapeHtml(m.material_code||'â€”')}</span></td>
+                <td><span class="sm-code">${escapeHtml(m.material_code||'—')}</span></td>
                 <td><span class="sm-badge-category" style="background:${catColor}20;color:${catColor};border-color:${catColor}40;">${m.category}</span></td>
                 <td style="color:#64748b;">${parseFloat(m.opening_balance).toFixed(2)} ${m.unit}</td>
                 <td><strong style="color:${lowStock?'#dc2626':'#0f172a'};">${stock.toFixed(2)} ${m.unit}</strong></td>
@@ -565,7 +565,7 @@ async function loadMaterials() {
                 <td style="color:#64748b;">${min.toFixed(2)} ${m.unit}</td>
                 <td style="font-weight:600;color:#1B5E20;">KES ${parseFloat(m.current_price_per_unit).toLocaleString('en-KE',{minimumFractionDigits:2})}</td>
                 <td style="font-weight:700;">KES ${value.toLocaleString('en-KE',{minimumFractionDigits:2})}</td>
-                <td>${lowStock ? '<span class="sm-badge sm-badge-red">âš  LOW</span>' : '<span class="sm-badge sm-badge-green">âœ“ OK</span>'}</td>
+                <td>${lowStock ? '<span class="sm-badge sm-badge-red">⚠   LOW</span>' : '<span class="sm-badge sm-badge-green">✓ OK</span>'}</td>
                 <td>
                     <div style="display:flex;gap:6px;justify-content:flex-end;">
                         <button class="sm-action-btn sm-action-edit" title="Edit Material" onclick='openMaterialModal(${JSON.stringify(m)})'>

@@ -40,7 +40,7 @@ define('APP_DEBUG', APP_ENV === 'development');
 // Site Information
 define('SITE_NAME', 'Kind Commodities Ltd');
 define('SITE_TAGLINE', 'Quality Grains & Raw Materials');
-define('SITE_DESCRIPTION', 'Trusted supplier of quality grains, pulses, oilseeds and feed raw materials across East Africa. Bulk supply, fair prices, reliable delivery.');
+define('SITE_DESCRIPTION', 'Trusted supplier of quality grains, pulses, and feed raw materials across East Africa. Bulk supply, fair prices, reliable delivery.');
 define('SITE_EMAIL', 'info@kindcommoditiesltd.com');
 define('SITE_PHONE', '+254 700 000 000');
 define('SITE_ADDRESS', 'Kenya');

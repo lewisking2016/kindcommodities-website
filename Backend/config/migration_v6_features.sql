@@ -1,4 +1,10 @@
 -- ══════════════════════════════════════════════════════════════
+-- Deactivate stale oilseed dropdown options (no longer needed)
+UPDATE system_dropdowns SET is_active = 0 WHERE option_value = 'oilseed';
+UPDATE system_dropdowns SET is_active = 0 WHERE option_value = 'oilseeds';
+UPDATE categories SET is_active = 0 WHERE slug = 'oilseeds';
+
+-- ══════════════════════════════════════════════════════════════
 -- Kind Commodities Ltd — Feature Migration v6
 -- Adds: weight-based stock, quality factors, suppliers, contracts,
 --       multi-location inventory, barcodes, email alerts

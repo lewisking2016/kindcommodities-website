@@ -42,7 +42,7 @@ include '../includes/header.php';
                     <div class="faq-toggle">▼</div>
                 </div>
                 <div class="faq-answer">
-                    We supply quality grains and cereals (maize, wheat, rice, sorghum, millet, barley), pulses and legumes (red beans, green grams, soya beans, cowpeas), oilseeds (sunflower, sesame, groundnuts), and feed raw materials (maize bran, wheat bran, rice bran, sunflower cake, soya meal). Contact us for our full current stock list.
+                    We supply quality grains and cereals (maize, wheat, rice, barley), pulses and legumes (common beans, green grams, soya beans, pigeon peas, cowpeas), and feed raw materials (maize bran, wheat bran, rice polish, cotton cake, sunflower cake, soya cake). Contact us for our full current stock list.
                 </div>
             </div>
 

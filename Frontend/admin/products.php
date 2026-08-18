@@ -438,7 +438,7 @@ if ($pdo) {
     background: #fff;
     border: 1px solid #e2e8f0;
     border-radius: 16px;
-    overflow: hidden;
+    overflow-x: auto;
     box-shadow: 0 4px 20px rgba(15,23,42,0.04);
     margin-bottom: 28px;
 }
@@ -746,6 +746,12 @@ if ($pdo) {
     .pc-stats-row { grid-template-columns: 1fr 1fr; }
     .pc-hero { padding: 22px; }
     .pc-hero-text h1 { font-size: 1.4rem; }
+    .pc-filter-bar { flex-direction: column; align-items: stretch; }
+    .pc-search-input { min-width: 0; }
+    .pc-filter-bar select { max-width: 100%; }
+}
+@media (min-width: 641px) and (max-width: 900px) {
+    .pc-stats-row { grid-template-columns: 1fr 1fr; }
 }
 </style>
 
@@ -766,7 +772,7 @@ if ($pdo) {
 <div class="pc-hero">
     <div class="pc-hero-text" style="position: relative; z-index: 1;">
         <h1><i data-lucide="package" style="width:26px;height:26px;vertical-align:middle;margin-right:10px;opacity:0.9;"></i>Product Catalog</h1>
-        <p>Manage your full product range â€” grains, raw materials, feed ingredients & more.</p>
+        <p>Manage your full product range — grains, raw materials, feed ingredients & more.</p>
     </div>
     <div class="pc-hero-actions">
         <a href="/Backend/api/export.php?module=products" class="pc-btn-ghost">
@@ -902,7 +908,7 @@ $totalStockValue = array_sum(array_map(fn($p) => (float)$p['price'] * (int)$p['s
                         <?php if (!empty($product['grade'])): ?><div><b>Grade:</b> <?= htmlspecialchars($product['grade']) ?></div><?php endif; ?>
                         <?php if (!empty($product['moisture_pct'])): ?><div>Moisture: <?= $product['moisture_pct'] ?>%</div><?php endif; ?>
                         <?php if (!empty($product['origin'])): ?><div>Origin: <?= htmlspecialchars($product['origin']) ?></div><?php endif; ?>
-                        <?php if (empty($product['grade']) && empty($product['moisture_pct']) && empty($product['origin'])): ?><span style="color:#cbd5e1;">â€”</span><?php endif; ?>
+                        <?php if (empty($product['grade']) && empty($product['moisture_pct']) && empty($product['origin'])): ?><span style="color:#cbd5e1;">—</span><?php endif; ?>
                     </td>
                     <td>
                         <form method="POST" style="display:inline;">
@@ -958,8 +964,8 @@ $totalStockValue = array_sum(array_map(fn($p) => (float)$p['price'] * (int)$p['s
             <i data-lucide="percent" style="width:20px;height:20px;"></i>
         </div>
         <div>
-            <h3 style="margin:0;font-family:'Outfit',sans-serif;font-size:1.1rem;color:#0f172a;font-weight:700;">Raw Material Sales & Protection Control</h3>
-            <p style="margin:2px 0 0;font-size:0.82rem;color:#64748b;">Direct retail of ingredients while safeguarding production reserves.</p>
+            <h3 style="margin:0;font-family:'Outfit',sans-serif;font-size:1.1rem;color:#0f172a;font-weight:700;">Linked Raw Materials</h3>
+            <p style="margin:2px 0 0;font-size:0.82rem;color:#64748b;">Products linked to raw materials — manage production reserves and sellable stock.</p>
         </div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
@@ -1018,7 +1024,7 @@ $totalStockValue = array_sum(array_map(fn($p) => (float)$p['price'] * (int)$p['s
     <div class="pc-modal">
         <div class="pc-modal-header">
             <h3><i data-lucide="plus-circle" style="width:20px;height:20px;"></i> Add New Product</h3>
-            <button class="pc-modal-close" onclick="closeModal('add-modal')">âœ•</button>
+            <button class="pc-modal-close" onclick="closeModal('add-modal')">×</button>
         </div>
         <form method="POST" enctype="multipart/form-data">
             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token, ENT_QUOTES) ?>">
@@ -1033,7 +1039,7 @@ $totalStockValue = array_sum(array_map(fn($p) => (float)$p['price'] * (int)$p['s
                         </div>
                         <input type="file" id="add-image-input" name="product_image" accept="image/*" onchange="previewImage(this,'add-preview')" style="display:none;">
                         <p style="margin:0;font-size:0.82rem;color:#64748b;">Click to upload product image</p>
-                        <p style="margin:4px 0 0;font-size:0.75rem;color:#94a3b8;">JPG, PNG, WEBP â€” max 5MB</p>
+                        <p style="margin:4px 0 0;font-size:0.75rem;color:#94a3b8;">JPG, PNG, WEBP — max 5MB</p>
                     </div>
                 </div>
 
@@ -1117,7 +1123,7 @@ $totalStockValue = array_sum(array_map(fn($p) => (float)$p['price'] * (int)$p['s
     <div class="pc-modal">
         <div class="pc-modal-header">
             <h3><i data-lucide="pencil" style="width:20px;height:20px;"></i> Edit Product</h3>
-            <button class="pc-modal-close" onclick="closeModal('edit-modal')">âœ•</button>
+            <button class="pc-modal-close" onclick="closeModal('edit-modal')">×</button>
         </div>
         <form method="POST" enctype="multipart/form-data">
             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($csrf_token, ENT_QUOTES) ?>">

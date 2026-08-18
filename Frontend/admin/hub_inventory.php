@@ -1,6 +1,6 @@
 <?php
 /**
- * Hub: Inventory & Store — Poultry-Only Edition
+ * Hub: Inventory & Store
  * Tabs: Products Catalog
  */
 declare(strict_types=1);
@@ -31,7 +31,7 @@ $tabs = [
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
     <div>
         <h1 style="margin:0;font-family:'Outfit',sans-serif;font-size:1.6rem;color:var(--admin-text-heading);font-weight:800;">Inventory & Store</h1>
-        <p style="margin:4px 0 0;color:#64748b;font-size:0.9rem;">Manage your poultry product catalog — chickens, eggs, chicks, and feeds.</p>
+        <p style="margin:4px 0 0;color:#64748b;font-size:0.9rem;">Manage your product catalog — grains, pulses, feed raw materials & more.</p>
     </div>
 </div>
 
@@ -58,7 +58,7 @@ $tabs = [
 <!-- ══════ PRODUCTS CATALOG TAB ══════ -->
 <?php if ($tab === 'products'): ?>
 <div class="admin-card" style="padding:0; overflow:hidden;">
-    <iframe src="products.php" style="width:100%; height:800px; border:none; display:block;"></iframe>
+    <iframe src="products.php" style="width:100%; min-height:1200px; height:auto; border:none; display:block;"></iframe>
 </div>
 <?php endif; ?>
 

@@ -17,7 +17,7 @@ function generateOrganizationSchema(): string
         'alternateName' => 'Kind Commodities Ltd',
         'url' => 'https://kindcommoditiesltd.com',
         'logo' => '',
-        'description' => 'Trusted supplier of quality grains, pulses, oilseeds and feed raw materials across East Africa.',
+        'description' => 'Trusted supplier of quality grains, pulses, and feed raw materials across East Africa.',
         'sameAs' => [
             'https://www.facebook.com/kindcommodities',
             'https://twitter.com/kindcommodities',
@@ -52,7 +52,7 @@ function generateLocalBusinessSchema(): string
         '@type' => 'LocalBusiness',
         'name' => 'Kind Commodities Ltd',
         'image' => '',
-        'description' => 'Grain and raw materials trading: quality maize, wheat, rice, pulses, oilseeds and feed ingredients',
+        'description' => 'Grain and raw materials trading: quality maize, wheat, rice, pulses, and feed ingredients',
         'address' => [
             '@type' => 'PostalAddress',
             'streetAddress' => 'Kind Commodities Ltd',
