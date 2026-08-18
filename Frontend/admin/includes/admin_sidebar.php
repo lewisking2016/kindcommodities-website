@@ -116,8 +116,7 @@ HTML;
 
     <!-- Brand -->
     <div style="display:flex;align-items:center;gap:11px;margin-bottom:28px;padding:0 4px;">
-        <?php $adm_logo = function_exists('getSetting') ? getSetting('header_logo', '/Frontend/images/header logo.jpeg') : '/Frontend/images/header logo.jpeg'; ?>
-        <img src="<?php echo htmlspecialchars($adm_logo, ENT_QUOTES, 'UTF-8'); ?>" alt="Kind Commodities" style="height:44px;width:auto;border-radius:8px;">
+
         <div>
             <p style="margin:0;font-family:'Outfit',sans-serif;font-size:1.05rem;font-weight:800;color:#0f172a;letter-spacing:-0.3px;">Kind Commodities</p>
             <small style="display:block;color:#64748b;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">Admin Console</small>
