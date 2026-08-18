@@ -40,37 +40,39 @@ function getSystemDropdownOptions(string $groupKey, bool $onlyActive = true): ar
         $stmt->execute([':group_key' => $groupKey]);
         return $stmt->fetchAll() ?: [];
     } catch (PDOException $e) {
-        // Table not found error
+        // Table not found error — create inline instead of loading heavy migration file
         if ($e->getCode() === '42S02' || str_contains($e->getMessage(), '1146')) {
-            $migrationFile = __DIR__ . '/../config/migration_v4_dropdowns.sql';
-            if (file_exists($migrationFile)) {
-                $sqlText = file_get_contents($migrationFile);
-                $statements = array_filter(array_map('trim', explode(';', $sqlText)));
-                foreach ($statements as $stmtText) {
-                    if (!empty($stmtText)) {
-                        try {
-                            $pdo->exec($stmtText);
-                        } catch (Exception $ex) {
-                            // ignore
-                        }
-                    }
+            try {
+                $pdo->exec("CREATE TABLE IF NOT EXISTS system_dropdowns (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    group_key VARCHAR(50) NOT NULL,
+                    group_label VARCHAR(100) NOT NULL,
+                    option_value VARCHAR(50) NOT NULL,
+                    option_label VARCHAR(100) NOT NULL,
+                    sort_order INT DEFAULT 0,
+                    is_active TINYINT(1) DEFAULT 1,
+                    is_system TINYINT(1) DEFAULT 0,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                ) ENGINE=InnoDB");
+                // Seed core dropdown options inline
+                $coreOptions = [
+                    ['product_types', 'Product Types', 'grain', 'Grains & Cereals', 1],
+                    ['product_types', 'Product Types', 'legume', 'Pulses & Legumes', 2],
+                    ['product_types', 'Product Types', 'raw_material', 'Feed Raw Materials', 3],
+                    ['product_categories', 'Product Categories', 'grains', 'Grains & Cereals', 1],
+                    ['product_categories', 'Product Categories', 'pulses', 'Pulses & Legumes', 2],
+                    ['product_categories', 'Product Categories', 'feed_ingredients', 'Feed Raw Materials', 3],
+                ];
+                $ins = $pdo->prepare("INSERT IGNORE INTO system_dropdowns (group_key, group_label, option_value, option_label, sort_order, is_system) VALUES (?, ?, ?, ?, ?, 1)");
+                foreach ($coreOptions as $opt) {
+                    $ins->execute($opt);
                 }
-                // Try executing again
-                try {
-                    $sql = "SELECT id, group_key, group_label, option_value, option_label, sort_order, is_active, is_system 
-                            FROM system_dropdowns 
-                            WHERE group_key = :group_key";
-                    if ($onlyActive) {
-                        $sql .= " AND is_active = 1";
-                    }
-                    $sql .= " ORDER BY sort_order ASC, option_label ASC";
-
-                    $stmt = $pdo->prepare($sql);
-                    $stmt->execute([':group_key' => $groupKey]);
-                    return $stmt->fetchAll() ?: [];
-                } catch (Exception $ex) {
-                    return [];
-                }
+                // Retry query
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute([':group_key' => $groupKey]);
+                return $stmt->fetchAll() ?: [];
+            } catch (Exception $ex) {
+                return [];
             }
         }
         return [];
