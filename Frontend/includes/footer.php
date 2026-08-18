@@ -21,7 +21,7 @@ $site_address = function_exists('getSetting') ? getSetting('farm_address', 'Keny
                 <!-- Brand -->
                 <div>
                     <div class="f-brand">
-                        <?php $ftr_logo = function_exists('getSetting') ? getSetting('footer_logo', '/Frontend/images/footerlogo.jpeg') : '/Frontend/images/footerlogo.jpeg'; ?>
+                        <?php $ftr_logo = function_exists('getSetting') ? getSetting('footer_logo', '/Frontend/images/Kind Commodities Ltd Logo_Final_FOOTER.png') : '/Frontend/images/Kind Commodities Ltd Logo_Final_FOOTER.png'; ?>
                         <img src="<?php echo htmlspecialchars($ftr_logo, ENT_QUOTES, 'UTF-8'); ?>" alt="Kind Commodities Ltd Logo">
                     </div>
                     <p class="f-desc">
