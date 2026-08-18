@@ -129,6 +129,11 @@ function checkAndSendLowStockAlerts(): array {
     $pdo = getDatabaseConnection();
     if (!$pdo) return [];
     
+    // Ensure v6 column exists before querying
+    if (function_exists('columnExists') && !columnExists($pdo, 'products', 'low_stock_threshold')) {
+        try { $pdo->exec("ALTER TABLE products ADD COLUMN low_stock_threshold INT DEFAULT 10"); } catch (Exception $e) {}
+    }
+    
     $config = getSmtpConfig();
     $alertEmail = $config['alert_email'] ?: 'accounts@kindcommoditiesltd.com';
     

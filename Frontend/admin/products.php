@@ -25,6 +25,28 @@ if (empty($_SESSION['user_id']) || !in_array($_SESSION['role'] ?? '', ['super_ad
 }
 
 $pdo = getDB();
+
+// Ensure v6 product columns exist (safe to run repeatedly)
+if ($pdo) {
+    $v6cols = [
+        'stock_weight_kg'      => 'DECIMAL(12,3) DEFAULT NULL',
+        'unit_weight_kg'       => 'DECIMAL(8,2) DEFAULT NULL',
+        'price_per_kg'         => 'DECIMAL(10,2) DEFAULT NULL',
+        'moisture_pct'         => 'DECIMAL(5,2) DEFAULT NULL',
+        'grade'                => 'VARCHAR(20) DEFAULT NULL',
+        'foreign_material_pct' => 'DECIMAL(5,2) DEFAULT NULL',
+        'origin'               => 'VARCHAR(100) DEFAULT NULL',
+        'low_stock_threshold'  => 'INT DEFAULT 10',
+        'barcode'              => 'VARCHAR(50) DEFAULT NULL',
+        'sku'                  => 'VARCHAR(50) DEFAULT NULL',
+        'raw_material_id'      => 'INT DEFAULT NULL',
+    ];
+    foreach ($v6cols as $col => $def) {
+        if (function_exists('columnExists') && !columnExists($pdo, 'products', $col)) {
+            try { $pdo->exec("ALTER TABLE products ADD COLUMN `$col` $def"); } catch (Exception $e) {}
+        }
+    }
+}
 $success_message = '';
 $error_message = '';
 $csrf_token = function_exists('generateCSRFToken') ? generateCSRFToken() : ($_SESSION['csrf_token'] ?? '');
