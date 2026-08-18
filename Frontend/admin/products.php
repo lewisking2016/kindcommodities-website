@@ -1011,7 +1011,7 @@ $totalStockValue = array_sum(array_map(fn($p) => (float)$p['price'] * (int)$p['s
         if (!$linked_found):
         ?>
         <div style="grid-column:1/-1;text-align:center;padding:40px;background:#fff;border:1.5px dashed #cbd5e1;border-radius:12px;">
-            <i data-lucide="link-off" style="width:32px;height:32px;color:#cbd5e1;margin-bottom:10px;"></i>
+            <i data-lucide="unlink" style="width:32px;height:32px;color:#cbd5e1;margin-bottom:10px;"></i>
             <p style="margin:0;color:#64748b;font-weight:600;">No Raw Material products configured yet.</p>
             <p style="margin:6px 0 0;color:#94a3b8;font-size:0.85rem;">Edit a product and set "Link Raw Material" to enable direct sales control.</p>
         </div>
