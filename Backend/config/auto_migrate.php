@@ -412,61 +412,31 @@ function ensureKindSchema(PDO $pdo): void
     }
 
     try {
-        // Only run expensive operations when migration hasn't completed yet
-        reconcileLegacySchema($pdo);
-        seedMasterData($pdo);
-
         $configDir = __DIR__;
         $schemaFile = $configDir . '/schema.sql';
-        $poultryFile = $configDir . '/migration_poultry_complete.sql';
-        $businessFile = $configDir . '/migration_v2_business.sql';
+        $settingsFile = $configDir . '/settings.sql';
         $commoditiesFile = $configDir . '/migration_v5_commodities.sql';
         $featuresFile = $configDir . '/migration_v6_features.sql';
 
-        // Loop until stable: a statement can fail mid-run when its foreign
-        // key target is created later in the same pass (e.g. batches depends
-        // on houses/flocks). Later passes create those, then the dependents.
-        for ($pass = 0; $pass < 6; $pass++) {
+        // Lightweight migration: only run essential files
+        // max 2 passes to keep shared hosting happy
+        for ($pass = 0; $pass < 2; $pass++) {
             $existing = $pdo->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN) ?: [];
             $missingSchema = array_diff(migrationTableNames($schemaFile), $existing);
-            $missingPoultry = array_diff(migrationTableNames($poultryFile), $existing);
-            $missingBusiness = array_diff(migrationTableNames($businessFile), $existing);
 
-            if (!$missingSchema && !$missingPoultry && !$missingBusiness) {
-                break; // everything present
+            if (!$missingSchema && in_array('products', $existing) && in_array('site_settings', $existing)) {
+                break; // core tables present
             }
 
             $tableCountBefore = count($existing);
-
-            // Order matters: the schema tables FK-reference users/categories/
-            // products; the business tables FK-reference poultry tables
-            // (batches, raw_materials, suppliers, walk_in_customers). Running
-            // schema first lets the others reference it in the same pass.
-            if ($missingSchema) {
-                runMigrationFile($pdo, $schemaFile);
-            }
-            if ($missingPoultry) {
-                runMigrationFile($pdo, $poultryFile);
-            }
-            if ($missingBusiness) {
-                runMigrationFile($pdo, $businessFile);
-            }
-
-            // Commodities pivot — seeds categories, product types, and products
+            if ($missingSchema) runMigrationFile($pdo, $schemaFile);
+            runMigrationFile($pdo, $settingsFile);
             runMigrationFile($pdo, $commoditiesFile);
-
-            // Feature additions — weight tracking, quality, suppliers, contracts
             runMigrationFile($pdo, $featuresFile);
 
             $after = $pdo->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN);
-            if (count($after) <= $tableCountBefore) {
-                break; // no progress — give up quietly, retried next request
-            }
+            if (count($after) <= $tableCountBefore) break;
         }
-
-        // Second reconcile pass: now that the migration tables exist, add the
-        // legacy mirror columns so legacy modules work on the same request.
-        reconcileLegacySchema($pdo);
 
         // Mark migration as completed to skip on subsequent requests
         try {

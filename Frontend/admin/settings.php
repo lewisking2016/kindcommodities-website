@@ -150,7 +150,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_settings'])) {
             $logoFields = [
                 ['key' => 'header_logo', 'label' => 'Header Logo', 'default' => '/Frontend/images/header logo.jpeg'],
                 ['key' => 'footer_logo', 'label' => 'Footer Logo', 'default' => '/Frontend/images/Kind Commodities Ltd Logo_Final_FOOTER.png'],
-                ['key' => 'favicon', 'label' => 'Favicon', 'default' => '/Frontend/images/web favicon.jpeg'],
+                ['key' => 'favicon', 'label' => 'Favicon', 'default' => '/Frontend/images/Kind Commodities Ltd Logo_Final_favicon.png'],
             ];
             foreach ($logoFields as $lf):
                 $currentVal = getSetting($lf['key'], $lf['default']);

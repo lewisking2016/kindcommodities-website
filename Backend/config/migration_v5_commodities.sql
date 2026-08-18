@@ -61,5 +61,5 @@ INSERT IGNORE INTO products (category_id, name, slug, description, product_type,
 INSERT INTO site_settings (setting_key, setting_value) VALUES
 ('header_logo', '/Frontend/images/header logo.jpeg'),
 ('footer_logo', '/Frontend/images/Kind Commodities Ltd Logo_Final_FOOTER.png'),
-('favicon', '/Frontend/images/web favicon.jpeg')
+('favicon', '/Frontend/images/Kind Commodities Ltd Logo_Final_favicon.png')
 ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value);

@@ -146,7 +146,7 @@ $csrf_token = function_exists('generateCSRFToken') ? generateCSRFToken() : ($_SE
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/vendor/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style.css">
-    <link rel="icon" type="image/jpeg" href="/Frontend/images/web favicon.jpeg">
+    <link rel="icon" type="image/png" href="/Frontend/images/Kind Commodities Ltd Logo_Final_favicon.png">
     <style>
         :root {
             --admin-primary: #396285;

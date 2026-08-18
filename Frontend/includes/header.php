@@ -69,7 +69,7 @@ $is_home = ($currentPage === 'home');
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/premium.css<?php echo assetVer('assets/css/premium.css'); ?>">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/jpeg" href="/Frontend/images/web favicon.jpeg">
+    <link rel="icon" type="image/png" href="/Frontend/images/Kind Commodities Ltd Logo_Final_favicon.png">
 </head>
 <body class="<?php echo $is_home ? 'has-hero' : ''; ?>">
 
