@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 /**
- * Admin â€” Stores / Raw Materials Module
+ * Admin — Stores / Raw Materials Module
  * Mirrors "STORES TRACKING 2026" spreadsheet with two views:
  *  - Feed Ingredients (maize, soya, lime, premix etc.)
  *  - Drugs & Other Items (Amin Vit, Tylodoxy, Agritonic etc.)
@@ -21,7 +21,7 @@ if (!in_array($tab, $validTabs, true)) $tab = 'ingredients';
 // Loadments will be fetched via safe API calls; protect against missing tables
 ?>
 <style>
-/* â”€â”€â”€ Stores / Stock Management Premium Design â”€â”€â”€ */
+/* --- Stores / Stock Management Premium Design --- */
 .sm-hero {
     background: linear-gradient(135deg, #0a1628 0%, #1a3a5c 55%, #1B5E20 100%);
     border-radius: 16px;
@@ -160,7 +160,7 @@ if (!in_array($tab, $validTabs, true)) $tab = 'ingredients';
 .sm-action-edit:hover { background: #dcfce7; }
 .sm-action-add { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
 .sm-action-add:hover { background: #dbeafe; }
-/* â”€â”€â”€ Premium Modal â”€â”€â”€ */
+/* --- Premium Modal --- */
 .sm-modal-overlay {
     display: none; position: fixed; inset: 0;
     background: rgba(10,15,30,0.65);
@@ -239,7 +239,7 @@ if (!in_array($tab, $validTabs, true)) $tab = 'ingredients';
 <div class="sm-hero">
     <div class="sm-hero-text">
         <h1><i data-lucide="warehouse" style="width:26px;height:26px;vertical-align:middle;margin-right:10px;opacity:0.85;"></i>Stores & Raw Materials</h1>
-        <p>Track every kilogram of feed ingredients, drugs, and packaging â€” with full movement history.</p>
+        <p>Track every kilogram of feed ingredients, drugs, and packaging — with full movement history.</p>
     </div>
     <div class="sm-hero-actions">
         <a href="/Backend/api/export.php?module=raw_materials" class="sm-btn-white">
@@ -260,25 +260,25 @@ if (!in_array($tab, $validTabs, true)) $tab = 'ingredients';
         <div class="sm-stat-icon" style="background: linear-gradient(135deg, #dbeafe, #eff6ff);">
             <i data-lucide="layers" style="width:22px;height:22px;color:#2563eb;"></i>
         </div>
-        <div class="sm-stat-info"><small>Total Materials</small><strong id="stat-total">â€”</strong></div>
+        <div class="sm-stat-info"><small>Total Materials</small><strong id="stat-total">-</strong></div>
     </div>
     <div class="sm-stat-card">
         <div class="sm-stat-icon" style="background: linear-gradient(135deg, #fee2e2, #fef2f2);">
             <i data-lucide="alert-triangle" style="width:22px;height:22px;color:#dc2626;"></i>
         </div>
-        <div class="sm-stat-info"><small>Low Stock</small><strong id="stat-low">â€”</strong></div>
+        <div class="sm-stat-info"><small>Low Stock</small><strong id="stat-low">-</strong></div>
     </div>
     <div class="sm-stat-card">
         <div class="sm-stat-icon" style="background: linear-gradient(135deg, #dcfce7, #f0fdf4);">
             <i data-lucide="trending-up" style="width:22px;height:22px;color:#15803d;"></i>
         </div>
-        <div class="sm-stat-info"><small>Total Stock Value</small><strong id="stat-value" style="font-size:1.1rem;">â€”</strong></div>
+        <div class="sm-stat-info"><small>Total Stock Value</small><strong id="stat-value" style="font-size:1.1rem;">-</strong></div>
     </div>
     <div class="sm-stat-card">
         <div class="sm-stat-icon" style="background: linear-gradient(135deg, #fef9c3, #fffde7);">
             <i data-lucide="shield" style="width:22px;height:22px;color:#b45309;"></i>
         </div>
-        <div class="sm-stat-info"><small>Reserved (Prod.)</small><strong id="stat-reserved">â€”</strong></div>
+        <div class="sm-stat-info"><small>Reserved (Prod.)</small><strong id="stat-reserved">-</strong></div>
     </div>
 </div>
 
@@ -458,16 +458,16 @@ if (!in_array($tab, $validTabs, true)) $tab = 'ingredients';
                     <div class="sm-form-group">
                         <label class="sm-form-label">Movement Type *</label>
                         <select class="sm-form-control" id="mv-type" required>
-                            <option value="received">ðŸ“¥ Received (in)</option>
-                            <option value="used_production">ðŸ“¤ Used in Production (out)</option>
-                            <option value="used_treatment">ðŸ’Š Used in Treatment (out)</option>
-                            <option value="sold">ðŸ›’ Sold (out)</option>
-                            <option value="transfer_out">âž¡ï¸ Transfer Out</option>
-                            <option value="transfer_in">â¬…ï¸ Transfer In</option>
-                            <option value="adjustment_add">âž• Adjustment Add</option>
-                            <option value="adjustment_remove">âž– Adjustment Remove</option>
-                            <option value="staff_use">ðŸ‘· Staff Use</option>
-                            <option value="wastage">ðŸ—‘ï¸ Wastage/Spoilage</option>
+                            <option value="received">Received (in)</option>
+                            <option value="used_production">Used in Production (out)</option>
+                            <option value="used_treatment">Used in Treatment (out)</option>
+                            <option value="sold">Sold (out)</option>
+                            <option value="transfer_out">Transfer Out</option>
+                            <option value="transfer_in">Transfer In</option>
+                            <option value="adjustment_add">Adjustment Add</option>
+                            <option value="adjustment_remove">Adjustment Remove</option>
+                            <option value="staff_use">Staff Use</option>
+                            <option value="wastage">Wastage/Spoilage</option>
                         </select>
                     </div>
                     <div class="sm-form-group">
@@ -580,7 +580,7 @@ async function loadMaterials() {
         }).join('');
         if (typeof lucide !== 'undefined') lucide.createIcons();
     } catch (e) {
-        tbody.innerHTML = '<tr><td colspan="11" style="text-align:center;color:#dc2626;padding:30px;">Network error â€” could not load materials.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="11" style="text-align:center;color:#dc2626;padding:30px;">Network error — could not load materials.</td></tr>';
     }
 }
 
@@ -614,9 +614,9 @@ async function loadMovements() {
             const mtLabel = m.movement_type.replace(/_/g,' ');
             return `<tr>
                 <td style="color:#64748b;font-size:0.82rem;">${m.movement_date}</td>
-                <td><strong style="color:#0f172a;">${escapeHtml(m.material_name||'â€”')}</strong></td>
+                <td><strong style="color:#0f172a;">${escapeHtml(m.material_name||'—')}</strong></td>
                 <td><span class="sm-badge ${isIn?'sm-badge-green':'sm-badge-yellow'}">${mtLabel}</span></td>
-                <td style="font-weight:700;color:${isIn?'#15803d':'#dc2626'};">${isIn?'+':'âˆ’'}${qty.toFixed(2)} ${m.unit||''}</td>
+                <td style="font-weight:700;color:${isIn?'#15803d':'#dc2626'};">${isIn?'+':'−'}${qty.toFixed(2)} ${m.unit||''}</td>
                 <td><strong>${parseFloat(m.balance_after).toFixed(2)}</strong></td>
                 <td style="color:#64748b;">KES ${parseFloat(m.unit_cost).toFixed(2)}</td>
                 <td style="font-weight:600;">KES ${parseFloat(m.total_cost).toFixed(2)}</td>

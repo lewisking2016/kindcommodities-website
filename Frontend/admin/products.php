@@ -911,9 +911,9 @@ $totalStockValue = array_sum(array_map(fn($p) => (float)$p['price'] * (int)$p['s
                             <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
                             <button type="submit" style="background:none;border:none;cursor:pointer;padding:0;">
                                 <?php if ($product['is_active']): ?>
-                                    <span class="pc-badge pc-badge-green">â— Active</span>
+                                    <span class="pc-badge pc-badge-green">● Active</span>
                                 <?php else: ?>
-                                    <span class="pc-badge pc-badge-red">â— Inactive</span>
+                                    <span class="pc-badge pc-badge-red">● Inactive</span>
                                 <?php endif; ?>
                             </button>
                         </form>
