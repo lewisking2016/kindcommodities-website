@@ -1,4 +1,5 @@
-﻿<?php
+<?php
+declare(strict_types=1);
 /**
  * Admin â€” Stores / Raw Materials Module
  * Mirrors "STORES TRACKING 2026" spreadsheet with two views:
@@ -6,7 +7,6 @@
  *  - Drugs & Other Items (Amin Vit, Tylodoxy, Agritonic etc.)
  * Tracks: opening balance, received, used_production, transfer, sales
  */
-declare(strict_types=1);
 $temp_dir = sys_get_temp_dir();
 if (is_writable($temp_dir)) session_save_path($temp_dir);
 session_start();

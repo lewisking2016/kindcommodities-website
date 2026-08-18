@@ -1,9 +1,10 @@
-﻿<?php
+<?php
+declare(strict_types=1);
 /**
  * Admin - Product Management (Full CRUD)
  * Clean SaaS Minimalist Design
  */
-declare(strict_types=1);
+
 
 $temp_dir = sys_get_temp_dir();
 if (is_writable($temp_dir)) {
