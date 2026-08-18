@@ -252,10 +252,8 @@ function kindModuleKeys(): array
 {
     return [
         'dashboard',
-        // Poultry Operations
-        'flocks', 'production', 'vaccinations', 'batches', 'health', 'broiler', 'hatchery', 'feeding', 'losses',
-        // Inventory & Stores
-        'products', 'stores', 'feed_production', 'egg_grading',
+        // Inventory & Products
+        'products', 'stores', 'suppliers', 'contracts',
         // Sales & Finance
         'hub_finance', 'profit', 'cashbook', 'credit', 'purchase_orders', 'daily_sales', 'bulk_sales', 'lpo',
         // Reports & Tools
@@ -263,7 +261,7 @@ function kindModuleKeys(): array
         // Team & Messages
         'staff', 'users', 'tasks', 'messages',
         // Settings
-        'calendar', 'dropdowns', 'settings', 'logs', 'permissions',
+        'calendar', 'dropdowns', 'settings', 'logs', 'permissions', 'email_alerts',
     ];
 }
 
@@ -274,13 +272,8 @@ function kindModuleKeyForScript(string $script): string
 {
     $map = [
         'dashboard.php' => 'dashboard',
-        'hub_operations.php' => 'flocks', 'flocks.php' => 'flocks', 'flocks_tab.php' => 'flocks',
-        'production.php' => 'production', 'vaccinations.php' => 'vaccinations',
-        'batches.php' => 'batches', 'health.php' => 'health', 'broiler.php' => 'broiler',
-        'hatchery.php' => 'hatchery', 'feeding.php' => 'feeding', 'extras.php' => 'losses',
         'hub_inventory.php' => 'products', 'products.php' => 'products',
-        'stores.php' => 'stores', 'feed_production.php' => 'feed_production',
-        'egg_grading.php' => 'egg_grading',
+        'stores.php' => 'stores', 'suppliers.php' => 'suppliers', 'contracts.php' => 'contracts',
         'hub_finance.php' => 'hub_finance', 'profit.php' => 'profit', 'cashbook.php' => 'cashbook',
         'credit.php' => 'credit', 'purchase_orders.php' => 'purchase_orders',
         'daily_sales.php' => 'daily_sales', 'bulk_sales.php' => 'bulk_sales', 'lpo.php' => 'lpo',
@@ -288,7 +281,7 @@ function kindModuleKeyForScript(string $script): string
         'hub_people.php' => 'staff', 'staff.php' => 'staff', 'users.php' => 'users',
         'tasks.php' => 'tasks', 'messages.php' => 'messages',
         'hub_settings.php' => 'settings', 'calendar.php' => 'calendar', 'dropdowns.php' => 'dropdowns',
-        'settings.php' => 'settings', 'logs.php' => 'logs', 'permissions.php' => 'permissions',
+        'settings.php' => 'settings', 'logs.php' => 'logs', 'permissions.php' => 'permissions', 'email_alerts.php' => 'email_alerts',
         'orders.php' => 'hub_finance', 'sales.php' => 'hub_finance', 'payments.php' => 'hub_finance',
         'expenses.php' => 'hub_finance', 'reports.php' => 'analytics', 'operations.php' => 'flocks',
     ];
@@ -308,7 +301,7 @@ function kindDefaultRolePermissions(): array
         $perms['farm_manager'][$m] = ['view' => 1, 'edit' => 1];
     }
 
-    $stock = ['products', 'stores', 'feed_production', 'egg_grading', 'batches', 'losses'];
+    $stock = ['products', 'stores'];
     $sales = ['hub_finance', 'profit', 'cashbook', 'credit', 'daily_sales', 'bulk_sales', 'lpo', 'purchase_orders'];
     foreach ($all as $m) {
         $perms['stock_manager'][$m] = in_array($m, $stock, true) ? ['view' => 1, 'edit' => 1] : ['view' => 0, 'edit' => 0];
@@ -450,6 +443,8 @@ function ensureKindSchema(PDO $pdo): void
         $schemaFile = $configDir . '/schema.sql';
         $poultryFile = $configDir . '/migration_poultry_complete.sql';
         $businessFile = $configDir . '/migration_v2_business.sql';
+        $commoditiesFile = $configDir . '/migration_v5_commodities.sql';
+        $featuresFile = $configDir . '/migration_v6_features.sql';
 
         // Loop until stable: a statement can fail mid-run when its foreign
         // key target is created later in the same pass (e.g. batches depends
@@ -479,6 +474,12 @@ function ensureKindSchema(PDO $pdo): void
             if ($missingBusiness) {
                 runMigrationFile($pdo, $businessFile);
             }
+
+            // Commodities pivot — seeds categories, product types, and products
+            runMigrationFile($pdo, $commoditiesFile);
+
+            // Feature additions — weight tracking, quality, suppliers, contracts
+            runMigrationFile($pdo, $featuresFile);
 
             $after = $pdo->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN);
             if (count($after) <= $tableCountBefore) {

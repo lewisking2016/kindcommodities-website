@@ -105,16 +105,7 @@ if (!empty($_SESSION['cart'])) {
                             </thead>
                             <tbody>
                                 <?php foreach ($cart_items as $item): 
-                                    $img = $item['image'];
-                                    if (!$img) {
-                                        $img = match($item['product_type']) {
-                                            'feed' => '/Frontend/images/product-placeholder.svg',
-                                            'legume' => '/Frontend/images/product-placeholder.svg',
-                                            'oilseed' => '/Frontend/images/product-placeholder.svg',
-                                            'raw_material' => '/Frontend/images/product-placeholder.svg',
-                                            default => '/Frontend/images/product-placeholder.svg'
-                                        };
-                                    }
+                                    $img = $item['image'] ?? '/Frontend/images/product-placeholder.svg';
                                 ?>
                                 <tr style="border-bottom: 1px solid var(--gray-200);">
                                     <td style="padding: var(--space-lg);">

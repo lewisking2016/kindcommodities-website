@@ -105,7 +105,8 @@ function pdfWrap(string $s, float $maxWidth, float $size = 9): array {
  *  no white box. If the logo is not a transparent PNG (e.g. the current
  *  JPG), this returns null and the PDF renders the band text-only. */
 function pdfLogoJpeg(): ?string {
-    $png = dirname(__DIR__, 2) . '/Frontend/images/kind-logo.png';
+    $logoSetting = function_exists('getSetting') ? getSetting('header_logo', '/Frontend/images/header logo.jpeg') : '/Frontend/images/header logo.jpeg';
+    $png = dirname(__DIR__, 2) . $logoSetting;
     $cache = sys_get_temp_dir() . '/kind_logo_577.jpg';
     if (!is_file($png) || !function_exists('imagecreatefrompng')) return null;
     if (is_file($cache) && filemtime($cache) >= filemtime($png)) return $cache;

@@ -95,16 +95,7 @@ $products = loadDisplayProducts($pdo);
                     <?php
                     if (!empty($products)) {
                         foreach ($products as $index => $product):
-                            $img = $product['img'] ?? $product['image_url'] ?? '';
-                            if (!$img) {
-                                $img = match($product['product_type'] ?? 'grain') {
-                                    'grain' => '/Frontend/images/product-placeholder.svg',
-                                    'legume' => '/Frontend/images/product-placeholder.svg',
-                                    'oilseed' => '/Frontend/images/product-placeholder.svg',
-                                    'raw_material' => '/Frontend/images/product-placeholder.svg',
-                                    default => '/Frontend/images/product-placeholder.svg'
-                                };
-                            }
+                            $img = $product['img'] ?? $product['image_url'] ?? '/Frontend/images/product-placeholder.svg';
                             $stock = $product['stock_quantity'] ?? 0;
                             $inStock = $stock > 0;
                     ?>

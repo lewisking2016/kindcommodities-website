@@ -192,17 +192,7 @@ $pdo = getDB();
                 }
 
                 foreach ($products as $index => $product):
-                    $img = $product['img'] ?? $product['image_url'] ?? '';
-                    if (!$img) {
-                        $type = $product['product_type'] ?? 'grain';
-                        $img = match($type) {
-                            'grain' => '/Frontend/images/product-placeholder.svg',
-                            'legume' => '/Frontend/images/product-placeholder.svg',
-                            'oilseed' => '/Frontend/images/product-placeholder.svg',
-                            'raw_material' => '/Frontend/images/product-placeholder.svg',
-                            default => '/Frontend/images/product-placeholder.svg'
-                        };
-                    }
+                    $img = $product['img'] ?? $product['image_url'] ?? '/Frontend/images/product-placeholder.svg';
                 ?>
                 <div class="swiper-slide">
                     <div class="product-card creative-card" data-id="<?php echo $product['id']; ?>" data-type="<?php echo htmlspecialchars($product['product_type'] ?? '', ENT_QUOTES); ?>" data-instock="<?php echo (!empty($product['stock_quantity']) && $product['stock_quantity'] > 0) ? '1' : '0'; ?>">

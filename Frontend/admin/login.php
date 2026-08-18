@@ -355,18 +355,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_login'])) {
             <div class="branding-bg" style="background:linear-gradient(135deg,#0B2310 0%,#1E3850 55%,#396285 100%);"></div>
             <div class="branding-overlay"></div>
             <div class="branding-content">
-                <img src="/Frontend/images/kind-logo.png" alt="Kind Commodities" class="branding-logo">
-                <h1>Smart Farming for a Sustainable Future.</h1>
-                <p>Empowering poultry farmers with real-time insights and intelligent management tools.</p>
+                <?php $login_logo = function_exists('getSetting') ? getSetting('header_logo', '/Frontend/images/header logo.jpeg') : '/Frontend/images/header logo.jpeg'; ?>
+                <img src="<?php echo htmlspecialchars($login_logo, ENT_QUOTES, 'UTF-8'); ?>" alt="Kind Commodities" class="branding-logo">
+                <h1>Quality Grains & Raw Materials Trading.</h1>
+                <p>Trusted supplier of grains, pulses and feed raw materials across East Africa.</p>
                 <div style="display: flex; gap: 24px;">
                     <div style="text-align: center;">
-                        <h4 style="font-size: 1.5rem; margin-bottom: 4px;">100%</h4>
-                        <small style="text-transform: uppercase; letter-spacing: 1px; opacity: 0.8;">Organic</small>
+                        <h4 style="font-size: 1.5rem; margin-bottom: 4px;">10k+</h4>
+                        <small style="text-transform: uppercase; letter-spacing: 1px; opacity: 0.8;">Tonnes / Year</small>
                     </div>
                     <div style="border-left: 1px solid rgba(255,255,255,0.3);"></div>
                     <div style="text-align: center;">
-                        <h4 style="font-size: 1.5rem; margin-bottom: 4px;">Verified</h4>
-                        <small style="text-transform: uppercase; letter-spacing: 1px; opacity: 0.8;">Quality</small>
+                        <h4 style="font-size: 1.5rem; margin-bottom: 4px;">500+</h4>
+                        <small style="text-transform: uppercase; letter-spacing: 1px; opacity: 0.8;">Buyers</small>
                     </div>
                 </div>
             </div>
@@ -377,7 +378,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['admin_login'])) {
             <div class="login-form-wrapper">
                 <div class="login-header">
                     <h2>Admin Portal</h2>
-                    <p>Enter your credentials to manage your farm.</p>
+                    <p>Enter your credentials to manage your business.</p>
                 </div>
 
                 <?php if (!empty($errors)): ?>

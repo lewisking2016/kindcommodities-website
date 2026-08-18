@@ -88,7 +88,6 @@ define('FREE_DELIVERY_THRESHOLD', 5000);
 define('PRODUCT_CATEGORIES', [
     'cereals' => 'Grains & Cereals',
     'pulses' => 'Pulses & Legumes',
-    'oilseeds' => 'Oilseeds & Nuts',
     'feed_ingredients' => 'Feed Raw Materials'
 ]);
 
@@ -96,7 +95,6 @@ define('PRODUCT_CATEGORIES', [
 define('PRODUCT_TYPES', [
     'grain' => 'Grains & Cereals',
     'legume' => 'Pulses & Legumes',
-    'oilseed' => 'Oilseeds & Nuts',
     'raw_material' => 'Feed Raw Materials'
 ]);
 

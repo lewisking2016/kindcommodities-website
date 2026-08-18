@@ -69,7 +69,7 @@ $is_home = ($currentPage === 'home');
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/premium.css<?php echo assetVer('assets/css/premium.css'); ?>">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/Frontend/images/favicon.svg">
+    <link rel="icon" type="image/jpeg" href="/Frontend/images/web favicon.jpeg">
 </head>
 <body class="<?php echo $is_home ? 'has-hero' : ''; ?>">
 
@@ -81,7 +81,8 @@ $is_home = ($currentPage === 'home');
         <div class="container nav-inner">
             <!-- Brand Logo (the logo carries the name - keep it minimal) -->
             <a href="/" class="nav-brand" aria-label="Kind Commodities Ltd - Home">
-                <img src="/Frontend/images/kind-logo.png" alt="Kind Commodities Ltd" class="nav-logo">
+                <?php $hdr_logo = function_exists('getSetting') ? getSetting('header_logo', '/Frontend/images/header logo.jpeg') : '/Frontend/images/header logo.jpeg'; ?>
+                <img src="<?php echo htmlspecialchars($hdr_logo, ENT_QUOTES, 'UTF-8'); ?>" alt="Kind Commodities Ltd" class="nav-logo">
             </a>
 
             <!-- Mobile Menu Button -->

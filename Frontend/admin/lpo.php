@@ -359,7 +359,8 @@ async function viewDoc(id) {
         <div id="printable-doc">
             <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;">
                 <div style="display:flex;align-items:center;gap:10px;">
-                    <img src="/Frontend/images/kind-logo.png" style="height:42px;">
+                    <?php $lpo_logo = function_exists('getSetting') ? getSetting('header_logo', '/Frontend/images/header logo.jpeg') : '/Frontend/images/header logo.jpeg'; ?>
+                    <img src="<?php echo htmlspecialchars($lpo_logo, ENT_QUOTES, 'UTF-8'); ?>" style="height:42px;">
                     <div>
                         <div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:1.15rem;color:#0f172a;">Kind Commodities Ltd</div>
                         <div style="font-size:0.78rem;color:#64748b;">Kenya &nbsp;•&nbsp; kindcommoditiesltd.com</div>

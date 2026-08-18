@@ -173,8 +173,8 @@ $deniedModule = isset($_GET['denied']) ? 'that module' : '';
 
     <!-- Redesigned Welcome Banner -->
     <div class="dashboard-hero-card">
-        <h1>Operations Cockpit</h1>
-        <p>Manage products, view analytics reports, monitor system health status, and handle orders all in a clean, high-performance workspace.</p>
+        <h1>Kind Commodities Dashboard</h1>
+        <p>Manage products, track inventory, view sales analytics, and handle customer orders — all in one place.</p>
         <div style="display: flex; gap: 12px; flex-wrap: wrap;">
             <a class="btn btn-white" href="orders.php">
                 <i data-lucide="shopping-cart" style="width: 18px; height: 18px;"></i>
@@ -234,14 +234,14 @@ $deniedModule = isset($_GET['denied']) ? 'that module' : '';
 
         <div class="stat-card">
             <div class="stat-card-info">
-                <small>Healthy Flocks</small>
-                <strong id="kpi-flock-summary">—</strong>
+                <small>Products in Stock</small>
+                <strong id="kpi-products">—</strong>
                 <span style="font-size: 0.8rem; color: #3E8A3A; font-weight: 600; margin-top: 4px; display: inline-flex; align-items: center; gap: 4px;">
                     <i data-lucide="check-circle" style="width: 14px; height: 14px;"></i> Active
                 </span>
             </div>
             <div class="stat-card-icon accent" style="background: rgba(22, 163, 74, 0.1); color: #3E8A3A;">
-                <i data-lucide="layers"></i>
+                <i data-lucide="package"></i>
             </div>
         </div>
     </div>
@@ -272,10 +272,10 @@ $deniedModule = isset($_GET['denied']) ? 'that module' : '';
                 </div>
 
                 <div style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: rgba(27, 94, 32, 0.04); border-radius: 4px; border: 1px solid rgba(27, 94, 32, 0.08);">
-                    <i data-lucide="bird" style="width: 16px; height: 16px; color: #3E8A3A;"></i>
+                    <i data-lucide="package" style="width: 16px; height: 16px; color: #3E8A3A;"></i>
                     <div style="flex-grow: 1;">
-                        <h5 style="margin: 0; font-size: 0.9rem; color: var(--admin-text-heading);"><span id="kpi-active-flocks">0</span> Active Flocks</h5>
-                        <p style="margin: 0; font-size: 0.75rem; color: #64748b;">Currently producing</p>
+                        <h5 style="margin: 0; font-size: 0.9rem; color: var(--admin-text-heading);"><span id="kpi-active-products">0</span> Active Products</h5>
+                        <p style="margin: 0; font-size: 0.75rem; color: #64748b;">In your catalog</p>
                     </div>
                 </div>
             </div>
@@ -382,6 +382,15 @@ async function loadDashboard() {
             }).join('');
         }
     }
+
+    // Product KPIs from inventory data
+    const inventory = data.data.inventory || [];
+    const totalProducts = inventory.length;
+    const activeProducts = inventory.filter(p => p.stock_quantity > 0).length;
+    const elProducts = document.getElementById('kpi-products');
+    if (elProducts) elProducts.textContent = totalProducts;
+    const elActive = document.getElementById('kpi-active-products');
+    if (elActive) elActive.textContent = activeProducts;
 
     // Update small KPI numbers with count-up
     if (typeof KindCharts !== 'undefined') KindCharts.countUpAll();

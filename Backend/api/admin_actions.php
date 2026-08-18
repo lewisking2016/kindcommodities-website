@@ -188,6 +188,17 @@ try {
             if (!in_array($status, $valid, true)) throw new Exception('Invalid status');
             execute($pdo, "UPDATE orders SET status=? WHERE id=?", [$status, $id]);
             logActivity($pdo, 'update', 'orders', "Order #{$id} → {$status}", $id, 'order');
+            
+            // Send email notification for order status changes
+            if (in_array($status, ['completed', 'shipped', 'paid', 'cancelled'], true)) {
+                try {
+                    require_once __DIR__ . '/email_notifications.php';
+                    sendOrderNotification($id, $status);
+                } catch (Exception $emailErr) {
+                    error_log('Order email notification failed: ' . $emailErr->getMessage());
+                }
+            }
+            
             echo json_encode(['success' => true, 'message' => 'Status updated']);
             break;
 

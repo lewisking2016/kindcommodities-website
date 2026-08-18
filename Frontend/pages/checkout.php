@@ -157,15 +157,7 @@ $total_amount = $subtotal + $delivery_charge;
                         ?>
                         <div style="display: flex; gap: var(--space-md); margin-bottom: var(--space-md);">
                             <div style="position: relative;">
-                            <?php
-                                $fallbackImage = match($p['product_type'] ?? 'feed') {
-                                    'feed' => '/Frontend/images/product-placeholder.svg',
-                                    'legume' => '/Frontend/images/product-placeholder.svg',
-                                    'oilseed' => '/Frontend/images/product-placeholder.svg',
-                                    'raw_material' => '/Frontend/images/product-placeholder.svg',
-                                    default => '/Frontend/images/product-placeholder.svg'
-                                };
-                            ?>
+                            <?php $fallbackImage = '/Frontend/images/product-placeholder.svg'; ?>
                             <img src="<?php echo $p['image_url'] ?: $fallbackImage; ?>" style="width: 56px; height: 56px; border-radius: 4px; object-fit: cover; border: 1px solid var(--gray-200);">
                                 <span style="position: absolute; top: -8px; right: -8px; background: var(--dark); color: white; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700;"><?php echo $qty; ?></span>
                             </div>

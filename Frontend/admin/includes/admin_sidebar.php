@@ -9,8 +9,7 @@ $cp   = basename($_SERVER['SCRIPT_NAME']);
 $tab  = $_GET['tab'] ?? '';
 
 $isDash       = $cp === 'dashboard.php';
-$isPoultry    = in_array($cp, ['hub_operations.php','flocks.php','production.php','vaccinations.php','batches.php','health.php','broiler.php','hatchery.php','feeding.php','extras.php'], true);
-$isInventory  = in_array($cp, ['hub_inventory.php','stores.php','feed_production.php','egg_grading.php'], true);
+$isInventory  = in_array($cp, ['hub_inventory.php','stores.php'], true);
 $isSalesFinance = in_array($cp, ['hub_finance.php','profit.php','cashbook.php','credit.php','purchase_orders.php','daily_sales.php','bulk_sales.php','lpo.php'], true);
 $isReports    = in_array($cp, ['analytics.php','bulk_import_export.php'], true);
 $isPeople     = $cp === 'hub_people.php';
@@ -117,7 +116,8 @@ HTML;
 
     <!-- Brand -->
     <div style="display:flex;align-items:center;gap:11px;margin-bottom:28px;padding:0 4px;">
-        <img src="/Frontend/images/product-placeholder.svg" alt="Kind Commodities" style="height:44px;width:auto;border-radius:8px;">
+        <?php $adm_logo = function_exists('getSetting') ? getSetting('header_logo', '/Frontend/images/header logo.jpeg') : '/Frontend/images/header logo.jpeg'; ?>
+        <img src="<?php echo htmlspecialchars($adm_logo, ENT_QUOTES, 'UTF-8'); ?>" alt="Kind Commodities" style="height:44px;width:auto;border-radius:8px;">
         <div>
             <p style="margin:0;font-family:'Outfit',sans-serif;font-size:1.05rem;font-weight:800;color:#0f172a;letter-spacing:-0.3px;">Kind Commodities</p>
             <small style="display:block;color:#64748b;font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;">Admin Console</small>
@@ -130,37 +130,20 @@ HTML;
         <?= navLinkDirect('/Frontend/admin/dashboard.php','layout-dashboard','Dashboard',$isDash) ?>
 
         <?= navLinkWithSub(
-            '/Frontend/admin/hub_operations.php',
-            'bird',
-            'Poultry Operations',
-            $isPoultry,
-            [
-                'flocks'       => 'Flocks',
-                'production'   => 'Daily Production',
-                'vaccinations' => 'Vaccinations',
-                'batches'      => ['label' => 'Batches & Houses', 'href' => '/Frontend/admin/batches.php'],
-                'health'       => ['label' => 'Health & Vet', 'href' => '/Frontend/admin/health.php'],
-                'broiler'      => ['label' => 'Broiler Workflow', 'href' => '/Frontend/admin/broiler.php'],
-                'hatchery'     => ['label' => 'Hatchery (DOC)', 'href' => '/Frontend/admin/hatchery.php'],
-                'feeding'      => ['label' => 'Feeding Program', 'href' => '/Frontend/admin/feeding.php'],
-                'extras'       => ['label' => 'Losses & Quality', 'href' => '/Frontend/admin/extras.php']
-            ],
-            $tab ?: 'flocks'
-        ) ?>
-
-        <?= navLinkWithSub(
             '/Frontend/admin/hub_inventory.php',
             'package',
-            'Inventory & Stores',
+            'Products & Inventory',
             $isInventory,
             [
                 'products' => 'Products Catalog',
-                'stores'   => ['label' => 'Stores & Stock', 'href' => '/Frontend/admin/stores.php'],
-                'feed'     => ['label' => 'Feed Production', 'href' => '/Frontend/admin/feed_production.php'],
-                'eggs'     => ['label' => 'Egg Grading', 'href' => '/Frontend/admin/egg_grading.php']
+                'stores'   => ['label' => 'Stock Management', 'href' => '/Frontend/admin/stores.php']
             ],
             $tab ?: 'products'
         ) ?>
+
+        <?= navLinkDirect('/Frontend/admin/suppliers.php','truck','Suppliers',$cp==='suppliers.php') ?>
+
+        <?= navLinkDirect('/Frontend/admin/contracts.php','file-text','Contracts',$cp==='contracts.php') ?>
 
         <?= navLinkWithSub(
             '/Frontend/admin/hub_finance.php',
@@ -216,7 +199,8 @@ HTML;
                 'dropdowns' => 'Dropdowns',
                 'settings'  => 'App Settings',
                 'logs'      => 'Activity Logs',
-                'permissions' => ['label' => 'Roles & Permissions', 'href' => '/Frontend/admin/permissions.php']
+                'permissions' => ['label' => 'Roles & Permissions', 'href' => '/Frontend/admin/permissions.php'],
+                'email' => ['label' => 'Email Alerts', 'href' => '/Frontend/admin/email_alerts.php']
             ],
             $tab ?: 'calendar'
         ) ?>

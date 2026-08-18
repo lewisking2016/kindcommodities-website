@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_settings'])) {
     if (!verifyCSRFToken($_POST['csrf_token'] ?? '')) {
         $save_message = 'Security token expired. Please refresh and try again.';
     } else {
-        $textSettings = ['farm_name', 'farm_email', 'farm_phone', 'farm_address', 'currency', 'timezone', 'mpesa_shortcode', 'mpesa_passkey'];
+        $textSettings = ['farm_name', 'farm_email', 'farm_phone', 'farm_address', 'currency', 'timezone', 'mpesa_shortcode', 'mpesa_passkey', 'header_logo', 'footer_logo', 'favicon'];
         foreach ($textSettings as $key) {
             if (array_key_exists($key, $_POST)) {
                 updateSetting($key, trim((string)$_POST[$key]));
@@ -39,6 +39,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_settings'])) {
         $toggles = ['mpesa_enabled', 'cod_enabled', 'order_notify', 'stock_notify', 'weekly_report'];
         foreach ($toggles as $toggle) {
             updateSetting($toggle, isset($_POST[$toggle]) ? '1' : '0');
+        }
+        // Handle logo uploads
+        $logoUploads = ['header_logo', 'footer_logo', 'favicon'];
+        foreach ($logoUploads as $logoKey) {
+            $uploadKey = 'logo_' . $logoKey;
+            if (isset($_FILES[$uploadKey]) && $_FILES[$uploadKey]['error'] === UPLOAD_ERR_OK) {
+                $file = $_FILES[$uploadKey];
+                if ($file['size'] <= 5 * 1024 * 1024) {
+                    $allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+                    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                    $mimeType = finfo_file($finfo, $file['tmp_name']) ?: '';
+                    finfo_close($finfo);
+                    if (in_array($mimeType, $allowed, true)) {
+                        $targetDir = dirname(__DIR__, 2) . '/Frontend/images/';
+                        $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+                        $newName = 'site_' . $logoKey . '.' . $ext;
+                        $targetPath = $targetDir . $newName;
+                        if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+                            updateSetting($logoKey, '/Frontend/images/' . $newName);
+                        }
+                    }
+                }
+            } elseif (isset($_POST['keep_' . $logoKey])) {
+                // Keep the current value (hidden field preserves it)
+                updateSetting($logoKey, trim($_POST['keep_' . $logoKey]));
+            }
         }
         $save_message = 'Settings saved successfully.';
     }
@@ -109,6 +135,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_settings'])) {
                     <option value="UTC" <?php echo getSetting('timezone') === 'UTC' ? 'selected' : ''; ?>>UTC</option>
                 </select>
             </div>
+        </div>
+    </div>
+
+    <!-- Logo & Branding -->
+    <div class="admin-card">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--admin-border);">
+            <i data-lucide="image" style="width: 20px; height: 20px; color: var(--admin-primary);"></i>
+            <h3 style="margin: 0; font-family: 'Outfit', sans-serif; font-size: 1.15rem; color: var(--admin-text-heading);">Logo & Branding</h3>
+        </div>
+        <p style="font-size: 0.85rem; color: #64748b; margin: 0 0 20px 0;">Upload your brand logos. These appear in the header, footer, admin panel and on PDF documents.</p>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+            <?php
+            $logoFields = [
+                ['key' => 'header_logo', 'label' => 'Header Logo', 'default' => '/Frontend/images/header logo.jpeg'],
+                ['key' => 'footer_logo', 'label' => 'Footer Logo', 'default' => '/Frontend/images/footerlogo.jpeg'],
+                ['key' => 'favicon', 'label' => 'Favicon', 'default' => '/Frontend/images/web favicon.jpeg'],
+            ];
+            foreach ($logoFields as $lf):
+                $currentVal = getSetting($lf['key'], $lf['default']);
+            ?>
+            <div style="text-align: center;">
+                <label class="admin-form-label" style="display: block; text-align: left; margin-bottom: 8px;"><?php echo htmlspecialchars($lf['label']); ?></label>
+                <div style="width: 100%; height: 120px; background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 8px;">
+                    <?php if ($currentVal): ?>
+                        <img src="<?php echo htmlspecialchars($currentVal, ENT_QUOTES, 'UTF-8'); ?>" alt="<?php echo htmlspecialchars($lf['label']); ?>" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                    <?php else: ?>
+                        <i data-lucide="image" style="width: 32px; height: 32px; color: #cbd5e1;"></i>
+                    <?php endif; ?>
+                </div>
+                <input type="file" name="logo_<?php echo htmlspecialchars($lf['key']); ?>" accept="image/*" style="width: 100%; font-size: 0.8rem;">
+                <input type="hidden" name="keep_<?php echo htmlspecialchars($lf['key']); ?>" value="<?php echo htmlspecialchars($currentVal, ENT_QUOTES, 'UTF-8'); ?>">
+            </div>
+            <?php endforeach; ?>
         </div>
     </div>
 

@@ -68,24 +68,8 @@ if (!function_exists('kindDefaultQuickActions')) {
                 ['label' => 'Export Products CSV', 'icon' => 'download', 'href' => '/Backend/api/export.php?module=products'],
             ],
             'orders.php' => [['label' => 'New Order', 'icon' => 'plus-circle', 'click' => 'New Order', 'href' => '/Frontend/admin/orders.php']],
-            'flocks.php' => [['label' => 'Hatch New Flock', 'icon' => 'plus', 'click' => 'Hatch New Flock', 'href' => '/Frontend/admin/flocks.php']],
-            'production.php' => [['label' => 'Log Daily Yield', 'icon' => 'plus', 'click' => 'Log Daily Yield', 'href' => '/Frontend/admin/production.php']],
-            'vaccinations.php' => [['label' => 'Schedule Vaccine', 'icon' => 'plus', 'click' => 'Schedule Vaccine', 'href' => '/Frontend/admin/vaccinations.php']],
-            'batches.php' => [
-                ['label' => 'New Batch', 'icon' => 'plus', 'click' => 'New Batch', 'href' => '/Frontend/admin/batches.php'],
-                ['label' => 'Log Today\'s Record', 'icon' => 'clipboard', 'click' => 'Log Today\'s Record', 'href' => '/Frontend/admin/batches.php'],
-            ],
-            'health.php' => [['label' => 'New Health Record', 'icon' => 'plus', 'click' => 'Add Health Record', 'href' => '/Frontend/admin/health.php']],
-            'broiler.php' => [['label' => 'Record Weigh-In', 'icon' => 'plus', 'click' => 'Record Weigh-In', 'href' => '/Frontend/admin/broiler.php']],
-            'hatchery.php' => [['label' => 'New Hatch Record', 'icon' => 'plus', 'click' => 'New Hatch Record', 'href' => '/Frontend/admin/hatchery.php']],
-            'feeding.php' => [['label' => 'Record Feeding', 'icon' => 'plus', 'click' => 'Record Feeding', 'href' => '/Frontend/admin/feeding.php']],
-            'extras.php' => [
-                ['label' => 'Record Egg Loss', 'icon' => 'alert-circle', 'click' => 'Record Loss', 'href' => '/Frontend/admin/extras.php?tab=losses'],
-                ['label' => 'New Quality Test', 'icon' => 'flask-conical', 'click' => 'New Test', 'href' => '/Frontend/admin/extras.php?tab=quality'],
-            ],
-            'egg_grading.php' => [['label' => 'New Grading', 'icon' => 'plus', 'click' => 'New Grading', 'href' => '/Frontend/admin/egg_grading.php']],
+
             'stores.php' => [['label' => 'Record Movement', 'icon' => 'arrow-down-circle', 'click' => 'Record Movement', 'href' => '/Frontend/admin/stores.php']],
-            'feed_production.php' => [['label' => 'Produce Feed', 'icon' => 'plus', 'click' => 'Produce Feed', 'href' => '/Frontend/admin/feed_production.php']],
             'lpo.php' => [['label' => 'New LPO / Quotation / Invoice', 'icon' => 'plus', 'click' => 'New Document', 'href' => '/Frontend/admin/lpo.php']],
             'credit.php' => [['label' => 'Record Credit Sale', 'icon' => 'plus', 'click' => 'Record Credit Sale', 'href' => '/Frontend/admin/credit.php']],
             'bulk_sales.php' => [['label' => 'New Bulk Sale', 'icon' => 'plus', 'click' => 'New Sale', 'href' => '/Frontend/admin/bulk_sales.php']],
@@ -112,13 +96,11 @@ if (!function_exists('kindDefaultQuickActions')) {
             ],
             'hub_inventory.php' => [
                 ['label' => 'Products Catalog', 'icon' => 'package', 'href' => '/Frontend/admin/products.php'],
-                ['label' => 'Stores & Stock', 'icon' => 'warehouse', 'href' => '/Frontend/admin/stores.php'],
-                ['label' => 'Egg Grading', 'icon' => 'egg', 'href' => '/Frontend/admin/egg_grading.php'],
+                ['label' => 'Stock Management', 'icon' => 'warehouse', 'href' => '/Frontend/admin/stores.php'],
             ],
             'hub_operations.php' => [
-                ['label' => 'Hatch New Flock', 'icon' => 'plus', 'click' => 'Add Flock', 'href' => '/Frontend/admin/hub_operations.php'],
-                ['label' => 'Log Today\'s Production', 'icon' => 'clipboard', 'click' => 'Log Today\'s Production', 'href' => '/Frontend/admin/hub_operations.php'],
-                ['label' => 'Flocks', 'icon' => 'bird', 'href' => '/Frontend/admin/flocks.php'],
+                ['label' => 'Products Catalog', 'icon' => 'package', 'href' => '/Frontend/admin/products.php'],
+                ['label' => 'Stock Management', 'icon' => 'warehouse', 'href' => '/Frontend/admin/stores.php'],
             ],
             'hub_people.php' => [
                 ['label' => 'Add Staff Member', 'icon' => 'user-plus', 'click' => 'Add Staff Member', 'href' => '/Frontend/admin/hub_people.php'],
@@ -136,7 +118,7 @@ if (!function_exists('kindDefaultQuickActions')) {
             'expenses.php' => [['label' => 'Sales & Finance Hub', 'icon' => 'trending-up', 'href' => '/Frontend/admin/hub_finance.php']],
             'reports.php' => [['label' => 'Analytics & Charts', 'icon' => 'bar-chart-2', 'href' => '/Frontend/admin/analytics.php']],
             'orders.php' => [['label' => 'Sales & Finance Hub', 'icon' => 'trending-up', 'href' => '/Frontend/admin/hub_finance.php']],
-            'operations.php' => [['label' => 'Poultry Operations Hub', 'icon' => 'bird', 'href' => '/Frontend/admin/hub_operations.php']],
+            'operations.php' => [['label' => 'Products & Inventory', 'icon' => 'package', 'href' => '/Frontend/admin/hub_inventory.php']],
             'incoming_stock.php' => [['label' => 'Stores & Stock', 'icon' => 'warehouse', 'href' => '/Frontend/admin/stores.php']],
             'settings.php' => [['label' => 'App Settings Hub', 'icon' => 'settings', 'href' => '/Frontend/admin/hub_settings.php']],
             'messages.php' => [['label' => 'Team & Messages Hub', 'icon' => 'users', 'href' => '/Frontend/admin/hub_people.php']],
@@ -164,7 +146,7 @@ $csrf_token = function_exists('generateCSRFToken') ? generateCSRFToken() : ($_SE
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/vendor/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>assets/css/style.css">
-    <link rel="icon" type="image/svg+xml" href="/Frontend/images/favicon.svg">
+    <link rel="icon" type="image/jpeg" href="/Frontend/images/web favicon.jpeg">
     <style>
         :root {
             --admin-primary: #396285;

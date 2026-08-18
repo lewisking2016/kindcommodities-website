@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pdo) {
             $raw_material_id = !empty($_POST['raw_material_id']) ? (int)$_POST['raw_material_id'] : null;
             $reserved_production_kg = (float)($_POST['reserved_production_kg'] ?? 0);
 
-            $stmt = $pdo->prepare("INSERT INTO products (category_id, raw_material_id, name, slug, product_type, price, stock_quantity, description, image_url, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)");
+            $stmt = $pdo->prepare("INSERT INTO products (category_id, raw_material_id, name, slug, product_type, price, stock_quantity, description, image_url, is_active, stock_weight_kg, unit_weight_kg, price_per_kg, moisture_pct, grade, foreign_material_pct, origin, low_stock_threshold) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?, ?, ?, ?, ?, ?)");
             $slug = strtolower(preg_replace('/[^a-z0-9]+/i', '-', trim($_POST['name'])));
             $stmt->execute([
                 (int)$_POST['category_id'],
@@ -91,7 +91,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pdo) {
                 (float)$_POST['price'],
                 (int)$_POST['stock_quantity'],
                 trim($_POST['description'] ?? ''),
-                $image_url
+                $image_url,
+                !empty($_POST['stock_weight_kg']) ? (float)$_POST['stock_weight_kg'] : null,
+                !empty($_POST['unit_weight_kg']) ? (float)$_POST['unit_weight_kg'] : null,
+                !empty($_POST['price_per_kg']) ? (float)$_POST['price_per_kg'] : null,
+                !empty($_POST['moisture_pct']) ? (float)$_POST['moisture_pct'] : null,
+                trim($_POST['grade'] ?? '') ?: null,
+                !empty($_POST['foreign_material_pct']) ? (float)$_POST['foreign_material_pct'] : null,
+                trim($_POST['origin'] ?? '') ?: null,
+                (int)($_POST['low_stock_threshold'] ?? 10)
             ]);
 
             if ($raw_material_id) {
@@ -111,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pdo) {
             $raw_material_id = !empty($_POST['raw_material_id']) ? (int)$_POST['raw_material_id'] : null;
             $reserved_production_kg = (float)($_POST['reserved_production_kg'] ?? 0);
 
-            $sql = "UPDATE products SET name = ?, product_type = ?, price = ?, stock_quantity = ?, description = ?, category_id = ?, raw_material_id = ?";
+            $sql = "UPDATE products SET name = ?, product_type = ?, price = ?, stock_quantity = ?, description = ?, category_id = ?, raw_material_id = ?, stock_weight_kg = ?, unit_weight_kg = ?, price_per_kg = ?, moisture_pct = ?, grade = ?, foreign_material_pct = ?, origin = ?, low_stock_threshold = ?";
             $params = [
                 trim($_POST['name']),
                 $_POST['product_type'],
@@ -119,7 +127,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pdo) {
                 (int)$_POST['stock_quantity'],
                 trim($_POST['description'] ?? ''),
                 (int)$_POST['category_id'],
-                $raw_material_id
+                $raw_material_id,
+                !empty($_POST['stock_weight_kg']) ? (float)$_POST['stock_weight_kg'] : null,
+                !empty($_POST['unit_weight_kg']) ? (float)$_POST['unit_weight_kg'] : null,
+                !empty($_POST['price_per_kg']) ? (float)$_POST['price_per_kg'] : null,
+                !empty($_POST['moisture_pct']) ? (float)$_POST['moisture_pct'] : null,
+                trim($_POST['grade'] ?? '') ?: null,
+                !empty($_POST['foreign_material_pct']) ? (float)$_POST['foreign_material_pct'] : null,
+                trim($_POST['origin'] ?? '') ?: null,
+                (int)($_POST['low_stock_threshold'] ?? 10)
             ];
             
             if ($image_url) {
@@ -217,10 +233,9 @@ if ($pdo) {
 
     try {
         // Build product query
-        $query = "SELECT p.*, c.name as category_name, fr.id as recipe_id, rm.name as linked_raw_material_name, rm.reserved_production_kg, rm.stock_tons as raw_material_stock
+        $query = "SELECT p.*, c.name as category_name, rm.name as linked_raw_material_name, rm.reserved_production_kg, rm.stock_tons as raw_material_stock
                   FROM products p 
                   LEFT JOIN categories c ON p.category_id = c.id 
-                  LEFT JOIN feed_recipes fr ON fr.product_id = p.id
                   LEFT JOIN raw_materials rm ON p.raw_material_id = rm.id
                   WHERE 1=1";
         $params = [];
@@ -327,8 +342,12 @@ if ($pdo) {
                         KES <?php echo number_format((float)$product['price']); ?>
                     </td>
                     <td>
-                        <span style="font-weight: 500; <?php echo ($product['stock_quantity'] < 10) ? 'color: #dc2626; font-weight: 600;' : 'color: #475569;'; ?>">
-                            <?php echo $product['stock_quantity']; ?> units
+                        <span style="font-weight: 500; <?php echo ($product['stock_quantity'] < ($product['low_stock_threshold'] ?? 10)) ? 'color: #dc2626; font-weight: 600;' : 'color: #475569;'; ?>">
+                            <?php echo $product['stock_quantity']; ?> bags
+                            <?php if (!empty($product['stock_weight_kg'])): ?>
+                                <br><span style="font-size:0.75rem;color:#64748b;">• <?php echo number_format((float)$product['stock_weight_kg'], 0); ?> kg
+                                </span>
+                            <?php endif; ?>
                         </span>
                     </td>
                     <td>
@@ -526,6 +545,19 @@ if ($pdo) {
                 <label class="admin-form-label">Description</label>
                 <textarea name="description" rows="3" class="admin-form-control" style="resize: vertical;"></textarea>
             </div>
+            <div style="border-top: 1px solid #e2e8f0; padding-top: 16px; margin-top: 12px;">
+                <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--admin-text-heading); margin-bottom: 12px;">Quality & Weight Details</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                    <div class="admin-form-group"><label class="admin-form-label">Unit Weight (kg)</label><input type="number" name="unit_weight_kg" step="0.01" class="admin-form-control" placeholder="e.g. 90"></div>
+                    <div class="admin-form-group"><label class="admin-form-label">Stock Weight (kg)</label><input type="number" name="stock_weight_kg" step="0.001" class="admin-form-control" placeholder="Total kg in stock"></div>
+                    <div class="admin-form-group"><label class="admin-form-label">Price per kg (KES)</label><input type="number" name="price_per_kg" step="0.01" class="admin-form-control" placeholder="Auto-calculated"></div>
+                    <div class="admin-form-group"><label class="admin-form-label">Low Stock Alert Threshold</label><input type="number" name="low_stock_threshold" value="10" min="0" class="admin-form-control"></div>
+                    <div class="admin-form-group"><label class="admin-form-label">Moisture %</label><input type="number" name="moisture_pct" step="0.01" min="0" max="100" class="admin-form-control" placeholder="e.g. 13.5"></div>
+                    <div class="admin-form-group"><label class="admin-form-label">Grade</label><input name="grade" class="admin-form-control" placeholder="e.g. Grade 1, Premium"></div>
+                    <div class="admin-form-group"><label class="admin-form-label">Foreign Material %</label><input type="number" name="foreign_material_pct" step="0.01" min="0" max="100" class="admin-form-control" placeholder="e.g. 1.2"></div>
+                    <div class="admin-form-group"><label class="admin-form-label">Origin</label><input name="origin" class="admin-form-control" placeholder="e.g. Nakuru"></div>
+                </div>
+            </div>
             <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 20px;">
                 <button type="button" onclick="document.getElementById('add-modal').style.display='none'" class="btn btn-outline" style="border-radius: 4px;">Cancel</button>
                 <button type="submit" class="btn btn-primary" style="border-radius: 4px;">Add Product</button>
@@ -600,6 +632,19 @@ if ($pdo) {
                 <label class="admin-form-label">Description</label>
                 <textarea name="description" id="edit-desc" rows="3" class="admin-form-control" style="resize: vertical;"></textarea>
             </div>
+            <div style="border-top: 1px solid #e2e8f0; padding-top: 16px; margin-top: 12px;">
+                <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--admin-text-heading); margin-bottom: 12px;">Quality & Weight Details</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                    <div class="admin-form-group"><label class="admin-form-label">Unit Weight (kg)</label><input type="number" name="unit_weight_kg" id="edit-unit-weight" step="0.01" class="admin-form-control"></div>
+                    <div class="admin-form-group"><label class="admin-form-label">Stock Weight (kg)</label><input type="number" name="stock_weight_kg" id="edit-stock-weight" step="0.001" class="admin-form-control"></div>
+                    <div class="admin-form-group"><label class="admin-form-label">Price per kg (KES)</label><input type="number" name="price_per_kg" id="edit-price-kg" step="0.01" class="admin-form-control"></div>
+                    <div class="admin-form-group"><label class="admin-form-label">Low Stock Threshold</label><input type="number" name="low_stock_threshold" id="edit-low-stock" min="0" class="admin-form-control"></div>
+                    <div class="admin-form-group"><label class="admin-form-label">Moisture %</label><input type="number" name="moisture_pct" id="edit-moisture" step="0.01" min="0" max="100" class="admin-form-control"></div>
+                    <div class="admin-form-group"><label class="admin-form-label">Grade</label><input name="grade" id="edit-grade" class="admin-form-control"></div>
+                    <div class="admin-form-group"><label class="admin-form-label">Foreign Material %</label><input type="number" name="foreign_material_pct" id="edit-foreign" step="0.01" min="0" max="100" class="admin-form-control"></div>
+                    <div class="admin-form-group"><label class="admin-form-label">Origin</label><input name="origin" id="edit-origin" class="admin-form-control"></div>
+                </div>
+            </div>
             <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 20px;">
                 <button type="button" onclick="document.getElementById('edit-modal').style.display='none'" class="btn btn-outline" style="border-radius: 4px;">Cancel</button>
                 <button type="submit" class="btn btn-primary" style="border-radius: 4px;">Save Changes</button>
@@ -628,6 +673,14 @@ function openEditModal(product) {
     document.getElementById('edit-price').value = product.price;
     document.getElementById('edit-stock').value = product.stock_quantity;
     document.getElementById('edit-desc').value = product.description || '';
+    document.getElementById('edit-unit-weight').value = product.unit_weight_kg || '';
+    document.getElementById('edit-stock-weight').value = product.stock_weight_kg || '';
+    document.getElementById('edit-price-kg').value = product.price_per_kg || '';
+    document.getElementById('edit-low-stock').value = product.low_stock_threshold || 10;
+    document.getElementById('edit-moisture').value = product.moisture_pct || '';
+    document.getElementById('edit-grade').value = product.grade || '';
+    document.getElementById('edit-foreign').value = product.foreign_material_pct || '';
+    document.getElementById('edit-origin').value = product.origin || '';
     document.getElementById('edit-raw-material-id').value = product.raw_material_id || '';
     document.getElementById('edit-reserved-production-kg').value = product.reserved_production_kg || 0;
     

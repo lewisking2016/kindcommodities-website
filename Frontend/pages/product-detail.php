@@ -94,21 +94,45 @@ $inStock = ($product['stock_quantity'] ?? 0) > 0;
                 <?php echo htmlspecialchars($product['name']); ?>
             </h1>
 
-            <div style="font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: 24px;">
+            <div style="font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: 4px;">
                 KES <?php echo number_format((float)$product['price'], 2); ?>
             </div>
+            <?php if (!empty($product['price_per_kg'])): ?>
+            <div style="font-size: 0.85rem; color: #64748b; margin-bottom: 20px;">
+                KES <?php echo number_format((float)$product['price_per_kg'], 2); ?> per kg
+            </div>
+            <?php endif; ?>
 
             <p style="color: var(--gray-600); line-height: 1.75; font-size: 1rem; margin-bottom: var(--space-2xl);">
                 <?php echo htmlspecialchars($product['description']); ?>
             </p>
 
             <!-- Stock Status -->
-            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 32px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
                 <span style="width: 10px; height: 10px; border-radius: 50%; background: <?php echo $inStock ? '#3E8A3A' : '#dc2626'; ?>; display: inline-block;"></span>
                 <span style="font-weight: 600; font-size: 0.9rem; color: <?php echo $inStock ? '#2C6B31' : '#b91c1c'; ?>;">
                     <?php echo $inStock ? 'In Stock (' . $product['stock_quantity'] . ' units available)' : 'Out of Stock'; ?>
                 </span>
             </div>
+
+            <!-- Quality Specs -->
+            <?php
+            $specs = [];
+            if (!empty($product['grade'])) $specs[] = ['Grade', $product['grade']];
+            if (!empty($product['moisture_pct'])) $specs[] = ['Moisture', $product['moisture_pct'] . '%'];
+            if (!empty($product['foreign_material_pct'])) $specs[] = ['Foreign Material', $product['foreign_material_pct'] . '%'];
+            if (!empty($product['unit_weight_kg'])) $specs[] = ['Unit Weight', $product['unit_weight_kg'] . ' kg'];
+            if (!empty($product['origin'])) $specs[] = ['Origin', $product['origin']];
+            if (!empty($product['price_per_kg'])) $specs[] = ['Price/kg', 'KES ' . number_format((float)$product['price_per_kg'], 2)];
+            if (!empty($specs)):
+            ?>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 24px; background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.05);">
+                <div style="grid-column: span 2; font-weight: 700; font-size: 0.85rem; color: var(--dark); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">Specifications</div>
+                <?php foreach ($specs as [$label, $value]): ?>
+                <div style="font-size: 0.85rem;"><span style="color: #64748b;"><?php echo $label; ?>:</span> <strong style="color: var(--dark);"><?php echo htmlspecialchars($value); ?></strong></div>
+                <?php endforeach; ?>
+            </div>
+            <?php endif; ?>
 
             <!-- Quantity Selector & Cart Action -->
             <div style="display: flex; gap: 16px; align-items: center; max-width: 400px;">
