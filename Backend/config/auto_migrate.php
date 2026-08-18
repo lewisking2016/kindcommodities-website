@@ -432,6 +432,14 @@ function ensureKindSchema(PDO $pdo): void
     if ($checked) return;
     $checked = true;
 
+    // Check if migration has already been completed (skip on subsequent requests)
+    try {
+        $flag = $pdo->query("SELECT setting_value FROM site_settings WHERE setting_key = 'migration_v6_completed'")->fetchColumn();
+        if ($flag === '1') return; // Migration already done, skip entirely
+    } catch (Exception $e) {
+        // site_settings table might not exist yet — continue with migration
+    }
+
     try {
         // Always reconcile legacy column shapes first (idempotent, cheap) so
         // existing databases get the columns the current modules read even
@@ -490,6 +498,13 @@ function ensureKindSchema(PDO $pdo): void
         // Second reconcile pass: now that the migration tables exist, add the
         // legacy mirror columns so legacy modules work on the same request.
         reconcileLegacySchema($pdo);
+
+        // Mark migration as completed to skip on subsequent requests
+        try {
+            updateSetting('migration_v6_completed', '1');
+        } catch (Exception $e) {
+            // Ignore — will retry next request
+        }
     } catch (Exception $e) {
         // Silent — never break the page
     }
