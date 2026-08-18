@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Email Notification Templates — Kind Commodities</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', Arial, sans-serif; background: #f1f5f9; color: #1e293b; padding: 40px 20px; }
+        h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 8px; }
+        .subtitle { color: #64748b; margin-bottom: 40px; font-size: 0.95rem; }
+        .template-section { margin-bottom: 60px; }
+        .template-label { 
+            display: inline-block; background: #0B2310; color: #fff; padding: 6px 16px; 
+            border-radius: 20px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; 
+            letter-spacing: 0.05em; margin-bottom: 12px; 
+        }
+        .template-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 4px; }
+        .template-desc { color: #64748b; font-size: 0.85rem; margin-bottom: 20px; }
+        .email-frame {
+            max-width: 620px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 12px;
+            overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.08); background: #fff;
+        }
+        .email-meta { background: #f8fafc; padding: 12px 20px; border-bottom: 1px solid #e2e8f0; font-size: 0.8rem; color: #64748b; }
+        .email-meta strong { color: #1e293b; }
+    </style>
+</head>
+<body>
+
+<h1>📧 Email Notification Templates</h1>
+<p class="subtitle">Kind Commodities Ltd — All 3 notification templates sent to <strong>accounts@kindcommoditiesltd.com</strong></p>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- TEMPLATE 1: LOW STOCK ALERT -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="template-section">
+    <span class="template-label">Template 1</span>
+    <div class="template-title">⚠️ Low Stock Alert</div>
+    <div class="template-desc">Triggered when product stock falls below the threshold (default: 10 units). Runs automatically after every order completion and on manual check.</div>
+    
+    <div class="email-frame">
+        <div class="email-meta">
+            <strong>From:</strong> Kind Commodities Ltd &lt;accounts@kindcommoditiesltd.com&gt;<br>
+            <strong>To:</strong> accounts@kindcommoditiesltd.com<br>
+            <strong>Subject:</strong> ⚠️ Low Stock Alert — 3 product(s) below threshold
+        </div>
+        <div style="font-family: Arial, sans-serif; color: #1e293b; max-width: 600px;">
+            <!-- Header -->
+            <div style="background: linear-gradient(135deg, #0B2310, #396285); padding: 24px;">
+                <h1 style="color: #fff; margin: 0; font-size: 1.3rem;">⚠️ Low Stock Alert</h1>
+                <p style="color: rgba(255,255,255,0.8); margin: 4px 0 0; font-size: 0.9rem;">Kind Commodities Ltd — Inventory Warning</p>
+            </div>
+            <!-- Body -->
+            <div style="padding: 24px; background: #fff; border: 1px solid #e2e8f0; border-top: none;">
+                <p style="font-size: 0.95rem; line-height: 1.6;">The following <strong>3 product(s)</strong> are running low on stock:</p>
+                
+                <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.85rem;">
+                    <thead>
+                        <tr style="background: #f8fafc;">
+                            <th style="padding: 8px 12px; text-align: left; border-bottom: 2px solid #e2e8f0;">Status</th>
+                            <th style="padding: 8px 12px; text-align: left; border-bottom: 2px solid #e2e8f0;">Product</th>
+                            <th style="padding: 8px 12px; text-align: left; border-bottom: 2px solid #e2e8f0;">Category</th>
+                            <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid #e2e8f0;">In Stock</th>
+                            <th style="padding: 8px 12px; text-align: center; border-bottom: 2px solid #e2e8f0;">Threshold</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 8px 12px; border-bottom: 1px solid #e2e8f0;">🔴 CRITICAL</td>
+                            <td style="padding: 8px 12px; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Green Grams (90kg Bag)</td>
+                            <td style="padding: 8px 12px; border-bottom: 1px solid #e2e8f0;">Pulses & Legumes</td>
+                            <td style="padding: 8px 12px; border-bottom: 1px solid #e2e8f0; text-align: center; font-weight: 700; color: #dc2626;">3</td>
+                            <td style="padding: 8px 12px; border-bottom: 1px solid #e2e8f0; text-align: center;">10</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px 12px; border-bottom: 1px solid #e2e8f0;">🟡 LOW</td>
+                            <td style="padding: 8px 12px; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Soya Cake (50kg Bag)</td>
+                            <td style="padding: 8px 12px; border-bottom: 1px solid #e2e8f0;">Feed Raw Materials</td>
+                            <td style="padding: 8px 12px; border-bottom: 1px solid #e2e8f0; text-align: center; font-weight: 700; color: #f59e0b;">7</td>
+                            <td style="padding: 8px 12px; border-bottom: 1px solid #e2e8f0; text-align: center;">10</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px 12px; border-bottom: 1px solid #e2e8f0;">🟡 LOW</td>
+                            <td style="padding: 8px 12px; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Cotton Cake (50kg Bag)</td>
+                            <td style="padding: 8px 12px; border-bottom: 1px solid #e2e8f0;">Feed Raw Materials</td>
+                            <td style="padding: 8px 12px; border-bottom: 1px solid #e2e8f0; text-align: center; font-weight: 700; color: #f59e0b;">8</td>
+                            <td style="padding: 8px 12px; border-bottom: 1px solid #e2e8f0; text-align: center;">10</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <p style="font-size: 0.85rem; color: #64748b;">Please restock these items as soon as possible to avoid order delays.</p>
+                <p style="font-size: 0.85rem; color: #64748b; margin-top: 16px;">— Kind Commodities Admin System</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- TEMPLATE 2: ORDER NOTIFICATION -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="template-section">
+    <span class="template-label">Template 2</span>
+    <div class="template-title">📦 Order Notification</div>
+    <div class="template-desc">Triggered when an order status changes to: paid, shipped, completed, or cancelled. Shows customer details, line items, and total.</div>
+    
+    <div class="email-frame">
+        <div class="email-meta">
+            <strong>From:</strong> Kind Commodities Ltd &lt;accounts@kindcommoditiesltd.com&gt;<br>
+            <strong>To:</strong> accounts@kindcommoditiesltd.com<br>
+            <strong>Subject:</strong> 📦 Order #KC-2026-0042 — completed
+        </div>
+        <div style="font-family: Arial, sans-serif; color: #1e293b; max-width: 600px;">
+            <!-- Header -->
+            <div style="background: linear-gradient(135deg, #0B2310, #396285); padding: 24px;">
+                <h1 style="color: #fff; margin: 0; font-size: 1.3rem;">📦 Order completed</h1>
+                <p style="color: rgba(255,255,255,0.8); margin: 4px 0 0;">Order #KC-2026-0042</p>
+            </div>
+            <!-- Body -->
+            <div style="padding: 24px; background: #fff; border: 1px solid #e2e8f0; border-top: none;">
+                <!-- Customer Info + Total -->
+                <div style="display: flex; gap: 16px; margin-bottom: 16px;">
+                    <div style="flex: 1;">
+                        <p style="margin: 0 0 4px;"><strong>Customer:</strong> James Muriithi</p>
+                        <p style="margin: 0 0 4px;"><strong>Phone:</strong> +254 722 123 456</p>
+                        <p style="margin: 0;"><strong>Status:</strong> <span style="color: #16a34a; font-weight: 700; text-transform: uppercase;">completed</span></p>
+                    </div>
+                    <div style="flex: 1; text-align: right;">
+                        <p style="margin: 0 0 4px;"><strong>Total:</strong> <span style="font-size: 1.2rem; color: #16a34a;">KES 40,500</span></p>
+                        <p style="margin: 0;"><strong>Payment:</strong> Bank Transfer</p>
+                    </div>
+                </div>
+                
+                <!-- Items Table -->
+                <table style="width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.85rem;">
+                    <thead>
+                        <tr style="background: #f8fafc;">
+                            <th style="padding: 6px 10px; text-align: left;">Product</th>
+                            <th style="padding: 6px 10px; text-align: center;">Qty</th>
+                            <th style="padding: 6px 10px; text-align: right;">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 6px 10px; border-bottom: 1px solid #e2e8f0;">Maize (90kg Bag)</td>
+                            <td style="padding: 6px 10px; border-bottom: 1px solid #e2e8f0; text-align: center;">5</td>
+                            <td style="padding: 6px 10px; border-bottom: 1px solid #e2e8f0; text-align: right;">KES 4,500</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 6px 10px; border-bottom: 1px solid #e2e8f0;">Wheat Bran / Pollard (50kg Bag)</td>
+                            <td style="padding: 6px 10px; border-bottom: 1px solid #e2e8f0; text-align: center;">3</td>
+                            <td style="padding: 6px 10px; border-bottom: 1px solid #e2e8f0; text-align: right;">KES 1,500</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 6px 10px; border-bottom: 1px solid #e2e8f0;">Common Beans (90kg Bag)</td>
+                            <td style="padding: 6px 10px; border-bottom: 1px solid #e2e8f0; text-align: center;">2</td>
+                            <td style="padding: 6px 10px; border-bottom: 1px solid #e2e8f0; text-align: right;">KES 7,500</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <p style="font-size: 0.85rem; color: #64748b;">Order placed: 18 Aug 2026 14:32</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- TEMPLATE 3: CONTRACT DELIVERY NOTIFICATION -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="template-section">
+    <span class="template-label">Template 3</span>
+    <div class="template-title">📋 Contract Delivery Notification</div>
+    <div class="template-desc">Triggered when a delivery is recorded against a contract. Shows party, delivery amount, and contract progress bar.</div>
+    
+    <div class="email-frame">
+        <div class="email-meta">
+            <strong>From:</strong> Kind Commodities Ltd &lt;accounts@kindcommoditiesltd.com&gt;<br>
+            <strong>To:</strong> accounts@kindcommoditiesltd.com<br>
+            <strong>Subject:</strong> 📋 Contract Delivery — KC-2026-0003 (65% fulfilled)
+        </div>
+        <div style="font-family: Arial, sans-serif; color: #1e293b; max-width: 600px;">
+            <!-- Header -->
+            <div style="background: linear-gradient(135deg, #0B2310, #396285); padding: 24px;">
+                <h1 style="color: #fff; margin: 0; font-size: 1.3rem;">📋 Contract Delivery Recorded</h1>
+                <p style="color: rgba(255,255,255,0.8); margin: 4px 0 0;">KC-2026-0003 — Maize (90kg Bag)</p>
+            </div>
+            <!-- Body -->
+            <div style="padding: 24px; background: #fff; border: 1px solid #e2e8f0; border-top: none;">
+                <p style="margin: 0 0 8px;"><strong>Party:</strong> Eldoret Wheat Farmers Co-op (grower)</p>
+                <p style="margin: 0 0 8px;"><strong>Delivery:</strong> 13,000 kg on 18 Aug 2026</p>
+                
+                <!-- Progress Card -->
+                <div style="background: #f8fafc; padding: 16px; border-radius: 8px; margin: 16px 0; border: 1px solid #e2e8f0;">
+                    <p style="margin: 0 0 6px;">Total Contracted: <strong>20,000 kg</strong></p>
+                    <p style="margin: 0 0 6px;">Delivered: <strong>13,000 kg (65%)</strong></p>
+                    <p style="margin: 0;">Remaining: <strong>7,000 kg</strong></p>
+                    
+                    <!-- Progress Bar -->
+                    <div style="width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px; margin-top: 12px; overflow: hidden;">
+                        <div style="width: 65%; height: 100%; background: #2563eb; border-radius: 4px;"></div>
+                    </div>
+                    <p style="margin: 4px 0 0; font-size: 0.75rem; color: #64748b; text-align: right;">65% complete</p>
+                </div>
+                
+                <!-- Quality Info -->
+                <div style="background: #f0fdf4; padding: 12px 16px; border-radius: 6px; border: 1px solid #bbf7d0; margin-top: 12px;">
+                    <p style="margin: 0; font-size: 0.85rem; color: #166534;"><strong>Quality:</strong> Moisture 12.8%, Grade 1 — Accepted</p>
+                </div>
+                
+                <p style="font-size: 0.85rem; color: #64748b; margin-top: 16px;">— Kind Commodities Admin System</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<!-- TEMPLATE 4: TEST EMAIL -->
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<div class="template-section">
+    <span class="template-label">Template 4</span>
+    <div class="template-title">✅ Test Email</div>
+    <div class="template-desc">Sent when admin clicks "Send Test Email" in Settings → Email Alerts. Verifies SMTP connection is working.</div>
+    
+    <div class="email-frame">
+        <div class="email-meta">
+            <strong>From:</strong> Kind Commodities Ltd &lt;accounts@kindcommoditiesltd.com&gt;<br>
+            <strong>To:</strong> accounts@kindcommoditiesltd.com<br>
+            <strong>Subject:</strong> Test Email — Kind Commodities
+        </div>
+        <div style="font-family: Arial, sans-serif; color: #1e293b; max-width: 600px; padding: 32px;">
+            <div style="text-align: center; padding: 20px; background: #f0fdf4; border-radius: 8px; border: 1px solid #bbf7d0;">
+                <h2 style="color: #16a34a; margin: 0 0 8px;">✅ Email System Working</h2>
+                <p style="color: #64748b; margin: 0;">This is a test email from Kind Commodities Ltd admin system.</p>
+                <p style="color: #94a3b8; margin: 8px 0 0; font-size: 0.85rem;">Sent at: 18 Aug 2026 14:45:00</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="text-align: center; color: #94a3b8; font-size: 0.8rem; margin-top: 40px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
+    Kind Commodities Ltd — Email Notification Templates — Generated by Codebuff 🤖
+</div>
+
+</body>
+</html>
