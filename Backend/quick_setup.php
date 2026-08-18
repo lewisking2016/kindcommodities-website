@@ -92,6 +92,11 @@ run($pdo, "suppliers table", "CREATE TABLE IF NOT EXISTS suppliers (
 addColumnIfMissing($pdo, 'suppliers', 'contact_person', "VARCHAR(100) NULL");
 addColumnIfMissing($pdo, 'suppliers', 'address', "TEXT NULL");
 addColumnIfMissing($pdo, 'suppliers', 'updated_at', "TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+addColumnIfMissing($pdo, 'suppliers', 'location', "VARCHAR(100) NULL");
+addColumnIfMissing($pdo, 'suppliers', 'payment_terms', "VARCHAR(100) DEFAULT 'Cash on Delivery'");
+addColumnIfMissing($pdo, 'suppliers', 'rating', "TINYINT DEFAULT 5");
+addColumnIfMissing($pdo, 'suppliers', 'is_active', "TINYINT(1) DEFAULT 1");
+addColumnIfMissing($pdo, 'suppliers', 'notes', "TEXT NULL");
 
 run($pdo, "supplier_deliveries table", "CREATE TABLE IF NOT EXISTS supplier_deliveries (
     id INT AUTO_INCREMENT PRIMARY KEY,
