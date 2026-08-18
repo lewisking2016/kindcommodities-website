@@ -95,9 +95,9 @@ if (!in_array($tab, $validTabs, true)) $tab = 'ingredients';
 <?php endif; ?>
 
 <!-- Material Modal -->
-<div id="material-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:2000;align-items:center;justify-content:center;">
-    <div style="background:#fff;padding:32px;border-radius:12px;width:100%;max-width:520px;box-shadow:0 20px 40px rgba(0,0,0,0.15);">
-        <h3 id="material-modal-title" style="margin:0 0 22px;font-family:'Outfit',sans-serif;">Add Material</h3>
+<div id="material-modal" style="display:none;position:fixed;inset:0;background:rgba(15, 23, 42, 0.6);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:9999;overflow-y:auto;padding:40px 16px;">
+    <div style="background:#fff;padding:32px;border-radius:12px;width:100%;max-width:540px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);position:relative;margin:0 auto;">
+        <h3 id="material-modal-title" style="margin:0 0 22px;font-family:'Outfit',sans-serif;font-weight:700;color:var(--admin-text-heading);">Add Material</h3>
         <form id="material-form">
             <input type="hidden" id="m-id">
             <div class="admin-form-group"><label class="admin-form-label">Material Name *</label><input class="admin-form-control" id="m-name" required placeholder="e.g. Maize"></div>
@@ -135,9 +135,9 @@ if (!in_array($tab, $validTabs, true)) $tab = 'ingredients';
 </div>
 
 <!-- Movement Modal -->
-<div id="movement-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:2000;align-items:center;justify-content:center;">
-    <div style="background:#fff;padding:32px;border-radius:12px;width:100%;max-width:520px;box-shadow:0 20px 40px rgba(0,0,0,0.15);">
-        <h3 style="margin:0 0 22px;font-family:'Outfit',sans-serif;">Record Stock Movement</h3>
+<div id="movement-modal" style="display:none;position:fixed;inset:0;background:rgba(15, 23, 42, 0.6);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:9999;overflow-y:auto;padding:40px 16px;">
+    <div style="background:#fff;padding:32px;border-radius:12px;width:100%;max-width:540px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);position:relative;margin:0 auto;">
+        <h3 style="margin:0 0 22px;font-family:'Outfit',sans-serif;font-weight:700;color:var(--admin-text-heading);">Record Stock Movement</h3>
         <form id="movement-form">
             <div class="admin-form-group"><label class="admin-form-label">Material *</label>
                 <select class="admin-form-control" id="mv-material" required></select>

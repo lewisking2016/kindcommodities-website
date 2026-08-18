@@ -460,10 +460,10 @@ if ($pdo) {
 </div>
 
 <!-- ========== ADD PRODUCT MODAL ========== -->
-<div id="add-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 9999; align-items: center; justify-content: center;">
-    <div style="background: #fff; border-radius: 4px; width: 100%; max-width: 560px; padding: 32px; box-shadow: 0 24px 48px rgba(0,0,0,0.15); position: relative;">
-        <button onclick="document.getElementById('add-modal').style.display='none'" style="position: absolute; top: 16px; right: 16px; background: none; border: none; cursor: pointer; color: #94a3b8; font-size: 1.2rem;">✕</button>
-        <h3 style="margin: 0 0 24px 0; font-family: 'Outfit', sans-serif; font-size: 1.25rem; color: var(--admin-text-heading);">Add New Product</h3>
+<div id="add-modal" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 9999; overflow-y: auto; padding: 40px 16px;">
+    <div style="background: #fff; border-radius: 12px; width: 100%; max-width: 640px; padding: 32px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); position: relative; margin: 0 auto;">
+        <button onclick="document.getElementById('add-modal').style.display='none'" style="position: absolute; top: 20px; right: 20px; background: none; border: none; cursor: pointer; color: #94a3b8; font-size: 1.4rem; transition: color 0.2s;" onmouseover="this.style.color='#64748b'" onmouseout="this.style.color='#94a3b8'">✕</button>
+        <h3 style="margin: 0 0 24px 0; font-family: 'Outfit', sans-serif; font-size: 1.35rem; color: var(--admin-text-heading); font-weight: 700;">Add New Product</h3>
         <form method="POST" enctype="multipart/form-data">
             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
             <input type="hidden" name="action" value="add_product">
@@ -546,10 +546,10 @@ if ($pdo) {
 </div>
 
 <!-- ========== EDIT PRODUCT MODAL ========== -->
-<div id="edit-modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 9999; align-items: center; justify-content: center;">
-    <div style="background: #fff; border-radius: 4px; width: 100%; max-width: 560px; padding: 32px; box-shadow: 0 24px 48px rgba(0,0,0,0.15); position: relative;">
-        <button onclick="document.getElementById('edit-modal').style.display='none'" style="position: absolute; top: 16px; right: 16px; background: none; border: none; cursor: pointer; color: #94a3b8; font-size: 1.2rem;">✕</button>
-        <h3 style="margin: 0 0 24px 0; font-family: 'Outfit', sans-serif; font-size: 1.25rem; color: var(--admin-text-heading);">Edit Product</h3>
+<div id="edit-modal" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 9999; overflow-y: auto; padding: 40px 16px;">
+    <div style="background: #fff; border-radius: 12px; width: 100%; max-width: 640px; padding: 32px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); position: relative; margin: 0 auto;">
+        <button onclick="document.getElementById('edit-modal').style.display='none'" style="position: absolute; top: 20px; right: 20px; background: none; border: none; cursor: pointer; color: #94a3b8; font-size: 1.4rem; transition: color 0.2s;" onmouseover="this.style.color='#64748b'" onmouseout="this.style.color='#94a3b8'">✕</button>
+        <h3 style="margin: 0 0 24px 0; font-family: 'Outfit', sans-serif; font-size: 1.35rem; color: var(--admin-text-heading); font-weight: 700;">Edit Product</h3>
         <form method="POST" enctype="multipart/form-data">
             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
             <input type="hidden" name="action" value="edit_product">
@@ -595,7 +595,7 @@ if ($pdo) {
                 </div>
                 <div class="admin-form-group">
                     <label class="admin-form-label">Link Raw Material (For Direct Sale)</label>
-                    <select name="raw_material_id" id="edit-raw-material-id" class="form-control" style="width:100%; height:42px;">
+                    <select name="raw_material_id" id="edit-raw-material-id" class="admin-form-control" style="width:100%; height:42px;">
                         <option value="">None (Not a raw material)</option>
                         <?php foreach ($raw_materials_list as $rm): ?>
                             <option value="<?php echo $rm['id']; ?>"><?php echo htmlspecialchars($rm['name']); ?></option>
