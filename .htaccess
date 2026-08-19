@@ -8,6 +8,9 @@ RewriteEngine On
 RewriteRule ^Backend/config/ - [F,L]
 RewriteRule ^Backend/includes/ - [F,L]
 
+# Serve favicon from Frontend images directory (avoids PHP overhead / 404)
+RewriteRule ^favicon\.ico$ /Frontend/images/Kind Commodities Ltd Logo_Final_favicon.png [L]
+
 # Admin access through kindadmin (security through obscurity)
 RewriteRule ^kindadmin/?$ Frontend/admin/login.php [L]
 
@@ -41,9 +44,6 @@ RewriteRule ^checkout$ Frontend/pages/checkout.php [L]
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^services$ Frontend/pages/services.php [L]
-
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
