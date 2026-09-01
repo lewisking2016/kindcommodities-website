@@ -250,12 +250,154 @@ async function loadOrders() {
                 <td><strong>KES ${parseFloat(p.total_amount).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}</strong></td>
                 <td><span class="badge-pill ${sc}">${p.status}</span></td>
                 <td>
-                    ${p.status!=='received'&&p.status!=='cancelled'?`<button class="btn btn-success btn-sm" onclick="receivePo(${p.id})"><i data-lucide="package" style="width:13px;height:13px;"></i> Receive</button>`:''}
+                    <div style="display:flex;gap:6px;align-items:center;">
+                        <button class="btn btn-info btn-sm" onclick="viewPo(${p.id})" title="View / Print PO"><i data-lucide="eye" style="width:13px;height:13px;"></i></button>
+                        ${p.status!=='received'&&p.status!=='cancelled'?`<button class="btn btn-success btn-sm" onclick="receivePo(${p.id})" title="Mark Received"><i data-lucide="package" style="width:13px;height:13px;"></i> Receive</button>`:''}
+                    </div>
                 </td>
             </tr>`;
         }).join('');
         if (typeof lucide !== 'undefined') lucide.createIcons();
     } catch (e) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:#dc2626;">Network error</td></tr>'; }
+}
+
+async function viewPo(id) {
+    try {
+        const res = await fetch('/Backend/api/admin_business.php?action=get_purchase_order&id=' + id);
+        const r = await res.json();
+        if (!r.success || !r.data) { alert(r.message || 'Could not load PO details'); return; }
+        const p = r.data;
+        
+        let rowIdx = 0;
+        const rows = (p.items || []).map(it => {
+            rowIdx++;
+            const bg = rowIdx % 2 === 1 ? '#ffffff' : '#f8fafc';
+            const price = parseFloat(it.unit_price || 0);
+            const qty = parseFloat(it.quantity || 0);
+            const lineTot = parseFloat(it.line_total || (price * qty));
+            return `<tr style="background:${bg};">
+                <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;font-size:0.88rem;color:#64748b;">${rowIdx}</td>
+                <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;font-size:0.88rem;font-weight:600;color:#0f172a;">${escapeHtml(it.material_name || 'Raw Material')}</td>
+                <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;font-size:0.88rem;text-align:right;color:#0f172a;">${qty.toLocaleString(undefined,{minimumFractionDigits:2})}</td>
+                <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;font-size:0.85rem;text-align:center;color:#64748b;">${escapeHtml(it.unit || 'kg')}</td>
+                <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;font-size:0.88rem;text-align:right;color:#0f172a;">${price.toLocaleString(undefined,{minimumFractionDigits:2})}</td>
+                <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;font-size:0.88rem;text-align:right;font-weight:700;color:#0f172a;">${lineTot.toLocaleString(undefined,{minimumFractionDigits:2})}</td>
+            </tr>`;
+        }).join('');
+
+        const sc = p.status==='received'?'badge-pill-success':(p.status==='cancelled'?'badge-pill-danger':(p.status==='draft'?'badge-pill-info':'badge-pill-warning'));
+
+        document.getElementById('po-preview-body').innerHTML = `
+            <div id="printable-po" style="font-family:'Inter',sans-serif;color:#0f172a;max-width:760px;margin:0 auto;background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.05);">
+                <!-- Header Banner -->
+                <div style="background:#1E3A5F;padding:22px 28px;color:#ffffff;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #D97706;gap:20px;flex-wrap:wrap;">
+                    <div style="display:flex;align-items:center;gap:16px;">
+                        <?php $po_logo = function_exists('getSetting') ? getSetting('header_logo', '/Frontend/images/header logo.jpeg') : '/Frontend/images/header logo.jpeg'; ?>
+                        <div style="background:#ffffff;padding:6px 10px;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                            <img src="<?php echo htmlspecialchars($po_logo, ENT_QUOTES, 'UTF-8'); ?>" style="height:44px;max-width:140px;object-fit:contain;" alt="Logo" onerror="this.parentElement.style.display='none'">
+                        </div>
+                        <div>
+                            <h2 style="margin:0;font-family:'Outfit',sans-serif;font-weight:800;font-size:1.35rem;color:#ffffff;letter-spacing:-0.02em;">Kind Commodities Ltd</h2>
+                            <div style="font-size:0.82rem;color:#cbd5e1;margin-top:2px;">Quality Agricultural Commodities &amp; Farm Management</div>
+                            <div style="font-size:0.78rem;color:#94a3b8;margin-top:4px;">
+                                <span>Tel: +254 700 000 000</span> &bull; 
+                                <span>Email: info@kindcommoditiesltd.com</span> &bull; 
+                                <span>Kenya</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="padding:28px;">
+                    <!-- Symmetrical 2-Column Info Grid -->
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;">
+                        <!-- Left: Supplier -->
+                        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;">
+                            <div>
+                                <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.06em;color:#1E3A5F;text-transform:uppercase;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #e2e8f0;">VENDOR / SUPPLIER</div>
+                                <div style="font-size:1.05rem;font-weight:700;color:#0f172a;margin-bottom:6px;">${escapeHtml(p.supplier_name || 'Supplier')}</div>
+                                ${p.supplier_phone ? '<div style="font-size:0.85rem;color:#475569;margin-bottom:3px;"><strong style="color:#64748b;font-weight:500;">Phone:</strong> ' + escapeHtml(p.supplier_phone) + '</div>' : ''}
+                                ${p.supplier_email ? '<div style="font-size:0.85rem;color:#475569;margin-bottom:3px;"><strong style="color:#64748b;font-weight:500;">Email:</strong> ' + escapeHtml(p.supplier_email) + '</div>' : ''}
+                                ${p.supplier_address ? '<div style="font-size:0.85rem;color:#475569;margin-top:3px;"><strong style="color:#64748b;font-weight:500;">Address:</strong> ' + escapeHtml(p.supplier_address) + '</div>' : ''}
+                            </div>
+                        </div>
+
+                        <!-- Right: PO Details -->
+                        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px 18px;text-align:right;display:flex;flex-direction:column;justify-content:space-between;">
+                            <div>
+                                <div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:1.3rem;color:#1E3A5F;letter-spacing:0.04em;">PURCHASE ORDER</div>
+                                <div style="font-size:0.95rem;font-weight:700;color:#0f172a;margin-top:2px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #e2e8f0;">#${escapeHtml(p.po_number)}</div>
+                                
+                                <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:#475569;margin-bottom:4px;">
+                                    <span style="color:#64748b;">Order Date:</span>
+                                    <strong style="color:#0f172a;">${p.order_date}</strong>
+                                </div>
+                                <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:#475569;margin-bottom:4px;">
+                                    <span style="color:#64748b;">Expected Delivery:</span>
+                                    <strong style="color:#0f172a;">${p.expected_delivery || '—'}</strong>
+                                </div>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:6px;border-top:1px dashed #e2e8f0;">
+                                <span style="font-size:0.82rem;color:#64748b;">Status:</span>
+                                <span class="badge-pill ${sc}" style="text-transform:uppercase;font-weight:700;font-size:0.75rem;padding:4px 10px;">${escapeHtml(p.status)}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Items Table -->
+                    <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:6px;overflow:hidden;margin-bottom:20px;">
+                        <thead>
+                            <tr style="background:#1E3A5F;color:#ffffff;">
+                                <th style="padding:10px 12px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;text-align:left;width:35px;">#</th>
+                                <th style="padding:10px 12px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;text-align:left;">Material / Description</th>
+                                <th style="padding:10px 12px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;text-align:right;width:75px;">Qty</th>
+                                <th style="padding:10px 12px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;text-align:center;width:75px;">Unit</th>
+                                <th style="padding:10px 12px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;text-align:right;width:110px;">Unit Price</th>
+                                <th style="padding:10px 12px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;text-align:right;width:120px;">Line Total (KES)</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rows || '<tr><td colspan="6" style="text-align:center;padding:16px;color:#94a3b8;">No items</td></tr>'}</tbody>
+                    </table>
+
+                    <!-- Totals & Notes -->
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;margin-bottom:20px;">
+                        <div style="flex:1;min-width:260px;">
+                            ${p.notes ? `
+                            <div style="background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;padding:14px 16px;font-size:0.85rem;color:#78350F;">
+                                <div style="font-weight:700;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.05em;color:#92400E;margin-bottom:6px;">Purchase Order Notes / Instructions</div>
+                                <div style="white-space:pre-wrap;line-height:1.45;">${escapeHtml(p.notes)}</div>
+                            </div>` : ''}
+                        </div>
+                        
+                        <div style="width:280px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px;">
+                            <div style="display:flex;justify-content:space-between;font-size:0.88rem;color:#475569;margin-bottom:8px;">
+                                <span>Subtotal:</span>
+                                <strong style="color:#0f172a;">KES ${parseFloat(p.total_amount || 0).toLocaleString(undefined,{minimumFractionDigits:2})}</strong>
+                            </div>
+                            <div style="background:#1E3A5F;color:#ffffff;margin:-4px -16px -16px -16px;padding:12px 16px;border-bottom-left-radius:7px;border-bottom-right-radius:7px;display:flex;justify-content:space-between;align-items:center;margin-top:12px;">
+                                <span style="font-weight:700;font-size:0.9rem;letter-spacing:0.04em;">TOTAL ORDER VALUE</span>
+                                <span style="font-family:'Outfit',sans-serif;font-weight:800;font-size:1.25rem;color:#ffffff;">KES ${parseFloat(p.total_amount || 0).toLocaleString(undefined,{minimumFractionDigits:2})}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer / Signoff -->
+                    <div style="border-top:1px solid #e2e8f0;padding-top:18px;margin-top:16px;display:flex;justify-content:space-between;align-items:flex-end;font-size:0.8rem;color:#64748b;">
+                        <div>
+                            <div style="border-bottom:1px solid #cbd5e1;width:180px;margin-bottom:6px;"></div>
+                            <div>Authorized Purchasing Officer</div>
+                            <div style="margin-top:4px;font-size:0.75rem;">Kind Commodities Ltd Procurement Department</div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div>Generated on ${new Date().toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'})}</div>
+                            <div style="font-size:0.75rem;color:#94a3b8;margin-top:2px;">Kind Commodities Management System</div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+        document.getElementById('view-po-modal').style.display = 'flex';
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    } catch (e) { alert('Failed to load purchase order details'); }
 }
 
 async function receivePo(id) {
@@ -328,6 +470,62 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currentTab === 'suppliers') { loadSuppliersTable(); loadSuppliers(); }
     if (typeof lucide !== 'undefined') lucide.createIcons();
 });
+
+document.addEventListener('click', e => {
+    const m = document.getElementById('view-po-modal');
+    if (m && e.target === m) m.style.display = 'none';
+});
 </script>
 
-<?php include __DIR__ . '/includes/admin_footer.php';
+<!-- View Purchase Order Modal -->
+<div id="view-po-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:2000;align-items:center;justify-content:center;overflow-y:auto;">
+    <div style="background:#fff;border-radius:12px;width:100%;max-width:820px;box-shadow:0 20px 40px rgba(0,0,0,0.15);max-height:92vh;overflow-y:auto;margin:20px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 22px;border-bottom:1px solid var(--admin-border);position:sticky;top:0;background:#fff;z-index:5;">
+            <h3 style="margin:0;font-family:'Outfit',sans-serif;font-size:1.05rem;">Purchase Order Document</h3>
+            <div style="display:flex;gap:8px;">
+                <button class="btn btn-primary btn-sm" onclick="window.print()"><i data-lucide="printer" style="width:14px;height:14px;"></i> Print PO</button>
+                <button class="btn btn-outline btn-sm" onclick="document.getElementById('view-po-modal').style.display='none'">Close</button>
+            </div>
+        </div>
+        <div id="po-preview-body" style="padding:28px;"></div>
+    </div>
+</div>
+
+<style>
+@media print {
+    body * { visibility: hidden !important; }
+    #view-po-modal, #view-po-modal > div, #po-preview-body, #printable-po, #printable-po * { visibility: visible !important; }
+    #view-po-modal {
+        display: block !important;
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        background: #ffffff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        z-index: 99999 !important;
+    }
+    #view-po-modal > div {
+        max-width: 100% !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+    }
+    #view-po-modal > div > div:first-child { display: none !important; }
+    #po-preview-body { padding: 0 !important; }
+    #printable-po {
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+}
+</style>
+
+<?php include __DIR__ . '/includes/admin_footer.php'; ?>

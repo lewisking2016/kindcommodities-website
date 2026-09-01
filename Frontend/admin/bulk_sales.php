@@ -263,8 +263,11 @@ async function loadBulkSales() {
                 <td style="color:${s.balance>0?'#dc2626':'#3E8A3A'};">KES ${parseFloat(s.balance).toFixed(2)}</td>
                 <td><span class="badge-pill ${statusBadge}">${s.payment_status}</span><br><small style="color:#64748b;">${s.payment_method}</small></td>
                 <td>
-                    <button class="btn btn-trans btn-sm" onclick='openBulkSaleModal(${JSON.stringify(s)})'><i data-lucide="pencil" style="width:13px;height:13px;"></i></button>
-                    <button class="btn btn-danger btn-sm" onclick="deleteBulkSale(${s.id})"><i data-lucide="trash-2" style="width:13px;height:13px;"></i></button>
+                    <div style="display:flex;gap:6px;align-items:center;">
+                        <button class="btn btn-info btn-sm" onclick='viewBulkSale(${JSON.stringify(s)})' title="View / Print Receipt"><i data-lucide="eye" style="width:13px;height:13px;"></i></button>
+                        <button class="btn btn-trans btn-sm" onclick='openBulkSaleModal(${JSON.stringify(s)})' title="Edit"><i data-lucide="pencil" style="width:13px;height:13px;"></i></button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteBulkSale(${s.id})" title="Delete"><i data-lucide="trash-2" style="width:13px;height:13px;"></i></button>
+                    </div>
                 </td>
             </tr>`;
         }).join('');
@@ -273,6 +276,139 @@ async function loadBulkSales() {
         tbody.innerHTML = '<tr><td colspan="11" style="text-align:center;color:#dc2626;">Network error</td></tr>';
     }
 }
+
+function viewBulkSale(s) {
+    const total = parseFloat(s.total_amount || 0);
+    const paid = parseFloat(s.amount_paid || 0);
+    const bal = parseFloat(s.balance || (total - paid));
+    const qty = parseFloat(s.quantity || 0);
+    const price = parseFloat(s.unit_price || 0);
+
+    const statusBadge = s.payment_status==='paid'?'badge-pill-success':(s.payment_status==='partial'?'badge-pill-warning':(s.payment_status==='pending'?'badge-pill-info':'badge-pill-danger'));
+
+    document.getElementById('bulk-preview-body').innerHTML = `
+        <div id="printable-bulk-sale" style="font-family:'Inter',sans-serif;color:#0f172a;max-width:760px;margin:0 auto;background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.05);">
+            <!-- Header Banner -->
+            <div style="background:#1E3A5F;padding:22px 28px;color:#ffffff;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #D97706;gap:20px;flex-wrap:wrap;">
+                <div style="display:flex;align-items:center;gap:16px;">
+                    <?php $bs_logo = function_exists('getSetting') ? getSetting('header_logo', '/Frontend/images/header logo.jpeg') : '/Frontend/images/header logo.jpeg'; ?>
+                    <div style="background:#ffffff;padding:6px 10px;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                        <img src="<?php echo htmlspecialchars($bs_logo, ENT_QUOTES, 'UTF-8'); ?>" style="height:44px;max-width:140px;object-fit:contain;" alt="Logo" onerror="this.parentElement.style.display='none'">
+                    </div>
+                    <div>
+                        <h2 style="margin:0;font-family:'Outfit',sans-serif;font-weight:800;font-size:1.35rem;color:#ffffff;letter-spacing:-0.02em;">Kind Commodities Ltd</h2>
+                        <div style="font-size:0.82rem;color:#cbd5e1;margin-top:2px;">Farm Gate &amp; Wholesale Commodities Sales</div>
+                        <div style="font-size:0.78rem;color:#94a3b8;margin-top:4px;">
+                            <span>Tel: +254 700 000 000</span> &bull; 
+                            <span>Email: info@kindcommoditiesltd.com</span> &bull; 
+                            <span>Kenya</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="padding:28px;">
+                <!-- Symmetrical 2-Column Info Grid -->
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;">
+                    <!-- Left: Customer -->
+                    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;">
+                        <div>
+                            <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.06em;color:#1E3A5F;text-transform:uppercase;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #e2e8f0;">CUSTOMER / BUYER</div>
+                            <div style="font-size:1.05rem;font-weight:700;color:#0f172a;margin-bottom:6px;">${escapeHtml(s.customer_name || 'Cash Customer')}</div>
+                            ${s.customer_phone ? '<div style="font-size:0.85rem;color:#475569;margin-bottom:3px;"><strong style="color:#64748b;font-weight:500;">Phone:</strong> ' + escapeHtml(s.customer_phone) + '</div>' : ''}
+                        </div>
+                    </div>
+
+                    <!-- Right: Receipt Meta -->
+                    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px 18px;text-align:right;display:flex;flex-direction:column;justify-content:space-between;">
+                        <div>
+                            <div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:1.25rem;color:#1E3A5F;letter-spacing:0.04em;">SALES RECEIPT</div>
+                            <div style="font-size:0.95rem;font-weight:700;color:#0f172a;margin-top:2px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #e2e8f0;">#${escapeHtml(s.sale_number)}</div>
+                            
+                            <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:#475569;margin-bottom:4px;">
+                                <span style="color:#64748b;">Sale Date:</span>
+                                <strong style="color:#0f172a;">${s.sale_date}</strong>
+                            </div>
+                            <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:#475569;margin-bottom:4px;">
+                                <span style="color:#64748b;">Payment Method:</span>
+                                <strong style="color:#0f172a;">${escapeHtml(s.payment_method || 'Cash')}</strong>
+                            </div>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:6px;border-top:1px dashed #e2e8f0;">
+                            <span style="font-size:0.82rem;color:#64748b;">Payment Status:</span>
+                            <span class="badge-pill ${statusBadge}" style="text-transform:uppercase;font-weight:700;font-size:0.75rem;padding:4px 10px;">${escapeHtml(s.payment_status)}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Goods Table -->
+                <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:6px;overflow:hidden;margin-bottom:20px;">
+                    <thead>
+                        <tr style="background:#1E3A5F;color:#ffffff;">
+                            <th style="padding:10px 12px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;text-align:left;width:40px;">#</th>
+                            <th style="padding:10px 12px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;text-align:left;">Product / Description</th>
+                            <th style="padding:10px 12px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;text-align:right;width:90px;">Quantity</th>
+                            <th style="padding:10px 12px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;text-align:right;width:110px;">Unit Price</th>
+                            <th style="padding:10px 12px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;text-align:right;width:130px;">Amount (KES)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background:#ffffff;">
+                            <td style="padding:12px;border-bottom:1px solid #e2e8f0;font-size:0.88rem;color:#64748b;">1</td>
+                            <td style="padding:12px;border-bottom:1px solid #e2e8f0;font-size:0.95rem;font-weight:600;color:#0f172a;">${escapeHtml(s.product_type)}</td>
+                            <td style="padding:12px;border-bottom:1px solid #e2e8f0;font-size:0.9rem;text-align:right;color:#0f172a;">${qty.toLocaleString(undefined,{minimumFractionDigits:2})} ${escapeHtml(s.unit || 'units')}</td>
+                            <td style="padding:12px;border-bottom:1px solid #e2e8f0;font-size:0.9rem;text-align:right;color:#0f172a;">${price.toLocaleString(undefined,{minimumFractionDigits:2})}</td>
+                            <td style="padding:12px;border-bottom:1px solid #e2e8f0;font-size:0.95rem;text-align:right;font-weight:700;color:#0f172a;">${total.toLocaleString(undefined,{minimumFractionDigits:2})}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Summary Breakdown -->
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;margin-bottom:20px;">
+                    <div style="flex:1;min-width:260px;">
+                        ${s.notes ? `
+                        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:14px;font-size:0.85rem;color:#334155;">
+                            <div style="font-weight:700;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.05em;color:#1E3A5F;margin-bottom:4px;">Notes / Remarks</div>
+                            <div style="white-space:pre-wrap;line-height:1.45;">${escapeHtml(s.notes)}</div>
+                        </div>` : ''}
+                    </div>
+
+                    <div style="width:280px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px;">
+                        <div style="display:flex;justify-content:space-between;font-size:0.88rem;color:#475569;margin-bottom:6px;">
+                            <span>Total Amount:</span>
+                            <strong style="color:#0f172a;">KES ${total.toLocaleString(undefined,{minimumFractionDigits:2})}</strong>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;font-size:0.88rem;color:#16a34a;margin-bottom:8px;">
+                            <span>Amount Paid:</span>
+                            <strong>KES ${paid.toLocaleString(undefined,{minimumFractionDigits:2})}</strong>
+                        </div>
+                        <div style="background:#1E3A5F;color:#ffffff;margin:-4px -16px -16px -16px;padding:12px 16px;border-bottom-left-radius:7px;border-bottom-right-radius:7px;display:flex;justify-content:space-between;align-items:center;margin-top:10px;">
+                            <span style="font-weight:700;font-size:0.9rem;letter-spacing:0.04em;">${bal > 0 ? 'BALANCE DUE' : 'TOTAL PAID'}</span>
+                            <span style="font-family:'Outfit',sans-serif;font-weight:800;font-size:1.25rem;color:#ffffff;">KES ${(bal > 0 ? bal : total).toLocaleString(undefined,{minimumFractionDigits:2})}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer / Signoff -->
+                <div style="border-top:1px solid #e2e8f0;padding-top:18px;margin-top:16px;display:flex;justify-content:space-between;align-items:flex-end;font-size:0.8rem;color:#64748b;">
+                    <div>
+                        <div>Thank you for doing business with Kind Commodities!</div>
+                        <div style="font-size:0.75rem;color:#94a3b8;margin-top:2px;">Tel: +254 700 000 000 &bull; info@kindcommoditiesltd.com</div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div>Issued on ${new Date().toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'})}</div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    document.getElementById('view-bulk-modal').style.display = 'flex';
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+document.addEventListener('click', e => {
+    const m = document.getElementById('view-bulk-modal');
+    if (m && e.target === m) m.style.display = 'none';
+});
 
 async function deleteBulkSale(id) {
     if (!confirm('Delete this sale?')) return;
@@ -325,4 +461,55 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-<?php include __DIR__ . '/includes/admin_footer.php';
+<!-- View Bulk Sale Modal -->
+<div id="view-bulk-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:2000;align-items:center;justify-content:center;overflow-y:auto;">
+    <div style="background:#fff;border-radius:12px;width:100%;max-width:820px;box-shadow:0 20px 40px rgba(0,0,0,0.15);max-height:92vh;overflow-y:auto;margin:20px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 22px;border-bottom:1px solid var(--admin-border);position:sticky;top:0;background:#fff;z-index:5;">
+            <h3 style="margin:0;font-family:'Outfit',sans-serif;font-size:1.05rem;">Bulk Sale Receipt</h3>
+            <div style="display:flex;gap:8px;">
+                <button class="btn btn-primary btn-sm" onclick="window.print()"><i data-lucide="printer" style="width:14px;height:14px;"></i> Print</button>
+                <button class="btn btn-outline btn-sm" onclick="document.getElementById('view-bulk-modal').style.display='none'">Close</button>
+            </div>
+        </div>
+        <div id="bulk-preview-body" style="padding:28px;"></div>
+    </div>
+</div>
+
+<style>
+@media print {
+    body * { visibility: hidden !important; }
+    #view-bulk-modal, #view-bulk-modal > div, #bulk-preview-body, #printable-bulk-sale, #printable-bulk-sale * { visibility: visible !important; }
+    #view-bulk-modal {
+        display: block !important;
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        background: #ffffff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        z-index: 99999 !important;
+    }
+    #view-bulk-modal > div {
+        max-width: 100% !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+    }
+    #view-bulk-modal > div > div:first-child { display: none !important; }
+    #bulk-preview-body { padding: 0 !important; }
+    #printable-bulk-sale {
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+}
+</style>
+
+<?php include __DIR__ . '/includes/admin_footer.php'; ?>

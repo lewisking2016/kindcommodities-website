@@ -349,57 +349,138 @@ async function viewDoc(id) {
     currentViewDoc = r.data;
     const d = r.data;
     const meta = typeMeta[d.doc_type] || {label: d.doc_type, plural: d.doc_type};
-    const rows = (d.items || []).map(it => `<tr>
-        <td style="padding:9px 8px;border-bottom:1px solid #e2e8f0;font-size:0.9rem;">${escapeHtml(it.description)}</td>
-        <td style="padding:9px 8px;border-bottom:1px solid #e2e8f0;font-size:0.9rem;text-align:center;">${parseFloat(it.quantity)} ${escapeHtml(it.unit)}</td>
-        <td style="padding:9px 8px;border-bottom:1px solid #e2e8f0;font-size:0.9rem;text-align:right;">${parseFloat(it.unit_price).toLocaleString(undefined,{minimumFractionDigits:2})}</td>
-        <td style="padding:9px 8px;border-bottom:1px solid #e2e8f0;font-size:0.9rem;text-align:right;font-weight:600;">${parseFloat(it.line_total).toLocaleString(undefined,{minimumFractionDigits:2})}</td>
-    </tr>`).join('');
+    
+    let rowIndex = 0;
+    const rows = (d.items || []).map(it => {
+        rowIndex++;
+        const bg = rowIndex % 2 === 1 ? '#ffffff' : '#f8fafc';
+        return `<tr style="background:${bg};">
+            <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;font-size:0.88rem;color:#64748b;">${rowIndex}</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;font-size:0.88rem;font-weight:500;color:#0f172a;">${escapeHtml(it.description)}</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;font-size:0.88rem;text-align:right;color:#0f172a;">${parseFloat(it.quantity).toLocaleString(undefined,{minimumFractionDigits:2})}</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;font-size:0.85rem;text-align:center;color:#64748b;">${escapeHtml(it.unit || 'pcs')}</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;font-size:0.88rem;text-align:right;color:#0f172a;">${parseFloat(it.unit_price).toLocaleString(undefined,{minimumFractionDigits:2})}</td>
+            <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;font-size:0.88rem;text-align:right;font-weight:700;color:#0f172a;">${parseFloat(it.line_total).toLocaleString(undefined,{minimumFractionDigits:2})}</td>
+        </tr>`;
+    }).join('');
+
     document.getElementById('doc-preview').innerHTML = `
-        <div id="printable-doc">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;">
-                <div style="display:flex;align-items:center;gap:10px;">
+        <div id="printable-doc" style="font-family:'Inter',sans-serif;color:#0f172a;max-width:760px;margin:0 auto;background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.05);">
+            <!-- Header Banner -->
+            <div style="background:#1E3A5F;padding:22px 28px;color:#ffffff;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #D97706;gap:20px;flex-wrap:wrap;">
+                <div style="display:flex;align-items:center;gap:16px;">
                     <?php $lpo_logo = function_exists('getSetting') ? getSetting('header_logo', '/Frontend/images/header logo.jpeg') : '/Frontend/images/header logo.jpeg'; ?>
-                    <img src="<?php echo htmlspecialchars($lpo_logo, ENT_QUOTES, 'UTF-8'); ?>" style="height:42px;">
+                    <div style="background:#ffffff;padding:6px 10px;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                        <img src="<?php echo htmlspecialchars($lpo_logo, ENT_QUOTES, 'UTF-8'); ?>" style="height:44px;max-width:140px;object-fit:contain;" alt="Logo" onerror="this.parentElement.style.display='none'">
+                    </div>
                     <div>
-                        <div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:1.15rem;color:#0f172a;">Kind Commodities Ltd</div>
-                        <div style="font-size:0.78rem;color:#64748b;">Kenya &nbsp;•&nbsp; kindcommoditiesltd.com</div>
+                        <h2 style="margin:0;font-family:'Outfit',sans-serif;font-weight:800;font-size:1.35rem;color:#ffffff;letter-spacing:-0.02em;">Kind Commodities Ltd</h2>
+                        <div style="font-size:0.82rem;color:#cbd5e1;margin-top:2px;">Quality Agricultural Commodities &amp; Farm Management</div>
+                        <div style="font-size:0.78rem;color:#94a3b8;margin-top:4px;">
+                            <span>Tel: +254 700 000 000</span> &bull; 
+                            <span>Email: info@kindcommoditiesltd.com</span> &bull; 
+                            <span>Kenya</span>
+                        </div>
                     </div>
                 </div>
-                <div style="text-align:right;">
-                    <div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:1.05rem;color:var(--admin-primary);letter-spacing:0.08em;">${meta.label}</div>
-                    <div style="font-size:0.85rem;font-weight:700;color:#0f172a;margin-top:4px;">#${escapeHtml(d.doc_number)}</div>
-                </div>
             </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px;padding:16px;background:#f8fafc;border-radius:8px;font-size:0.85rem;">
-                <div><strong style="color:#0f172a;">Bill To</strong><br>${escapeHtml(d.customer_name)}<br>${escapeHtml(d.customer_phone||'')}${d.customer_phone && d.customer_email ? '<br>' : ''}${escapeHtml(d.customer_email||'')}<br>${escapeHtml(d.customer_address||'')}</div>
-                <div style="text-align:right;">
-                    <strong style="color:#0f172a;">Issue Date:</strong> ${d.issue_date}<br>
-                    <strong style="color:#0f172a;">Due Date:</strong> ${d.due_date || '—'}<br>
-                    <strong style="color:#0f172a;">Status:</strong> <span class="badge-pill ${statusPill[d.status]||'badge-pill-warning'}">${d.status}</span>
+
+            <div style="padding:28px;">
+                <!-- Symmetrical 2-Column Info Grid -->
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;">
+                    <!-- Left: Bill To -->
+                    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;">
+                        <div>
+                            <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.06em;color:#1E3A5F;text-transform:uppercase;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #e2e8f0;">BILL TO / RECIPIENT</div>
+                            <div style="font-size:1.05rem;font-weight:700;color:#0f172a;margin-bottom:6px;">${escapeHtml(d.customer_name)}</div>
+                            ${d.customer_phone ? '<div style="font-size:0.85rem;color:#475569;margin-bottom:3px;"><strong style="color:#64748b;font-weight:500;">Phone:</strong> ' + escapeHtml(d.customer_phone) + '</div>' : ''}
+                            ${d.customer_email ? '<div style="font-size:0.85rem;color:#475569;margin-bottom:3px;"><strong style="color:#64748b;font-weight:500;">Email:</strong> ' + escapeHtml(d.customer_email) + '</div>' : ''}
+                            ${d.customer_address ? '<div style="font-size:0.85rem;color:#475569;margin-top:3px;"><strong style="color:#64748b;font-weight:500;">Address:</strong> ' + escapeHtml(d.customer_address) + '</div>' : ''}
+                        </div>
+                    </div>
+
+                    <!-- Right: Doc Details -->
+                    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px 18px;text-align:right;display:flex;flex-direction:column;justify-content:space-between;">
+                        <div>
+                            <div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:1.3rem;color:#1E3A5F;letter-spacing:0.04em;">${meta.label}</div>
+                            <div style="font-size:0.95rem;font-weight:700;color:#0f172a;margin-top:2px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #e2e8f0;">#${escapeHtml(d.doc_number)}</div>
+                            
+                            <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:#475569;margin-bottom:4px;">
+                                <span style="color:#64748b;">Issue Date:</span>
+                                <strong style="color:#0f172a;">${d.issue_date}</strong>
+                            </div>
+                            ${d.due_date ? `
+                            <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:#475569;margin-bottom:4px;">
+                                <span style="color:#64748b;">${d.doc_type==='quotation'?'Valid Until:':'Due Date:'}</span>
+                                <strong style="color:#0f172a;">${d.due_date}</strong>
+                            </div>` : ''}
+                        </div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:6px;border-top:1px dashed #e2e8f0;">
+                            <span style="font-size:0.82rem;color:#64748b;">Status:</span>
+                            <span class="badge-pill ${statusPill[d.status]||'badge-pill-warning'}" style="text-transform:uppercase;font-weight:700;font-size:0.75rem;padding:4px 10px;">${escapeHtml(d.status)}</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <table style="width:100%;border-collapse:collapse;margin-top:18px;">
-                <thead><tr style="background:#f1f5f9;">
-                    <th style="padding:10px 8px;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.04em;color:#475569;text-align:left;">Description</th>
-                    <th style="padding:10px 8px;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.04em;color:#475569;text-align:center;">Qty</th>
-                    <th style="padding:10px 8px;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.04em;color:#475569;text-align:right;">Unit Price</th>
-                    <th style="padding:10px 8px;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.04em;color:#475569;text-align:right;">Total</th>
-                </tr></thead>
-                <tbody>${rows}</tbody>
-            </table>
-            <div style="display:flex;justify-content:flex-end;margin-top:16px;">
-                <div style="width:280px;display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;font-size:0.9rem;">
-                    <span style="color:#64748b;">Subtotal</span><span style="text-align:right;">${parseFloat(d.subtotal).toLocaleString(undefined,{minimumFractionDigits:2})}</span>
-                    <span style="color:#64748b;">Tax (${parseFloat(d.tax_rate)}%)</span><span style="text-align:right;">${parseFloat(d.tax_amount).toLocaleString(undefined,{minimumFractionDigits:2})}</span>
-                    <span style="color:#64748b;">Discount</span><span style="text-align:right;">- ${parseFloat(d.discount).toLocaleString(undefined,{minimumFractionDigits:2})}</span>
-                    <span style="color:#0f172a;font-weight:700;border-top:1px solid #e2e8f0;padding-top:8px;">TOTAL</span><span style="text-align:right;font-weight:800;color:var(--admin-primary);font-size:1.1rem;border-top:1px solid #e2e8f0;padding-top:8px;">KES ${parseFloat(d.total_amount).toLocaleString(undefined,{minimumFractionDigits:2})}</span>
+
+                <!-- Items Table -->
+                <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:6px;overflow:hidden;margin-bottom:20px;">
+                    <thead>
+                        <tr style="background:#1E3A5F;color:#ffffff;">
+                            <th style="padding:10px 12px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;text-align:left;width:35px;">#</th>
+                            <th style="padding:10px 12px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;text-align:left;">Item Description</th>
+                            <th style="padding:10px 12px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;text-align:right;width:75px;">Qty</th>
+                            <th style="padding:10px 12px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;text-align:center;width:75px;">Unit</th>
+                            <th style="padding:10px 12px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;text-align:right;width:110px;">Unit Price</th>
+                            <th style="padding:10px 12px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;text-align:right;width:120px;">Amount (KES)</th>
+                        </tr>
+                    </thead>
+                    <tbody>${rows}</tbody>
+                </table>
+
+                <!-- Totals & Notes Block -->
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;margin-bottom:20px;">
+                    <div style="flex:1;min-width:260px;">
+                        ${d.notes ? `
+                        <div style="background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;padding:14px 16px;font-size:0.85rem;color:#78350F;">
+                            <div style="font-weight:700;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.05em;color:#92400E;margin-bottom:6px;">Terms &amp; Payment Notes</div>
+                            <div style="white-space:pre-wrap;line-height:1.45;">${escapeHtml(d.notes)}</div>
+                        </div>` : ''}
+                    </div>
+                    
+                    <div style="width:280px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px;">
+                        <div style="display:flex;justify-content:space-between;font-size:0.88rem;color:#475569;margin-bottom:8px;">
+                            <span>Subtotal:</span>
+                            <strong style="color:#0f172a;">KES ${parseFloat(d.subtotal).toLocaleString(undefined,{minimumFractionDigits:2})}</strong>
+                        </div>
+                        ${parseFloat(d.tax_rate) > 0 || parseFloat(d.tax_amount) > 0 ? `
+                        <div style="display:flex;justify-content:space-between;font-size:0.88rem;color:#475569;margin-bottom:8px;">
+                            <span>Tax (${parseFloat(d.tax_rate)}%):</span>
+                            <strong style="color:#0f172a;">KES ${parseFloat(d.tax_amount).toLocaleString(undefined,{minimumFractionDigits:2})}</strong>
+                        </div>` : ''}
+                        ${parseFloat(d.discount) > 0 ? `
+                        <div style="display:flex;justify-content:space-between;font-size:0.88rem;color:#475569;margin-bottom:8px;">
+                            <span>Discount:</span>
+                            <strong style="color:#dc2626;">- KES ${parseFloat(d.discount).toLocaleString(undefined,{minimumFractionDigits:2})}</strong>
+                        </div>` : ''}
+                        <div style="background:#1E3A5F;color:#ffffff;margin:-4px -16px -16px -16px;padding:12px 16px;border-bottom-left-radius:7px;border-bottom-right-radius:7px;display:flex;justify-content:space-between;align-items:center;margin-top:12px;">
+                            <span style="font-weight:700;font-size:0.9rem;letter-spacing:0.04em;">TOTAL DUE</span>
+                            <span style="font-family:'Outfit',sans-serif;font-weight:800;font-size:1.25rem;color:#ffffff;">KES ${parseFloat(d.total_amount).toLocaleString(undefined,{minimumFractionDigits:2})}</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            ${d.notes ? '<div style="margin-top:18px;padding:12px 14px;background:#F2F5EA;border:1px solid #D3E8B8;border-radius:8px;font-size:0.85rem;color:#2C6B31;"><strong>Notes / Terms:</strong> ' + escapeHtml(d.notes) + '</div>' : ''}
-            <div style="margin-top:26px;display:flex;justify-content:space-between;font-size:0.82rem;color:#64748b;">
-                <div>Prepared by: <span style="font-weight:600;color:#0f172a;">${escapeHtml(d.created_by_name || 'Admin')}</span></div>
-                <div>Generated on ${new Date().toLocaleDateString()}</div>
+
+                <!-- Footer / Signature -->
+                <div style="border-top:1px solid #e2e8f0;padding-top:18px;margin-top:16px;display:flex;justify-content:space-between;align-items:flex-end;font-size:0.8rem;color:#64748b;">
+                    <div>
+                        <div style="border-bottom:1px solid #cbd5e1;width:180px;margin-bottom:6px;"></div>
+                        <div>Authorized Signature / Stamp</div>
+                        <div style="margin-top:4px;font-size:0.75rem;">Prepared by: <strong style="color:#0f172a;">${escapeHtml(d.created_by_name || 'Admin')}</strong></div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div>Generated on ${new Date().toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'})}</div>
+                        <div style="font-size:0.75rem;color:#94a3b8;margin-top:2px;">Kind Commodities Management System</div>
+                    </div>
+                </div>
             </div>
         </div>`;
     document.getElementById('view-modal').style.display = 'flex';
@@ -414,7 +495,7 @@ document.addEventListener('click', e => {
 
 function downloadPdf(id) {
     if (!id) return;
-    window.location.href = '/Backend/api/lpo_pdf.php?id=' + id;
+    window.open('/Backend/api/lpo_pdf.php?id=' + id + '&inline=1', '_blank');
 }
 
 function escapeHtml(s){ if(s==null) return ''; return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]); }
@@ -426,10 +507,37 @@ document.addEventListener('DOMContentLoaded', () => { loadDocs(); if (typeof luc
 <style>
 @media print {
     body * { visibility: hidden !important; }
-    #view-modal, #printable-doc, #printable-doc * { visibility: visible !important; }
-    #view-modal { display: flex !important; position: static !important; background: #fff !important; }
-    #view-modal > div { max-width: 100% !important; box-shadow: none !important; margin: 0 !important; }
+    #view-modal, #view-modal > div, #doc-preview, #printable-doc, #printable-doc * { visibility: visible !important; }
+    #view-modal {
+        display: block !important;
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        background: #ffffff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        z-index: 99999 !important;
+    }
+    #view-modal > div {
+        max-width: 100% !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+    }
     #view-modal > div > div:first-child { display: none !important; }
+    #doc-preview { padding: 0 !important; }
+    #printable-doc {
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
 }
 </style>
 

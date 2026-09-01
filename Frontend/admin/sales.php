@@ -157,53 +157,174 @@ function renderInput(string $label, string $name, string $value = '', string $ty
 </div>
 
 <?php elseif ($action === 'view'): ?>
-<div class="admin-card">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-        <div>
-            <h3 style="margin:0;font-family:'Outfit',sans-serif;font-size:1.2rem;color:var(--admin-text-heading);">Order Details</h3>
-            <p style="margin:6px 0 0 0;color:#64748b;">Review customer sales order information.</p>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+    <div>
+        <h2 style="margin:0;font-family:'Outfit',sans-serif;font-size:1.5rem;color:var(--admin-text-heading);">Sales Order Invoice</h2>
+        <p style="margin:4px 0 0;font-size:0.9rem;color:#64748b;">Review and print customer order invoice / receipt.</p>
+    </div>
+    <div style="display:flex;gap:8px;">
+        <a href="/Frontend/admin/sales.php" class="btn btn-outline"><i data-lucide="arrow-left" style="width:14px;height:14px;"></i> Back to Sales</a>
+        <button class="btn btn-primary" onclick="window.print()"><i data-lucide="printer" style="width:14px;height:14px;"></i> Print Invoice</button>
+    </div>
+</div>
+
+<?php if ($selectedOrder): ?>
+<?php 
+    $statusClass = [
+        'completed' => 'badge-pill-success',
+        'paid' => 'badge-pill-success',
+        'shipped' => 'badge-pill-info',
+        'processing' => 'badge-pill-info',
+        'pending' => 'badge-pill-warning',
+        'cancelled' => 'badge-pill-danger'
+    ][$selectedOrder['status']] ?? 'badge-pill-warning';
+    $order_logo = function_exists('getSetting') ? getSetting('header_logo', '/Frontend/images/header logo.jpeg') : '/Frontend/images/header logo.jpeg';
+?>
+<div id="printable-sales-doc" style="font-family:'Inter',sans-serif;color:#0f172a;max-width:780px;margin:0 auto;background:#ffffff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.05);">
+    <!-- Header Banner -->
+    <div style="background:#1E3A5F;padding:22px 28px;color:#ffffff;display:flex;justify-content:space-between;align-items:center;border-bottom:3px solid #D97706;gap:20px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:16px;">
+            <div style="background:#ffffff;padding:6px 10px;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                <img src="<?php echo htmlspecialchars($order_logo, ENT_QUOTES, 'UTF-8'); ?>" style="height:44px;max-width:140px;object-fit:contain;" alt="Logo" onerror="this.parentElement.style.display='none'">
+            </div>
+            <div>
+                <h2 style="margin:0;font-family:'Outfit',sans-serif;font-weight:800;font-size:1.35rem;color:#ffffff;letter-spacing:-0.02em;">Kind Commodities Ltd</h2>
+                <div style="font-size:0.82rem;color:#cbd5e1;margin-top:2px;">Quality Agricultural Commodities &amp; Farm Management</div>
+                <div style="font-size:0.78rem;color:#94a3b8;margin-top:4px;">
+                    <span>Tel: +254 700 000 000</span> &bull; 
+                    <span>Email: info@kindcommoditiesltd.com</span> &bull; 
+                    <span>Kenya</span>
+                </div>
+            </div>
         </div>
-        <a href="/Frontend/admin/sales.php" class="btn btn-outline" style="border-radius:4px;">Back</a>
     </div>
-    <?php if ($selectedOrder): ?>
-    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-bottom:20px;">
-        <div><strong>Order #:</strong> <?php echo htmlspecialchars($selectedOrder['order_number'], ENT_QUOTES, 'UTF-8'); ?></div>
-        <div><strong>Status:</strong> <?php echo htmlspecialchars(ucfirst($selectedOrder['status']), ENT_QUOTES, 'UTF-8'); ?></div>
-        <div><strong>Customer:</strong> <?php echo htmlspecialchars($selectedOrder['username'] ?: 'Guest', ENT_QUOTES, 'UTF-8'); ?></div>
-        <div><strong>Email:</strong> <?php echo htmlspecialchars($selectedOrder['email'], ENT_QUOTES, 'UTF-8'); ?></div>
-        <div><strong>Total:</strong> KES <?php echo number_format((float)$selectedOrder['total_amount'], 2); ?></div>
-        <div><strong>Payment:</strong> <?php echo htmlspecialchars($selectedOrder['payment_method'], ENT_QUOTES, 'UTF-8'); ?></div>
-    </div>
-    <div class="table-responsive">
-        <table class="admin-table">
+
+    <div style="padding:28px;">
+        <!-- Symmetrical 2-Column Info Grid -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;">
+            <!-- Left: Customer Details -->
+            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;justify-content:space-between;">
+                <div>
+                    <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.06em;color:#1E3A5F;text-transform:uppercase;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #e2e8f0;">BILL TO / CUSTOMER</div>
+                    <div style="font-size:1.05rem;font-weight:700;color:#0f172a;margin-bottom:6px;"><?php echo htmlspecialchars($selectedOrder['username'] ?: 'Guest Customer', ENT_QUOTES, 'UTF-8'); ?></div>
+                    <div style="font-size:0.85rem;color:#475569;margin-bottom:3px;"><strong style="color:#64748b;font-weight:500;">Email:</strong> <?php echo htmlspecialchars($selectedOrder['email'] ?: '—', ENT_QUOTES, 'UTF-8'); ?></div>
+                    <?php if (!empty($selectedOrder['phone_contact'])): ?>
+                    <div style="font-size:0.85rem;color:#475569;margin-bottom:3px;"><strong style="color:#64748b;font-weight:500;">Phone:</strong> <?php echo htmlspecialchars($selectedOrder['phone_contact'], ENT_QUOTES, 'UTF-8'); ?></div>
+                    <?php endif; ?>
+                    <?php if (!empty($selectedOrder['shipping_address'])): ?>
+                    <div style="font-size:0.85rem;color:#475569;margin-top:3px;"><strong style="color:#64748b;font-weight:500;">Shipping Address:</strong> <?php echo htmlspecialchars($selectedOrder['shipping_address'], ENT_QUOTES, 'UTF-8'); ?></div>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <!-- Right: Order Details -->
+            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px 18px;text-align:right;display:flex;flex-direction:column;justify-content:space-between;">
+                <div>
+                    <div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:1.3rem;color:#1E3A5F;letter-spacing:0.04em;">SALES ORDER RECEIPT</div>
+                    <div style="font-size:0.95rem;font-weight:700;color:#0f172a;margin-top:2px;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #e2e8f0;">#<?php echo htmlspecialchars($selectedOrder['order_number'], ENT_QUOTES, 'UTF-8'); ?></div>
+                    
+                    <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:#475569;margin-bottom:4px;">
+                        <span style="color:#64748b;">Order Date:</span>
+                        <strong style="color:#0f172a;"><?php echo htmlspecialchars(date('d M Y, H:i', strtotime($selectedOrder['created_at'] ?? 'now')), ENT_QUOTES, 'UTF-8'); ?></strong>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;font-size:0.85rem;color:#475569;margin-bottom:4px;">
+                        <span style="color:#64748b;">Payment Method:</span>
+                        <strong style="color:#0f172a;"><?php echo htmlspecialchars($selectedOrder['payment_method'] ?: 'Standard', ENT_QUOTES, 'UTF-8'); ?></strong>
+                    </div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:6px;border-top:1px dashed #e2e8f0;">
+                    <span style="font-size:0.82rem;color:#64748b;">Status:</span>
+                    <span class="badge-pill <?php echo $statusClass; ?>" style="text-transform:uppercase;font-weight:700;font-size:0.75rem;padding:4px 10px;"><?php echo htmlspecialchars(ucfirst($selectedOrder['status']), ENT_QUOTES, 'UTF-8'); ?></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Items Table -->
+        <table style="width:100%;border-collapse:collapse;border:1px solid #e2e8f0;border-radius:6px;overflow:hidden;margin-bottom:20px;">
             <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Unit Price</th>
-                    <th>Total</th>
+                <tr style="background:#1E3A5F;color:#ffffff;">
+                    <th style="padding:10px 12px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;text-align:left;width:35px;">#</th>
+                    <th style="padding:10px 12px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;text-align:left;">Product / Item</th>
+                    <th style="padding:10px 12px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;text-align:right;width:80px;">Qty</th>
+                    <th style="padding:10px 12px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;text-align:right;width:120px;">Unit Price</th>
+                    <th style="padding:10px 12px;font-size:0.75rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;text-align:right;width:130px;">Amount (KES)</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (empty($selectedOrder['items'])): ?>
-                <tr><td colspan="4" style="text-align:center; padding: 20px; color: #64748b;">No products found for this order.</td></tr>
+                <tr><td colspan="5" style="text-align:center;padding:20px;color:#94a3b8;">No products found for this order.</td></tr>
                 <?php else: ?>
-                <?php foreach ($selectedOrder['items'] as $item): ?>
-                <tr>
-                    <td><?php echo htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?></td>
-                    <td><?php echo (int)$item['quantity']; ?></td>
-                    <td>KES <?php echo number_format((float)$item['price_at_purchase'], 2); ?></td>
-                    <td>KES <?php echo number_format((float)$item['quantity'] * (float)$item['price_at_purchase'], 2); ?></td>
+                <?php 
+                $rIdx = 0;
+                foreach ($selectedOrder['items'] as $item): 
+                    $rIdx++;
+                    $bg = $rIdx % 2 === 1 ? '#ffffff' : '#f8fafc';
+                    $lineTotal = (float)$item['quantity'] * (float)$item['price_at_purchase'];
+                ?>
+                <tr style="background:<?php echo $bg; ?>;">
+                    <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;font-size:0.88rem;color:#64748b;"><?php echo $rIdx; ?></td>
+                    <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;font-size:0.88rem;font-weight:600;color:#0f172a;"><?php echo htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;font-size:0.88rem;text-align:right;color:#0f172a;"><?php echo number_format((float)$item['quantity'], 2); ?></td>
+                    <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;font-size:0.88rem;text-align:right;color:#0f172a;"><?php echo number_format((float)$item['price_at_purchase'], 2); ?></td>
+                    <td style="padding:10px 12px;border-bottom:1px solid #e2e8f0;font-size:0.88rem;text-align:right;font-weight:700;color:#0f172a;"><?php echo number_format($lineTotal, 2); ?></td>
                 </tr>
                 <?php endforeach; ?>
                 <?php endif; ?>
             </tbody>
         </table>
+
+        <!-- Totals Block -->
+        <div style="display:flex;justify-content:flex-end;margin-bottom:20px;">
+            <div style="width:280px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px;">
+                <div style="display:flex;justify-content:space-between;font-size:0.88rem;color:#475569;margin-bottom:8px;">
+                    <span>Subtotal:</span>
+                    <strong style="color:#0f172a;">KES <?php echo number_format((float)$selectedOrder['total_amount'], 2); ?></strong>
+                </div>
+                <div style="background:#1E3A5F;color:#ffffff;margin:-4px -16px -16px -16px;padding:12px 16px;border-bottom-left-radius:7px;border-bottom-right-radius:7px;display:flex;justify-content:space-between;align-items:center;margin-top:12px;">
+                    <span style="font-weight:700;font-size:0.9rem;letter-spacing:0.04em;">TOTAL PAID / DUE</span>
+                    <span style="font-family:'Outfit',sans-serif;font-weight:800;font-size:1.25rem;color:#ffffff;">KES <?php echo number_format((float)$selectedOrder['total_amount'], 2); ?></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer / Signoff -->
+        <div style="border-top:1px solid #e2e8f0;padding-top:18px;margin-top:16px;display:flex;justify-content:space-between;align-items:flex-end;font-size:0.8rem;color:#64748b;">
+            <div>
+                <div>Thank you for your business!</div>
+                <div style="font-size:0.75rem;color:#94a3b8;margin-top:2px;">Kind Commodities Ltd &bull; Tel: +254 700 000 000 &bull; info@kindcommoditiesltd.com</div>
+            </div>
+            <div style="text-align:right;">
+                <div>Kind Commodities Management System</div>
+            </div>
+        </div>
     </div>
-    <?php else: ?>
-    <p style="color:#64748b;">Order not found.</p>
-    <?php endif; ?>
 </div>
+<?php else: ?>
+<p style="color:#64748b;">Order not found.</p>
+<?php endif; ?>
+
+<style>
+@media print {
+    body * { visibility: hidden !important; }
+    #printable-sales-doc, #printable-sales-doc * { visibility: visible !important; }
+    #printable-sales-doc {
+        display: block !important;
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+}
+</style>
+
 <?php endif; ?>
 
 <?php include __DIR__ . '/includes/admin_footer.php'; ?>

@@ -1,12 +1,14 @@
 <?php
 /**
- * LPO PDF — download a quotation / LPO / invoice as a real PDF file.
+ * LPO / Quotation / Invoice PDF Generator
+ * 
+ * Pure-PHP PDF writer (A4, Helvetica fonts, DCTDecode images) with zero
+ * external dependencies so it works seamlessly on all hosting environments.
+ * Renders professional executive-grade business documents with company logo,
+ * symmetrical metadata cards, crisp typography, clean line-item tables,
+ * financial totals, and terms/notes.
  *
- * Pure-PHP PDF writer (no composer, no external libraries) so it works on
- * shared hosting. Includes the farm logo and contact details (from App
- * Settings) so the document is presentable for customers.
- *
- * Usage: /Backend/api/lpo_pdf.php?id=DOC_ID
+ * Usage: /Backend/api/lpo_pdf.php?id=DOC_ID[&inline=1]
  */
 declare(strict_types=1);
 
@@ -39,23 +41,31 @@ if ($role !== 'super_admin') {
 $id = (int)($_GET['id'] ?? 0);
 if ($id <= 0) exit('Invalid document id');
 
-$stmt = $pdo->prepare('SELECT * FROM lpo_documents WHERE id=?');
+$stmt = $pdo->prepare('SELECT d.*, u.username AS created_by_name FROM lpo_documents d LEFT JOIN users u ON u.id=d.created_by WHERE d.id=?');
 $stmt->execute([$id]);
 $doc = $stmt->fetch(PDO::FETCH_ASSOC);
 if (!$doc) { http_response_code(404); exit('Document not found'); }
+
 $itemsStmt = $pdo->prepare('SELECT * FROM lpo_items WHERE doc_id=? ORDER BY id');
 $itemsStmt->execute([$id]);
 $items = $itemsStmt->fetchAll(PDO::FETCH_ASSOC);
 
-$farmName  = getSetting('farm_name', 'Kind Commodities Ltd');
-$farmEmail = getSetting('farm_email', 'info@kindcommoditiesltd.com');
-$farmPhone = getSetting('farm_phone', '+254 700 000 000');
-$farmAddr  = getSetting('farm_address', 'Kenya');
-$currency  = getSetting('currency', 'KES');
-$typeLabel = ['quotation' => 'QUOTATION', 'lpo' => 'LOCAL PURCHASE ORDER', 'invoice' => 'INVOICE'][$doc['doc_type']] ?? strtoupper($doc['doc_type']);
+$farmName    = getSetting('farm_name', 'Kind Commodities Ltd');
+$farmTagline = getSetting('farm_tagline', 'Quality Agricultural Commodities & Farm Management');
+$farmEmail   = getSetting('farm_email', 'info@kindcommoditiesltd.com');
+$farmPhone   = getSetting('farm_phone', '+254 700 000 000');
+$farmAddr    = getSetting('farm_address', 'Kenya');
+$currency    = getSetting('currency', 'KES');
+
+$typeLabelMap = [
+    'quotation' => 'QUOTATION',
+    'lpo'       => 'LOCAL PURCHASE ORDER',
+    'invoice'   => 'TAX INVOICE'
+];
+$typeLabel = $typeLabelMap[$doc['doc_type']] ?? strtoupper((string)$doc['doc_type']);
 
 /* ════════════════════════════════════════════════════════════════
-   Minimal pure-PHP PDF builder (A4, Helvetica core fonts)
+   Pure-PHP PDF helper functions & font metrics
    ════════════════════════════════════════════════════════════════ */
 
 /** Convert a UTF-8 string to PDF-literal-safe Windows-1252 bytes. */
@@ -82,341 +92,519 @@ function pdfWidth(string $s): float {
     return $len / 1000;
 }
 
+/** Wrap text into lines fitting within maxWidth points. Supports explicit newlines. */
 function pdfWrap(string $s, float $maxWidth, float $size = 9): array {
     $out = [];
-    $words = preg_split('/\s+/', trim($s)) ?: [];
-    $line = '';
-    foreach ($words as $word) {
-        $candidate = $line === '' ? $word : $line . ' ' . $word;
-        // pdfWidth() returns ems; convert to points with the font size.
-        if (pdfWidth($candidate) * $size <= $maxWidth || $line === '') {
-            $line = $candidate;
-        } else {
-            $out[] = $line;
-            $line = $word;
+    $paragraphs = explode("\n", str_replace(["\r\n", "\r"], "\n", $s));
+    foreach ($paragraphs as $p) {
+        $words = preg_split('/\s+/', trim($p)) ?: [];
+        if (empty($words) || (count($words) === 1 && $words[0] === '')) {
+            $out[] = '';
+            continue;
         }
+        $line = '';
+        foreach ($words as $word) {
+            $candidate = $line === '' ? $word : $line . ' ' . $word;
+            if (pdfWidth($candidate) * $size <= $maxWidth || $line === '') {
+                $line = $candidate;
+            } else {
+                $out[] = $line;
+                $line = $word;
+            }
+        }
+        if ($line !== '') $out[] = $line;
     }
-    if ($line !== '') $out[] = $line;
     return $out ?: [''];
 }
 
-/** Convert the farm logo PNG → JPEG composited onto the header band green
- *  (#396285) so a transparent PNG logo blends seamlessly with the band —
- *  no white box. If the logo is not a transparent PNG (e.g. the current
- *  JPG), this returns null and the PDF renders the band text-only. */
+function pdfDate(string $s): string {
+    $t = strtotime($s);
+    return $t ? date('d M Y', $t) : $s;
+}
+
+/**
+ * Load farm logo (PNG or JPEG) and composite onto a clean white canvas
+ * cached as JPEG for direct DCTDecode inclusion in PDF stream.
+ */
 function pdfLogoJpeg(): ?string {
     $logoSetting = function_exists('getSetting') ? getSetting('header_logo', '/Frontend/images/header logo.jpeg') : '/Frontend/images/header logo.jpeg';
-    $png = dirname(__DIR__, 2) . $logoSetting;
-    $cache = sys_get_temp_dir() . '/kind_logo_577.jpg';
-    if (!is_file($png) || !function_exists('imagecreatefrompng')) return null;
-    if (is_file($cache) && filemtime($cache) >= filemtime($png)) return $cache;
+    $possibleFiles = [
+        dirname(__DIR__, 2) . $logoSetting,
+        dirname(__DIR__, 2) . '/Frontend/images/Kind Commodities Ltd Logo_Final_FOOTER.png',
+        dirname(__DIR__, 2) . '/Frontend/images/header logo.jpeg',
+        dirname(__DIR__, 2) . '/Frontend/images/footerlogo.jpeg'
+    ];
+    
+    $srcFile = null;
+    foreach ($possibleFiles as $f) {
+        if (is_file($f)) { $srcFile = $f; break; }
+    }
+    if (!$srcFile) return null;
+    
+    $cache = sys_get_temp_dir() . '/kind_logo_pdf_v4.jpg';
+    if (is_file($cache) && filemtime($cache) >= filemtime($srcFile)) {
+        return $cache;
+    }
+    
+    if (!function_exists('imagecreatetruecolor')) {
+        return (strtolower(pathinfo($srcFile, PATHINFO_EXTENSION)) === 'jpg' || strtolower(pathinfo($srcFile, PATHINFO_EXTENSION)) === 'jpeg') ? $srcFile : null;
+    }
+    
     try {
-        $src = @imagecreatefrompng($png);
+        $ext = strtolower(pathinfo($srcFile, PATHINFO_EXTENSION));
+        if ($ext === 'png' && function_exists('imagecreatefrompng')) {
+            $src = @imagecreatefrompng($srcFile);
+        } elseif (($ext === 'jpg' || $ext === 'jpeg') && function_exists('imagecreatefromjpeg')) {
+            $src = @imagecreatefromjpeg($srcFile);
+        } else {
+            return null;
+        }
         if (!$src) return null;
-        $w = imagesx($src); $h = imagesy($src);
+        
+        $w = imagesx($src);
+        $h = imagesy($src);
+        
         $canvas = imagecreatetruecolor($w, $h);
+        $white = imagecolorallocate($canvas, 255, 255, 255);
+        imagefill($canvas, 0, 0, $white);
         imagealphablending($canvas, true);
-        imagesavealpha($canvas, false);
-        $green = imagecolorallocate($canvas, 57, 98, 133); // matches $green band
-        imagefill($canvas, 0, 0, $green);
         imagecopy($canvas, $src, 0, 0, 0, 0, $w, $h);
-        imagejpeg($canvas, $cache, 90);
-        imagedestroy($src); imagedestroy($canvas);
+        imagejpeg($canvas, $cache, 95);
+        imagedestroy($src);
+        imagedestroy($canvas);
         return $cache;
     } catch (Throwable $e) {
         return null;
     }
 }
 
+/* ════════════════════════════════════════════════════════════════
+   Minimal Pure-PHP PDF Builder (A4, Helvetica, DeviceRGB)
+   ════════════════════════════════════════════════════════════════ */
 $pdf = new class($doc, $items) {
-    public array $doc; public array $items;
-    public float $W = 595.28, $H = 841.89, $margin = 40;
+    public array $doc;
+    public array $items;
+    public float $W = 595.28, $H = 841.89, $margin = 38;
     public float $y;
-    public array $pages = [];     // ['ops' => string]
+    public array $pages = [];
     public int $pageNo = 0;
     public array $fonts = [];
-    public ?array $logo = null;   // ['file','w','h'] in px
+    public ?array $logo = null;
+    public array $images = [];
 
     public function __construct(array $doc, array $items) {
-        $this->doc = $doc; $this->items = $items;
+        $this->doc = $doc;
+        $this->items = $items;
         $this->newPage();
     }
-    public function op(string $s): void { $this->pages[$this->pageNo - 1]['ops'] .= $s . "\n"; }
-    public function newPage(): void {
-        $this->pages[] = ['ops' => ''];
-        $this->pageNo = count($this->pages);
-        $this->y = $this->margin; // top-down: content starts at the top margin
-    }
-    /** The y cursor is top-down and grows as content is drawn. Paginate when
-     *  the next block would cross the bottom margin (H - margin). */
-    public function ensure(float $h): void { if ($this->y + $h > $this->H - $this->margin) $this->newPage(); }
 
-    public function setFill(array $c): void { $this->op(sprintf('%.3f %.3f %.3f rg', $c[0], $c[1], $c[2])); }
-    public function rect(float $x, float $y, float $w, float $h, array $c): void {
-        $this->setFill($c);
-        $this->op(sprintf('%.2f %.2f %.2f %.2f re f', $x, $this->H - $y - $h, $w, $h));
+    public function op(string $s): void {
+        $this->pages[$this->pageNo - 1]['ops'] .= $s . "\n";
     }
+
+    public function newPage(): void {
+        $this->pages[] = ['ops' => '', 'footer' => []];
+        $this->pageNo = count($this->pages);
+        $this->y = $this->margin;
+    }
+
+    public function ensure(float $h): void {
+        if ($this->y + $h > $this->H - 52) {
+            $this->newPage();
+        }
+    }
+
+    public function setFill(array $c): void {
+        $this->op(sprintf('%.3f %.3f %.3f rg', $c[0], $c[1], $c[2]));
+    }
+
+    public function setStroke(array $c): void {
+        $this->op(sprintf('%.3f %.3f %.3f RG', $c[0], $c[1], $c[2]));
+    }
+
+    public function rect(float $x, float $y, float $w, float $h, array $fillColor, ?array $strokeColor = null, float $lw = 0.5): void {
+        $this->setFill($fillColor);
+        if ($strokeColor !== null) {
+            $this->setStroke($strokeColor);
+            $this->op(sprintf('%.2f w %.2f %.2f %.2f %.2f re B', $lw, $x, $this->H - $y - $h, $w, $h));
+        } else {
+            $this->op(sprintf('%.2f %.2f %.2f %.2f re f', $x, $this->H - $y - $h, $w, $h));
+        }
+    }
+
     public function line(float $x1, float $y1, float $x2, float $y2, float $lw, array $c): void {
-        $this->setFill($c);
+        $this->setStroke($c);
         $this->op(sprintf('%.2f w %.2f %.2f m %.2f %.2f l S', $lw, $x1, $this->H - $y1, $x2, $this->H - $y2));
     }
 
-    public function text(float $x, float $y, string $s, float $size = 9, string $font = 'F1', array $color = [0.12, 0.16, 0.24], string $align = 'left', float $maxWidth = 0): void {
+    /** Draw text at specified baseline position. */
+    public function text(float $x, float $baselineY, string $s, float $size = 9, string $font = 'F1', array $color = [0.12, 0.16, 0.24], string $align = 'left', float $maxWidth = 0): void {
         $fontRes = $this->fontRes($font);
         $this->setFill($color);
         $this->op('BT /' . $fontRes . ' ' . sprintf('%.1f', $size) . ' Tf');
-        if ($align !== 'left' || $maxWidth > 0) {
-            $txt = $s;
-            if ($maxWidth > 0) $txt = pdfWrap($s, $maxWidth, $size)[0];
-            $tw = pdfWidth($txt) * $size;
-            if ($align === 'right') $x -= $tw;
-            if ($align === 'center') $x -= $tw / 2;
-            $s = $txt;
+        $txt = $s;
+        if ($maxWidth > 0) {
+            $wrap = pdfWrap($s, $maxWidth, $size);
+            $txt = $wrap[0] ?? $s;
         }
-        $this->op(sprintf('%.2f %.2f Td (%s) Tj ET', $x, $this->H - $y, pdfText($s)));
+        $tw = pdfWidth($txt) * $size;
+        if ($align === 'right') $x -= $tw;
+        if ($align === 'center') $x -= ($tw / 2);
+        
+        $this->op(sprintf('%.2f %.2f Td (%s) Tj ET', $x, $this->H - $baselineY, pdfText($txt)));
     }
 
-    public function textWrap(float $x, float $y, string $s, float $size, float $maxWidth, string $font = 'F1', array $color = [0.12, 0.16, 0.24]): float {
-        $lines = pdfWrap($s, $maxWidth, $size);
-        $lh = $size * 1.35;
-        foreach ($lines as $i => $line) {
-            if ($i > 0) $this->ensure($lh);
-            $this->text($x, $y + $i * $lh, $line, $size, $font, $color, 'left');
-        }
-        return count($lines) * $lh;
+    /** Draw vertically-centered text inside a bounding box. */
+    public function textInBox(float $x, float $boxTop, float $boxHeight, string $s, float $size = 9, string $font = 'F1', array $color = [0.12, 0.16, 0.24], string $align = 'left', float $maxWidth = 0): void {
+        $baseline = $boxTop + ($boxHeight / 2) + ($size * 0.33);
+        $this->text($x, $baseline, $s, $size, $font, $color, $align, $maxWidth);
     }
 
     public function fontRes(string $name): string {
         $this->fonts[$name] = true;
-        static $map = ['F1' => 'F1', 'F2' => 'F2', 'F3' => 'F3', 'F4' => 'F4', 'F5' => 'F5'];
+        static $map = ['F1' => 'F1', 'F2' => 'F2', 'F3' => 'F3', 'F4' => 'F4'];
         return $map[$name] ?? 'F1';
     }
 };
 
-$G = $pdf; // short alias
+$G = $pdf;
 $logoPath = pdfLogoJpeg();
-if ($logoPath) {
+if ($logoPath && file_exists($logoPath)) {
     $info = @getimagesize($logoPath);
-    if ($info) { $G->logo = ['file' => $logoPath, 'w' => $info[0], 'h' => $info[1]]; }
-}
-$green  = [0.224, 0.384, 0.522];  // #396285 slate blue
-$greenD = [0.118, 0.216, 0.313];   // deep slate for the total bar
-$dark   = [0.07, 0.11, 0.17];      // #12202F near-black
-$gray   = [0.39, 0.43, 0.48];      // #64748B
-$amber  = [0.93, 0.76, 0.20];      // accent rule under the band
-$bgSoft = [0.965, 0.98, 0.99];     // #F8FAFC
-$white  = [1, 1, 1];
-
-/** Format an ISO date as "12 Aug 2026" (fall back to the raw value). */
-function pdfDate(string $s): string {
-    $t = strtotime($s);
-    return $t ? date('j M Y', $t) : $s;
-}
-
-/* ── Header band: logo + farm contact details on brand green ── */
-$bandH = 96;
-$G->rect(0, 0, $G->W, $bandH, $green);
-$G->line(0, $bandH, $G->W, $bandH, 3, $amber);
-
-$logoH = 60; $logoW = 0; $txtX = $G->margin;
-if ($G->logo) {
-    $logoW = $logoH * ($G->logo['w'] / $G->logo['h']);
-    $G->images[] = $G->logo;
-    $G->op(sprintf('q %.2f 0 0 %.2f %.2f %.2f cm /Im1 Do Q', $logoW, $logoH, $G->margin, $G->H - $bandH + 18));
-    $txtX = $G->margin + $logoW + 18;
-}
-$G->text($txtX, 28, $farmName, 18, 'F2', $white);
-$G->text($txtX, 52, $farmAddr, 9, 'F1', [0.90, 0.95, 0.92]);
-$G->text($txtX, 67, 'Phone: ' . $farmPhone, 9, 'F1', [0.90, 0.95, 0.92]);
-$G->text($txtX, 82, 'Email: ' . $farmEmail, 9, 'F1', [0.90, 0.95, 0.92]);
-
-/* ── Title block: type label, doc number, dates, status chip (right) ── */
-$G->y = $bandH + 24;
-$G->text($G->W - $G->margin, $G->y, $typeLabel, 20, 'F2', $green, 'right');
-$G->y += 27;
-$G->text($G->W - $G->margin, $G->y, $doc['doc_number'], 11, 'F2', $dark, 'right');
-$G->y += 18;
-$G->text($G->W - $G->margin, $G->y, 'Issue Date: ' . pdfDate($doc['issue_date']), 9, 'F1', $gray, 'right');
-$G->y += 14;
-if (!empty($doc['due_date'])) {
-    $G->text($G->W - $G->margin, $G->y, 'Due Date: ' . pdfDate($doc['due_date']), 9, 'F1', $gray, 'right');
-    $G->y += 14;
-}
-// status chip
-$statusLabel = strtoupper($doc['status']);
-$chipW = pdfWidth($statusLabel) * 8.5 + 20;
-$chipX = $G->W - $G->margin - $chipW;
-$paidChip = in_array($doc['status'], ['paid', 'completed'], true);
-$G->rect($chipX, $G->y - 10, $chipW, 17, $paidChip ? $green : [0.92, 0.94, 0.96]);
-$G->text($chipX + $chipW / 2, $G->y - 1, $statusLabel, 8.5, 'F2', $paidChip ? $white : $dark, 'center');
-$G->y += 20;
-
-/* ── Bill To panel (auto-height) ── */
-$billLines = [[$doc['customer_name'], 'F2', 11, $dark]];
-if (!empty($doc['customer_phone']))   $billLines[] = ['Phone: ' . $doc['customer_phone'], 'F1', 9, $gray];
-if (!empty($doc['customer_email']))   $billLines[] = ['Email: ' . $doc['customer_email'], 'F1', 9, $gray];
-if (!empty($doc['customer_address'])) $billLines[] = [$doc['customer_address'], 'F1', 9, $gray];
-$boxTop = $G->y + 4;
-$boxH = 17 + count($billLines) * 13 + 10;
-$G->rect($G->margin, $boxTop - 4, 250, $boxH, $bgSoft);
-$G->line($G->margin, $boxTop + 11, $G->margin + 250, $boxTop + 11, 0.8, [0.85, 0.89, 0.93]);
-$G->text($G->margin + 12, $boxTop, 'BILL TO', 8.5, 'F2', $green);
-$yy = $boxTop + 18;
-foreach ($billLines as [$t, $f, $s, $c]) {
-    $G->text($G->margin + 12, $yy, $t, $s, $f, $c);
-    $yy += 13;
-}
-$G->y = $boxTop + $boxH + 12;
-
-/* ── Items table ── */
-$right  = $G->W - $G->margin;      // right content edge (555.28)
-$colQty = $right - 240;            // QTY right edge
-$colUnt = $right - 185;            // UNIT right edge
-$colPrc = $right - 120;            // UNIT PRICE right edge
-$colAmt = $right;                  // AMOUNT right edge
-$tableW = $right - $G->margin;     // table width (515.28)
-$lh     = 12.15;                   // 9pt line height for wrapping
-
-$G->rect($G->margin, $G->y - 4, $tableW, 22, $green);
-$G->text($G->margin + 10, $G->y + 1, 'DESCRIPTION', 8.5, 'F2', $white);
-$G->text($colQty - 8, $G->y + 1, 'QTY', 8.5, 'F2', $white, 'right');
-$G->text($colUnt - 8, $G->y + 1, 'UNIT', 8.5, 'F2', $white, 'right');
-$G->text($colPrc - 8, $G->y + 1, 'UNIT PRICE', 8.5, 'F2', $white, 'right');
-$G->text($colAmt - 8, $G->y + 1, 'AMOUNT', 8.5, 'F2', $white, 'right');
-$G->y += 26;
-
-$alt = false;
-foreach ($items as $it) {
-    $descLines = pdfWrap((string)$it['description'], $colQty - $G->margin - 24, 9);
-    $cellH = max(24, count($descLines) * $lh + 10);
-    $G->ensure($cellH + 8);
-    if ($alt) $G->rect($G->margin, $G->y - 4, $tableW, $cellH, [0.97, 0.98, 0.99]);
-    $G->textWrap($G->margin + 10, $G->y + 3, (string)$it['description'], 9, $colQty - $G->margin - 24);
-    $G->text($colQty - 8, $G->y + 3, number_format((float)$it['quantity'], 2), 9, 'F1', $dark, 'right');
-    $G->text($colUnt - 8, $G->y + 3, (string)($it['unit'] ?: 'pcs'), 9, 'F1', $dark, 'right');
-    $G->text($colPrc - 8, $G->y + 3, number_format((float)$it['unit_price'], 2), 9, 'F1', $dark, 'right');
-    $G->text($colAmt - 8, $G->y + 3, number_format((float)$it['line_total'], 2), 9, 'F2', $dark, 'right');
-    $G->line($G->margin, $G->y + $cellH - 1, $right, $G->y + $cellH - 1, 0.5, [0.88, 0.91, 0.94]);
-    $G->y += $cellH + 1;
-    $alt = !$alt;
-}
-
-/* ── Totals block ── */
-$totW = 215;
-$totX = $right - $totW;
-$G->ensure(130); // keep subtotal + tax + total bar together on one page
-$G->y += 10;
-$totals = [['Subtotal', number_format((float)$doc['subtotal'], 2)]];
-if ((float)$doc['tax_rate'] > 0) $totals[] = ['Tax (' . rtrim(rtrim(number_format((float)$doc['tax_rate'], 2), '0'), '.') . '%)', number_format((float)$doc['tax_amount'], 2)];
-if ((float)$doc['discount'] > 0) $totals[] = ['Discount', '- ' . number_format((float)$doc['discount'], 2)];
-foreach ($totals as [$lab, $val]) {
-    $G->text($totX, $G->y, $lab, 9, 'F1', $gray);
-    $G->text($totX + $totW, $G->y, $val, 9, 'F1', $dark, 'right');
-    $G->y += 16;
-}
-$G->y += 4;
-$G->rect($totX, $G->y - 13, $totW, 24, $greenD);
-$G->text($totX + 12, $G->y - 4, 'TOTAL (' . $currency . ')', 11, 'F2', $white);
-$G->text($totX + $totW - 12, $G->y - 4, number_format((float)$doc['total_amount'], 2), 12, 'F2', $white, 'right');
-$G->y += 24;
-
-/* ── Notes / terms (auto-height) ── */
-if (!empty($doc['notes'])) {
-    $noteLines = pdfWrap((string)$doc['notes'], $tableW - 24, 9);
-    $noteH = count($noteLines) * $lh + 34;
-    $G->ensure($noteH + 10);
-    $G->rect($G->margin, $G->y - 4, $tableW, $noteH, [1.0, 0.98, 0.91]);
-    $G->line($G->margin, $G->y - 4, $right, $G->y - 4, 0.8, [0.99, 0.91, 0.63]);
-    $G->text($G->margin + 12, $G->y, 'NOTES / TERMS', 8.5, 'F2', [0.72, 0.45, 0.05]);
-    $yy = $G->y + 16;
-    foreach ($noteLines as $ln) {
-        $G->text($G->margin + 12, $yy, $ln, 9, 'F1', [0.42, 0.32, 0.14]);
-        $yy += $lh;
+    if ($info && $info[0] > 0 && $info[1] > 0) {
+        $G->logo = ['file' => $logoPath, 'w' => $info[0], 'h' => $info[1]];
     }
-    $G->y += $noteH + 8;
 }
 
-/* ── Footer (contact CTA) on every page ── */
+/* ════════════════════════════════════════════════════════════════
+   Executive Document Design & Palette
+   ════════════════════════════════════════════════════════════════ */
+$navyPrimary = [0.118, 0.227, 0.373]; // #1E3A5F Deep Slate Blue
+$amberGold   = [0.851, 0.584, 0.059]; // #D97706 Golden Accent
+$textDark    = [0.059, 0.090, 0.165]; // #0F172A Near Black
+$textSlate   = [0.278, 0.333, 0.412]; // #475569 Medium Slate
+$textLight   = [0.392, 0.455, 0.545]; // #64748B Subdued Slate
+$bgCard      = [0.973, 0.980, 0.988]; // #F8FAFC Subtle Gray Card
+$bgAltRow    = [0.965, 0.976, 0.988]; // #F6F9FC Subtle Zebra Row
+$borderLight = [0.886, 0.910, 0.941]; // #E2E8F0 Clean Border
+$white       = [1.0, 1.0, 1.0];
+
+$contentW = $G->W - ($G->margin * 2); // 519.28 pt
+
+/* ── 1. HEADER BANNER ── */
+$bannerH = 92;
+$G->rect(0, 0, $G->W, $bannerH, $navyPrimary);
+$G->line(0, $bannerH, $G->W, $bannerH, 3.0, $amberGold);
+
+$txtStartX = $G->margin;
+if ($G->logo) {
+    $logoMaxH = 46;
+    $logoAspect = $G->logo['w'] / $G->logo['h'];
+    $logoDisplayW = min(140, $logoMaxH * $logoAspect);
+    $logoDisplayH = $logoDisplayW / $logoAspect;
+    
+    $logoCardX = $G->margin;
+    $logoCardY = 16;
+    $logoCardW = $logoDisplayW + 16;
+    $logoCardH = 58;
+    $G->rect($logoCardX, $logoCardY, $logoCardW, $logoCardH, $white);
+    
+    $G->images[] = $G->logo;
+    $imgDrawX = $logoCardX + 8;
+    $imgDrawY = $logoCardY + ($logoCardH - $logoDisplayH) / 2;
+    $G->op(sprintf('q %.2f 0 0 %.2f %.2f %.2f cm /Im1 Do Q', $logoDisplayW, $logoDisplayH, $imgDrawX, $G->H - $imgDrawY - $logoDisplayH));
+    
+    $txtStartX = $logoCardX + $logoCardW + 16;
+}
+
+$G->text($txtStartX, 34, $farmName, 17, 'F2', $white);
+$G->text($txtStartX, 50, $farmTagline, 8.5, 'F1', [0.85, 0.92, 0.98]);
+$G->text($txtStartX, 66, "Tel: {$farmPhone}   |   Email: {$farmEmail}", 8.5, 'F1', [0.85, 0.92, 0.98]);
+$G->text($txtStartX, 79, "Location: {$farmAddr}   |   Web: kindcommoditiesltd.com", 8.5, 'F1', [0.85, 0.92, 0.98]);
+
+/* ── 2. SYMMETRICAL 2-COLUMN HEADER (BILL TO & DOCUMENT DETAILS) ── */
+$topSecY = $bannerH + 18;
+$colW = ($contentW - 16) / 2; // ~251.6 pt each
+
+// Prepare Bill-to Lines
+$billLines = [
+    ['label' => '', 'val' => (string)$doc['customer_name'], 'font' => 'F2', 'size' => 11, 'color' => $textDark]
+];
+if (!empty($doc['customer_phone'])) {
+    $billLines[] = ['label' => 'Phone: ', 'val' => (string)$doc['customer_phone'], 'font' => 'F1', 'size' => 9, 'color' => $textSlate];
+}
+if (!empty($doc['customer_email'])) {
+    $billLines[] = ['label' => 'Email: ', 'val' => (string)$doc['customer_email'], 'font' => 'F1', 'size' => 9, 'color' => $textSlate];
+}
+if (!empty($doc['customer_address'])) {
+    $billLines[] = ['label' => 'Address: ', 'val' => (string)$doc['customer_address'], 'font' => 'F1', 'size' => 9, 'color' => $textSlate];
+}
+
+$cardHeight = max(94, 28 + (count($billLines) * 14) + 8);
+
+// LEFT COLUMN: BILL TO CARD
+$G->rect($G->margin, $topSecY, $colW, $cardHeight, $bgCard, $borderLight, 0.8);
+$G->textInBox($G->margin + 12, $topSecY + 4, 18, 'BILL TO / RECIPIENT', 8.0, 'F2', $navyPrimary);
+$G->line($G->margin + 12, $topSecY + 24, $G->margin + $colW - 12, $topSecY + 24, 0.6, $borderLight);
+
+$curY = $topSecY + 39;
+foreach ($billLines as $b) {
+    $lineTxt = $b['label'] . $b['val'];
+    $G->text($G->margin + 12, $curY, $lineTxt, $b['size'], $b['font'], $b['color']);
+    $curY += 14;
+}
+
+// RIGHT COLUMN: DOCUMENT INFO CARD
+$rightColX = $G->margin + $colW + 16;
+$G->rect($rightColX, $topSecY, $colW, $cardHeight, $bgCard, $borderLight, 0.8);
+
+$G->text($rightColX + $colW - 12, $topSecY + 20, $typeLabel, 15, 'F2', $navyPrimary, 'right');
+$G->text($rightColX + $colW - 12, $topSecY + 36, '#' . (string)$doc['doc_number'], 11, 'F2', $textDark, 'right');
+$G->line($rightColX + 12, $topSecY + 44, $rightColX + $colW - 12, $topSecY + 44, 0.6, $borderLight);
+
+$metaY = $topSecY + 58;
+$G->text($rightColX + 12, $metaY, 'Issue Date:', 8.5, 'F1', $textLight);
+$G->text($rightColX + $colW - 12, $metaY, pdfDate((string)$doc['issue_date']), 8.5, 'F2', $textDark, 'right');
+
+$metaY += 14;
+if (!empty($doc['due_date'])) {
+    $dueLabel = ($doc['doc_type'] === 'quotation') ? 'Valid Until:' : 'Due Date:';
+    $G->text($rightColX + 12, $metaY, $dueLabel, 8.5, 'F1', $textLight);
+    $G->text($rightColX + $colW - 12, $metaY, pdfDate((string)$doc['due_date']), 8.5, 'F2', $textDark, 'right');
+    $metaY += 14;
+}
+
+// Status Pill
+$statusStr = strtoupper((string)$doc['status']);
+$pillW = pdfWidth($statusStr) * 8.0 + 16;
+$pillH = 15;
+$pillX = $rightColX + $colW - 12 - $pillW;
+$pillY = $topSecY + $cardHeight - $pillH - 8;
+
+$isPositiveStatus = in_array($doc['status'], ['paid', 'accepted', 'completed'], true);
+$isInfoStatus     = in_array($doc['status'], ['sent', 'invoiced'], true);
+
+if ($isPositiveStatus) {
+    $pillBg = [0.86, 0.99, 0.90]; $pillText = [0.08, 0.50, 0.24]; $pillBorder = [0.73, 0.95, 0.79];
+} elseif ($isInfoStatus) {
+    $pillBg = [0.86, 0.92, 1.0]; $pillText = [0.12, 0.25, 0.69]; $pillBorder = [0.75, 0.85, 0.99];
+} else {
+    $pillBg = [0.94, 0.96, 0.98]; $pillText = [0.28, 0.33, 0.41]; $pillBorder = [0.85, 0.89, 0.93];
+}
+
+$G->rect($pillX, $pillY, $pillW, $pillH, $pillBg, $pillBorder, 0.5);
+$G->textInBox($pillX + ($pillW / 2), $pillY, $pillH, $statusStr, 8.0, 'F2', $pillText, 'center');
+$G->text($rightColX + 12, $pillY + 11, 'Status:', 8.5, 'F1', $textLight);
+
+/* ── 3. LINE ITEMS TABLE ── */
+$tableTopY = $topSecY + $cardHeight + 16;
+$G->y = $tableTopY;
+
+$colX = [
+    'no'    => $G->margin,
+    'desc'  => $G->margin + 26,
+    'qty'   => $G->margin + 270,
+    'unit'  => $G->margin + 320,
+    'price' => $G->margin + 372,
+    'amt'   => $G->margin + 446,
+    'right' => $G->margin + $contentW
+];
+
+// Table Header Bar
+$tblHeadH = 24;
+$G->rect($G->margin, $G->y, $contentW, $tblHeadH, $navyPrimary);
+
+$G->textInBox($colX['no'] + 4, $G->y, $tblHeadH, '#', 8.5, 'F2', $white, 'left');
+$G->textInBox($colX['desc'], $G->y, $tblHeadH, 'ITEM DESCRIPTION', 8.5, 'F2', $white, 'left');
+$G->textInBox($colX['qty'] + 42, $G->y, $tblHeadH, 'QTY', 8.5, 'F2', $white, 'right');
+$G->textInBox($colX['unit'] + 25, $G->y, $tblHeadH, 'UNIT', 8.5, 'F2', $white, 'center');
+$G->textInBox($colX['price'] + 68, $G->y, $tblHeadH, 'UNIT PRICE', 8.5, 'F2', $white, 'right');
+$G->textInBox($colX['amt'] + 68, $G->y, $tblHeadH, 'AMOUNT (' . $currency . ')', 8.5, 'F2', $white, 'right');
+
+$G->y += $tblHeadH;
+
+// Table Body Rows
+$lh = 12.0;
+$rowIdx = 0;
+foreach ($items as $it) {
+    $rowIdx++;
+    $descStr = (string)$it['description'];
+    $descWrap = pdfWrap($descStr, 238, 9.0);
+    $numLines = count($descWrap);
+    
+    $rowH = max(26, ($numLines * $lh) + 12);
+    $G->ensure($rowH + 8);
+    
+    $rowBg = ($rowIdx % 2 === 1) ? $white : $bgAltRow;
+    $G->rect($G->margin, $G->y, $contentW, $rowH, $rowBg);
+    
+    $firstLineBaseline = $G->y + 15;
+    $G->text($colX['no'] + 4, $firstLineBaseline, (string)$rowIdx, 8.5, 'F1', $textLight);
+    
+    foreach ($descWrap as $lIdx => $lTxt) {
+        $lineBase = $G->y + 15 + ($lIdx * $lh);
+        $G->text($colX['desc'], $lineBase, $lTxt, 9.0, 'F1', $textDark);
+    }
+    
+    $G->text($colX['qty'] + 42, $firstLineBaseline, number_format((float)$it['quantity'], 2), 9.0, 'F1', $textDark, 'right');
+    $G->text($colX['unit'] + 25, $firstLineBaseline, (string)($it['unit'] ?: 'pcs'), 8.5, 'F1', $textSlate, 'center');
+    $G->text($colX['price'] + 68, $firstLineBaseline, number_format((float)$it['unit_price'], 2), 9.0, 'F1', $textDark, 'right');
+    $G->text($colX['amt'] + 68, $firstLineBaseline, number_format((float)$it['line_total'], 2), 9.0, 'F2', $textDark, 'right');
+    
+    $G->line($G->margin, $G->y + $rowH, $colX['right'], $G->y + $rowH, 0.5, $borderLight);
+    $G->y += $rowH;
+}
+
+/* ── 4. TOTALS & SUMMARY SECTION ── */
+$G->ensure(120);
+$G->y += 10;
+
+$totBoxW = 230;
+$totBoxX = $colX['right'] - $totBoxW;
+
+$summaryRows = [
+    ['Subtotal', number_format((float)$doc['subtotal'], 2)]
+];
+if ((float)$doc['tax_rate'] > 0 || (float)$doc['tax_amount'] > 0) {
+    $taxPct = rtrim(rtrim(number_format((float)$doc['tax_rate'], 2), '0'), '.');
+    $summaryRows[] = ["VAT / Tax ({$taxPct}%)", number_format((float)$doc['tax_amount'], 2)];
+}
+if ((float)$doc['discount'] > 0) {
+    $summaryRows[] = ['Discount', '- ' . number_format((float)$doc['discount'], 2)];
+}
+
+foreach ($summaryRows as [$sLabel, $sVal]) {
+    $G->text($totBoxX + 8, $G->y + 11, $sLabel, 9.0, 'F1', $textSlate);
+    $G->text($totBoxX + $totBoxW - 8, $G->y + 11, $sVal, 9.0, 'F2', $textDark, 'right');
+    $G->y += 18;
+}
+
+$G->y += 2;
+$grandBarH = 28;
+$G->rect($totBoxX, $G->y, $totBoxW, $grandBarH, $navyPrimary);
+$G->textInBox($totBoxX + 12, $G->y, $grandBarH, 'TOTAL DUE (' . $currency . ')', 10.0, 'F2', $white, 'left');
+$G->textInBox($totBoxX + $totBoxW - 12, $G->y, $grandBarH, number_format((float)$doc['total_amount'], 2), 12.5, 'F2', $white, 'right');
+$G->y += $grandBarH + 16;
+
+/* ── 5. NOTES & PAYMENT TERMS ── */
+if (!empty($doc['notes'])) {
+    $notesWrap = pdfWrap((string)$doc['notes'], $contentW - 24, 8.5);
+    $notesH = (count($notesWrap) * 12.5) + 26;
+    $G->ensure($notesH + 10);
+    
+    $G->rect($G->margin, $G->y, $contentW, $notesH, [0.99, 0.98, 0.95], [0.94, 0.88, 0.72], 0.7);
+    $G->textInBox($G->margin + 12, $G->y + 4, 14, 'TERMS & PAYMENT NOTES', 8.0, 'F2', $amberGold);
+    
+    $nY = $G->y + 24;
+    foreach ($notesWrap as $nLine) {
+        $G->text($G->margin + 12, $nY, $nLine, 8.5, 'F1', [0.33, 0.28, 0.20]);
+        $nY += 12.5;
+    }
+    $G->y += $notesH + 14;
+}
+
+/* ── 6. AUTHORIZATION / SIGNATURE ── */
+$G->ensure(40);
+$G->line($G->margin, $G->y, $G->margin + 180, $G->y, 0.6, $borderLight);
+$G->text($G->margin, $G->y + 12, 'Authorized Signature / Stamp', 8.0, 'F1', $textLight);
+if (!empty($doc['created_by_name'])) {
+    $G->text($G->margin, $G->y + 24, 'Prepared by: ' . $doc['created_by_name'], 8.0, 'F2', $textSlate);
+}
+
+/* ── 7. RUNNING FOOTER ON EVERY PAGE ── */
+$totalPages = count($G->pages);
 foreach ($G->pages as $idx => $p) {
-    $pageH = $G->H;
+    $fTop = $G->H - 38;
     $G->pages[$idx]['footer'] = [
-        'y' => $pageH - 28,
-        'line' => 'Thank you for your business! For orders and inquiries call ' . $farmPhone . ' or email ' . $farmEmail,
-        'sub' => $farmName . ' • ' . $farmAddr,
-        'page' => 'Page ' . ($idx + 1) . ' of ' . count($G->pages),
+        'top'   => $fTop,
+        'line1' => "{$farmName}  •  {$farmAddr}  •  Tel: {$farmPhone}  •  {$farmEmail}",
+        'line2' => "Thank you for choosing Kind Commodities. Quality agricultural products you can trust.",
+        'page'  => 'Page ' . ($idx + 1) . ' of ' . $totalPages
     ];
 }
 
 /* ════════════════════════════════════════════════════════════════
-   Assemble the PDF objects + xref
+   Assemble the PDF objects, cross-reference table & stream
    ════════════════════════════════════════════════════════════════ */
 $objects = [];
-$objCount = 0;
 function pdfObj(array &$objects, string $body): int {
     $objects[] = $body;
     return count($objects);
 }
 
-$fontObjs = [
+$fontDefs = [
     'F1' => "<</Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding>>",
     'F2' => "<</Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding>>",
     'F3' => "<</Type /Font /Subtype /Type1 /BaseFont /Helvetica-Oblique /Encoding /WinAnsiEncoding>>",
-    'F4' => "<</Type /Font /Subtype /Type1 /BaseFont /Helvetica-BoldOblique /Encoding /WinAnsiEncoding>>",
+    'F4' => "<</Type /Font /Subtype /Type1 /BaseFont /Helvetica-BoldOblique /Encoding /WinAnsiEncoding>>"
 ];
 $fontObjIds = [];
-foreach ($fontObjs as $name => $body) {
-    if (isset($G->fonts[$name])) $fontObjIds[$name] = pdfObj($objects, $body);
+foreach ($fontDefs as $fKey => $fBody) {
+    if (isset($G->fonts[$fKey])) {
+        $fontObjIds[$fKey] = pdfObj($objects, $fBody);
+    }
 }
 
-// Logo image object (DCTDecode JPEG)
 $imageObjId = null;
-if ($G->logo) {
-    $data = base64_encode((string)file_get_contents($G->logo['file']));
-    $imageObjId = pdfObj($objects, "<</Type /XObject /Subtype /Image /Width {$G->logo['w']} /Height {$G->logo['h']} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length " . strlen(base64_decode($data)) . ">>\nstream\n" . base64_decode($data) . "\nendstream");
+if ($G->logo && file_exists($G->logo['file'])) {
+    $rawImg = file_get_contents($G->logo['file']);
+    $imageObjId = pdfObj($objects, "<</Type /XObject /Subtype /Image /Width {$G->logo['w']} /Height {$G->logo['h']} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length " . strlen($rawImg) . ">>\nstream\n" . $rawImg . "\nendstream");
 }
 
-// Content streams per page (with footer ops)
 $pageObjIds = [];
-foreach ($G->pages as $i => $p) {
-    $ops = $p['ops'];
-    $f = $p['footer'];
-    // footer
-    $ops .= "BT /F1 " . sprintf('%.1f', 8.5) . " Tf 0.49 0.53 0.58 rg " . sprintf('%.2f %.2f Td', $G->margin, $G->H - $f['y']) . " (" . pdfText($f['line']) . ") Tj ET\n";
-    $ops .= "BT /F1 " . sprintf('%.1f', 8.5) . " Tf 0.49 0.53 0.58 rg " . sprintf('%.2f %.2f Td', $G->margin, $G->H - ($f['y'] - 13)) . " (" . pdfText($f['sub']) . ") Tj ET\n";
-    $ops .= "BT /F1 " . sprintf('%.1f', 8.5) . " Tf 0.39 0.43 0.48 rg " . sprintf('%.2f %.2f Td', $G->W - $G->margin, $G->H - $f['y']) . " (" . pdfText($f['page']) . ") Tj ET\n";
-    $ops .= sprintf('%.2f %.2f m %.2f %.2f l S', $G->margin, $G->H - ($f['y'] - 8), $G->W - $G->margin, $G->H - ($f['y'] - 8)) . "\n";
-    $ops .= "0.85 0.89 0.93 RG 0.6 w\n";
-
+foreach ($G->pages as $pIdx => $pData) {
+    $ops = $pData['ops'];
+    $f = $pData['footer'];
+    
+    // Footer rules and labels
+    $ops .= sprintf('%.2f w 0.886 0.910 0.941 RG %.2f %.2f m %.2f %.2f l S' . "\n", 0.6, $G->margin, $G->H - $f['top'], $G->W - $G->margin, $G->H - $f['top']);
+    $ops .= "BT /F1 7.5 Tf 0.392 0.455 0.545 rg " . sprintf('%.2f %.2f Td', $G->margin, $G->H - ($f['top'] + 12)) . " (" . pdfText($f['line1']) . ") Tj ET\n";
+    $ops .= "BT /F1 7.5 Tf 0.600 0.650 0.700 rg " . sprintf('%.2f %.2f Td', $G->margin, $G->H - ($f['top'] + 23)) . " (" . pdfText($f['line2']) . ") Tj ET\n";
+    $ops .= "BT /F2 8.0 Tf 0.278 0.333 0.412 rg " . sprintf('%.2f %.2f Td', $G->W - $G->margin - 48, $G->H - ($f['top'] + 12)) . " (" . pdfText($f['page']) . ") Tj ET\n";
+    
     $stream = "q\n" . $ops . "\nQ";
     $streamLen = strlen($stream);
     $contentId = pdfObj($objects, "<</Length {$streamLen}>>\nstream\n" . $stream . "\nendstream");
-    $resources = "<< /Font <<";
-    foreach ($fontObjIds as $name => $id) $resources .= " /" . $name . " {$id} 0 R";
-    $resources .= " >>";
-    if ($imageObjId) $resources .= " /XObject << /Im1 {$imageObjId} 0 R >>";
-    $resources .= " >>";
-    $pageObjIds[] = pdfObj($objects, "<</Type /Page /Parent 2 0 R /MediaBox [0 0 {$G->W} {$G->H}] /Resources {$resources} /Contents {$contentId} 0 R>>");
+    
+    $resStr = "<< /Font <<";
+    foreach ($fontObjIds as $fn => $fId) {
+        $resStr .= " /{$fn} {$fId} 0 R";
+    }
+    $resStr .= " >>";
+    if ($imageObjId) {
+        $resStr .= " /XObject << /Im1 {$imageObjId} 0 R >>";
+    }
+    $resStr .= " >>";
+    
+    $pageObjIds[] = pdfObj($objects, "<</Type /Page /Parent 2 0 R /MediaBox [0 0 {$G->W} {$G->H}] /Resources {$resStr} /Contents {$contentId} 0 R>>");
 }
 
-$pagesRef = implode(' ', array_map(fn($id) => "{$id} 0 R", $pageObjIds));
-$pageTreeId = pdfObj($objects, "<</Type /Pages /Kids [{$pagesRef}] /Count " . count($pageObjIds) . ">>");
+$pagesKids = implode(' ', array_map(fn($id) => "{$id} 0 R", $pageObjIds));
+$pageTreeId = pdfObj($objects, "<</Type /Pages /Kids [{$pagesKids}] /Count " . count($pageObjIds) . ">>");
 $catalogId = pdfObj($objects, "<</Type /Catalog /Pages {$pageTreeId} 0 R>>");
 
-$pdfBody = "%PDF-1.4\n";
+$pdfOutput = "%PDF-1.4\n";
 $offsets = [0];
-foreach ($objects as $i => $body) {
-    $offsets[] = strlen($pdfBody);
-    $pdfBody .= ($i + 1) . " 0 obj\n" . $body . "\nendobj\n";
+foreach ($objects as $objIdx => $objBody) {
+    $offsets[] = strlen($pdfOutput);
+    $pdfOutput .= ($objIdx + 1) . " 0 obj\n" . $objBody . "\nendobj\n";
 }
-$xrefStart = strlen($pdfBody);
-$pdfBody .= "xref\n0 " . (count($objects) + 1) . "\n";
-$pdfBody .= "0000000000 65535 f \n";
+$xrefOffset = strlen($pdfOutput);
+$pdfOutput .= "xref\n0 " . (count($objects) + 1) . "\n";
+$pdfOutput .= "0000000000 65535 f \n";
 for ($i = 1; $i <= count($objects); $i++) {
-    $pdfBody .= sprintf("%010d 00000 n \n", $offsets[$i]);
+    $pdfOutput .= sprintf("%010d 00000 n \n", $offsets[$i]);
 }
-$pdfBody .= "trailer\n<< /Size " . (count($objects) + 1) . " /Root {$catalogId} 0 R >>\nstartxref\n{$xrefStart}\n%%EOF";
+$pdfOutput .= "trailer\n<< /Size " . (count($objects) + 1) . " /Root {$catalogId} 0 R >>\nstartxref\n{$xrefOffset}\n%%EOF";
+
+// Clean output buffer to ensure clean binary delivery
+while (ob_get_level()) { ob_end_clean(); }
 
 header('Content-Type: application/pdf');
-header('Content-Disposition: ' . (($_GET['inline'] ?? '') === '1' ? 'inline' : 'attachment') . '; filename="' . $doc['doc_number'] . '.pdf"');
-header('Content-Length: ' . strlen($pdfBody));
-echo $pdfBody;
+$isInline = (($_GET['inline'] ?? '') === '1' || ($_GET['view'] ?? '') === '1');
+header('Content-Disposition: ' . ($isInline ? 'inline' : 'attachment') . '; filename="' . $doc['doc_number'] . '.pdf"');
+header('Content-Length: ' . strlen($pdfOutput));
+header('Cache-Control: private, max-age=0, must-revalidate');
+header('Pragma: public');
+echo $pdfOutput;
+exit;
