@@ -97,7 +97,7 @@ include '../includes/header.php';
                     <div class="faq-toggle">▼</div>
                 </div>
                 <div class="faq-answer">
-                    You can order through our website shop, call +254 700 000 000, or visit our offices. Bulk orders are confirmed with a clear quote and delivery schedule — we recommend placing them at least 3 days in advance.
+                    You can order through our website shop, call +254 726 012 845 / +254 777 012 845 (KE), +250 782 273 747 (RW), or +257 62 903 055 (BI), or visit our offices. Bulk orders are confirmed with a clear quote and delivery schedule — we recommend placing them at least 3 days in advance.
                 </div>
             </div>
 
@@ -272,7 +272,7 @@ include '../includes/header.php';
                     <div class="faq-toggle">▼</div>
                 </div>
                 <div class="faq-answer">
-                    Yes! Visits and stock inspections are welcome by appointment. Call +254 700 000 000 to schedule. We provide store tours and sample inspections for serious buyers.
+                    Yes! Visits and stock inspections are welcome by appointment. Call +254 726 012 845 / +254 777 012 845 to schedule. We provide store tours and sample inspections for serious buyers.
                 </div>
             </div>
         </div>

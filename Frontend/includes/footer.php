@@ -10,7 +10,7 @@ if (!isset($path_prefix)) {
 
 $site_name = function_exists('getSetting') ? getSetting('farm_name', 'Kind Commodities Ltd') : 'Kind Commodities Ltd';
 $site_email = function_exists('getSetting') ? getSetting('farm_email', 'info@kindcommoditiesltd.com') : 'info@kindcommoditiesltd.com';
-$site_phone = function_exists('getSetting') ? getSetting('farm_phone', '+254 700 000 000') : '+254 700 000 000';
+$site_phone = function_exists('getSetting') ? getSetting('farm_phone', '+254 726 012 845') : '+254 726 012 845';
 $site_address = function_exists('getSetting') ? getSetting('farm_address', 'Kenya') : 'Kenya';
 ?>
 
@@ -61,10 +61,12 @@ $site_address = function_exists('getSetting') ? getSetting('farm_address', 'Keny
                 <!-- Contact + Newsletter -->
                 <div>
                     <h4>Get In Touch</h4>
-                    <ul class="f-contact">
-                        <li><i data-lucide="phone" style="width:16px;height:16px;"></i><a href="tel:<?php echo preg_replace('/[^0-9+]/', '', $site_phone); ?>"><?php echo htmlspecialchars($site_phone, ENT_QUOTES, 'UTF-8'); ?></a></li>
-                        <li><i data-lucide="mail" style="width:16px;height:16px;"></i><a href="mailto:<?php echo htmlspecialchars($site_email, ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($site_email, ENT_QUOTES, 'UTF-8'); ?></a></li>
-                        <li><i data-lucide="map-pin" style="width:16px;height:16px;"></i><span><?php echo htmlspecialchars($site_address, ENT_QUOTES, 'UTF-8'); ?></span></li>
+                    <ul class="f-contact" style="display:flex;flex-direction:column;gap:6px;">
+                        <li><i data-lucide="phone" style="width:16px;height:16px;flex-shrink:0;"></i><span><strong>KE:</strong> <a href="tel:+254726012845">+254 726 012 845</a> / <a href="tel:+254777012845">+254 777 012 845</a></span></li>
+                        <li><i data-lucide="phone" style="width:16px;height:16px;flex-shrink:0;"></i><span><strong>RW:</strong> <a href="tel:+250782273747">+250 782 273 747</a></span></li>
+                        <li><i data-lucide="phone" style="width:16px;height:16px;flex-shrink:0;"></i><span><strong>BI:</strong> <a href="tel:+25762903055">+257 62 903 055</a></span></li>
+                        <li><i data-lucide="mail" style="width:16px;height:16px;flex-shrink:0;"></i><a href="mailto:<?php echo htmlspecialchars($site_email, ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($site_email, ENT_QUOTES, 'UTF-8'); ?></a></li>
+                        <li><i data-lucide="map-pin" style="width:16px;height:16px;flex-shrink:0;"></i><span>East Africa (Kenya &bull; Rwanda &bull; Burundi)</span></li>
                     </ul>
                     <div class="f-newsletter">
                         <p>Join our newsletter for market updates &amp; special offers.</p>

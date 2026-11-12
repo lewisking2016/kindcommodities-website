@@ -42,7 +42,12 @@ define('SITE_NAME', 'Kind Commodities Ltd');
 define('SITE_TAGLINE', 'Quality Grains & Raw Materials');
 define('SITE_DESCRIPTION', 'Trusted supplier of quality grains, pulses, and feed raw materials across East Africa. Bulk supply, fair prices, reliable delivery.');
 define('SITE_EMAIL', 'info@kindcommoditiesltd.com');
-define('SITE_PHONE', '+254 700 000 000');
+define('SITE_PHONE', '+254 726 012 845');
+define('SITE_PHONES', [
+    'ke' => ['+254 726 012 845', '+254 777 012 845'],
+    'rw' => ['+250 782 273 747'],
+    'bi' => ['+257 62 903 055'],
+]);
 define('SITE_ADDRESS', 'Kenya');
 
 // Pagination
@@ -174,10 +179,32 @@ function getSetting(string $key, string $default = ''): string {
     try {
         $pdo = getDB();
         if (!$pdo) return $default;
-        $stmt = $pdo->prepare("SELECT setting_value FROM site_settings WHERE setting_key = ?");
-        $stmt->execute([$key]);
-        $result = $stmt->fetchColumn();
-        return $result !== false ? (string)$result : $default;
+        
+        // 1. Check site_settings table
+        try {
+            $stmt = $pdo->prepare("SELECT setting_value FROM site_settings WHERE setting_key = ?");
+            $stmt->execute([$key]);
+            $result = $stmt->fetchColumn();
+            if ($result !== false && $result !== null) {
+                return (string)$result;
+            }
+        } catch (Exception $e) {
+            // site_settings might not exist yet
+        }
+        
+        // 2. Check settings table
+        try {
+            $stmt = $pdo->prepare("SELECT value FROM settings WHERE `key` = ?");
+            $stmt->execute([$key]);
+            $result = $stmt->fetchColumn();
+            if ($result !== false && $result !== null) {
+                return (string)$result;
+            }
+        } catch (Exception $e) {
+            // settings table might not exist
+        }
+        
+        return $default;
     } catch (Exception $e) {
         return $default;
     }

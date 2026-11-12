@@ -260,10 +260,15 @@ if ($pdo) {
     <div>
         <div class="admin-card" style="padding: 0; overflow: hidden; border-radius: 4px;">
             <div style="padding: 16px 20px; border-bottom: 1px solid var(--admin-border); background: #fafafa; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-                <h3 style="margin: 0; font-family: 'Outfit', sans-serif; font-size: 1.15rem; color: var(--admin-text-heading);">Registered Users & Accounts</h3>
-                <button class="btn btn-primary btn-sm" onclick="openAddUserModal()">
-                    <i data-lucide="plus"></i> Add User
-                </button>
+                <h3 style="margin: 0; font-family: 'Outfit', sans-serif; font-size: 1.15rem; color: var(--admin-text-heading);">Registered Users &amp; Accounts</h3>
+                <div style="display: flex; gap: 8px;">
+                    <a href="/Frontend/admin/customers.php" class="btn btn-outline btn-sm">
+                        <i data-lucide="users"></i> Customers Dashboard
+                    </a>
+                    <button class="btn btn-primary btn-sm" onclick="openAddUserModal()">
+                        <i data-lucide="plus"></i> Add User
+                    </button>
+                </div>
             </div>
             
             <!-- Filters & Search -->

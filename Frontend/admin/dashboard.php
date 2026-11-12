@@ -358,6 +358,59 @@ async function loadDashboard() {
     // Orders (bar)
     dashCharts.orders = KindCharts.barChart(document.getElementById('chart-orders'), labels, orders.map(i => i.value), { color: KindCharts.C.amber, radius: 4 });
 
+    const totalRev = sales.reduce((a, b) => a + b.value, 0);
+    const totalOrd = orders.reduce((a, b) => a + b.value, 0);
+    const avgVal = totalOrd > 0 ? (totalRev / totalOrd) : 0;
+
+    const elRev = document.getElementById('kpi-sales');
+    if (elRev) elRev.textContent = 'KES ' + Math.round(totalRev).toLocaleString();
+    const elOrd = document.getElementById('kpi-orders');
+    if (elOrd) elOrd.textContent = totalOrd.toLocaleString();
+    const elAvg = document.getElementById('kpi-avg');
+    if (elAvg) elAvg.textContent = 'KES ' + Math.round(avgVal).toLocaleString();
+
+    // Top products widget
+    const elTop = document.getElementById('top-products');
+    if (elTop) {
+        if (!topProducts.length) {
+            elTop.innerHTML = '<p style="padding:14px; text-align:center; color:#94a3b8; margin:0; font-size:0.85rem;">No product sales recorded yet.</p>';
+        } else {
+            elTop.innerHTML = topProducts.map(p => `
+                <div class="mini-list-item">
+                    <div class="item-details">
+                        <strong>${escapeHtml(p.name || 'Commodity')}</strong>
+                        <span>Volume: ${Number(p.qty || 0).toLocaleString()} units sold</span>
+                    </div>
+                    <span class="badge-pill badge-pill-success">Active</span>
+                </div>
+            `).join('');
+        }
+    }
+
+    // Raw Material Health widget
+    const rawMaterials = data.data.raw_materials || [];
+    const elRaw = document.getElementById('raw-material-health');
+    if (elRaw) {
+        if (!rawMaterials.length) {
+            elRaw.innerHTML = '<p style="padding:14px; text-align:center; color:#94a3b8; margin:0; font-size:0.85rem;">All grain &amp; material stock levels healthy.</p>';
+        } else {
+            elRaw.innerHTML = rawMaterials.slice(0, 4).map(m => {
+                const stock = Number(m.current_stock || 0);
+                const min = Number(m.min_stock_level || 500);
+                const isLow = stock <= min;
+                return `
+                    <div class="mini-list-item">
+                        <div class="item-details">
+                            <strong>${escapeHtml(m.material_name || m.name || 'Grain Material')}</strong>
+                            <span>Stock: ${stock.toLocaleString()} ${escapeHtml(m.unit || 'kg')}</span>
+                        </div>
+                        <span class="badge-pill ${isLow ? 'badge-pill-danger' : 'badge-pill-success'}">${isLow ? 'Low Stock' : 'Optimal'}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+    }
+
     // Top products (horizontal bar)
     if (document.getElementById('chart-top-products') && topProducts.length) {
         dashCharts.top = KindCharts.hBarChart(

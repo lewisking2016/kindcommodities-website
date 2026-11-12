@@ -233,7 +233,7 @@ Version: 1.0.0
 ## 📞 Contact
 
 - **Email**: info@kindcommoditiesltd.com
-- **Phone**: +254 700 000 000
+- **Phone**: +254 726 012 845 / +254 777 012 845 (KE), +250 782 273 747 (RW), +257 62 903 055 (BI)
 - **Address**: Kenya
 
 ---

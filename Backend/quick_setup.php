@@ -233,7 +233,7 @@ echo "<h2>8. Seed site settings</h2>";
 $settings = [
     ['farm_name', 'Kind Commodities Ltd'],
     ['farm_email', 'info@kindcommoditiesltd.com'],
-    ['farm_phone', '+254 700 000 000'],
+    ['farm_phone', '+254 726 012 845'],
     ['farm_address', 'Kenya'],
     ['currency', 'KES'],
     ['header_logo', '/Frontend/images/header logo.jpeg'],

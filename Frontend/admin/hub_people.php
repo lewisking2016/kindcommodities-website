@@ -12,10 +12,15 @@ if (empty($_SESSION['user_id']) || !in_array($_SESSION['role'] ?? '', ['super_ad
     echo "<script>window.location.href='/kindadmin';</script>"; exit;
 }
 
+$tab = $_GET['tab'] ?? 'staff';
+if ($tab === 'users') {
+    header('Location: /Frontend/admin/customers.php');
+    exit;
+}
+
 $page_title = 'Team & Messages - Admin';
 include __DIR__ . '/includes/admin_header.php';
 
-$tab = $_GET['tab'] ?? 'staff';
 $validTabs = ['staff', 'users', 'tasks', 'messages'];
 if (!in_array($tab, $validTabs, true)) $tab = 'staff';
 
@@ -231,8 +236,15 @@ document.addEventListener('click',e=>{ const m=document.getElementById('staff-mo
 
 <!-- ══════ CUSTOMER LIST TAB ══════ -->
 <?php elseif ($tab === 'users'): ?>
-<div class="admin-card" style="padding:0; overflow:hidden;">
-    <iframe src="users.php" style="width:100%; height:800px; border:none; display:block;"></iframe>
+<div class="admin-card" style="padding:40px 24px; text-align:center;">
+    <div style="width:54px; height:54px; background:rgba(57,98,133,0.1); color:#396285; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+        <i data-lucide="users" style="width:26px; height:26px;"></i>
+    </div>
+    <h3 style="margin:0 0 8px 0; font-family:'Outfit',sans-serif; font-size:1.25rem;">Dedicated Customer Dashboard</h3>
+    <p style="color:#64748b; margin:0 auto 24px; max-width:480px; font-size:0.92rem;">Customer management has been upgraded to a dedicated full-screen console for online web users, walk-in customers and credit balances.</p>
+    <a href="/Frontend/admin/customers.php" class="btn btn-primary" style="display:inline-flex; align-items:center; gap:8px; border-radius:6px; padding:10px 24px;">
+        <i data-lucide="external-link" style="width:16px; height:16px;"></i> Open Customers Dashboard
+    </a>
 </div>
 
 <!-- ══════ TASKS TAB ══════ -->

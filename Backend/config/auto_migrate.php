@@ -160,6 +160,31 @@ function reconcileLegacySchema(PDO $pdo): void
         if ($col && str_contains($col['Type'] ?? '', 'enum') && !str_contains($col['Type'], 'sales_staff')) {
             $pdo->exec("ALTER TABLE users MODIFY role ENUM('super_admin','farm_manager','stock_manager','sales_staff','customer') NULL DEFAULT 'customer'");
         }
+        if (!columnExists($pdo, 'users', 'phone_number')) {
+            try { $pdo->exec("ALTER TABLE users ADD COLUMN phone_number VARCHAR(30) NULL AFTER last_name"); } catch (Exception $e) {}
+        }
+        if (!columnExists($pdo, 'users', 'phone')) {
+            try { $pdo->exec("ALTER TABLE users ADD COLUMN phone VARCHAR(30) NULL AFTER phone_number"); } catch (Exception $e) {}
+        }
+        try {
+            $pdo->exec("UPDATE users SET phone_number = phone WHERE (phone_number IS NULL OR phone_number = '') AND phone IS NOT NULL AND phone != ''");
+            $pdo->exec("UPDATE users SET phone = phone_number WHERE (phone IS NULL OR phone = '') AND phone_number IS NOT NULL AND phone_number != ''");
+        } catch (Exception $e) {}
+    }
+
+    // ── walk_in_customers table
+    if (!tableExists($pdo, 'walk_in_customers')) {
+        try {
+            $pdo->exec("CREATE TABLE IF NOT EXISTS walk_in_customers (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                customer_name VARCHAR(150) NOT NULL,
+                phone VARCHAR(30),
+                customer_type ENUM('retail', 'wholesale', 'institution', 'agent') DEFAULT 'retail',
+                address VARCHAR(255),
+                notes TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            ) ENGINE=InnoDB");
+        } catch (Exception $e) {}
     }
 
     // ── Legacy mirror columns: fresh installs only have the current shapes
@@ -283,7 +308,7 @@ function kindModuleKeyForScript(string $script): string
         'credit.php' => 'credit', 'purchase_orders.php' => 'purchase_orders',
         'daily_sales.php' => 'daily_sales', 'bulk_sales.php' => 'bulk_sales', 'lpo.php' => 'lpo',
         'analytics.php' => 'analytics', 'bulk_import_export.php' => 'bulk_import_export',
-        'hub_people.php' => 'staff', 'staff.php' => 'staff', 'users.php' => 'users',
+        'hub_people.php' => 'staff', 'staff.php' => 'staff', 'users.php' => 'users', 'customers.php' => 'users',
         'tasks.php' => 'tasks', 'messages.php' => 'messages',
         'hub_settings.php' => 'settings', 'calendar.php' => 'calendar', 'dropdowns.php' => 'dropdowns',
         'settings.php' => 'settings', 'logs.php' => 'logs', 'permissions.php' => 'permissions', 'email_alerts.php' => 'email_alerts',
@@ -307,7 +332,7 @@ function kindDefaultRolePermissions(): array
     }
 
     $stock = ['products', 'stores'];
-    $sales = ['hub_finance', 'profit', 'cashbook', 'credit', 'daily_sales', 'bulk_sales', 'lpo', 'purchase_orders'];
+    $sales = ['hub_finance', 'profit', 'cashbook', 'credit', 'daily_sales', 'bulk_sales', 'lpo', 'purchase_orders', 'users'];
     foreach ($all as $m) {
         $perms['stock_manager'][$m] = in_array($m, $stock, true) ? ['view' => 1, 'edit' => 1] : ['view' => 0, 'edit' => 0];
         $perms['sales_staff'][$m] = in_array($m, $sales, true) ? ['view' => 1, 'edit' => 1] : ['view' => 0, 'edit' => 0];

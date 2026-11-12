@@ -407,7 +407,7 @@ CREATE TABLE IF NOT EXISTS settings (
 
 INSERT IGNORE INTO settings (setting_key, setting_value, setting_group, description) VALUES
 ('farm_name',            'Kind Commodities Ltd',  'general', 'Display name of the farm'),
-('farm_phone',           '+254 700 000 000',    'general', 'Primary contact phone'),
+('farm_phone',           '+254 726 012 845',    'general', 'Primary contact phone'),
 ('farm_email',           'info@kindcommoditiesltd.com','general','Contact email'),
 ('farm_address',         'Kenya', 'general', 'Physical address'),
 ('currency_code',        'KES',                'general', 'Currency code'),

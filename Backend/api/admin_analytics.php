@@ -41,7 +41,7 @@ function safeFetchColumn(PDO $pdo, string $sql, array $params = [], $default = 0
 $response = ['success' => false, 'data' => []];
 
 // Require admin session
-if (empty($_SESSION['user_id']) || !in_array($_SESSION['role'] ?? '', ['super_admin','farm_manager'], true)) {
+if (empty($_SESSION['user_id']) || !in_array($_SESSION['role'] ?? '', ['super_admin', 'farm_manager', 'stock_manager', 'sales_staff'], true)) {
     http_response_code(403);
     echo json_encode(['success' => false, 'message' => 'Forbidden']);
     exit;

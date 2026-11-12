@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS site_settings (
 INSERT IGNORE INTO site_settings (setting_key, setting_value) VALUES
 ('farm_name', 'Kind Commodities Ltd'),
 ('farm_email', 'info@kindcommoditiesltd.com'),
-('farm_phone', '+254 700 000 000'),
+('farm_phone', '+254 726 012 845'),
 ('farm_address', 'Kenya'),
 ('currency', 'KES'),
 ('mpesa_shortcode', '174379'),

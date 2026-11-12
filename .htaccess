@@ -56,29 +56,41 @@ RewriteRule ^faq$ Frontend/pages/faq.php [L]
 # Clean URL Routing for Auth Pages
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^login$ Frontend/pages/login.php [L]
+RewriteRule ^login/?$ Frontend/pages/login.php [L]
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^register$ Frontend/pages/register.php [L]
-
-# Route Dashboard URLs to Backend
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^dashboard$ Backend/dashboard/index.php [L]
+RewriteRule ^register/?$ Frontend/pages/register.php [L]
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^dashboard/(.*)$ Backend/dashboard/$1.php [L]
+RewriteRule ^logout/?$ Frontend/pages/logout.php [L]
 
-# Route Admin URLs to Backend
+# Clean URL Routing for Customer Dashboard
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^admin$ Backend/admin/index.php [L]
+RewriteRule ^dashboard/?$ Frontend/pages/dashboard.php [L]
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^admin/(.*)$ Backend/admin/$1.php [L]
+RewriteRule ^customer/?$ Frontend/pages/dashboard.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^my-account/?$ Frontend/pages/dashboard.php [L]
+
+# Route Admin URLs
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^admin/?$ Frontend/admin/dashboard.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^admin/customers/?$ Frontend/admin/customers.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^admin/(.*)$ Frontend/admin/$1.php [L]
 
 # Gzip compression
 <IfModule mod_deflate.c>

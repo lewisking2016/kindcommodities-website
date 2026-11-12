@@ -19,7 +19,7 @@ session_start();
 require_once __DIR__ . '/../config/database.php';
 
 // Auth: admin only
-if (empty($_SESSION['user_id']) || !in_array($_SESSION['role'] ?? '', ['super_admin', 'farm_manager', 'stock_manager'], true)) {
+if (empty($_SESSION['user_id']) || !in_array($_SESSION['role'] ?? '', ['super_admin', 'farm_manager', 'stock_manager', 'sales_staff'], true)) {
     http_response_code(401);
     die('Unauthorized');
 }
@@ -442,21 +442,46 @@ try {
             break;
 
         // ─────────────────────────────────────────────────────────
-        // WALK-IN CUSTOMERS
+        // CUSTOMERS (ONLINE WEB USERS + WALK-IN / WHOLESALE)
         // ─────────────────────────────────────────────────────────
         case 'customers':
-            $rows = $pdo->query("SELECT * FROM walk_in_customers ORDER BY customer_name")->fetchAll(PDO::FETCH_ASSOC);
-            $out = array_map(function($r) {
-                return [
-                    'Customer'  => $r['customer_name'],
-                    'Phone'     => $r['phone'],
-                    'Type'      => $r['customer_type'],
-                    'Address'   => $r['address'],
-                    'Created'   => $r['created_at'],
-                ];
-            }, $rows);
-            csv_send('walkin_customers_' . $today . '.csv',
-                ['Customer','Phone','Type','Address','Created'], $out);
+            $out = [];
+            // 1. Online web customers
+            if (function_exists('tableExists') && tableExists($pdo, 'users')) {
+                try {
+                    $webUsers = $pdo->query("SELECT id, username, email, first_name, last_name, COALESCE(phone_number, '') as phone, created_at FROM users WHERE role = 'customer' ORDER BY created_at DESC")->fetchAll(PDO::FETCH_ASSOC);
+                    foreach ($webUsers as $u) {
+                        $out[] = [
+                            'Channel'  => 'Online Account',
+                            'Customer' => trim(($u['first_name'] ?? '') . ' ' . ($u['last_name'] ?? '')) ?: $u['username'],
+                            'Phone'    => $u['phone'] ?? '',
+                            'Email'    => $u['email'] ?? '',
+                            'Type'     => 'Web Portal User',
+                            'Address'  => 'Web Registered',
+                            'Created'  => $u['created_at'],
+                        ];
+                    }
+                } catch (Exception $e) {}
+            }
+            // 2. Walk-in and wholesale customers
+            if (function_exists('tableExists') && tableExists($pdo, 'walk_in_customers')) {
+                try {
+                    $walkins = $pdo->query("SELECT * FROM walk_in_customers ORDER BY customer_name")->fetchAll(PDO::FETCH_ASSOC);
+                    foreach ($walkins as $w) {
+                        $out[] = [
+                            'Channel'  => 'Walk-in / Wholesale',
+                            'Customer' => $w['customer_name'],
+                            'Phone'    => $w['phone'] ?? '',
+                            'Email'    => $w['email'] ?? '',
+                            'Type'     => ucfirst((string)($w['customer_type'] ?? 'Retail')),
+                            'Address'  => $w['address'] ?? '',
+                            'Created'  => $w['created_at'],
+                        ];
+                    }
+                } catch (Exception $e) {}
+            }
+            csv_send('kind_commodities_customers_' . $today . '.csv',
+                ['Channel', 'Customer', 'Phone', 'Email', 'Type', 'Address', 'Created'], $out);
             break;
 
         // ─────────────────────────────────────────────────────────

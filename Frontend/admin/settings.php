@@ -113,8 +113,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_settings'])) {
                 <input type="email" name="farm_email" value="<?php echo htmlspecialchars(getSetting('farm_email', 'info@kindcommoditiesltd.com')); ?>" class="admin-form-control">
             </div>
             <div class="admin-form-group">
-                <label class="admin-form-label">Phone Number</label>
-                <input type="text" name="farm_phone" value="<?php echo htmlspecialchars(getSetting('farm_phone', '+254 700 000 000')); ?>" class="admin-form-control">
+                <label class="admin-form-label">Phone Number (HQ)</label>
+                <input type="text" name="farm_phone" value="<?php echo htmlspecialchars(getSetting('farm_phone', '+254 726 012 845')); ?>" class="admin-form-control">
             </div>
             <div class="admin-form-group">
                 <label class="admin-form-label">Location</label>

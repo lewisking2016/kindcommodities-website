@@ -51,10 +51,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_submit'])) {
             <div style="display:grid;gap:1.2rem;margin-top:2rem;">
                 <div class="p-card" style="display:flex;gap:1.1rem;align-items:flex-start;">
                     <div class="p-icon" style="margin:0;flex-shrink:0;"><i data-lucide="phone" style="width:24px;height:24px;"></i></div>
+                    <div style="width:100%;">
+                        <h4 style="margin-bottom:0.4rem;">Call Us</h4>
+                        
+                        <div style="margin-bottom:0.6rem;padding-bottom:0.6rem;border-bottom:1px solid #f1f5f9;">
+                            <span style="display:inline-block;font-size:0.75rem;font-weight:700;text-transform:uppercase;color:var(--brand-700);background:#E9F2DC;padding:2px 8px;border-radius:4px;margin-bottom:4px;">Kenya (HQ)</span>
+                            <div style="display:flex;flex-wrap:wrap;gap:8px 16px;">
+                                <a href="tel:+254726012845" style="color:var(--brand-600);font-weight:700;text-decoration:none;">+254 726 012 845</a>
+                                <a href="tel:+254777012845" style="color:var(--brand-600);font-weight:700;text-decoration:none;">+254 777 012 845</a>
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom:0.6rem;padding-bottom:0.6rem;border-bottom:1px solid #f1f5f9;">
+                            <span style="display:inline-block;font-size:0.75rem;font-weight:700;text-transform:uppercase;color:var(--brand-700);background:#E9F2DC;padding:2px 8px;border-radius:4px;margin-bottom:4px;">Rwanda</span>
+                            <div>
+                                <a href="tel:+250782273747" style="color:var(--brand-600);font-weight:700;text-decoration:none;">+250 782 273 747</a>
+                            </div>
+                        </div>
+
+                        <div>
+                            <span style="display:inline-block;font-size:0.75rem;font-weight:700;text-transform:uppercase;color:var(--brand-700);background:#E9F2DC;padding:2px 8px;border-radius:4px;margin-bottom:4px;">Burundi</span>
+                            <div>
+                                <a href="tel:+25762903055" style="color:var(--brand-600);font-weight:700;text-decoration:none;">+257 62 903 055</a>
+                            </div>
+                        </div>
+
+                        <p style="color:var(--gray-400);font-size:0.85rem;margin-top:0.8rem;margin-bottom:0;">Mon — Fri, 8:00 AM — 6:00 PM EAT</p>
+                    </div>
+                </div>
+
+                <div class="p-card" style="display:flex;gap:1.1rem;align-items:flex-start;">
+                    <div class="p-icon" style="margin:0;flex-shrink:0;"><i data-lucide="message-circle" style="width:24px;height:24px;color:#25D366;"></i></div>
                     <div>
-                        <h4 style="margin-bottom:0.2rem;">Phone</h4>
-                        <p style="margin-bottom:0.2rem;"><a href="tel:+254700000000" style="color:var(--brand-600);font-weight:700;">+254 700 000 000</a></p>
-                        <p style="color:var(--gray-400);font-size:0.9rem;margin:0;">Mon — Fri, 8:00 AM — 6:00 PM EAT</p>
+                        <h4 style="margin-bottom:0.2rem;">WhatsApp Support</h4>
+                        <p style="margin-bottom:0.4rem;"><a href="https://wa.me/254726012845" target="_blank" rel="noopener" style="color:#128C7E;font-weight:700;">Chat on WhatsApp (+254 726 012 845)</a></p>
+                        <p style="color:var(--gray-400);font-size:0.85rem;margin:0;">Instant answers for orders & quotes</p>
                     </div>
                 </div>
 
@@ -70,9 +101,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['contact_submit'])) {
                 <div class="p-card" style="display:flex;gap:1.1rem;align-items:flex-start;">
                     <div class="p-icon" style="margin:0;flex-shrink:0;"><i data-lucide="map-pin" style="width:24px;height:24px;"></i></div>
                     <div>
-                        <h4 style="margin-bottom:0.2rem;">Location</h4>
+                        <h4 style="margin-bottom:0.2rem;">Location & Regional Coverage</h4>
                         <p style="margin-bottom:0.2rem;font-weight:700;color:var(--brand-950);">Kind Commodities Ltd</p>
-                        <p style="color:var(--gray-400);font-size:0.9rem;margin:0;">Kenya</p>
+                        <p style="color:var(--gray-400);font-size:0.9rem;margin:0;">Serving Kenya, Rwanda, and Burundi</p>
                     </div>
                 </div>
             </div>

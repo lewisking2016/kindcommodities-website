@@ -71,18 +71,66 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register_submit'])) {
                     $errors[] = 'Username or email already exists';
                 } else {
                     $hash = password_hash($password, PASSWORD_DEFAULT);
-                    $stmt = $pdo->prepare("INSERT INTO users (username, password_hash, email, phone, first_name, last_name, role) VALUES (?, ?, ?, ?, ?, ?, 'customer')");
-                    $stmt->execute([
-                        $form_data['username'],
-                        $hash,
-                        $form_data['email'],
-                        $form_data['phone'],
-                        $form_data['first_name'],
-                        $form_data['last_name']
-                    ]);
                     
+                    // Detect phone columns dynamically to prevent schema crashes
+                    $cols = [];
+                    try {
+                        $colStmt = $pdo->query("SHOW COLUMNS FROM users");
+                        $cols = $colStmt ? $colStmt->fetchAll(PDO::FETCH_COLUMN) : [];
+                    } catch (Exception $e) {}
+
+                    $hasPhone = in_array('phone', $cols, true);
+                    $hasPhoneNumber = in_array('phone_number', $cols, true);
+
+                    if ($hasPhone && $hasPhoneNumber) {
+                        $stmt = $pdo->prepare("INSERT INTO users (username, password_hash, email, phone, phone_number, first_name, last_name, role) VALUES (?, ?, ?, ?, ?, ?, ?, 'customer')");
+                        $stmt->execute([
+                            $form_data['username'],
+                            $hash,
+                            $form_data['email'],
+                            $form_data['phone'],
+                            $form_data['phone'],
+                            $form_data['first_name'],
+                            $form_data['last_name']
+                        ]);
+                    } elseif ($hasPhoneNumber) {
+                        $stmt = $pdo->prepare("INSERT INTO users (username, password_hash, email, phone_number, first_name, last_name, role) VALUES (?, ?, ?, ?, ?, ?, 'customer')");
+                        $stmt->execute([
+                            $form_data['username'],
+                            $hash,
+                            $form_data['email'],
+                            $form_data['phone'],
+                            $form_data['first_name'],
+                            $form_data['last_name']
+                        ]);
+                    } elseif ($hasPhone) {
+                        $stmt = $pdo->prepare("INSERT INTO users (username, password_hash, email, phone, first_name, last_name, role) VALUES (?, ?, ?, ?, ?, ?, 'customer')");
+                        $stmt->execute([
+                            $form_data['username'],
+                            $hash,
+                            $form_data['email'],
+                            $form_data['phone'],
+                            $form_data['first_name'],
+                            $form_data['last_name']
+                        ]);
+                    } else {
+                        $stmt = $pdo->prepare("INSERT INTO users (username, password_hash, email, first_name, last_name, role) VALUES (?, ?, ?, ?, ?, 'customer')");
+                        $stmt->execute([
+                            $form_data['username'],
+                            $hash,
+                            $form_data['email'],
+                            $form_data['first_name'],
+                            $form_data['last_name']
+                        ]);
+                    }
+                    
+                    $new_id = (int)$pdo->lastInsertId();
+                    $_SESSION['user_id'] = $new_id;
+                    $_SESSION['username'] = $form_data['username'];
+                    $_SESSION['role'] = 'customer';
+                    $_SESSION['first_name'] = $form_data['first_name'];
                     $_SESSION['registration_success'] = true;
-                    echo "<script>window.location.href = '/Frontend/pages/login.php?success=1';</script>";
+                    echo "<script>window.location.href = '/Frontend/pages/dashboard.php';</script>";
                     exit;
                 }
             } catch (Exception $e) {

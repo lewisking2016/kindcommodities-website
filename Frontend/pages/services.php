@@ -124,7 +124,7 @@ include '../includes/header.php';
                 <p>Send us an enquiry or visit our offices in Nasira AC sub-location for in-person support.</p>
                 <div style="display:flex;gap:1rem;flex-wrap:wrap;">
                     <a href="/Frontend/pages/contact.php" class="btn btn-primary" data-magnetic>Request a Quote</a>
-                    <a href="tel:+254700000000" class="btn btn-ghost">Call +254 700 000 000</a>
+                    <a href="tel:+254726012845" class="btn btn-ghost">Call +254 726 012 845</a>
                 </div>
             </div>
         </div>

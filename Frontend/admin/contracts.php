@@ -305,7 +305,7 @@ function viewContract(c) {
                         <h2 style="margin:0;font-family:'Outfit',sans-serif;font-weight:800;font-size:1.35rem;color:#ffffff;letter-spacing:-0.02em;">Kind Commodities Ltd</h2>
                         <div style="font-size:0.82rem;color:#cbd5e1;margin-top:2px;">Agricultural Commodity Trading &amp; Grain Contracts</div>
                         <div style="font-size:0.78rem;color:#94a3b8;margin-top:4px;">
-                            <span>Tel: +254 700 000 000</span> &bull; 
+                            <span>Tel: +254 726 012 845 / +254 777 012 845</span> &bull; 
                             <span>Email: info@kindcommoditiesltd.com</span> &bull; 
                             <span>Kenya</span>
                         </div>

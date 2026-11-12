@@ -51,7 +51,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login_submit'])) {
                 $_SESSION['role'] = $user['role'];
                 $_SESSION['first_name'] = $user['first_name'];
                 
-                echo "<script>window.location.href = '/Frontend/index.php';</script>";
+                if (in_array($user['role'], ['super_admin', 'farm_manager', 'stock_manager', 'sales_staff'], true)) {
+                    echo "<script>window.location.href = '/Frontend/admin/dashboard.php';</script>";
+                } else {
+                    echo "<script>window.location.href = '/Frontend/pages/dashboard.php';</script>";
+                }
                 exit;
             } else {
                 $errors[] = 'Invalid username/email or password';

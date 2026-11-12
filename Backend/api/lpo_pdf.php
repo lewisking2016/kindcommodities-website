@@ -53,7 +53,7 @@ $items = $itemsStmt->fetchAll(PDO::FETCH_ASSOC);
 $farmName    = getSetting('farm_name', 'Kind Commodities Ltd');
 $farmTagline = getSetting('farm_tagline', 'Quality Agricultural Commodities & Farm Management');
 $farmEmail   = getSetting('farm_email', 'info@kindcommoditiesltd.com');
-$farmPhone   = getSetting('farm_phone', '+254 700 000 000');
+$farmPhone   = getSetting('farm_phone', '+254 726 012 845');
 $farmAddr    = getSetting('farm_address', 'Kenya');
 $currency    = getSetting('currency', 'KES');
 

@@ -12,7 +12,7 @@ $isDash       = $cp === 'dashboard.php';
 $isInventory  = in_array($cp, ['hub_inventory.php','stores.php'], true);
 $isSalesFinance = in_array($cp, ['hub_finance.php','profit.php','cashbook.php','credit.php','purchase_orders.php','daily_sales.php','bulk_sales.php','lpo.php'], true);
 $isReports    = in_array($cp, ['analytics.php','bulk_import_export.php'], true);
-$isPeople     = $cp === 'hub_people.php';
+$isPeople     = in_array($cp, ['hub_people.php', 'customers.php', 'users.php'], true);
 $isSettings   = $cp === 'hub_settings.php';
 
 function navLinkWithSub(string $href, string $icon, string $label, bool $active, array $submodules, string $currentTab): string {
@@ -180,10 +180,10 @@ HTML;
             'Team & Messages',
             $isPeople,
             [
-                'staff'    => 'Staff',
-                'users'    => 'Customers',
-                'tasks'    => 'Tasks',
-                'messages' => 'Messages'
+                'staff'     => 'Staff',
+                'customers' => ['label' => 'Customers', 'href' => '/Frontend/admin/customers.php'],
+                'tasks'     => 'Tasks',
+                'messages'  => 'Messages'
             ],
             $tab ?: 'staff'
         ) ?>
