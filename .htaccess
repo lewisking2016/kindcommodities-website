@@ -15,7 +15,7 @@ RewriteRule ^complete_data_import\.php$ - [F,L]
 RewriteRule ^import_data\.php$ - [F,L]
 
 # Serve favicon from Frontend images directory (avoids PHP overhead / 404)
-RewriteRule ^favicon\.ico$ /Frontend/images/Kind Commodities Ltd Logo_Final_favicon.png [L]
+RewriteRule ^favicon\.ico$ /Frontend/images/Kind%20Commodities%20Ltd%20Logo_Final_favicon.png [L]
 
 # Admin access through kindadmin (security through obscurity)
 RewriteRule ^kindadmin/?$ Frontend/admin/login.php [L]
@@ -110,3 +110,10 @@ RewriteRule ^admin/(.*)$ Frontend/admin/$1.php [L]
     AddOutputFilterByType DEFLATE application/javascript
     AddOutputFilterByType DEFLATE application/x-javascript
 </IfModule>
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the "ea-php83" package as the default "PHP" programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php83 .php .php8 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit
