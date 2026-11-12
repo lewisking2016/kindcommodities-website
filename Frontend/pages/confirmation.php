@@ -86,7 +86,9 @@ $order = $_SESSION['last_order'];
                     <div>
                         <h4 style="color: #1D4ED8; margin-bottom: 8px;">M-Pesa Payment Instructions</h4>
                         <p style="color: #1E3A8A; font-size: 0.95rem; margin: 0;">
-                            Please go to your M-Pesa menu, select Lipa na M-Pesa, Paybill, enter Business Number <strong>123456</strong>, Account Number <strong><?php echo htmlspecialchars($order['order_number']); ?></strong>, and Amount <strong>KES <?php echo number_format((float)$order['total_amount'], 0); ?></strong>.
+                            Please call us on <strong>+254 726 012 845</strong> or <strong>+254 777 012 845</strong>
+                            to receive our M-Pesa till/paybill number and complete your payment.
+                            Quote your order reference: <strong><?php echo htmlspecialchars($order['order_number']); ?></strong>.
                         </p>
                     </div>
                 </div>
@@ -96,7 +98,10 @@ $order = $_SESSION['last_order'];
                     <div>
                         <h4 style="color: #1D4ED8; margin-bottom: 8px;">Bank Transfer Instructions</h4>
                         <p style="color: #1E3A8A; font-size: 0.95rem; margin: 0;">
-                            Please transfer the total amount to KCB Bank, Account Name: Kind Commodities Ltd, Account No: <strong>1234567890</strong>. Use <strong><?php echo htmlspecialchars($order['order_number']); ?></strong> as the payment reference.
+                            Please call us on <strong>+254 726 012 845</strong> or <strong>+254 777 012 845</strong>
+                            to receive our bank account details. Use
+                            <strong><?php echo htmlspecialchars($order['order_number']); ?></strong>
+                            as the payment reference.
                         </p>
                     </div>
                 </div>

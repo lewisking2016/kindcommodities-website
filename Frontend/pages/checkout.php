@@ -115,7 +115,7 @@ $total_amount = $subtotal + $delivery_charge;
                             <input type="radio" name="payment_method" value="mpesa" checked>
                             <div style="flex-grow: 1;">
                                 <div style="font-weight: 600; color: var(--dark);">M-Pesa</div>
-                                <div style="font-size: 0.85rem; color: var(--gray-500);">Pay instantly using your phone</div>
+                                <div style="font-size: 0.85rem; color: var(--gray-500);">Pay via M-Pesa — we will call you with payment details after your order</div>
                             </div>
                             <span style="display: inline-flex; align-items: center; justify-content: center; height: 24px; padding: 0 10px; border-radius: 9999px; background: #D3E8B8; color: #12351A; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em;">
                                 M-PESA

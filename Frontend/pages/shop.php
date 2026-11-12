@@ -83,10 +83,11 @@ $products = loadDisplayProducts($pdo);
                     <p style="color:var(--gray-600);margin:0;font-size:0.95rem;">Showing <strong id="products-count"><?php echo count($products); ?></strong> products</p>
                     <div style="display:flex;gap:0.8rem;align-items:center;">
                         <label style="font-size:0.9rem;color:var(--gray-600);">Sort by:</label>
-                        <select style="padding:0.5rem 2rem 0.5rem 0.8rem;border-radius:4px;border:1px solid rgba(11,61,23,0.15);background-color:#fff;font-size:0.9rem;color:var(--dark);cursor:pointer;outline:none;">
-                            <option>Newest Arrivals</option>
-                            <option>Price: Low to High</option>
-                            <option>Price: High to Low</option>
+                        <select id="sort-select" style="padding:0.5rem 2rem 0.5rem 0.8rem;border-radius:4px;border:1px solid rgba(11,61,23,0.15);background-color:#fff;font-size:0.9rem;color:var(--dark);cursor:pointer;outline:none;">
+                            <option value="newest">Newest Arrivals</option>
+                            <option value="price-asc">Price: Low to High</option>
+                            <option value="price-desc">Price: High to Low</option>
+                            <option value="name-asc">Name: A–Z</option>
                         </select>
                     </div>
                 </div>
@@ -153,3 +154,126 @@ $products = loadDisplayProducts($pdo);
 <?php
 include '../includes/footer.php';
 ?>
+
+<script>
+(function () {
+    'use strict';
+
+    // ── Filter & Sort Logic ──────────────────────────────────────────────────
+    const grid      = document.querySelector('.product-grid');
+    const cards     = () => Array.from(grid ? grid.querySelectorAll('.product-card') : []);
+    const countEl   = document.getElementById('products-count');
+    const sortSel   = document.getElementById('sort-select');
+
+    function getPrice(card) {
+        const priceEl = card.querySelector('.product-price');
+        if (!priceEl) return 0;
+        return parseFloat(priceEl.textContent.replace(/[^0-9.]/g, '')) || 0;
+    }
+
+    function getName(card) {
+        const nameEl = card.querySelector('.product-name');
+        return nameEl ? nameEl.textContent.trim().toLowerCase() : '';
+    }
+
+    function applyFilters() {
+        const checkedTypes = Array.from(
+            document.querySelectorAll('.product-filters input[name="type"]:checked')
+        ).map(i => i.value.toLowerCase());
+        const checkedAvail = Array.from(
+            document.querySelectorAll('.product-filters input[name="availability"]:checked')
+        ).map(i => i.value);
+
+        let visible = cards();
+
+        if (checkedTypes.length) {
+            visible = visible.filter(c => checkedTypes.includes((c.dataset.type || '').toLowerCase()));
+        }
+
+        if (checkedAvail.length) {
+            visible = visible.filter(c => {
+                const inStock = c.dataset.instock === '1';
+                const wantIn  = checkedAvail.includes('in-stock');
+                const wantPre = checkedAvail.includes('preorder');
+                if (wantIn && inStock)  return true;
+                if (wantPre && !inStock) return true;
+                return false;
+            });
+        }
+
+        cards().forEach(c => { c.style.display = 'none'; });
+        visible.forEach(c   => { c.style.display = ''; });
+
+        if (countEl) countEl.textContent = visible.length;
+
+        applySortToVisible(visible);
+    }
+
+    function applySortToVisible(visible) {
+        if (!grid || !sortSel) return;
+        const val = sortSel.value;
+        const sorted = [...visible];
+        if (val === 'price-asc')  sorted.sort((a, b) => getPrice(a) - getPrice(b));
+        if (val === 'price-desc') sorted.sort((a, b) => getPrice(b) - getPrice(a));
+        if (val === 'name-asc')   sorted.sort((a, b) => getName(a).localeCompare(getName(b)));
+        // 'newest' keeps server-rendered order
+        sorted.forEach(c => grid.appendChild(c));
+    }
+
+    // Wire events
+    document.querySelectorAll('.product-filters input').forEach(inp => {
+        inp.addEventListener('change', applyFilters);
+    });
+    if (sortSel) {
+        sortSel.addEventListener('change', applyFilters);
+    }
+
+    // ── Add-to-Cart AJAX ─────────────────────────────────────────────────────
+    document.addEventListener('click', async function (e) {
+        const btn = e.target.closest('.add-to-cart-btn');
+        if (!btn || btn.disabled) return;
+
+        const productId = btn.dataset.id;
+        const qty       = btn.dataset.qty || 1;
+
+        const orig = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<i data-lucide="loader-2" class="spin" style="width:16px;height:16px;"></i> Adding…';
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+
+        try {
+            const fd = new FormData();
+            fd.append('action', 'add');
+            fd.append('product_id', productId);
+            fd.append('quantity', qty);
+
+            const res  = await fetch('/Backend/api/cart.php', { method: 'POST', body: fd });
+            const data = await res.json();
+
+            if (data.success) {
+                // Update cart count badge in nav
+                document.querySelectorAll('.cart-count, [data-cart-count]').forEach(el => {
+                    el.textContent = data.data.cart_count || '';
+                    el.style.display = data.data.cart_count ? '' : 'none';
+                });
+                btn.innerHTML = '<i data-lucide="check" style="width:16px;height:16px;"></i> Added';
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+                if (typeof KindApp !== 'undefined') KindApp.showNotification('Added to cart!', 'success');
+                setTimeout(() => {
+                    btn.disabled = false;
+                    btn.innerHTML = orig;
+                    if (typeof lucide !== 'undefined') lucide.createIcons();
+                }, 2000);
+            } else {
+                throw new Error(data.message || 'Could not add to cart');
+            }
+        } catch (err) {
+            console.error(err);
+            btn.disabled = false;
+            btn.innerHTML = orig;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+            if (typeof KindApp !== 'undefined') KindApp.showNotification(err.message, 'error');
+        }
+    });
+})();
+</script>

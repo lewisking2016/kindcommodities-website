@@ -66,7 +66,12 @@ Backend/config/database.local.php
 
 # Sensitive files
 *secret*
-*password*
+# Only block standalone password config/credential files at root or config level
+/password*.php
+/password*.txt
+Backend/config/*password*
+# Explicitly allow the public forgot-password page
+!Frontend/pages/forgot-password.php
 credentials.json
 
 # Documentation and notes (local only)

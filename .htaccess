@@ -8,6 +8,12 @@ RewriteEngine On
 RewriteRule ^Backend/config/ - [F,L]
 RewriteRule ^Backend/includes/ - [F,L]
 
+# Block root-level utility/setup scripts from web access (security)
+RewriteRule ^update_admin_password\.php$ - [F,L]
+RewriteRule ^CPANEL_DATABASE_CONFIG\.php$ - [F,L]
+RewriteRule ^complete_data_import\.php$ - [F,L]
+RewriteRule ^import_data\.php$ - [F,L]
+
 # Serve favicon from Frontend images directory (avoids PHP overhead / 404)
 RewriteRule ^favicon\.ico$ /Frontend/images/Kind Commodities Ltd Logo_Final_favicon.png [L]
 
